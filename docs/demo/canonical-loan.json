@@ -1,0 +1,101 @@
+{
+  "schema": "htm.canonical-loan/2",
+  "loan": {
+    "loan_id": "MORT-2026-88492X",
+    "loan_type": "FHA",
+    "fha_case_number": "411-9928340-703",
+    "product": "30-Year Fixed Rate",
+    "purpose": "Purchase",
+    "note_form": "Fannie Mae/Freddie Mac Form 3200 Multistate Fixed Rate Note",
+    "currency": "USD",
+    "base_loan_amount": 442125,
+    "financed_ufmip": 7875,
+    "principal_amount": 450000,
+    "annual_interest_rate": 0.0625,
+    "term_months": 360,
+    "origination_date": "2026-09-01",
+    "first_payment_date": "2026-11-01",
+    "maturity_date": "2056-10-01",
+    "monthly_principal_and_interest": 2770.73
+  },
+  "note_terms": {
+    "payment_due_day_of_month": 1,
+    "grace_period_days": 15,
+    "late_charge_percent_of_pi": 0.05,
+    "late_charge_amount": 138.54,
+    "prepayment_penalty": false,
+    "place_of_payment": "High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814"
+  },
+  "borrower": {
+    "name": "Jordan A. Sandbox",
+    "mailing_address": "123 Sandbox Lane, Meridian, ID 83642"
+  },
+  "seller": {
+    "name": "Jane Q. Placeholder"
+  },
+  "lender": {
+    "name": "Sandbox Lending Corp. (HTM demo)",
+    "nmls_id": "0000000"
+  },
+  "servicer": {
+    "name": "High Tech Mortgage, Inc. Loan Servicing (demo)"
+  },
+  "property": {
+    "address": {
+      "street": "123 Sandbox Lane",
+      "city": "Meridian",
+      "state": "ID",
+      "zip": "83642",
+      "county": "Ada"
+    },
+    "apn": "R993821-0014",
+    "legal_description": "Lot 14, Block 3 of the Payette River Bridge Subdivision Phase II, according to the official plat thereof, filed in Book 94 of Plats at Pages 43 through 45, records of Ada County, Idaho.",
+    "appraised_value": 565000,
+    "contract_sales_price": 560000,
+    "ltv": 0.8036
+  },
+  "security_instrument": {
+    "type": "Deed of Trust",
+    "form": "Fannie Mae Form 3013 (Idaho)",
+    "lien_position": 1,
+    "trustee": "Sandbox Title & Escrow Inc.",
+    "recording_number": "2026-0099483A",
+    "recording_date": "2026-09-02",
+    "recording_time": "11:31:00",
+    "recording_office": "Ada County Recorder, Boise, Idaho"
+  },
+  "vesting_deed": {
+    "type": "Warranty Deed",
+    "recording_number": "2026-0099482A",
+    "recording_date": "2026-09-02",
+    "recording_time": "11:30:00",
+    "recording_office": "Ada County Recorder, Boise, Idaho"
+  },
+  "closing": {
+    "settlement_agent": "Sandbox Title & Escrow Inc.",
+    "escrow_file_number": "ESC-2026-99812",
+    "closing_date": "2026-09-01",
+    "disbursement_date": "2026-09-02",
+    "loan_costs": 4800,
+    "other_costs": 3200,
+    "lender_credits": 0,
+    "closing_costs": 8000,
+    "deposit": 18600,
+    "seller_credits": 8000,
+    "cash_to_close": 91400,
+    "initial_escrow_deposit": 1230.5
+  },
+  "servicing": {
+    "principal_and_interest": 2770.73,
+    "property_tax_impound": 285,
+    "insurance_impound": 312.5,
+    "insurance_detail": {
+      "hazard_homeowners": 125,
+      "fha_mip": 187.5
+    },
+    "monthly_total_sweep": 3368.23
+  },
+  "xrpl": {
+    "network": "devnet"
+  }
+}

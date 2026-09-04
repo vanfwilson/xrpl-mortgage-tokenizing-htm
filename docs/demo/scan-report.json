@@ -1,0 +1,118 @@
+{
+  "input": "out/print/closing-package-stack.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "confidence": 89,
+      "chars": 1940
+    },
+    {
+      "page": 2,
+      "confidence": 94,
+      "chars": 790
+    },
+    {
+      "page": 3,
+      "confidence": 95,
+      "chars": 3894
+    },
+    {
+      "page": 4,
+      "confidence": 96,
+      "chars": 3222
+    },
+    {
+      "page": 5,
+      "confidence": 95,
+      "chars": 1838
+    },
+    {
+      "page": 6,
+      "confidence": 94,
+      "chars": 1276
+    }
+  ],
+  "extracted": {
+    "xrpl_addresses": [],
+    "fha_case_number": "411-9928340-703",
+    "cash_to_close": 91400,
+    "monthly_piti": 3368.23,
+    "loan_amount": 450000,
+    "interest_rate": 0.0625,
+    "apn": "R993821-0014",
+    "recording_number": "2026-0099483A"
+  },
+  "matches": [
+    {
+      "field": "fha_case_number",
+      "expected": "411-9928340-703",
+      "scanned": "411-9928340-703",
+      "match": true
+    },
+    {
+      "field": "loan_amount",
+      "expected": 450000,
+      "scanned": 450000,
+      "match": true
+    },
+    {
+      "field": "interest_rate",
+      "expected": 0.0625,
+      "scanned": 0.0625,
+      "match": true
+    },
+    {
+      "field": "cash_to_close",
+      "expected": 91400,
+      "scanned": 91400,
+      "match": true
+    },
+    {
+      "field": "monthly_piti",
+      "expected": 3368.23,
+      "scanned": 3368.23,
+      "match": true
+    },
+    {
+      "field": "apn",
+      "expected": "R993821-0014",
+      "scanned": "R993821-0014",
+      "match": true
+    },
+    {
+      "field": "recording_number",
+      "expected": "2026-0099483A",
+      "scanned": "2026-0099483A",
+      "match": true
+    }
+  ],
+  "servicing_statement": {
+    "loan_number": "MORT-2026-88492X",
+    "period_no": 1,
+    "due_date": "2026-11-01",
+    "amount_due": 3368.23,
+    "amount_received": 3368.23,
+    "received_date": "2026-11-01"
+  },
+  "loan_pay": {
+    "ok": true,
+    "gates": {
+      "loan_number_matches": true,
+      "amount_due_matches_piti": true,
+      "received_covers_due": true,
+      "has_period": true
+    },
+    "memo": {
+      "loan_id": "MORT-2026-88492X",
+      "period": 1,
+      "due": "2026-11-01",
+      "received": "2026-11-01",
+      "split": {
+        "lender_p_i_vault": 2770.73,
+        "tax_impound_vault": 285,
+        "insurance_impound_vault": 312.5
+      },
+      "sweep_usd": 3368.23
+    }
+  }
+}

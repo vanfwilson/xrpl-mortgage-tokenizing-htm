@@ -1,0 +1,75 @@
+{
+  "XLS-65-Metadata": {
+    "version": "1.1.0",
+    "asset_class": "Real World Asset (RWA)",
+    "asset_subclass": "Residential Mortgage Loan Note",
+    "compliance_standard": "XLS-65",
+    "standards_note": "Token = XLS-33 MPT with XLS-89 metadata; funding = XLS-65 Single Asset Vault; facility = XLS-66 Lending Protocol. This document is hashed into the XLS-89 blob (ai.docs_sha256).",
+    "token_identifiers": {
+      "asset_symbol": "HTMN1",
+      "loan_number": "MORT-2026-88492X",
+      "legal_description_hash": "ad2b1fa1022ec4c552a8472e0694ba3e8859f0e7c3d7e2d5c50d824b3116a56d",
+      "underlying_document_bundle_sha256": "fe7eb3a5e402ee50d174e9c0e7604fadecdc1a6e8ae315c1545312cf63d98bc1",
+      "underlying_document_uri": "https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/tree/main/data/documents"
+    },
+    "registry_records": {
+      "recording_jurisdiction": "Ada County Recorder, Boise, Idaho",
+      "county_document_number": "2026-0099482A",
+      "recording_date": "2026-09-02T11:30:00-06:00",
+      "deed_of_trust_document_number": "2026-0099483A",
+      "deed_of_trust_form": "Fannie Mae Form 3013 (Idaho)",
+      "lien_position": 1,
+      "assessor_parcel_number": "R993821-0014",
+      "legal_description": "Lot 14, Block 3 of the Payette River Bridge Subdivision Phase II, according to the official plat thereof, filed in Book 94 of Plats at Pages 43 through 45, records of Ada County, Idaho."
+    },
+    "loan_terms_fannie_mae_3200": {
+      "principal_amount_usd": 450000,
+      "annual_interest_rate": 0.0625,
+      "term_months": 360,
+      "origination_date": "2026-09-01",
+      "first_payment_date": "2026-11-01",
+      "maturity_date": "2056-10-01",
+      "payment_due_day_of_month": 1,
+      "grace_period_days": 15,
+      "late_fee_percentage": 0.05,
+      "late_fee_usd": 138.54
+    },
+    "escrow_servicing_allocations_cd_p1": {
+      "monthly_total_borrower_sweep": 3368.23,
+      "disbursement_rules": {
+        "principal_and_interest_usd": 2770.73,
+        "monthly_property_tax_impound_usd": 285,
+        "monthly_hazard_insurance_impound_usd": 312.5,
+        "hazard_insurance_detail": {
+          "hazard_homeowners": 125,
+          "fha_mip": 187.5
+        }
+      },
+      "disbursement_schedule": {
+        "property_tax": {
+          "payee": "Ada County Treasurer",
+          "installments": [
+            "12-20",
+            "06-20"
+          ]
+        },
+        "hazard_insurance": {
+          "payee": "Hazard carrier / HUD FHA MIP",
+          "installments": [
+            "09-01"
+          ]
+        }
+      }
+    },
+    "counterparty_identity_mappings": {
+      "borrower_wallet": "rGEX9MLNNkZcrRviVYYfDZ9aswYaGwCndg",
+      "lender_lienholder_wallet": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
+      "servicer_wallet": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
+      "note_token_issuer_wallet": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
+      "tax_impound_vault_wallet": "rPf2udJqfhCc9YP7ZFHzf6CioAPbzDDnuz",
+      "insurance_impound_vault_wallet": "rPVgcwDHSJVcTW2xZDuuaaAAMkAnZrn3NA",
+      "county_treasurer_wallet": "rshw3vk3eBkJggvtLWzcwRZqZwnSQCYxH9",
+      "insurance_carrier_wallet": "rNngEb7dRTHEFXGhjq4tNyhoP3CF7QFgXG"
+    }
+  }
+}

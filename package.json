@@ -20,7 +20,8 @@
     "scan": "tsx src/cli/scan.ts",
     "db:seed": "tsx src/db/seed.ts",
     "db:apply": "scripts/db-apply.sh",
-    "db:record": "tsx src/db/record-run.ts"
+    "db:record": "tsx src/db/record-run.ts",
+    "demo:publish": "tsx src/cli/publish-demo.ts"
   },
   "dependencies": {
     "pdf-lib": "^1.17.1",

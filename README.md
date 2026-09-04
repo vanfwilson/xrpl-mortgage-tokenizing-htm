@@ -4,7 +4,9 @@
 High Tech Mortgage, Inc. · reference implementation for our application to the Brinc × XRPL
 **Hong Kong Financial Innovation Program** (Tokenization & Capital Markets · Credit & Lending).
 
-[![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions)
+[![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions) [![devnet-demo](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml)
+
+**▶ Live demo (no install):** <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/> — the printed package, the OCR scan-back, and the token, vault, loan and impound accounts read live from Devnet. Reviewers can rerun the whole thing on fresh wallets with one click on the [devnet-demo Action](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml).
 
 > **Status: Devnet reference implementation.** Not a live financial product. HTM is not issuing
 > tokens, taking deposits, or servicing loans on-chain in production. Every document is synthetic;
@@ -43,6 +45,7 @@ npm run demo     # ~5 min on Devnet: credentials, MPT, vault, loan, 2 monthly sw
 npm run export   # canonical JSON, MISMO 3.4-aligned XML subset, XRPL payload templates
 npm run db:seed | scripts/db-apply.sh -     # seed CouncilForge Postgres (htm_mortgages) from the fixtures
 npm run db:record | scripts/db-apply.sh -   # mirror the latest Devnet run's objects + tx hashes into Postgres
+npm run demo:publish                        # copy run report, stack PDF, scan report into docs/demo for the GitHub Pages demo
 ```
 
 Requires Node 20+, `tesseract` and `pdftoppm` (poppler) for `scan`, SSH access to the database host for `db:*`.
