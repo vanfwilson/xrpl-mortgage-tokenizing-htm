@@ -1,0 +1,9 @@
+C L O S I N G   D I S C L O S U R E          Page 1 of 5
+Property: 1 2 3 S a n d b o x Lane , Meridian ID 8 3 6 4 2
+FHA Case No.  4 1 1 - 9 9 2 8 3 4 0 - 7 0 3        APN: R993821-0014
+Loan Amount:   $ 4 5 0 , 0 0 0 . 0 0     Interest Rate: 6 . 2 5 %
+Estimated Total Monthly Payment:  $3 , 368 . 23
+Cash to Close Required:  $ 9 1 , 4 0 0 . 0 0
+|||||||||||||||||||||   scanner alignment strip   |||||||||||||||||||||
+Recording No. 2026-0099483A   Ada County Recorder
+Servicer XRPL account (Devnet): rNHmwCAkNAfSUtDiHyTL21ifrU1BSBftsi

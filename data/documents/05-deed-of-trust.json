@@ -1,0 +1,16 @@
+{
+  "document": "Deed of Trust (Idaho) - FHA Case No. 411-9928340-703",
+  "synthetic": true,
+  "instrument_type": "Deed of Trust",
+  "lien_position": 1,
+  "grantor_borrower": "Jordan A. Sandbox",
+  "trustee": "Sandbox Title & Escrow Inc.",
+  "beneficiary_lender": "Sandbox Lending Corp. (HTM demo)",
+  "secured_note_amount": 450000.00,
+  "note_date": "2026-09-01",
+  "maturity_date": "2056-10-01",
+  "property_address": "123 Sandbox Lane, Meridian, ID 83642",
+  "apn": "R993821-0014",
+  "legal_description": "Lot 14, Block 3 of the Payette River Bridge Subdivision Phase II, according to the official plat thereof, filed in Book 94 of Plats at Pages 43 through 45, records of Ada County, Idaho.",
+  "recording": { "office": "Ada County Recorder, Boise, Idaho", "document_number": "2026-0099483A", "recorded_date": "2026-09-02", "recording_fee": 25.00 }
+}

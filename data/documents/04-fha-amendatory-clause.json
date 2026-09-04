@@ -1,0 +1,10 @@
+{
+  "document": "FHA Amendatory Clause and Real Estate Certification",
+  "synthetic": true,
+  "fha_case_number": "411-9928340-703",
+  "property": "123 Sandbox Lane, Meridian, ID 83642",
+  "contract_sales_price": 560000.00,
+  "appraised_value_statement": "Purchaser is not obligated to complete the purchase if the appraised value (excluding closing costs) is less than $560,000.00.",
+  "parties": { "buyer": "Jordan A. Sandbox", "seller": "Jane Q. Placeholder", "buyer_agent": "Sandbox Realty Group", "seller_agent": "Placeholder Properties" },
+  "signed": "2026-08-15"
+}

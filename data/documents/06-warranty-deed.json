@@ -1,0 +1,14 @@
+{
+  "document": "Warranty Deed - recorded county copy",
+  "synthetic": true,
+  "instrument_type": "Warranty Deed",
+  "grantor": "Jane Q. Placeholder",
+  "grantee": "Jordan A. Sandbox, an unmarried person",
+  "consideration": 560000.00,
+  "property_address": "123 Sandbox Lane, Meridian, ID 83642",
+  "apn": "R993821-0014",
+  "legal_description": "Lot 14, Block 3 of the Payette River Bridge Subdivision Phase II, according to the official plat thereof, filed in Book 94 of Plats at Pages 43 through 45, records of Ada County, Idaho.",
+  "recording": { "office": "Ada County Recorder, Boise, Idaho", "document_number": "2026-0099482A", "recorded_date": "2026-09-02", "recording_fee": 15.00 },
+  "recording_requested_by": "Sandbox Title & Escrow Inc.",
+  "mail_tax_statements_to": "Jordan A. Sandbox, 123 Sandbox Lane, Meridian, ID 83642"
+}
