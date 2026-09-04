@@ -1,16 +1,45 @@
-# xrpl-mortgage-tokenizing-htm
+<p align="center">
+  <a href="https://hightechmortgage.com"><img src="assets/brand/htm-logo.png" alt="HighTechMortgage — Bridging Institutional Real Estate & The Digital Economy" width="720"></a>
+</p>
+<p align="center">
+  <a href="https://hightechmortgage.com/mortgageos.html"><img src="assets/brand/mortgageos-lockup.png" alt="MortgageOS™ — Financial coordination layer. Secure Digital Mortgage Operating System." width="720"></a>
+</p>
 
-**Take a home loan's closing paperwork, scan it, and record that mortgage on the XRP Ledger. Working today on the ledger's public test network.**
+# Scan a closed home loan. Record it on the XRP Ledger.
 
-High Tech Mortgage, Inc. (HTM) is a licensed US mortgage lender. This is the working proof of concept behind our
-MortgageOS™ grant application to the Brinc × XRPL Hong Kong Financial Innovation Program and XRPL Grants
-([our August 2026 proposal](docs/grant-proposal-2026-08-24.pdf)).
+## What this software does
+
+This is the working software behind **MortgageOS™**, HighTechMortgage's digital mortgage operating system. It takes
+the paper a title company produces when a home purchase closes, reads it, checks it, and records the loan on the
+**XRP Ledger**, a public financial ledger that has run continuously since 2012.
+
+In one sentence: **paper in, verified digital mortgage record out, funded and serviced on a public ledger, with no
+personal data leaving the servicer's files.**
+
+What a lender, a title officer, or an investor gets from it:
+
+- **A single, checked record of the loan.** The software reads every page, pulls out the loan number, amounts, rate,
+  dates, parcel number and recording numbers, and refuses to continue unless every figure agrees across documents to
+  the cent. Errors that would surface months later in servicing are caught the day the package is scanned.
+- **A tamper-proof certificate of the note.** The loan becomes one token on the ledger whose description carries the
+  fingerprint of the exact scanned paper. Anyone can verify that token exists and what it represents; nobody can alter it.
+- **Funding and repayment on the same ledger.** Approved investors pool money in a vault; the servicer draws a
+  fixed-term facility against it; each monthly payment is split into the three things a servicer actually collects
+  (principal & interest, property tax, hazard insurance) and the tax and insurance reserves are locked to the county
+  treasurer and the insurance carrier until their due dates.
+- **A complete audit trail.** Every step is a signed transaction with a public ID. Reviewers can click each one.
+
+What it does **not** do: it does not replace the Note, the Deed of Trust, the lien or the county record, and it never
+puts a borrower's personal data on the ledger. Everything shown here runs on the ledger's public **test network** with
+play money and a fictitious homeowner.
+
+**See it:** [live demo page](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/) · [the filled, signed closing package we scan (PDF)](package/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [team and credentials](TEAM.md) · [our grant proposal](docs/grant-proposal-2026-08-24.pdf)
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions) [![devnet-demo](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml)
 
-**Start here:** [Live demo page](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/) · [The filled, signed closing package (PDF)](package/closing-package-stack.pdf) · [Plain-language walkthrough](WALKTHROUGH.md) · [Glossary for finance people](GLOSSARY.md) · [Team](TEAM.md)
+---
 
-## In plain words
+## How it works, in plain words
 
 When a home purchase closes, the title company produces a stack of paper: the Closing Disclosure, the promissory
 Note, the Deed of Trust, the recorded deed, and supporting forms. Today that paper is scanned into a servicer's

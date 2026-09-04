@@ -15,7 +15,7 @@ a{color:var(--acc)}.ok{color:var(--ok)}.bad{color:var(--bad)}.pill{display:inlin
 img{max-width:100%;border-radius:6px;border:1px solid var(--line)}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.two{grid-template-columns:1fr}}
 .note{font-size:.8rem;color:var(--mut)}code{background:#0b1220;padding:1px 5px;border-radius:4px}
 </style></head><body>
-<header><h1>HTM Mortgage Note Tokenization <small>Close-of-escrow paper → OCR → canonical loan → XRPL Devnet (MPT · XLS-65 vault · XLS-66 loan · 3-bucket servicing). Everything below was produced by <code>npm run tokenize -- closing-package-stack.pdf</code> (OCR of the printed package, no database) or is read live from Devnet. Synthetic data only.</small></h1></header>
+<header><p style="margin:0 0 10px"><a href="https://hightechmortgage.com"><img src="htm-logo.png" alt="HighTechMortgage" style="height:64px;border:0;border-radius:6px"></a> &nbsp; <a href="https://hightechmortgage.com/mortgageos.html"><img src="mortgageos-lockup.png" alt="MortgageOS" style="height:64px;border:0;border-radius:6px"></a></p><h1>HTM Mortgage Note Tokenization <small>Close-of-escrow paper → OCR → canonical loan → XRPL Devnet (MPT · XLS-65 vault · XLS-66 loan · 3-bucket servicing). Everything below was produced by <code>npm run tokenize -- closing-package-stack.pdf</code> (OCR of the printed package, no database) or is read live from Devnet. Synthetic data only.</small></h1></header>
 <main>
 <section><h2>1 · The flow</h2><div class="flow">
 <div class="step"><b>Scan</b>23-page closing package, 12 documents, one homeowner, signed in blue ink. The tokenizer reads 4 of them: Closing Disclosure, Form 3200 Note, Form 3013 Deed of Trust, recorded deed</div>
