@@ -71,7 +71,7 @@ async function j(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.
   const link=(i,t)=>`<a href="${EXP}/${t}/${i}" target="_blank" rel="noopener">${i.slice(0,14)}…</a>`;
   const meta=mpt?.MPTokenMetadata?JSON.parse(new TextDecoder().decode(Uint8Array.from(mpt.MPTokenMetadata.match(/../g).map(h=>parseInt(h,16))))):null;
   $('#ledger').innerHTML=
-   m('MPT issuance '+(meta?meta.t:''),(mpt?`${Number(mpt.OutstandingAmount).toLocaleString()} / ${Number(mpt.MaximumAmount).toLocaleString()} units outstanding (cents) · flags ${mpt.Flags}`:'not found')+'<br>'+link(ids.mptIssuanceId,'mpt'),1)
+   m('Mortgage note token '+(meta?meta.t:'')+' (issued with the XRPL MPT standard, XLS-33)',(mpt?`${Number(mpt.OutstandingAmount).toLocaleString()} / ${Number(mpt.MaximumAmount).toLocaleString()} units outstanding (cents) · flags ${mpt.Flags}`:'not found')+'<br>'+link(ids.mptIssuanceId,'mpt'),1)
   +m('Vault (XLS-65)',(vault?`assets ${(Number(vault.AssetsTotal)/1e6).toFixed(2)} XRP · available ${(Number(vault.AssetsAvailable)/1e6).toFixed(2)} XRP · private=${!!(vault.Flags&65536)}`:'not found')+'<br>'+link(ids.vaultId,'objects'),1)
   +m('LoanBroker (XLS-66)',(lb?`debt total ${(Number(lb.DebtTotal||0)/1e6).toFixed(4)} XRP · first-loss cover ${(Number(lb.CoverAvailable||0)/1e6).toFixed(2)} XRP`:'not found')+'<br>'+link(ids.loanBrokerId,'objects'),1)
   +m('Loan (XLS-66)',(loanE?`principal outstanding ${(Number(loanE.PrincipalOutstanding)/1e6).toFixed(4)} XRP · payments remaining ${loanE.PaymentRemaining} of 360 · flags ${loanE.Flags}`:'not found (deleted or expired)')+'<br>'+link(ids.loanId,'objects'),1)
