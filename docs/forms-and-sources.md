@@ -4,7 +4,7 @@ Two layers. **Tokenization needs four documents** (the servicer's minimum, below
 contains twelve** (23 pages): the four, plus the supporting paper a title company actually hands over, so the
 scanner and the page classifier are tested on the real thing. All twelve are filled for the same fictitious
 homeowner (Jordan A. Sandbox, 123 Sandbox Lane, Meridian ID) and every signature line carries a blue-ink signature.
-The printed, signed package is committed at [`forms/`](../forms/).
+The printed, signed package is committed at [`forms/`](../forms/), with a 1:1 blank for every filled form in `forms/blank/` (see [forms/README.md](../forms/README.md)).
 
 ## The four the tokenizer reads
 
@@ -20,7 +20,7 @@ servicer issues (12 CFR 1026.41 periodic statement). We generate it; there is no
 
 Fannie Mae's site blocks non-browser downloads (HTTP 403 to curl); the PDFs in `forms/blank/` were fetched with a
 real browser session. The URLA forms are true AcroForms and are field-filled. The Form 3200 PDF and the CFPB Closing
-Disclosure are flat, and Form 3013 is distributed as Word (the official 07/2021 Idaho .docx is in `forms/blank/`), so
+Disclosure are flat, and Form 3013 is distributed as Word (the official 07/2021 Idaho .docx is `forms/blank/08-deed-of-trust-form-3013-official.docx`), so
 those are produced by coordinate overlay or typeset rendering in `src/pdf/`.
 
 ## The supporting documents (printed and scanned, not needed to tokenize)

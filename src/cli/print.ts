@@ -11,6 +11,7 @@ import { config } from '../config.js';
 import { buildCanonicalFromDocuments } from '../ingest/canonical.js';
 import { overlayAltaStatement, overlayClosingDisclosure } from '../pdf/overlay.js';
 import { fillUrlaBorrower, fillUrlaLender } from '../pdf/fill-urla.js';
+import { blankLoan, blankOf } from '../pdf/blank.js';
 import { deedOfTrust, escrowInstructions, fhaAmendatoryClause, noisyOcrTestPage, promissoryNote3200, recorderCertification, servicingStatement, warrantyDeed } from '../pdf/generated.js';
 
 const loan = buildCanonicalFromDocuments(config.documentsDir);
@@ -28,10 +29,10 @@ const out = (n: string) => path.join(dir, n);
  * the rest are the supporting paper a title company hands over and the scanner must cope with.
  */
 const jobs: Array<[string, () => Promise<number>]> = [
-  ['01-urla-1003-borrower-information.pdf', () => fillUrlaBorrower(loan, sup('urla-1003.json'), blank('urla-1003-borrower-information.pdf'), out('01-urla-1003-borrower-information.pdf'), anchor)],
-  ['02-urla-1003-lender-loan-information.pdf', () => fillUrlaLender(loan, blank('urla-1003-lender-loan-information.pdf'), out('02-urla-1003-lender-loan-information.pdf'), anchor)],
-  ['03-closing-disclosure.pdf', () => overlayClosingDisclosure(loan, read('01-closing-disclosure.json'), blank('cfpb-closing-disclosure-blank.pdf'), out('03-closing-disclosure.pdf'), anchor)],
-  ['04-alta-settlement-statement.pdf', () => overlayAltaStatement(loan, sup('settlement-statement.json'), blank('alta-settlement-statement-borrower.pdf'), out('04-alta-settlement-statement.pdf'), anchor)],
+  ['01-urla-1003-borrower-information.pdf', () => fillUrlaBorrower(loan, sup('urla-1003.json'), blank('01-urla-1003-borrower-information-blank.pdf'), out('01-urla-1003-borrower-information.pdf'), anchor)],
+  ['02-urla-1003-lender-loan-information.pdf', () => fillUrlaLender(loan, blank('02-urla-1003-lender-loan-information-blank.pdf'), out('02-urla-1003-lender-loan-information.pdf'), anchor)],
+  ['03-closing-disclosure.pdf', () => overlayClosingDisclosure(loan, read('01-closing-disclosure.json'), blank('03-closing-disclosure-blank.pdf'), out('03-closing-disclosure.pdf'), anchor)],
+  ['04-alta-settlement-statement.pdf', () => overlayAltaStatement(loan, sup('settlement-statement.json'), blank('04-alta-settlement-statement-blank.pdf'), out('04-alta-settlement-statement.pdf'), anchor)],
   ['05-escrow-holding-instructions.pdf', () => escrowInstructions(loan, sup('settlement-statement.json'), out('05-escrow-holding-instructions.pdf'), anchor)],
   ['06-fha-amendatory-clause.pdf', () => fhaAmendatoryClause(loan, sup('fha-amendatory-clause.json'), out('06-fha-amendatory-clause.pdf'), anchor)],
   ['07-note-form-3200.pdf', () => promissoryNote3200(loan, read('02-promissory-note-3200.json'), out('07-note-form-3200.pdf'), anchor)],
@@ -56,3 +57,15 @@ console.log(`stack ${stack}  ${merged.getPageCount()} pages`);
 // Publish the filled set into forms/ (committed) so reviewers see completed documents, not blanks.
 for (const f of fs.readdirSync(dir).filter((n) => n.endsWith('.pdf'))) fs.copyFileSync(path.join(dir, f), path.join('forms', f));
 console.log('copied filled forms -> forms/');
+// Blank templates for the typeset documents, so every filled form has a 1:1 blank in forms/blank/.
+const bl = blankLoan(loan); const bdir = path.join('forms', 'blank'); const banchor = 'BLANK TEMPLATE';
+const blanks: Array<[string, () => Promise<number>]> = [
+  ['05-escrow-holding-instructions-blank.pdf', () => escrowInstructions(bl, blankOf(sup('settlement-statement.json')), path.join(bdir, '05-escrow-holding-instructions-blank.pdf'), banchor)],
+  ['06-fha-amendatory-clause-blank.pdf', () => fhaAmendatoryClause(bl, blankOf(sup('fha-amendatory-clause.json')), path.join(bdir, '06-fha-amendatory-clause-blank.pdf'), banchor)],
+  ['08-deed-of-trust-form-3013-blank.pdf', () => deedOfTrust(bl, blankOf(read('03-deed-of-trust-3013.json')), path.join(bdir, '08-deed-of-trust-form-3013-blank.pdf'), banchor)],
+  ['09-warranty-deed-blank.pdf', () => warrantyDeed(bl, blankOf(read('04-warranty-deed-recorded.json')), path.join(bdir, '09-warranty-deed-blank.pdf'), banchor)],
+  ['10-county-recorder-certification-blank.pdf', () => recorderCertification(bl, path.join(bdir, '10-county-recorder-certification-blank.pdf'), banchor)],
+  ['11-servicing-statement-blank.pdf', () => servicingStatement(bl, NaN, '____-__-__', null, path.join(bdir, '11-servicing-statement-blank.pdf'), banchor)],
+  ['12-ocr-stress-test-page-blank.pdf', () => noisyOcrTestPage(bl, path.join(bdir, '12-ocr-stress-test-page-blank.pdf'), banchor)],
+];
+for (const [name, fn] of blanks) { await fn(); console.log(`  blank ${name}`); }

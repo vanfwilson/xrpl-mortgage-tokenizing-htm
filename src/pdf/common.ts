@@ -1,8 +1,9 @@
 import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from 'pdf-lib';
 
-export const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-export const usdPlain = (n: number) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-export const mdy = (iso: string) => { const [y, m, d] = iso.split('-'); return `${m}/${d}/${y}`; };
+export const BLANK = '____________';
+export const usd = (n: number) => (Number.isNaN(n) ? '$' + BLANK : n.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+export const usdPlain = (n: number) => (Number.isNaN(n) ? BLANK : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+export const mdy = (iso: string) => { if (!iso || iso.startsWith('_')) return '____/____/______'; const [y, m, d] = iso.split('-'); return `${m}/${d}/${y}`; };
 
 export interface Pen { page: PDFPage; font: PDFFont; bold: PDFFont; size: number }
 
@@ -70,6 +71,7 @@ export class Writer {
  * but it survives print → scan and gives the scanner a signature-shaped mark to detect.
  */
 export function signature(page: PDFPage, name: string, x: number, y: number, width = 150, opts: { date?: string; font?: PDFFont } = {}) {
+  if (!name || name.startsWith('_')) return; // blank template: leave the line unsigned
   let seed = 0; for (const c of name) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
   const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2 ** 32; };
   const ink = rgb(0.10, 0.22, 0.72);
