@@ -9,7 +9,7 @@ export async function overlayClosingDisclosure(loan: CanonicalLoan, cd: Record<s
   const doc = await PDFDocument.create();
   const [p1] = await doc.copyPages(src, [0]);
   doc.addPage(p1);
-  const { font, bold } = await pens(doc);
+  const { font, bold, scripts } = await pens(doc);
   const pen: Pen = { page: p1, font, bold, size: 8 };
   const ci = cd.closing_information, ti = cd.transaction_information, li = cd.loan_information, lt = cd.loan_terms, pp = cd.projected_payments, et = cd.estimated_taxes_insurance_assessments, cc = cd.costs_at_closing;
   const taxM = et.property_taxes.monthly, hoiM = et.homeowners_insurance.monthly;
@@ -58,7 +58,7 @@ export async function overlayClosingDisclosure(loan: CanonicalLoan, cd: Record<s
   line('Cash to Close', usd(cc.cash_to_close), true);
   line('Settlement Agent', ci.settlement_agent); line('File #', ci.file_number); line('Seller', ti.seller); line('Lender', ti.lender);
   y -= 30; text(pen2, 54, y + 34, 'Confirm Receipt: By signing, you are only confirming that you have received this form.', { size: 8 });
-  signature(p2, ti.borrower, 60, y, 150, { date: mdy(ci.closing_date), font });
+  signature(p2, ti.borrower, 60, y, 190, { date: mdy(ci.closing_date), font, scripts });
   p2.drawLine({ start: { x: 54, y: y - 2 }, end: { x: 300, y: y - 2 }, thickness: 0.8 }); text(pen2, 54, y - 12, `Applicant Signature   ${ti.borrower}`, { size: 8 });
   line('FHA Case No.', li.mic_number ?? ''); line('APN', loan.property.apn); line('Loan ID #', li.loan_id);
   stampPages(doc, font, anchor);
@@ -72,7 +72,7 @@ export async function overlayAltaStatement(loan: CanonicalLoan, ss: Record<strin
   const doc = await PDFDocument.create();
   const [p1] = await doc.copyPages(src, [0]);
   doc.addPage(p1);
-  const { font, bold } = await pens(doc);
+  const { font, bold, scripts } = await pens(doc);
   const pen: Pen = { page: p1, font, bold, size: 8 };
   text(pen, 150, 651, ss.file_number); text(pen, 150, 638, `${mdy(ss.settlement_date)} 10:00 AM`); text(pen, 150, 625, 'A. Closer'); text(pen, 150, 612, 'Meridian, ID');
   text(pen, 240, 651, ss.settlement_agent, { bold: true, maxWidth: 160 }); text(pen, 240, 638, 'ALTA ID 0000000 (demo)'); text(pen, 240, 625, '100 Title Row, Meridian, ID 83642');
@@ -100,8 +100,8 @@ export async function overlayAltaStatement(loan: CanonicalLoan, ss: Record<strin
   y -= 8; text(pen2, 54, y, `Cash from Borrower at Settlement: ${usd(s.cash_from_borrower)}`, { bold: true, size: 10 });
   y -= 14; text(pen2, 54, y, `Escrow File No. ${ss.file_number}   Loan No. ${loan.loan.loan_id}`);
   y -= 50; text(pen2, 54, y + 30, 'I have carefully reviewed the ALTA Settlement Statement and find it to be a true and accurate statement of all receipts and disbursements made on my account.', { size: 8 });
-  signature(p2, loan.borrower.name, 60, y, 150, { date: mdy(ss.settlement_date), font });
+  signature(p2, loan.borrower.name, 60, y, 190, { date: mdy(ss.settlement_date), font, scripts });
   p2.drawLine({ start: { x: 54, y: y - 2 }, end: { x: 300, y: y - 2 }, thickness: 0.8 }); text(pen2, 54, y - 12, `Borrower   ${loan.borrower.name}`, { size: 8 });
-  signature(p2, 'A. Closer', 360, y, 130, { font }); p2.drawLine({ start: { x: 354, y: y - 2 }, end: { x: 560, y: y - 2 }, thickness: 0.8 }); text(pen2, 354, y - 12, `Escrow Officer, ${ss.settlement_agent}`, { size: 8 });
+  signature(p2, 'A. Closer', 360, y, 150, { font, scripts }); p2.drawLine({ start: { x: 354, y: y - 2 }, end: { x: 560, y: y - 2 }, thickness: 0.8 }); text(pen2, 354, y - 12, `Escrow Officer, ${ss.settlement_agent}`, { size: 8 });
   stampPages(doc, font, anchor); fs.writeFileSync(outPath, await doc.save()); return doc.getPageCount();
 }

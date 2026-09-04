@@ -22,9 +22,11 @@
     "db:apply": "scripts/db-apply.sh",
     "db:record": "tsx src/db/record-run.ts",
     "demo:publish": "tsx src/cli/publish-demo.ts",
-    "tokenize": "tsx src/tokenize.ts"
+    "tokenize": "tsx src/tokenize.ts",
+    "signatures": "tsx src/cli/signatures.ts"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "pdf-lib": "^1.17.1",
     "xrpl": "5.1.0"
   },

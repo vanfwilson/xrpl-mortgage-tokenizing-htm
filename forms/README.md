@@ -2,7 +2,7 @@
 
 **Filled, signed closing package** for the fictitious homeowner Jordan A. Sandbox, 123 Sandbox Lane, Meridian, ID.
 Every document carries the same loan (MORT-2026-88492X, $450,000 FHA, 6.250 %, 360 months) and every signature line is
-signed in blue ink. These are what you print and scan. Regenerate with `npm run print`.
+signed in blue ink with the signer's name in a handwriting font, one consistent hand per person (see `assets/signatures/signature-sheet.pdf`; fonts are SIL Open Font License, `assets/fonts/`). These are what you print and scan. Regenerate with `npm run print`.
 
 | File | Document | Pages | Blank it was filled from |
 |---|---|---|---|

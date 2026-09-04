@@ -65,11 +65,11 @@ export async function fillUrlaBorrower(loan: CanonicalLoan, urla: Urla, blankPat
     if (f instanceof PDFTextField && /_8a/.test(n) && /Org.*Name|Organization/i.test(n)) f.setText(sig.loan_originator ?? loan.lender.name);
     if (f instanceof PDFTextField && /_8a/.test(n) && /Ori_Name|Originator_Name/i.test(n)) f.setText('R. Originator');
   }
-  const { font } = await pens(doc);
+  const { font, scripts } = await pens(doc);
   form.updateFieldAppearances(font);
   // Blue-ink signatures over the form's signature fields (page 7 borrower, page 9 originator).
-  signature(doc.getPage(6), loan.borrower.name, 126, 176, 200);
-  signature(doc.getPage(8), 'R. Originator', 92, 579, 180);
+  signature(doc.getPage(6), loan.borrower.name, 126, 176, 250, { scripts });
+  signature(doc.getPage(8), 'R. Originator', 92, 579, 220, { scripts });
   stampPages(doc, font, anchor);
   fs.writeFileSync(outPath, await doc.save());
   return doc.getPageCount();

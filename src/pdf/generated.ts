@@ -11,8 +11,8 @@ const num = (n: number) => (Number.isNaN(n) ? '____' : String(n));
 async function start() {
   const doc = await PDFDocument.create();
   const page = doc.addPage([612, 792]);
-  const { font, bold } = await pens(doc);
-  return { doc, w: new Writer(page, font, bold), font };
+  const { font, bold, scripts } = await pens(doc);
+  return { doc, w: new Writer(page, font, bold, 54, 738, scripts), font };
 }
 
 export async function fhaAmendatoryClause(loan: CanonicalLoan, d: Record<string, any>, out: string, anchor: string) {
