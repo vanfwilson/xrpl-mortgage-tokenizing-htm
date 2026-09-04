@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://hightechmortgage.com"><img src="assets/brand/htm-logo.png" alt="HighTechMortgage — Bridging Institutional Real Estate & The Digital Economy" width="720"></a>
+  <a href="https://hightechmortgage.com"><img src="assets/brand/htm-logo.png" alt="HighTechMortgage — Bridging Institutional Real Estate & The Digital Economy" width="760"></a>
 </p>
 <p align="center">
-  <a href="https://hightechmortgage.com/mortgageos.html"><img src="assets/brand/mortgageos-lockup.png" alt="MortgageOS™ — Financial coordination layer. Secure Digital Mortgage Operating System." width="720"></a>
+  <a href="https://hightechmortgage.com/mortgageos.html"><img src="assets/brand/mortgageos-lockup-tight.png" alt="MortgageOS™ — Financial coordination layer. Secure Digital Mortgage Operating System." width="640"></a>
 </p>
 
 # Scan a closed home loan. Record it on the XRP Ledger.
@@ -15,6 +15,14 @@ the paper a title company produces when a home purchase closes, reads it, checks
 
 In one sentence: **paper in, verified digital mortgage record out, funded and serviced on a public ledger, with no
 personal data leaving the servicer's files.**
+
+**Why a ledger instead of a paper file.** Today the original note sits in one escrow office's vault or one
+servicer's filing cabinet. Loans are sold and re-sold, and after a few transfers nobody can say with certainty who
+holds the original or whether a copy is genuine. Anyone with a printer can produce a convincing fake. A public ledger
+record fixes that: one record, created once, visible to every party, impossible to alter or backdate, bound to the
+exact paper by its fingerprint, and carrying the payment history for the life of the loan.
+
+**Verifiable. Immutable. Traceable. Transferable. Auditable. Private. Fast. Open.**
 
 What a lender, a title officer, or an investor gets from it:
 
