@@ -17,7 +17,7 @@ export function toMismoSubsetXml(loan: CanonicalLoan): string {
   const last = rest.pop() ?? '';
   return `<?xml version="1.0" encoding="UTF-8"?>
 <MESSAGE xmlns="http://www.mismo.org/residential/2009/schemas" MISMOReferenceModelIdentifier="3.4.032420160128" xmlns:ULAD="http://www.datamodelextension.org/Schema/ULAD">
-  <!-- MISMO 3.4-aligned subset generated from htm.canonical-loan/1; not schema-validated. Synthetic data. -->
+  <!-- MISMO 3.4-aligned subset generated from htm.canonical-loan/2; not schema-validated. Synthetic data. -->
   <DEAL_SETS><DEAL_SET><DEALS><DEAL>
     <COLLATERALS><COLLATERAL><SUBJECT_PROPERTY>
       <ADDRESS>

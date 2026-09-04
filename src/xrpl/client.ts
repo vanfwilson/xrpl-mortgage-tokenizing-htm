@@ -46,8 +46,14 @@ export async function loadOrFundWallets(client: Client, log = console.log): Prom
     let drops = '0';
     try { drops = await client.getXrpBalance(wallets[role].classicAddress).then((x) => String(Math.round(Number(x) * 1_000_000))); } catch { /* unfunded */ }
     if (Number(drops) < 60_000_000) {
-      await client.fundWallet(wallets[role]);
-      log(`  topped up ${role.padEnd(11)} ${wallets[role].classicAddress}`);
+      try {
+        await client.fundWallet(wallets[role]);
+        log(`  topped up ${role.padEnd(11)} ${wallets[role].classicAddress}`);
+      } catch (e) {
+        // The public faucet rate-limits. Continue if the account can still afford the run.
+        if (Number(drops) < 25_000_000) throw new Error(`${role} has ${Number(drops) / 1e6} XRP and the Devnet faucet refused a top-up; retry in a few minutes`);
+        log(`  faucet busy; ${role} continues with ${Number(drops) / 1e6} XRP`);
+      }
     }
   }
   return wallets;

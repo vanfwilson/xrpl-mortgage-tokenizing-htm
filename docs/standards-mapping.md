@@ -65,7 +65,7 @@ Tax Impound and Insurance Impound sub-accounts (memo types `htm/tax-impound`, `h
 Each impound sub-account locks its accumulated balance to the payee with `EscrowCreate` whose `FinishAfter`
 is the statutory date (Ada County property tax Dec 20 / Jun 20; carrier renewal Sep 1). Anyone can submit
 `EscrowFinish` after that time, so disbursement needs no daemon and cannot happen early. Scheduling and
-sufficiency checks are in `src/servicing/impound-scheduler.ts` (Python twin in `scripts/`).
+sufficiency checks are in `src/servicing/impound-scheduler.ts` (Python twin in `extras/servicing-automation/`).
 
 ## Not used, and why
 

@@ -7,7 +7,9 @@ const pages = fs.readFileSync('tests/fixtures/stack.ocr.txt', 'utf8').split('\n\
 
 describe('rebuild the loan from OCR of the printed package', () => {
   it('classifies each page', () => {
-    expect(pages.map(classifyPage)).toEqual(['closing_disclosure', 'closing_disclosure', 'note', 'deed_of_trust', 'warranty_deed', 'statement']);
+    const kinds = pages.map(classifyPage);
+    expect(kinds.filter((k) => k === 'urla')).toHaveLength(11);
+    expect(kinds.slice(11)).toEqual(['closing_disclosure', 'closing_disclosure', 'settlement_statement', 'settlement_statement', 'escrow_instructions', 'fha_amendatory', 'note', 'deed_of_trust', 'warranty_deed', 'recorder_receipt', 'statement', 'ocr_test']);
   });
   it('yields every required field and ties out', () => {
     const b = buildCanonicalFromScan(pages);

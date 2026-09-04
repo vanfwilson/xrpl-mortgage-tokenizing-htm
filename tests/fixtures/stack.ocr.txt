@@ -1,3 +1,514 @@
+To be completed by the Lender:
+Lender Loan No./Universal Loan Identifier Agency Case No.
+Uniform Residential Loan Application
+Verify and complete the information on this application. If you are applying for this loan with others, each additional Borrower must provide
+information as directed by your Lender.
+Section 1: Borrower Information. this section asks about your personal information and your income from
+employment and other sources, such as retirement, that you want considered to qualify for this loan.
+1a. Personal Information
+Name (First, Middle, Last, Suffix) Social Security Number - -
+(or Individual Taxpayer Identification Number)
+Alternate Names - List any names by which you are known or any names Date of Birth Citizenship
+under which credit was previously received (First, Middle, Last, Suffix) (mm/dd/yyyy) © US. Citizen
+/ / © Permanent Resident Alien
+© Non-Permanent Resident Alien
+Type of Credit List Name(s) of Other Borrower(s) Applying for this Loan
+© | am applying for individual credit. (First, Middle, Last, Suffix) - Use a separator between names
+© lam applying for joint credit. Total Number of Borrowers: Jordan A. Sandbox
+Each Borrower intends to apply for joint credit. Your initials:
+Marital Status Dependents (not listed by another Borrower) Contact Information
+© Married Number 0_ Home Phone ( ) -
+O Separated Ages Cell Phone ( ) _
+© Unmarried re
+(Single, Divorced, Widowed, Civil Union, Domestic Partnership, Registered Work Phone (_ ) — S$ __ Ext
+Reciprocal Beneficiary Relationship) Email borrower.demo@example.com
+Current Address
+Street 88 Placeholder Ave Apt 4 Unit #
+City Boise State ID ZIP 83702 Country USA
+How Long at Current Address? Years | Months Housing O No primary housing expense O Own © Rent ($ /month)
+If at Current Address for LESS than 2 years, list Former Address LC Does not apply
+Street Unit #
+City State ZIP Country
+How Long at Former Address? Years Months Housing O No primary housing expense () Own © Rent ($ /month)
+Mailing Address - if different from Current Address Does not apply
+Street Unit #
+City State ZIP Country
+1b. Current Employment/Self-Employment and Income Does not apply
+Employer or Business Name Sandbox Robotics LLC Phone ( ) = Gross Monthly Income
+Street 400 Innovation Way Unit # Base $__11,250.00 /month
+City Boise State ID ZIP 83702 Country Overtime = $____/month
+Bonus $ /month
+Position or Title Controls Engineer Check if this statement applies: Commission $ /month
+[J] !am employed by a family member, —
+Start Date _ 06 _ / 01 / 2020 | (mm/dd/yyyy) property seller, real estate agent, or other Military
+How long in this line of work? Years = Months party to the transaction. Entitlements $_—/month
+7 . ; Other $ /month
+C1 Check if you are the Business @) | have an ownership share of less than 25%. Monthly Income (or Loss) ——
+Owner or Self-Employed O Ihave an ownership share of 25% or more. $ TOTAL$ ___—0.00/month
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/9 [|
+
+
+1c. IF APPLICABLE, Complete Information for Additional Employment/Self-Employment and Income C1 Does not apply
+Employer or Business Name Phone ( ) - Gross Monthly Income
+Street Unit # Base $s /month
+City State ZIP Country Overtime =$________/month
+Bonus $ /month
+Position or Title Check if this statement applies: Commission $ /month
+[1]! am employed by a family member, -
+Start Date — i fo (mm/ad/yyyy) property seller, real estate agent, or other Military
+How long in this line of work? Years Months party to the transaction. Entitlements $s /month
+7 7 ; Other $ /month
+O Check if you are the Business () | have an ownership share of less than 25%. Monthly Income (or Loss) ——_—
+Owner or Self-Employed O [have an ownership share of 25% or more. $ TOTALS (0.00 /month
+1d. IF APPLICABLE, Complete Information for Previous Employment/Self-Employment and Income C1 Does not apply
+Provide at least 2 years of current and previous employment and income.
+Employer or Business Name Previous Gross Monthly
+Street Unit # Income$ ——————s/montth
+City State ZIP Country
+Position or Title
+Start Date / / (mm/dd/yyyy) Cd Check if you were the Business
+—_ —:~— Owner or Self-Employed
+End Date / / (mm/dd/yyyy)
+I te. Income from Other Sources _ | e. Income from Other Sources (J Does not apply
+Include income from other sources below. Under Income Source, choose from the sources listed here:
++ Alimony * Child Support + Interest and Dividends + Notes Receivable + Royalty Payments + Unemployment
++ Automobile Allowance + Disability + Mortgage Credit Certificate + Public Assistance + Separate Maintenance Benefits
++ Boarder Income + Foster Care - Mortgage Differential - Retirement + Social Security + VA Compensation
++ Capital Gains + Housing or Parsonage Payments (e.g., Pension, IRA) + Trust + Other
+NOTE: Reveal alimony, child support, separate maintenance, or other income ONLY IF you want it considered in determining your qualification
+for this loan.
+Income Source - use list above Monthly Income
+$
+$
+$
+Provide TOTAL Amount Here | $ 0.00
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/9 [|
+
+
+Section 2: Financial Information — Assets and Liabilities. this section asks about things you own that
+are worth money and that you want considered to qualify for this loan. It then asks about your liabilities (or debts) that you pay
+each month, such as credit cards, alimony, or other expenses.
+2a. Assets - Bank Accounts, Retirement, and Other Accounts You Have
+Include all accounts below. Under Account Type, choose from the types listed here:
++ Checking + Certificate of Deposit + Stock Options + Bridge Loan Proceeds * Trust Account
++ Savings + Mutual Fund + Bonds + Individual Development + Cash Value of Life Insurance
++ Money Market * Stocks + Retirement (e.g., 407k, IRA) Account (used for the transaction)
+Account Type - use list above Financial Institution Account Number Cash or Market Value
+ee
+po SS
+ee
+po
+ee
+Provide TOTAL Amount Here | $ 0.00
+| 2b. Other Assets and Credits YouHave _| Other Assets and Credits You Have C1 Does not apply
+Include all other assets and credits below. Under Asset or Credit Type, choose from the types listed here:
+Assets Credits
+- Proceeds from Real Estate « Proceeds from Sale of + Unsecured Borrowed Funds + Earnest Money + Relocation Funds + Sweat Equity
+Property to be sold on or Non-Real Estate Asset + Other +Employer Assistance + Rent Credit + Trade Equity
+before closing + Secured Borrowed Funds + Lot Equity
+Asset or Credit Type — use list above Cash or Market Value
+$
+$
+$
+$
+Provide TOTAL Amount Here | $ 0.00
+2c. Liabilities - Credit Cards, Other Debts, and Leases that You Owe CL Does not apply
+List all liabilities below (except real estate) and include deferred payments. Under Account Type, choose from the types listed here:
++Revolving (e.g., credit cards) +I\nstallment (e.g., car, student, personal loans) + Open 30-Day (balance paid monthly) + Lease (not realestate) +» Other
+Account Type - To be paid off at
+use list above Company Name Account Number Unpaid Balance or before closing | Monthly Payment
+ee ee =
+ee =
+ee ee =
+ee ee =
+po fs SS
+2d. Other Liabilities and Expenses C1 Does not apply
+Include all other liabilities and expenses below. Choose from the types listed here:
++ Alimony *Child Support +Separate Maintenance — - Job Related Expenses + Other Monthly Payment
+$
+$
+$
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 3/9 [|
+
+
+Section 3: Financial Information — Real Estate. This section asks you to list all properties you currently own
+and what you owe on them. []/ donot own any real estate
+| 3a. Property YouOwn | Property You Own If you are refinancing, list the property you are refinancing FIRST.
+Address Street Unit #
+City State ZIP Country
+. Intended Occupancy: | Monthly Insurance,Taxes, | For 2-4 Unit Primary or Investment Property
+Status: Sold, | Investment, Primary Association Dues, etc.
+Pending Sale, | Residence, Second if not included in Monthly Monthly Rental For LENDER to calculate:
+Property Value | or Retained Home, Other Mortgage Payment Income Net Monthly Rental Income
+Rs ee
+Mortgage Loans on this Property CL Does not apply
+Monthly Type: FHA, VA,
+Mortgage To be paid offat | Conventional, | Credit Limit
+Creditor Name Account Number Payment Unpaid Balance or before closing | USDA-RD, Other | (if applicable)
+ee =
+=
+3b. IF APPLICABLE, Complete Information for Additional Property LC Does not apply
+Address Street Unit #
+City State ZIP Country
+“Sold Intended Occupancy: | Monthly Insurance, Taxes, | For 2-4 Unit Primary or Investment Property
+Status: Sold, | investment, Primary Association Dues, etc.
+Pending Sale, | Residence, Second if not included in Monthly Monthly Rental For LENDER to calculate:
+Property Value | or Retained Home, Other Mortgage Payment Income Net Monthly Rental Income
+a ee
+Mortgage Loans on this Property CL Does not apply
+Monthly Type: FHA, VA,
+Mortgage To be paid offat | Conventional, | Credit Limit
+Creditor Name Account Number Payment Unpaid Balance or before closing | USDA-RD, Other | (if applicable)
+ee Ce o |S
+ee Ce o |}
+3c. IF APPLICABLE, Complete Information for Additional Property C1 Does not apply
+Address Street Unit #
+City State ZIP Country
+. Intended Occupancy: | Monthly Insurance, Taxes, | For 2-4 Unit Primary or Investment Property
+Status: Sold, | investment, Primary Association Dues, etc.
+Property Value or Retained Home, Other Mortgage Payment Income Net Monthly Rental Income
+a
+Mortgage Loans on this Property C1 Does not apply
+Monthly Type: FHA, VA,
+Mortgage To be paid offat | Conventional, Credit Limit
+Creditor Name Account Number Payment Unpaid Balance or before closing | USDA-RD, Other | (if applicable)
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 4/9 [|
+
+
+Section 4: Loan and Property Information. This section asks about the loan’s purpose and the property you
+want to purchase or refinance.
+[ 4a. Loan and Property Information | Loan and Property Information
+Loan Amount § 450,000.00 Loan Purpose (@)Purchase () Refinance ©) Other (specify)
+Property Address Street 123 Sandbox Lane Unit #
+City Meridian State ID ZIP 83642 County Ada
+Number of Units 1 Property Value $560,000.00
+Occupancy © Primary Residence O Second Home CO Investment Property FHA Secondary Residence
+1. Mixed-Use Property. If you will occupy the property, will you set aside space within the property to operate @®No O YES
+your own business? (e.g., daycare facility, medical office, beauty/barber shop)
+
+2. Manufactured Home. Is the property a manufactured home? (e.g., a factory built dwelling built on a permanent chassis) @NO O YES
+
+4b. Other New Mortgage Loans on the Property You are Buying or Refinancing Does not apply
+
+Loan Amount/ Credit Limit
+
+Creditor Name Lien Type Monthly Payment Amount to be Drawn _| (if applicable)
+
+4c. Rental Income on the Property You Want to Purchase For Purchase Only Does not apply
+Complete if the property is a 2-4 Unit Primary Residence or an Investment Property Amount
+Expected Monthly Rental Income $
+For LENDER to calculate: Expected Net Monthly Rental Income $
+
+4d. Gifts or Grants You Have Been Given or Will Receive for this Loan Does not apply
+Include all gifts and grants below. Under Source, choose from the sources listed here:
++ Community Nonprofit + Federal Agency + Relative + State Agency + Lender
++ Employer + Local Agency + Religious Nonprofit + Unmarried Partner + Other
+Asset Type: Cash Gift, Gift of Equity, Grant Deposited/Not Deposited Cash or Market Value
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 5/9 [|
+
+
+Section 5: Declarations. this section asks you specific questions about the property, your funding, and your past
+financial history.
+5a. About this Property and Your Money for this Loan
+A. Will you occupy the property as your primary residence? © NO O YES
+If YES, have you had an ownership interest in another property in the last three years? © NO O YES
+If YES, complete (1) and (2) below:
+(1) What type of property did you own: primary residence (PR), FHA secondary residence (SR), second home (SH),
+or investment property (IP)?
+(2) How did you hold title to the property: by yourself (S), jointly with your spouse (SP), or jointly with another person (O)?
+B. If this isa Purchase Transaction: Do you have a family relationship or business affiliation with the seller of the property? © NO © YES
+Cc. Are you borrowing any money for this real estate transaction (e.g., money for your closing costs or down payment) or
+obtaining any money from another party, such as the seller or realtor, that you have not disclosed on this loan application? © NO O YES
+If YES, what is the amount of this money? $
+D. 1.Have you or will you be applying for a mortgage loan on another property (not the property securing this loan) on or NO YES
+before closing this transaction that is not disclosed on this loan application? © O
+2. Have you or will you be applying for any new credit (e.g., installment loan, credit card, etc.) on or before closing this loan that
+; ; ; ae @NO OYES
+is not disclosed on this application?
+E. Will this property be subject to a lien that could take priority over the first mortgage lien, such as a clean energy lien paid © NO YES
+through your property taxes (e.g., the Property Assessed Clean Energy Program)? O
+5b. About Your Finances
+F. Are you a co-signer or guarantor on any debt or loan that is not disclosed on this application? © NO © YES
+G. Are there any outstanding judgments against you? © NO © YES
+H. Are you currently delinquent or in default on a Federal debt? © NO © YES
+I. Are you a party to a lawsuit in which you potentially have any personal financial liability? © NO © YES
+J. Have you conveyed title to any property in lieu of foreclosure in the past 7 years? © NO © YES
+K. Within the past 7 years, have you completed a pre-foreclosure sale or short sale, whereby the property was sold toa © NO © YES
+third party and the Lender agreed to accept less than the outstanding mortgage balance due?
+L. Have you had property foreclosed upon in the last 7 years? © NO © YES
+M. Have you declared bankruptcy within the past 7 years? © NO © YES
+If YES, identify the type(s) of bankruptcy: CJ Chapter7 [J Chapter11 [J Chapter12 [] Chapter 13
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 6/9 [|
+
+
+Section 6: Acknowledgments and Agreements. This section tells you about your legal obligations when
+
+you sign this application.
+
+| Acknowledgments and Agreements | and Agreements
+
+Definitions: - If this application is created as (or converted into) an “electronic
+
+"Lender" includes the Lender's agents, service providers, and any of application”, | consent to the use of “electronic records” and
+their successors and assigns. “electronic signatures” as the terms are defined in and governed by
+
+* "Other Loan Participants" includes (i) any actual or potential owners of applicable Federal and/or state electronic transactions laws.
+
+a loan resulting from this application (the “Loan’”), (ii) acquirers of +l intend to sign and have signed this application either using my:
+any beneficial or other interest in the Loan, (iii) any mortgage insurer, (a) electronic signature; or
+
+(iv) any guarantor, (v) any servicer of the Loan, and (vi) any of these (b) a written signature and agree that if a paper version of this
+parties' service providers, successors or assigns. application is converted into an electronic application, the
+
+| agree to, acknowledge, and represent the following: application will be an electronic record, and the representation
+
+of my written signature on this application will be my binding
+
+(1) The Complete Information for this Application electronic signature.
+
+- The information | have provided in this application is true, accurate, - |agree that the application, if delivered or transmitted to the Lender
+and complete as of the date | signed this application. or Other Loan Participants as an electronic record with my electronic
+
+- If the information | submitted changes or | have new information signature, will be as effective and enforceable as a paper application
+before closing of the Loan, | must change and supplement this signed by me in writing.
+application, including providing any updated/supplemented real .
+estate sales contract. (5) Delinquency , . .
+
+- For purchase transactions: The terms and conditions of any real - The Lender and Other Loan Participants may report information about
+estate sales contract signed by me in connection with this application my account to credit bureaus. Late payments, missed payments, or
+are true, accurate, and complete to the best of my knowledge and other defaults on my account may be reflected in my credit report and
+belief. | have not entered into any other agreement, written or oral, in wnkely affect my credit score.
+connection with this real estate transaction. . ave trouble making my payments I understand that | may contact
+
++The Lender and Other Loan Participants may rely on the information a HUD-approved housing counseling organization for advice about
+contained in the application before and after closing of the Loan. actions | can take to meet my mortgage obligations.
+
+- Any intentional or negligent misrepresentation of information may (6) Authorization for Use and Sharing of Information
+result in the imposition of: By signing below, in addition to the representations and agreements
+
+(a) civil liability on me, including monetary damages, if a made above, | expressly authorize the Lender and Other Loan
+person suffers any loss because the person relied on any Participants to obtain, use, and share with each other (i) the loan
+misrepresentation that | have made on this application, and/or application and related loan information and documentation, (ii) a
+
+(b) criminal penalties on me including, but not limited to, fine or consumer credit report on me, and (iii) my tax return information, as
+imprisonment or both under the provisions of Federal law necessary to perform the actions listed below, for so long as they have
+(18 U.S.C. §§ 1001 et seq.). an interest in my loan or its servicing:
+
+(2) The Property's Security (a) process and underwrite my loan;
+
+The Loan | have applied for in this application will be secured by (b) verify any data contained in my consumer credit report, my
+
+a mortgage or deed of trust which provides the Lender a security pealtasrenenial and other information supporting my loan
+
+interest in the property described in this application. (c) inform credit and investment decisions by the Lender
+
+(3) The Property’s Appraisal, Value, and Condition and Other Loan Participants;
+
+- Any appraisal or value of the property obtained by the Lender is (d) perform audit, quality control, and legal compliance analysis
+for use by the Lender and Other Loan Participants. and reviews;
+
+- The Lender and Other Loan Participants have not made any (e) perform analysis and modeling for risk assessments;
+representation or warranty, express or implied, to me about the (f) monitor the account for this loan for potential delinquencies and
+property, its condition, or its value. determine any assistance that may be available to me; and
+
+(4) Electronic Records and Signatures (g) other actions permissible under applicable law.
+
+- The Lender and Other Loan Participants may keep any paper record
+and/or electronic record of this application, whether or not the Loan
+is approved.
+
+Borrower Signature Date (mm/dd/yyyy) 08 / 20 / 2026
+
+Additional Borrower Signature Date (mm/dd/yyyy) / /
+
+Borrower Name:
+
+Uniform Residential Loan Application
+
+Freddie Mac Form 65 + Fannie Mae Form 1003
+
+Effective 1/2021
+
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 7/9 [|
+
+
+Section 7: Military Service. This section asks questions about your (or your deceased spouse's) military service.
+| Military Service of Borrower _| Service of Borrower
+Military Service — Did you (or your deceased spouse) ever serve, or are you currently serving, in the United States Armed Forces? © NO O YES
+If YES, check all that apply: |] Currently serving on active duty with projected expiration date of service/tour / / (mm/dd/yyyy)
+1 Currently retired, discharged, or separated from service
+C1 Only period of service was as a non-activated member of the Reserve or National Guard
+(1 Surviving spouse
+Section 8: Demographic Information. This section asks about your ethnicity, sex, and race.
+Demographic Information of Borrower _| Information of Borrower
+The purpose of collecting this information is to help ensure that all applicants are treated fairly and that the housing needs of communities
+and neighborhoods are being fulfilled. For residential mortgage lending, Federal law requires that we ask applicants for their demographic
+information (ethnicity, sex, and race) in order to monitor our compliance with equal credit opportunity, fair housing, and home mortgage
+disclosure laws. You are not required to provide this information, but are encouraged to do so. You may select one or more designations for
+"Ethnicity" and one or more designations for "Race." The law provides that we may not discriminate on the basis of this information, or on
+whether you choose to provide it. However, if you choose not to provide the information and you have made this application in person, Federal
+regulations require us to note your ethnicity, sex, and race on the basis of visual observation or surname. The law also provides that we may not
+discriminate on the basis of age or marital status information you provide in this application. If you do not wish to provide some or all of this
+information, please check below.
+Ethnicity: Check one or more Race: Check one or more
+C7 Hispanic or Latino DO American Indian or Alaska Native — Print name of enrolled
+1 Mexican CJ Puerto Rican OJ Cuban or principal tribe :
+(1 Other Hispanic or Latino — Print origin: OAsian
+DAsian Indian [Chinese Filipino
+For example: Argentinean, Colombian, Dominican, Nicaraguan, L] Japanese C1 Korean C1 Vietnamese
+Salvadoran, Spaniard, and so on. L Other Asian - Print race: a
+[J Not Hispanic or Latino , er exemple nen, Laotian, Thai, Pakistani, Cambodian, and so on.
+LJ | do not wish to provide this information O ac or rican merican .
+CJ Native Hawaiian or Other Pacific Islander
+OJ Native Hawaiian [J GuamanianorChamorro [J] Samoan
+Sex Cd Other Pacific Islander — Print race:
+1 Female
+O vee ish ide this inf . For example: Fijian, Tongan, and so on.
+(J | do not wish to provide this information O White
+(1! do not wish to provide this information
+To Be Completed by Financial Institution (for application taken in person):
+Was the ethnicity of the Borrower collected on the basis of visual observation or surname? ()NO (YES
+Was the sex of the Borrower collected on the basis of visual observation or surname? ONO OYES
+Was the race of the Borrower collected on the basis of visual observation or surname? ONO OYES
+The Demographic Information was provided through:
+O Face-to-Face Interview (includes Electronic Media w/ Video Component) (©) Telephone Interview ©) Fax or Mail © Email or Internet
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 8/9 [|
+
+
+Section 9: Loan Originator Information. To be completed by your Loan Originator.
+F Loan Originator Information —_ | Originator Information
+Loan Originator Organization Name
+Address
+Loan Originator Organization NMLSR ID# 0000000 State License ID#
+Loan Originator Name
+Loan Originator NMLSR ID# 0000000 State License ID#
+Email originator.demo@example.com Phone ( ) -
+Signature Date (mm/dd/yyyy) 08 / 20 / 2026
+Borrower Name:
+Uniform Residential Loan Application
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 9/9 [|
+
+
+To be completed by the Lender:
+Lender Loan No./Universal Loan Identifier MORT-2026-88492X Agency CaseNo. 411-9928340-703
+Uniform Residential Loan Application — Lender Loan Information
+This section is completed by your Lender.
+L1. Property and Loan Information
+Community Property State Refinance Type Refinance Program
+[J At least one borrower lives in a community property state. O No Cash Out O Full Documentation
+[] The property is in a community property state. O Limited Cash Out CO Interest Rate Reduction
+Transaction Detail © Cash Out © Streamlined without Appraisal
+( Conversion of Contract for Deed or Land Contract OOther
+CD Renovation
+( Construction-Conversion/Construction-to-Permanent Energy Improvement
+O Single-Closing © Two-Closing LJ Mortgage loan will finance energy-related improvements.
+Construction/Improvement Costs § LJ Property is currently subject to a lien that could take priority over
+Lot Acquired Date / / (mm/dd/yyyy) the first mortgage lien, such as a clean energy lien paid for through
+Original Cost of Lot § property taxes (e.g., the Property Assessed Clean Energy program).
+Project Type [J Condominium © Cooperative ED Planned Unit Development (PUD) ) Property is not located in a project
+L2. Title Information
+Title to the Property Will be Held in What Name(s): For Refinance: Title to the Property is Currently Held in What Name(s):
+Jordan A. Sandbox
+Estate Will be Held in Trust Information
+© Fee Simple CO Title Will be Held by an Inter Vivos (Living) Trust
+© Leasehold Expiration Date / / (mm/dd/yyyy) |© Title Will be Held by a Land Trust
+Manner in Which Title Will be Held Indian Country Land Tenure
+© Sole Ownership O Joint Tenancy with Right of Survivorship| © Fee Simple On a Reservation
+O Life Estate O Tenancy by the Entirety O Individual Trust Land (Allotted/Restricted)
+© Tenancy in Common © Other © Tribal Trust Land On a Reservation
+O Tribal Trust Land Off Reservation
+© Alaska Native Corporation Land
+L3. Mortgage Loan Information
+Mortgage Type Applied For Terms of Loan Mortgage Lien Type
+© Conventional © USDA-RD NoteRate 6.250 % © First Lien
+© FHA OVA © Other: Loan Term 360___ (months) O Subordinate Lien
+Amortization Type Proposed Monthly Payment for Property
+© Fixed Rate © Other (explain): First Mortgage (P & |) 5 2,770.73
+O Adjustable Rate Subordinate Lien(s) (P & !) $ 0.00
+If Adjustable Rate: Homeowner's Insurance $ 125.00
+Initial Period Prior to First Adjustment (months) sO
+Subsequent Adjustment Period (months) Supplemental Property Insurance $ 0.00
+Loan Features Property Taxes $ 285.00
+_] Balloon/ Balloon Term (months) Mortgage Insurance $ 187.50
+Cl Interest Only / Interest OnlyTerm____ (months) Association/Project Dues (Condo, Co-Op, PUD) $ 0.00
+[] Negative Amortization —
+[_] Prepayment Penalty / Prepayment Penalty Term (months) Other $0.00
+[_] Temporary Interest Rate Buydown/Initial Buydown Rate TOTAL $ 3,368.23
+[J Other (explain):
+Borrower Name(s):
+Uniform Residential Loan Application — Lender Loan Information
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/2 [|
+
+
+L4. Qualifying the Borrower — Minimum Required Funds or Cash Back
+DUE FROM BORROWER(S)
+A. Sales Contract Price $ 560,000.00
+B. Improvements, Renovations, and Repairs $
+C. Land (if acquired separately) $
+D. For Refinance: Balance of Mortgage Loans on the Property to be paid off in the Transaction
+(See Table 3a. Property You Own) $
+E. Credit Cards and Other Debts Paid Off
+(See Table 2c. Liabilities — Credit Cards, Other Debts, and Leases that You Owe) $
+F. Borrower Closing Costs (including Prepaid and Initial Escrow Payments) $
+G. Discount Points $
+H. TOTAL DUE FROM BORROWER(s) (Total of A thru G) $
+TOTAL MORTGAGE LOANS
+I. Loan Amount
+Loan Amount Excluding Financed Mortgage Insurance (or Mortgage Insurance Equivalent) $ 442,125.00
+Financed Mortgage Insurance (or Mortgage Insurance Equivalent) Amount $7,875.00 $ 0.00
+J. Other New Mortgage Loans on the Property the Borrower(s) is Buying or Refinancing
+(See Table 4b. Other New Mortgage Loans on the Property You are Buying or Refinancing) $
+K. TOTAL MORTGAGE LOANS (Total of | and J) $ 0.00
+TOTAL CREDITS
+L. Seller Credits (Enter the amount of Borrower(s) costs paid by the property seller) $
+M. Other Credits (Enter the sum of all other credits — Borrower Paid Fees, Earnest Money, Employer Assisted
+Housing, Lease Purchase Fund, Lot Equity, Relocation Funds, Sweat Equity, Trade Equity, Other) $
+N. TOTAL CREDITS (Total of L and M) $ 0.00
+CALCULATION
+TOTAL DUE FROM BORROWER(s) (Line H) $ 0.00
+LESS TOTAL MORTGAGE LOANS (Line K) AND TOTAL CREDITS (Line N) -$ 450,000.00
+Cash From/To the Borrower (Line H minus Line K and Line N)
+NOTE: This amount does not include reserves or other funds that may be required by the Lender
+to be verified. $ 91,400.00
+Borrower Name(s):
+Uniform Residential Loan Application — Lender Loan Information
+Freddie Mac Form 65 + Fannie Mae Form 1003
+Effective 1/2021
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/2 [|
+
+
 ° ° This form is a statement of final loan terms and closing costs. Compare this
 Closi ng Disclosu re document with your Loan Estimate.
 Closing Information Transaction Information Loan Information
@@ -75,10 +586,145 @@ Settlement Agent Sandbox Title & Escrow Inc.
 File # ESC-2026-99812
 Seller Jane Q. Placeholder
 Lender Sandbox Lending Corp. (HTM demo)
-FHA Case No. 411-9928340-703
-APN R993821-0014
+Confirm Receipt: By signing, you are only confirming that you have received this form.
+Wrrmn~npyuvn”’
+FHA Case No. 09/01/2026 411-9928340-703
+Apaicant Signature Jordan A. Sandbox R993821-0014
 Loan ID # MORT-2026-88492X
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/2 [|
+
+
+American Land Title Association ALTA Settlement Statement - Borrower/Buyer
+Adopted 05-01-2015
+File No./Escrow No.: Title Company Name Title Company
+Print Date & Time: novo, Dobe to.00 AM » ALTA Gniversar iB" Inc. Logo
+Officer/Escrow Officer: ‘ Fite Company Adress
+. A. Closer 100 Title Row, Meridian, ID 83642
+Settlement Location: -
+Meridian, ID
+
+Property Address:
+Buyer: 123 Sandbox Lane, Meridian, ID 83642 (APN R993821-0014)
+
+Jordan A. Sandbox
+Seller:
+
+Jane Q. Placeholder
+Lender:
+
+Sandbox Lending Corp. (HTM demo)
+Settlement Date:
+Disbursement Date: ooinoee
+Additional dates per state requirements:
+Borrower/Buyer
+eit Credit
+Deposit including earnest money Pp
+
+8-60p.00
+loanAmount OSS
+ar F 450,0p0.00
+Existing Loan(s) Assumed or Taken Subject to a
+- 8-660]00
+School Taxes from (date) to (date) a
+County Taxes from (date) to (date) a
+HOA dues from (date) to (date es
+Origination Fee nencedintetoee a a
+Copyright 2015 American Land Title Association. File #
+All rights reserved. Page 1 of 3 Printed on (date) at (time)
+Cc | a |
+
+
+ALTA Settlement Statement - Borrower Ledger (synthetic)
+Code Description Debit Credit
+101 Contract sales price 560,000.00
+103 Settlement charges to borrower 8,000.00
+201 Earnest money deposit 18,600.00
+202 Principal amount of new loan 450,000.00
+208 Seller credit toward closing costs 8,000.00
+303 Cash from borrower at settlement 91,400.00
+Totals 568,000.00 568,000.00
+
+Settlement charges to borrower (line 103) detail:
+
+801 Loan origination fee (1.000%) 4,500.00
+
+804 Appraisal fee 650.00
+
+805 Credit report 45.00
+
+1104 Lender's title insurance policy 1,850.00
+
+1102 Escrow / settlement fee 900.00
+
+1201 Recording fees (Deed $15, Deed of Trust $25) 40.00
+
+807 Flood certification 15.00
+Cash from Borrower at Settlement: $91,400.00
+Escrow File No. ESC-2026-99812 Loan No. MORT-2026-88492X
+| have carefully reviewed the ALTA Settlement Statement and find it to be a true and accurate statement of all receipts and disbursements made on my accou
+
+09/01/2026
+Borrower Jordan A. Sandbox Escrow Officer, Sandbox Title & Escrow Inc.
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/2 [|
+
+
+SANDBOX TITLE & ESCROW INC. - ESCROW HOLDING INSTRUCTIONS
+Escrow File No. ESC-2026-99812
+Property 123 Sandbox Lane, Meridian, ID 83642
+Buyer / Borrower Jordan A. Sandbox
+Seller Jane Q. Placeholder
+Lender Sandbox Lending Corp. (HTM demo)
+Settlement Date 09/01/2026
+The undersigned Buyer and Seller hand you the documents and funds described herein, which you are authorised to
+deliver and disburse when you can issue a policy of title insurance showing title vested in Buyer subject only to the
+exceptions approved by Buyer and the first-position Deed of Trust in favour of Lender securing $450,000.00.
+Purchase price $560,000.00. Earnest money deposit $18,600.00 is held in trust. Seller credit toward closing costs
+$8,000.00. Balance of cash to close $91,400.00 to be deposited by Buyer in good funds no later than one business day
+before recording.
+Prorations: county taxes and HOA dues prorated as of the settlement date. Hazard insurance: Buyer to deliver evidence
+of a paid one-year policy naming Lender as mortgagee. Recording: Warranty Deed first, Deed of Trust immediately
+thereafter, same day, Ada County Recorder.
+These instructions may be executed in counterparts. Escrow holder is not responsible for the sufficiency or correctness
+of documents prepared by others. All funds held are non-interest bearing.
+09/01/2026
+Buyer: Jordan A. Sandbox
+09/01/2026
+Seller: Jane Q. Placeholder
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
+
+
+FHA AMENDATORY CLAUSE
+FHA Case No. 411-9928340-703
+Property 123 Sandbox Lane, Meridian, ID 83642
+Contract Sales Price $560,000.00
+It is expressly agreed that, notwithstanding any other provisions of this contract, the purchaser shall not be obligated to
+complete the purchase of the property described herein or to incur any penalty by forfeiture of earnest money deposits
+or otherwise unless the purchaser has been given, in accordance with HUD/FHA or VA requirements, a written
+statement issued by the Federal Housing Commissioner, Department of Veterans Affairs, or a Direct Endorsement
+lender, setting forth the appraised value of the property of not less than $560,000.00.
+The purchaser shall have the privilege and option of proceeding with consummation of the contract without regard to the
+amount of the appraised valuation. The appraised valuation is arrived at to determine the maximum mortgage the
+Department of Housing and Urban Development will insure. HUD does not warrant the value nor the condition of the
+property. The purchaser should satisfy himself/herself that the price and condition of the property are acceptable.
+REAL ESTATE CERTIFICATION
+We, the borrower, seller, and the selling real estate agent or broker involved in the sales transaction certify that the
+terms and conditions of the sales contract are true to the best of our knowledge and belief, and that any other
+agreement entered into by any of these parties in connection with this transaction is part of, or attached to, the sales
+agreement.
+
+08/15/2026
+Buyer: Jordan A. Sandbox
+
+08/15/2026
+Seller: Jane Q. Placeholder
+
+08/15/2026
+Buyer's Agent: Sandbox Realty Group
+
+08/15/2026
+Seller's Agent: Placeholder Properties
+
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492xX | PAGE 1/1 [|
 
 
 09/01/2026 Meridian, Idaho Idaho
@@ -126,8 +772,9 @@ This Note is a uniform instrument with limited variations in some jurisdictions.
 Note Holder under this Note, a Deed of Trust (Fannie Mae Form 3013 (Idaho)), dated the same date as this Note,
 protects the Note Holder from possible losses which might result if | do not keep the promises which | make in this Note.
 WITNESS THE HAND(S) AND SEAL(S) OF THE UNDERSIGNED.
+(09/01/2026
 
-SYNTHE THOU GENS PRISER RSEOMEE - Sek) rR) 1 ORG Mae(rieddie Mag UNIGORM INSTRYMENT Form 3200 1/01 (synthetic rendering) [|
+SYNTHETHONdaT AoSendbox nBormower TEealAcTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
 
 
 After recording return to: Sandbox Lending Corp. (HTM demo)
@@ -162,10 +809,13 @@ and Other Charges. 3. Application of Payments. 4. Fire, Flood and Other Hazard I
 Maintenance and Protection of the Property. 6. Condemnation. 7. Charges to Borrower and Protection of Lender's
 Rights in the Property. 8. Fees. 9. Grounds for Acceleration of Debt. (Standard FHA Idaho Deed of Trust covenants
 incorporated by reference for this synthetic test instrument.)
+09/01/2026
+
 Borrower: Jordan A. Sandbox
 STATE OF IDAHO, County of Ada. On 09/01/2026 before me, a Notary Public, personally appeared Jordan A. Sandbox, known or
 identified to me to be the person whose name is subscribed to the within instrument, and acknowledged that they executed the same.
 Notary Public for Idaho (demo)
+Commission expires 12/31/2029 [NOTARY SEAL]
 
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
 
@@ -189,11 +839,37 @@ assessments, and except U.S. Patent reservations, restrictions, easements of rec
 premises, and that Grantor will warrant and defend the same from all lawful claims whatsoever.
 SUBJECT TO a first-position Deed of Trust of even date securing $450,000.00 in favor of Sandbox Lending Corp. (HTM
 demo), recorded concurrently as Instrument No. 2026-0099483A.
-Grantor: Jane Q. Placeholder Dated 09/02/2026
+ao 09/02/2026
+Grantor: Jane Q. Placeholder
 STATE OF IDAHO, County of Ada. This record was acknowledged before me on 09/02/2026 by Jane Q. Placeholder.
 Notary Public for Idaho (demo)
+Commission expires 12/31/2029 [NOTARY SEAL]
 
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
+
+
+ADA COUNTY RECORDER - BOISE, IDAHO
+RECORDING RECEIPT AND CERTIFICATION
+Recorded for Sandbox Title & Escrow Inc.
+Recording date 09/02/2026
+Instrument No. Document Time Pages Fee
+2026-0099482A Warranty Deed 11:30 AM 1 $15.00
+2026-0099483A Deed of Trust (FHA) 11:31 AM 1 $25.00
+Grantor (Deed) Jane Q. Placeholder
+Grantee (Deed) Jordan A. Sandbox
+Trustor (DOT) Jordan A. Sandbox
+Beneficiary (DOT) Sandbox Lending Corp. (HTM demo)
+Assessor Parcel No. R993821-0014
+Situs 123 Sandbox Lane, Meridian, ID 83642
+Lot 14, Block 3 of the Payette River Bridge Subdivision Phase II, according to the official plat thereof, filed in Book 94 of Plats
+at Pages 43 through 45, records of Ada County, Idaho.
+| hereby certify that the foregoing instruments were filed for record and recorded in the official records of Ada County, Idaho, at
+the request of the party named above, on the date and at the times shown. This is a synthetic test record; no real recording
+has occurred.
+09/02/2026
+Deputy Recorder
+[RECORDER SEAL]
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492xX | PAGE 1/1 [|
 
 
 HIGH TECH MORTGAGE - Monthly Mortgage Statement
@@ -229,3 +905,22 @@ Make checks payable to High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, S
 interest applies after the 15th. Only P&l, property-tax impound and insurance impound are collected; HOA dues and any optional products are
 paid by the borrower directly.
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
+
+
+OCR STRESS-TEST SHEET (not alegal document)
+This page repeats key figures in degraded typography so the scanner pipeline can be benchmarked on de-skew, letter-spacing
+repair and faint print.
+LoanNo.MORT-2026-88492X
+FHA Case No. 411-9928340-703
+Loan Amount $450,000.00
+Interest Rate6.250%
+Cash to Close Required: $91,400.00
+Estimated Total Monthly Payment $3,368.23
+APN: R993821-0014 Recording No. 2026-0099483A
+TTT =~ Scanner alignment strip TILITTIITIIIIIETIETII
+Property:123 SandboxLane, Meridian ID83642
+Faint line at 7pt: Loan Amount $450,000.00 Interest Rate 6.250% Cash to Close $91,400.00 APN R993821-0014
+Faint line at 6pt: Loan Amount $450,000.00 Interest Rate 6.250% Cash to Close $91,400.00 APN R993821-0014
+Faint line at 5pt: Loan Amount $450,000.00 Interest Rate 6.250% Cash to Close $91,400.00 APN R993821-0014
+[fake stamp] RECEIVED SEP 02 2026 ADA COUNTY RECORDER [fake stamp]
+SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION: | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|

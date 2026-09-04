@@ -7,7 +7,7 @@ import { normalizeOcrText } from './normalize.js';
  * Every value is read from the paper; `provenance` records which page supplied it and
  * `missing` lists required fields the paper did not yield. Nothing is looked up in a database.
  */
-export type DocKind = 'closing_disclosure' | 'note' | 'deed_of_trust' | 'warranty_deed' | 'statement' | 'unknown';
+export type DocKind = 'closing_disclosure' | 'note' | 'deed_of_trust' | 'warranty_deed' | 'statement' | 'urla' | 'settlement_statement' | 'escrow_instructions' | 'fha_amendatory' | 'recorder_receipt' | 'ocr_test' | 'unknown';
 
 export interface ScanBuild {
   loan: CanonicalLoan;
@@ -18,6 +18,12 @@ export interface ScanBuild {
 
 export function classifyPage(text: string): DocKind {
   const t = text.toUpperCase();
+  if (/OCR STRESS-TEST/.test(t)) return 'ocr_test';
+  if (/RECORDING RECEIPT AND CERTIFICATION/.test(t)) return 'recorder_receipt';
+  if (/ESCROW HOLDING INSTRUCTIONS/.test(t)) return 'escrow_instructions';
+  if (/AMENDATORY CLAUSE/.test(t)) return 'fha_amendatory';
+  if (/UNIFORM RESIDENTIAL LOAN APPLICATION|BORROWER INFORMATION|LENDER LOAN INFORMATION/.test(t)) return 'urla';
+  if (/ALTA SETTLEMENT STATEMENT|SETTLEMENT STATEMENT/.test(t)) return 'settlement_statement';
   if (/CLOSING DISCLOSURE|CLOSI\s?NG DISCLOSU\s?RE/.test(t)) return 'closing_disclosure';
   if (/PROMISE TO PAY|MULTISTATE FIXED RATE NOTE|UNIFORM SECURED NOTE/.test(t)) return 'note';
   if (/DEED OF TRUST/.test(t) && /SECURITY INSTRUMENT|TRUSTEE/.test(t)) return 'deed_of_trust';

@@ -16,9 +16,9 @@ Process (both): online application → pre-screen → full application invitatio
 - [ ] **2-minute demo video** — record `npm run print` → paper stack → `npm run scan` → `npm run demo` (explorer links appear live)
 - [x] **Clear XRPL integration plan** — [standards-mapping.md](standards-mapping.md): why MPT + XLS-65/66 instead of NFTs or IOUs
 - [x] **3–12 month milestone roadmap** — 12-week plan in [grant-narrative.md](grant-narrative.md)
-- [ ] **Budget breakdown** tied to those milestones (legal wrapper, scanner hardware pilot, RLUSD vault on Testnet, security review)
+- [x] **Budget breakdown** — $200,000 over 12 months, M1–M7, in the [August 2026 proposal](grant-proposal-2026-08-24.pdf) §5–7
 - [x] **At least one experienced developer on the core team** — name them in the form
-- [ ] **Team bios + company details** — High Tech Mortgage, Inc., Sacramento CA + Manila; licenses (Rich Young CA DRE #01106294 / NMLS #291547); website hightechmortgage.com/tokenized-mortgages/
+- [x] **Team bios + company details** — [TEAM.md](../TEAM.md): Rich Young (Founder/President, DRE #01106294, NMLS #291547), Dr. Van Wilson (data science, MIT), Trish Wilson (PRC #0024025), Bill Thompson
 - [ ] **Traction** — pipeline of loans that could be boarded; title/escrow partner willing to run the scanner pilot; HK investor conversations
 - [ ] **Hong Kong connection** (HFIP preference) — HK PI-offering angle, Manila operations in HK time zone, any HK partner or advisor
 - [x] Eligibility basics: 18+, not OFAC-sanctioned, not Ripple employees; companies may apply
@@ -35,6 +35,6 @@ It runs today on Devnet: <https://github.com/vanfwilson/xrpl-mortgage-tokenizing
 ## Before submitting
 
 1. Record the 2-minute video (screen capture of the three commands + the Devnet explorer).
-2. Fill the budget table in grant-narrative.md.
+2. Reconcile the 12-week HFIP milestones in grant-narrative.md with the 12-month M1–M7 plan in the August proposal (the repo now completes most of M1–M2).
 3. Decide the HK anchor: partner, advisor, or PI-offering counsel.
 4. Register on the Brinc notification form now; apply to XRPL Grants (rolling) in parallel so the repo is under review while waiting for the next HFIP cohort.

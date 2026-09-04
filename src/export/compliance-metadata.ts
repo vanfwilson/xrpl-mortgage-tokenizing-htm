@@ -63,6 +63,7 @@ export function buildComplianceMetadata(loan: CanonicalLoan, bundleSha256: strin
       },
       counterparty_identity_mappings: {
         borrower_wallet: accounts.homeowner ?? '<HOMEOWNER_ACCOUNT>',
+        seller_wallet: accounts.seller ?? '<SELLER_ACCOUNT (off-ledger party; paid at closing by title)>',
         lender_lienholder_wallet: accounts.broker ?? '<LENDING_DESK_ACCOUNT>',
         servicer_wallet: accounts.servicer ?? '<SERVICER_ACCOUNT>',
         note_token_issuer_wallet: accounts.issuer ?? '<ISSUER_ACCOUNT>',

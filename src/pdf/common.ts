@@ -55,5 +55,36 @@ export class Writer {
   row(cols: Array<[number, string, boolean?]>, size = 9) { this.y -= size + 4; for (const [x, s, b] of cols) this.page.drawText(s, { x: this.margin + x, y: this.y, size, font: b ? this.bold : this.font }); }
   rule() { this.y -= 6; this.page.drawLine({ start: { x: this.margin, y: this.y }, end: { x: this.margin + this.width, y: this.y }, thickness: 0.7 }); this.y -= 4; }
   gap(n = 8) { this.y -= n; }
-  sig(label: string) { this.y -= 28; this.page.drawLine({ start: { x: this.margin, y: this.y }, end: { x: this.margin + 240, y: this.y }, thickness: 0.8 }); this.page.drawText(label, { x: this.margin, y: this.y - 10, size: 8, font: this.font }); }
+  sig(label: string, signer?: string, date?: string) {
+    this.y -= 30;
+    if (signer) signature(this.page, signer, this.margin + 6, this.y + 2, 150, { date, font: this.font });
+    this.page.drawLine({ start: { x: this.margin, y: this.y }, end: { x: this.margin + 240, y: this.y }, thickness: 0.8 });
+    this.page.drawText(label, { x: this.margin, y: this.y - 10, size: 8, font: this.font });
+    this.y -= 14; // keep the next paragraph clear of the label
+  }
+}
+
+/**
+ * Fake wet signature in blue ink. Deterministic per name (so the same person always signs the same
+ * way), drawn as a few smooth bezier strokes with a baseline flourish. Clearly not a real signature,
+ * but it survives print → scan and gives the scanner a signature-shaped mark to detect.
+ */
+export function signature(page: PDFPage, name: string, x: number, y: number, width = 150, opts: { date?: string; font?: PDFFont } = {}) {
+  let seed = 0; for (const c of name) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2 ** 32; };
+  const ink = rgb(0.10, 0.22, 0.72);
+  const letters = Math.max(6, Math.min(14, name.replace(/[^A-Za-z]/g, '').length));
+  const step = width / letters;
+  let d = `M 0 ${6 + rnd() * 6}`;
+  let cx = 0;
+  for (let i = 0; i < letters; i++) {
+    const h = 8 + rnd() * 18 * (i === 0 || name[i] === name[i]?.toUpperCase() ? 1.4 : 1);
+    const c1x = cx + step * 0.3, c1y = h + rnd() * 6, c2x = cx + step * 0.7, c2y = -2 + rnd() * 5, ex = cx + step, ey = 4 + rnd() * 6;
+    d += ` C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+    cx = ex;
+  }
+  d += ` C ${(cx + 10).toFixed(1)} ${(14 + rnd() * 6).toFixed(1)} ${(cx - width * 0.6).toFixed(1)} ${(-6 + rnd() * 4).toFixed(1)} ${(cx - width * 0.2).toFixed(1)} 2`; // underline flourish
+  // pdf-lib's drawSvgPath uses a top-left origin for the path; shift so the strokes sit on the line at (x, y).
+  page.drawSvgPath(d, { x, y: y + 26, borderColor: ink, borderWidth: 1.4, borderLineCap: 1 });
+  if (opts.date && opts.font) page.drawText(opts.date, { x: x + width + 24, y, size: 9, font: opts.font, color: ink });
 }

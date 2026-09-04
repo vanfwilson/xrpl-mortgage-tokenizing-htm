@@ -18,8 +18,8 @@ export async function fhaAmendatoryClause(loan: CanonicalLoan, d: Record<string,
   w.p('The purchaser shall have the privilege and option of proceeding with consummation of the contract without regard to the amount of the appraised valuation. The appraised valuation is arrived at to determine the maximum mortgage the Department of Housing and Urban Development will insure. HUD does not warrant the value nor the condition of the property. The purchaser should satisfy himself/herself that the price and condition of the property are acceptable.');
   w.gap(); w.h('REAL ESTATE CERTIFICATION', 12);
   w.p('We, the borrower, seller, and the selling real estate agent or broker involved in the sales transaction certify that the terms and conditions of the sales contract are true to the best of our knowledge and belief, and that any other agreement entered into by any of these parties in connection with this transaction is part of, or attached to, the sales agreement.');
-  w.sig(`Buyer: ${d.parties.buyer}    Date ${mdy(d.signed)}`); w.sig(`Seller: ${d.parties.seller}    Date ${mdy(d.signed)}`);
-  w.sig(`Buyer's Agent: ${d.parties.buyer_agent}`); w.sig(`Seller's Agent: ${d.parties.seller_agent}`);
+  w.sig(`Buyer: ${d.parties.buyer}`, d.parties.buyer, mdy(d.signed)); w.sig(`Seller: ${d.parties.seller}`, d.parties.seller, mdy(d.signed));
+  w.sig(`Buyer's Agent: ${d.parties.buyer_agent}`, 'R. Agent', mdy(d.signed)); w.sig(`Seller's Agent: ${d.parties.seller_agent}`, 'S. Agent', mdy(d.signed));
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
 
@@ -37,9 +37,9 @@ export async function deedOfTrust(loan: CanonicalLoan, d: Record<string, any>, o
   w.h('TRANSFER OF RIGHTS IN THE PROPERTY', 10);
   w.p(d.transfer_of_rights_in_the_property);
   w.p('UNIFORM COVENANTS. 1. Payment of Principal, Interest and Late Charge. 2. Monthly Payment of Taxes, Insurance and Other Charges. 3. Application of Payments. 4. Fire, Flood and Other Hazard Insurance. 5. Occupancy, Preservation, Maintenance and Protection of the Property. 6. Condemnation. 7. Charges to Borrower and Protection of Lender\'s Rights in the Property. 8. Fees. 9. Grounds for Acceleration of Debt. (Standard FHA Idaho Deed of Trust covenants incorporated by reference for this synthetic test instrument.)');
-  w.sig(`Borrower: ${d.grantor_borrower}`); w.gap(10);
+  w.sig(`Borrower: ${d.grantor_borrower}`, d.grantor_borrower, mdy(d.note_date)); w.gap(10);
   w.p(`STATE OF IDAHO, County of ${loan.property.address.county}. On ${mdy(d.note_date)} before me, a Notary Public, personally appeared ${d.grantor_borrower}, known or identified to me to be the person whose name is subscribed to the within instrument, and acknowledged that they executed the same.`, 8.5);
-  w.sig('Notary Public for Idaho (demo)');
+  w.sig('Notary Public for Idaho (demo)', 'N. Public'); w.p('Commission expires 12/31/2029   [NOTARY SEAL]', 8);
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
 
@@ -52,9 +52,9 @@ export async function warrantyDeed(loan: CanonicalLoan, d: Record<string, any>, 
   w.p(d.legal_description); w.kv('Commonly known as', d.property_address); w.kv('Assessor Parcel No. (APN)', d.apn); w.kv('Consideration', usd(d.consideration));
   w.p("TO HAVE AND TO HOLD the said premises, with their appurtenances unto the said Grantee, and Grantee's heirs and assigns forever. And the said Grantor does hereby covenant to and with the said Grantee, that Grantor is the owner in fee simple of said premises; that they are free from all encumbrances except current year taxes, levies and assessments, and except U.S. Patent reservations, restrictions, easements of record and easements visible upon the premises, and that Grantor will warrant and defend the same from all lawful claims whatsoever.");
   w.p(`SUBJECT TO a first-position Deed of Trust of even date securing ${usd(loan.loan.principal_amount)} in favor of ${loan.lender.name}, recorded concurrently as Instrument No. ${loan.security_instrument.recording_number}.`);
-  w.sig(`Grantor: ${d.grantor}    Dated ${mdy(d.recording.recorded_date)}`); w.gap(10);
+  w.sig(`Grantor: ${d.grantor}`, d.grantor, mdy(d.recording.recorded_date)); w.gap(10);
   w.p(`STATE OF IDAHO, County of ${loan.property.address.county}. This record was acknowledged before me on ${mdy(d.recording.recorded_date)} by ${d.grantor}.`, 8.5);
-  w.sig('Notary Public for Idaho (demo)');
+  w.sig('Notary Public for Idaho (demo)', 'N. Public'); w.p('Commission expires 12/31/2029   [NOTARY SEAL]', 8);
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
 
@@ -120,7 +120,59 @@ export async function promissoryNote3200(loan: CanonicalLoan, n: Record<string, 
   w.h('10. UNIFORM SECURED NOTE', 10);
   w.p(`This Note is a uniform instrument with limited variations in some jurisdictions. In addition to the protections given to the Note Holder under this Note, a ${n.section_10_uniform_secured_note.security_instrument} (${n.section_10_uniform_secured_note.security_instrument_form}), dated the same date as this Note, protects the Note Holder from possible losses which might result if I do not keep the promises which I make in this Note.`);
   w.p('WITNESS THE HAND(S) AND SEAL(S) OF THE UNDERSIGNED.', 9);
-  w.sig(`${n.signatures.borrower}  -Borrower   (Seal)   ${mdy(n.signatures.signed)}`);
+  w.sig(`${n.signatures.borrower}  -Borrower   (Seal)`, n.signatures.borrower, mdy(n.signatures.signed));
   w.p('MULTISTATE FIXED RATE NOTE - Single Family - Fannie Mae/Freddie Mac UNIFORM INSTRUMENT   Form 3200 1/01 (synthetic rendering)', 7);
+  stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
+}
+
+/** Escrow holding instructions from the title/escrow company (closing-table document). */
+export async function escrowInstructions(loan: CanonicalLoan, ss: Record<string, any>, out: string, anchor: string) {
+  const { doc, w, font } = await start();
+  w.h(`${ss.settlement_agent.toUpperCase()}  -  ESCROW HOLDING INSTRUCTIONS`, 12);
+  w.kv('Escrow File No.', ss.file_number); w.kv('Property', `${loan.property.address.street}, ${loan.property.address.city}, ${loan.property.address.state} ${loan.property.address.zip}`);
+  w.kv('Buyer / Borrower', loan.borrower.name); w.kv('Seller', loan.seller.name); w.kv('Lender', loan.lender.name); w.kv('Settlement Date', mdy(ss.settlement_date)); w.rule();
+  w.p(`The undersigned Buyer and Seller hand you the documents and funds described herein, which you are authorised to deliver and disburse when you can issue a policy of title insurance showing title vested in Buyer subject only to the exceptions approved by Buyer and the first-position Deed of Trust in favour of Lender securing ${usd(loan.loan.principal_amount)}.`);
+  w.p(`Purchase price ${usd(loan.property.contract_sales_price)}. Earnest money deposit ${usd(ss.summary.earnest_money_deposit)} is held in trust. Seller credit toward closing costs ${usd(ss.summary.seller_credit)}. Balance of cash to close ${usd(ss.summary.cash_from_borrower)} to be deposited by Buyer in good funds no later than one business day before recording.`);
+  w.p('Prorations: county taxes and HOA dues prorated as of the settlement date. Hazard insurance: Buyer to deliver evidence of a paid one-year policy naming Lender as mortgagee. Recording: Warranty Deed first, Deed of Trust immediately thereafter, same day, Ada County Recorder.');
+  w.p('These instructions may be executed in counterparts. Escrow holder is not responsible for the sufficiency or correctness of documents prepared by others. All funds held are non-interest bearing.');
+  w.sig(`Buyer: ${loan.borrower.name}`, loan.borrower.name, mdy(ss.settlement_date)); w.sig(`Seller: ${loan.seller.name}`, loan.seller.name, mdy(ss.settlement_date));
+  w.sig(`Escrow Officer, ${ss.settlement_agent}`, 'A. Closer');
+  stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
+}
+
+/** County recorder's certification / receipt page (the registry record). */
+export async function recorderCertification(loan: CanonicalLoan, out: string, anchor: string) {
+  const { doc, w, font } = await start();
+  w.h('ADA COUNTY RECORDER  -  BOISE, IDAHO', 13); w.h('RECORDING RECEIPT AND CERTIFICATION', 11);
+  w.kv('Recorded for', loan.closing.settlement_agent); w.kv('Recording date', mdy(loan.vesting_deed.recording_date)); w.rule();
+  w.row([[0, 'Instrument No.', true], [120, 'Document', true], [330, 'Time', true], [400, 'Pages', true], [450, 'Fee', true]]);
+  w.row([[0, loan.vesting_deed.recording_number], [120, 'Warranty Deed'], [330, '11:30 AM'], [400, '1'], [450, usd(15)]]);
+  w.row([[0, loan.security_instrument.recording_number], [120, 'Deed of Trust (FHA)'], [330, '11:31 AM'], [400, '1'], [450, usd(25)]]);
+  w.rule();
+  w.kv('Grantor (Deed)', loan.seller.name); w.kv('Grantee (Deed)', loan.borrower.name); w.kv('Trustor (DOT)', loan.borrower.name); w.kv('Beneficiary (DOT)', loan.lender.name);
+  w.kv('Assessor Parcel No.', loan.property.apn); w.kv('Situs', `${loan.property.address.street}, ${loan.property.address.city}, ${loan.property.address.state} ${loan.property.address.zip}`);
+  w.p(loan.property.legal_description, 9); w.gap();
+  w.p('I hereby certify that the foregoing instruments were filed for record and recorded in the official records of Ada County, Idaho, at the request of the party named above, on the date and at the times shown. This is a synthetic test record; no real recording has occurred.', 9);
+  w.sig('Deputy Recorder', 'D. Recorder', mdy(loan.vesting_deed.recording_date)); w.p('[RECORDER SEAL]', 8);
+  stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
+}
+
+/** Deliberately degraded page to benchmark the OCR pipeline (letter-spacing, alignment strips, faint text). */
+export async function noisyOcrTestPage(loan: CanonicalLoan, out: string, anchor: string) {
+  const { doc, w, font } = await start();
+  w.h('OCR STRESS-TEST SHEET  (not a legal document)', 12);
+  w.p('This page repeats key figures in degraded typography so the scanner pipeline can be benchmarked on de-skew, letter-spacing repair and faint print.', 9);
+  w.rule();
+  const sp = (s: string) => s.split('').join(' ');
+  w.p(`Loan No. ${sp(loan.loan.loan_id)}`, 11); w.p(`FHA Case No. ${sp(loan.loan.fha_case_number ?? '')}`, 11);
+  w.p(`Loan Amount $ ${sp(loan.loan.principal_amount.toLocaleString('en-US', { minimumFractionDigits: 2 }))}`, 11);
+  w.p(`Interest Rate ${sp((loan.loan.annual_interest_rate * 100).toFixed(3))} %`, 11);
+  w.p(`Cash to Close Required: $ ${sp(loan.closing.cash_to_close.toLocaleString('en-US', { minimumFractionDigits: 2 }))}`, 11);
+  w.p(`Estimated Total Monthly Payment $ ${sp(loan.servicing.monthly_total_sweep.toLocaleString('en-US', { minimumFractionDigits: 2 }))}`, 11);
+  w.p(`APN: ${loan.property.apn}     Recording No. ${loan.security_instrument.recording_number}`, 11);
+  w.p('|||||||||||||||||||||||||||||   scanner alignment strip   |||||||||||||||||||||||||||||', 10);
+  w.gap(6); w.p(`Property: ${sp('123 Sandbox')} Lane , Meridian ID ${sp('83642')}`, 11);
+  for (const sz of [7, 6, 5]) w.p(`Faint line at ${sz}pt: Loan Amount $450,000.00  Interest Rate 6.250%  Cash to Close $91,400.00  APN R993821-0014`, sz);
+  w.gap(10); w.p('[fake stamp]  RECEIVED  SEP 02 2026  ADA COUNTY RECORDER  [fake stamp]', 10);
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
