@@ -3,38 +3,36 @@
 ```mermaid
 sequenceDiagram
   autonumber
-  participant Docs as Closing package (paper/PDF)
-  participant Ingest as src/ingest
+  participant Docs as 4 closing documents (paper/PDF)
+  participant Ingest as src/ingest + src/scan
+  participant DB as Postgres htm_mortgages
   participant KYC as KYC issuer
   participant Desk as HTM Lending Desk (broker)
   participant Cap as HTM Capital Markets (issuer)
   participant Inv as Investors A/B
-  participant WH as HTM Warehouse (borrower)
+  participant SV as HTM Loan Servicing (borrower)
+  participant HO as Homeowner
   participant L as XRPL Devnet
 
-  Docs->>Ingest: OCR text
-  Ingest->>Ingest: normalise, extract, build canonical JSON, validate tie-outs, sha256 bundle
-  KYC->>L: CredentialCreate (A, B)
-  Inv->>L: CredentialAccept
-  Desk->>L: PermissionedDomainSet(accepts KYC) -> DomainID
-  Cap->>L: MPTokenIssuanceCreate(HTMN1, 45,000,000 units, XLS-89 meta w/ docs hash)
-  Inv->>L: MPTokenAuthorize (opt in)
-  Cap->>L: MPTokenAuthorize(Holder) x2, Payment MPT 60/40
-  Desk->>L: VaultCreate(XRP, private, DomainID) -> VaultID, ShareMPTID
-  Inv->>L: VaultDeposit
-  Desk->>L: LoanBrokerSet(VaultID, cover 10%) -> LoanBrokerID
-  Desk->>L: LoanBrokerCoverDeposit
-  Desk->>WH: LoanSet signed by Desk
-  WH->>L: countersign + submit -> LoanID
-  Note over L: buyer EscrowCreate cash-to-close -> title EscrowFinish
-  WH->>L: LoanPay(PeriodicPayment + fee, PITI memo)
-  Desk->>L: LoanManage impair / unimpair (/ default, LoanDelete)
-  L-->>Ingest: report: out/latest.md
+  Docs->>Ingest: scan -> OCR -> normalise -> extract
+  Ingest->>DB: canonical loan + document hashes (tie-outs must pass)
+  KYC->>L: CredentialCreate (A, B); Inv->>L: CredentialAccept
+  Desk->>L: PermissionedDomainSet -> DomainID
+  Cap->>L: MPTokenIssuanceCreate(HTMN1, XLS-89 meta w/ docs sha256); MPTokenAuthorize; Payment 60/40
+  Desk->>L: VaultCreate(private, DomainID); Inv->>L: VaultDeposit
+  Desk->>L: LoanBrokerSet + CoverDeposit; Desk->>SV: LoanSet (two-party) -> LoanID
+  loop every month (60 s on Devnet)
+    HO->>SV: Payment sweep $3,368.23
+    SV->>L: LoanPay (P&I leg) ; Payment -> Tax Impound ; Payment -> Insurance Impound
+  end
+  L->>L: EscrowCreate impound -> County Treasurer (FinishAfter Dec 20 / Jun 20)
+  L->>L: EscrowCreate impound -> Carrier (FinishAfter renewal)
+  L-->>DB: db:record mirrors objects + tx hashes
 ```
 
 ## Accounts and reserves
 
-Eight Devnet accounts, one per role, funded from the faucet (100 XRP each). Objects and their owners:
+Eleven Devnet accounts, one per role, funded from the faucet (100 XRP each). Objects and their owners:
 
 | Object | Owner | Reserve |
 |---|---|---|
@@ -45,11 +43,11 @@ Eight Devnet accounts, one per role, funded from the faucet (100 XRP each). Obje
 | Vault (+ pseudo-account, share MPT issuance) | broker | 1 |
 | LoanBroker (+ pseudo-account) | broker | 1 |
 | Loan | borrower | 1 |
-| Escrow | buyer (until finished) | 1 |
+| Escrow ×2 (impound disbursements) | tax / insurance impound accounts | 1 each |
 
 ## Failure handling
 
-Critical steps (credentials, MPT, vault, broker, LoanSet) fail the run. Servicing and escrow steps
+Critical steps (credentials, MPT, vault, broker, LoanSet) fail the run. Servicing sweeps and impound escrows
 are "soft": a failure is recorded in the report's Notes and the run continues, so a reviewer always
 gets a complete report. Credentials are idempotent on reused wallets.
 
@@ -58,8 +56,8 @@ gets a complete report. Credentials are idempotent on reused wallets.
 | Concern | Devnet demo | Production |
 |---|---|---|
 | Vault asset | XRP, 1 XRP = $10,000 | RLUSD or bank stablecoin |
-| Loan schedule | 12 × 60 s | 360 × 30 days |
+| Loan schedule | 360 × 60 s | 360 × 30 days |
 | Keys | single faucet key per role | multisig + HSM, `lsfDisableMaster` |
 | Holder gating | explicit `MPTokenAuthorize(Holder)` | `DomainID` on the issuance + credential expiry |
-| Escrow release | timer | recording confirmation via authorised signer |
+| Impound release | time-lock to statutory date | same, plus payee-confirmed `EscrowFinish` and escrow analysis |
 | Document source | JSON fixtures | eVault eNote hash + custodian credential |

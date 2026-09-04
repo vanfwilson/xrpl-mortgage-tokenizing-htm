@@ -15,20 +15,24 @@ export const config = {
   usdPerXrp: 10_000,
   /** Compressed demo schedule so a full payment cycle happens inside one run. */
   demoLoan: {
-    paymentTotal: 12,
-    paymentIntervalSec: 60,
-    gracePeriodSec: 60,
+    paymentTotal: 360,       // mirrors the Note: 360 monthly payments
+    paymentIntervalSec: 60,  // Devnet compression: one "month" = 60 s
+    gracePeriodSec: 60,      // Note s.6 grace is 15 days; compressed to 60 s
+    sweepsToRun: 2,          // how many monthly sweeps the demo performs
   },
 } as const;
 
 export const WALLET_ROLES = [
-  'issuer',      // HTM Capital Markets: MPT issuer (participation certificates)
-  'broker',      // HTM Lending Desk: permissioned domain + vault + LoanBroker owner (XLS-66 requires one owner)
-  'originator',  // HTM Warehouse: on-chain borrower against the vault
-  'investorA',   // permissioned participation holder + vault depositor
-  'investorB',   // permissioned participation holder + vault depositor
-  'kyc',         // credential issuer (KYC / accredited-investor attestations)
-  'title',       // title & escrow company
-  'buyer',       // homebuyer proxy (cash-to-close escrow only)
+  'issuer',           // HTM Capital Markets: MPT issuer (participation certificates)
+  'broker',           // HTM Lending Desk: permissioned domain + vault + LoanBroker owner (XLS-66 requires one owner)
+  'servicer',         // HTM Loan Servicing: on-chain borrower against the vault; receives the homeowner sweep and splits it
+  'homeowner',        // the borrower's wallet: source of the monthly sweep
+  'taxImpound',       // Tax Impound sub-account (servicer-controlled)
+  'insuranceImpound', // Insurance Impound sub-account (servicer-controlled)
+  'countyTreasurer',  // Ada County Treasurer destination node
+  'insuranceCarrier', // hazard carrier / HUD MIP destination node
+  'investorA',        // permissioned participation holder + vault depositor
+  'investorB',        // permissioned participation holder + vault depositor
+  'kyc',              // credential issuer (KYC / accredited-investor attestations)
 ] as const;
 export type Role = (typeof WALLET_ROLES)[number];

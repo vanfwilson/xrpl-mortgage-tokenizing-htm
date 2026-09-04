@@ -14,7 +14,7 @@ import { record, type Ctx } from './context.js';
 /**
  * Credit side (XLS-66). HTM Lending Desk registers a LoanBroker on the vault,
  * posts first-loss cover, and originates a fixed-term amortizing loan to HTM
- * Warehouse (the on-chain borrower). The homeowner is NOT the on-chain
+ * Loan Servicing (the on-chain borrower). The homeowner is NOT the on-chain
  * borrower: their off-chain PITI stream is what the warehouse borrower remits
  * against this loan. Terms mirror the note (6.25%) on a compressed schedule.
  */
@@ -46,7 +46,7 @@ export async function setupLendingAndOriginate(ctx: Ctx): Promise<void> {
   const loanSet: LoanSet = {
     TransactionType: 'LoanSet',
     Account: wallets.broker.classicAddress,
-    Counterparty: wallets.originator.classicAddress,
+    Counterparty: wallets.servicer.classicAddress, // HTM Loan Servicing is the on-chain borrower
     LoanBrokerID: ctx.ids.loanBrokerId,
     PrincipalRequested: principalDrops,
     InterestRate: toTenthBps(loan.loan.annual_interest_rate), // 6.25% -> 6250
@@ -56,7 +56,7 @@ export async function setupLendingAndOriginate(ctx: Ctx): Promise<void> {
     GracePeriod: config.demoLoan.gracePeriodSec,
     LoanOriginationFee: usdToDrops(4_500),
     LoanServiceFee: usdToDrops(25),
-    LatePaymentFee: usdToDrops(138.54), // 5% of P&I, the FHA late-charge cap
+    LatePaymentFee: usdToDrops(loan.note_terms.late_charge_amount), // Note s.6: 5% of overdue P&I
     ClosePaymentFee: '0',
     Flags: LoanSetFlags.tfLoanOverpayment,
     Data: hex(JSON.stringify({ loan_id: loan.loan.loan_id, docs: ctx.bundle.bundle_sha256.slice(0, 32) })),
@@ -64,7 +64,7 @@ export async function setupLendingAndOriginate(ctx: Ctx): Promise<void> {
   // Two-party signing: broker signs as Account, warehouse borrower countersigns.
   const prepared = await client.autofill(loanSet, 1);
   const brokerSigned = wallets.broker.sign(prepared);
-  const countersigned = signLoanSetByCounterparty(wallets.originator, brokerSigned.tx_blob);
+  const countersigned = signLoanSetByCounterparty(wallets.servicer, brokerSigned.tx_blob);
   const r3 = record(
     ctx,
     await submitBlob(client, countersigned.tx_blob, 'lending', 'LoanSet', wallets.broker.classicAddress),

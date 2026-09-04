@@ -8,7 +8,6 @@ import { issueNoteToken } from './steps/02-mpt.js';
 import { createFundingVault } from './steps/03-vault.js';
 import { setupLendingAndOriginate } from './steps/04-lending.js';
 import { serviceLoan } from './steps/05-servicing.js';
-import { closingEscrow } from './steps/06-escrow.js';
 import { writeReport } from './steps/07-report.js';
 
 const log = (m: string) => console.log(m);
@@ -21,14 +20,14 @@ async function main() {
   const issues = validateCanonical(loan);
   if (issues.length) throw new Error(`canonical loan failed validation: ${JSON.stringify(issues)}`);
   const bundle = hashDocumentBundle(config.documentsDir);
-  log(`    ${loan.loan.loan_id}  $${loan.loan.principal_amount.toLocaleString()} @ ${loan.loan.annual_interest_rate * 100}% / ${loan.loan.term_months} mo`);
+  log(`    ${loan.loan.loan_id}  $${loan.loan.principal_amount.toLocaleString()} @ ${loan.loan.annual_interest_rate * 100}% / ${loan.loan.term_months} mo  sweep $${loan.servicing.monthly_total_sweep} = P&I ${loan.servicing.principal_and_interest} + tax ${loan.servicing.property_tax_impound} + insurance ${loan.servicing.insurance_impound}`);
   log(`    ${bundle.files.length} documents, bundle sha256 ${bundle.bundle_sha256}`);
 
   head(1, `Connect ${config.wss} and fund role wallets`);
   const client = await connect();
   const wallets = await loadOrFundWallets(client, log);
   loan.xrpl.issuer_address = wallets.issuer.classicAddress;
-  loan.xrpl.servicer_address = wallets.originator.classicAddress;
+  loan.xrpl.servicer_address = wallets.servicer.classicAddress;
 
   const ctx: Ctx = { client, wallets, loan, bundle, txs: [], ids: {}, notes: [], fullLifecycle, log };
   try {
@@ -40,9 +39,7 @@ async function main() {
     await createFundingVault(ctx);
     head(5, 'LoanBroker + first-loss cover + two-party LoanSet (XLS-66)');
     await setupLendingAndOriginate(ctx);
-    head(6, 'Cash-to-close escrow to title (native escrow)');
-    await closingEscrow(ctx);
-    head(7, `Servicing: LoanPay with PITI memo, impair/unimpair${fullLifecycle ? ', default, delete' : ''}`);
+    head(6, `Servicing: ${config.demoLoan.sweepsToRun} monthly sweeps split 3 ways (P&I -> vault loan, tax impound, insurance impound), impound escrows to payees, impair/unimpair`);
     await serviceLoan(ctx);
   } finally {
     const p = writeReport(ctx);

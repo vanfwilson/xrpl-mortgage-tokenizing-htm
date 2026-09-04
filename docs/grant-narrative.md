@@ -6,10 +6,11 @@ Working answers for the HFIP application, kept next to the code so the claims an
 
 High Tech Mortgage, Inc. (HTM) is a licensed US mortgage lender with an operations office in Manila.
 We are building MortgageOS™, a digital-twin platform for the mortgage lifecycle, and this repository
-is its XRPL settlement layer prototype. It takes a real closing package format (Fannie Mae 1003, TRID
-Closing Disclosure, ALTA settlement statement, FHA clause, recorded Deed of Trust), normalises it into
-a canonical loan record that must tie out to the cent, and then exercises every XRPL primitive needed
-to fund, tokenize and service that loan: permissioned MPT participations (XLS-33/89), credential-gated
+is its XRPL settlement layer prototype. It scans the four documents a servicer actually needs (TRID Closing Disclosure, Form 3200 Note,
+Form 3013 Deed of Trust, recorded Warranty Deed), normalises them into a canonical loan record that must
+tie out to the cent, stores it in Postgres, and then exercises every XRPL primitive needed to fund,
+tokenize and service that loan with the three disbursements a standard servicer automates (P&I, property
+tax, hazard insurance): permissioned MPT participations (XLS-33/89), credential-gated
 domains (XLS-70/80), a private Single Asset Vault (XLS-65), the Lending Protocol with first-loss
 cover and two-party origination (XLS-66), and native escrow for closing funds. It runs on Devnet today.
 
@@ -44,7 +45,7 @@ The MPT participation structure maps naturally onto a professional-investor offe
 - No legal wrapper. The participation agreement, SPV or trust that gives token holders a claim on the
   note does not exist yet.
 - No real documents. Everything is synthetic; production ingest would hash an eVault eNote, not a scan.
-- No independent oracle for the servicing stream. Today the servicer's LoanPay *is* the report.
+- No independent oracle for the servicing stream. The homeowner sweep is a real on-ledger payment, but the split is submitted by the servicer alone.
 - XLS-65/66 are on Devnet and in Mainnet validator voting; our Mainnet timeline is gated on activation.
 
 ## 12-week milestone plan
@@ -52,7 +53,7 @@ The MPT participation structure maps naturally onto a professional-investor offe
 | Weeks | Milestone | Evidence |
 |---|---|---|
 | 1–2 | Legal structure memo (US participation + HK PI offering), data-privacy design for memos and metadata | memo in `docs/`, counsel engaged |
-| 3–4 | Replace synthetic ingest with eVault/eNote hash flow on a test eNote; MISMO 3.4 mapping of the canonical schema | `src/ingest/mismo.ts`, fixtures |
+| 3–4 | Real scanner hardware in the loop (title-company paper stack → OCR → Postgres) with dual-engine read; eVault/eNote hash flow on a test eNote | scan reports, fixtures |
 | 5–6 | Servicing oracle: trustee co-signature on `LoanPay` (multisig `SignerList`), investor report generator from ledger history | `src/oracle/`, sample report |
 | 7–8 | Vault in RLUSD on Testnet/Mainnet-candidate; issuer/broker accounts on multisig + HSM; `DomainID` on the MPT issuance | Testnet run log |
 | 9–10 | Pilot design with one HK professional investor and one US title/escrow partner; dashboard in MortgageOS (admin.hightechmortgage) reading ledger state | LOIs, dashboard screenshots |

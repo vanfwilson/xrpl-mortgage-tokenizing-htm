@@ -48,21 +48,24 @@ ledger entry is the vault's share token (itself an MPT). Depositors `VaultDeposi
 `CoverRateLiquidation: 5000` (50 % of the minimum per default), `DebtMaximum: "0"`.
 `LoanBrokerCoverDeposit`: first-loss capital in the vault asset.
 
-`LoanSet` is **two-party**: the broker signs as `Account` with `Counterparty` = HTM Warehouse, then
+`LoanSet` is **two-party**: the broker signs as `Account` with `Counterparty` = HTM Loan Servicing, then
 the counterparty countersigns with `signLoanSetByCounterparty` (xrpl.js ≥ 5.1). Fields:
 `PrincipalRequested` in drops, `InterestRate: 6250` (6.25 % in 1/10 bp), `LateInterestRate: 5000`,
-`PaymentTotal: 12`, `PaymentInterval: 60`, `GracePeriod: 60`, fees in drops, `Flags: tfLoanOverpayment`.
+`PaymentTotal: 360`, `PaymentInterval: 60` (Devnet compression of one month), `GracePeriod: 60`, fees in drops, `Flags: tfLoanOverpayment`.
 `LoanID` is the `CreatedNode` of type `Loan`; `PeriodicPayment` and `NextPaymentDueDate` come from the entry.
 
-`LoanPay`: `Amount` = `PeriodicPayment + LoanServiceFee`, memo type `htm/servicing` with the PITI split.
+`LoanPay`: `Amount` = `PeriodicPayment + LoanServiceFee` (the ledger's own amortisation of the 45 XRP facility);
+memo type `htm/pi` carries the USD P&I leg of the homeowner sweep. The other two legs are plain `Payment`s to the
+Tax Impound and Insurance Impound sub-accounts (memo types `htm/tax-impound`, `htm/insurance-impound`).
 `LoanManage`: `tfLoanImpair` / `tfLoanUnimpair` (early-warning), `tfLoanDefault` after grace
 (consumes first-loss cover), then `LoanDelete`.
 
-## Native escrow (amendment `TokenEscrow` also enabled for MPT escrow)
+## Native escrow: impound disbursement
 
-`EscrowCreate` from buyer to title for cash to close with `FinishAfter`; `EscrowFinish` by title.
-In production the release condition is "deed recorded", which is a crypto-condition or an
-authorised-signer flow, not a timer.
+Each impound sub-account locks its accumulated balance to the payee with `EscrowCreate` whose `FinishAfter`
+is the statutory date (Ada County property tax Dec 20 / Jun 20; carrier renewal Sep 1). Anyone can submit
+`EscrowFinish` after that time, so disbursement needs no daemon and cannot happen early. Scheduling and
+sufficiency checks are in `src/servicing/impound-scheduler.ts` (Python twin in `scripts/`).
 
 ## Not used, and why
 

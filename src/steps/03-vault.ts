@@ -32,7 +32,7 @@ export async function createFundingVault(ctx: Ctx): Promise<void> {
       TransactionType: 'VaultDeposit',
       Account: wallets[role].classicAddress,
       VaultID: ctx.ids.vaultId,
-      Amount: xrpToDrops(30), // 30 XRP each == $300,000 demo scale
+      Amount: xrpToDrops(30), // 30 XRP each == $300,000 demo scale; vault must cover the 45 XRP loan
     };
     record(ctx, await submit(client, wallets[role], dep, 'vault'));
   }

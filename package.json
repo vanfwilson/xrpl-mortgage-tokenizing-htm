@@ -5,16 +5,25 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "demo": "tsx src/demo.ts",
     "demo:full": "tsx src/demo.ts --full-lifecycle",
     "ingest": "tsx src/cli/ingest.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --exclude tests/devnet/**",
-    "test:devnet": "DEVNET=1 vitest run tests/devnet --testTimeout=300000"
+    "test:devnet": "DEVNET=1 vitest run tests/devnet --testTimeout=300000",
+    "export": "tsx src/cli/export.ts",
+    "print": "tsx src/cli/print.ts",
+    "scan": "tsx src/cli/scan.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:apply": "scripts/db-apply.sh",
+    "db:record": "tsx src/db/record-run.ts"
   },
   "dependencies": {
+    "pdf-lib": "^1.17.1",
     "xrpl": "5.1.0"
   },
   "devDependencies": {

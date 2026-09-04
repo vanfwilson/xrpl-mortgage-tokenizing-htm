@@ -1,0 +1,6 @@
+{
+  "note": "Payees for the two impound disbursements. Devnet wallets are created at run time; these are the real-world payee identities and schedules.",
+  "county_treasurer": { "name": "Ada County Treasurer", "jurisdiction": "Ada County, Idaho", "installments": [ { "due": "12-20", "description": "First half property tax" }, { "due": "06-20", "description": "Second half property tax" } ], "annual_tax": 3420.00 },
+  "hazard_insurance_carrier": { "name": "Sandbox Mutual Insurance Co. (demo)", "policy_number": "HO3-2026-771155", "annual_premium": 1500.00, "renewal": "09-01" },
+  "fha_mip": { "payee": "HUD / FHA (via servicer monthly remittance)", "annual": 2250.00, "note": "FHA MIP is remitted to HUD monthly by the servicer; in this demo it rides in the insurance impound bucket and is pushed to the carrier/HUD node on the same annual schedule for simplicity." }
+}

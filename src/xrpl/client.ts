@@ -41,6 +41,15 @@ export async function loadOrFundWallets(client: Client, log = console.log): Prom
     log(`  funded ${role.padEnd(11)} ${wallet.classicAddress}`);
   }
   fs.writeFileSync(config.walletsFile, JSON.stringify(seeds, null, 2));
+  // Reused Devnet wallets drain over repeated runs (vault deposits, escrows); top up below 60 XRP.
+  for (const role of WALLET_ROLES) {
+    let drops = '0';
+    try { drops = await client.getXrpBalance(wallets[role].classicAddress).then((x) => String(Math.round(Number(x) * 1_000_000))); } catch { /* unfunded */ }
+    if (Number(drops) < 60_000_000) {
+      await client.fundWallet(wallets[role]);
+      log(`  topped up ${role.padEnd(11)} ${wallets[role].classicAddress}`);
+    }
+  }
   return wallets;
 }
 

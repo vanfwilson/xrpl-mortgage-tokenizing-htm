@@ -1,0 +1,58 @@
+{
+  "document": "Closing Disclosure (CFPB H-25, 12 CFR 1026.38) - page 1 data blocks",
+  "form_reference": "CFPB Closing Disclosure model form H-25; blank: https://files.consumerfinance.gov/f/201311_cfpb_kbyo_closing-disclosure_blank.pdf",
+  "synthetic": true,
+  "closing_information": {
+    "date_issued": "2026-08-28",
+    "closing_date": "2026-09-01",
+    "disbursement_date": "2026-09-02",
+    "settlement_agent": "Sandbox Title & Escrow Inc.",
+    "file_number": "ESC-2026-99812",
+    "property": "123 Sandbox Lane, Meridian, ID 83642",
+    "sale_price": 560000.00,
+    "appraised_property_value": 565000.00
+  },
+  "transaction_information": {
+    "borrower": "Jordan A. Sandbox",
+    "borrower_mailing_address": "123 Sandbox Lane, Meridian, ID 83642",
+    "seller": "Jane Q. Placeholder",
+    "lender": "Sandbox Lending Corp. (HTM demo)",
+    "lender_nmls_id": "0000000"
+  },
+  "loan_information": { "loan_term_years": 30, "purpose": "Purchase", "product": "Fixed Rate", "loan_type": "FHA", "loan_id": "MORT-2026-88492X", "mic_number": "411-9928340-703" },
+  "loan_terms": {
+    "base_loan_amount": 442125.00,
+    "financed_ufmip": 7875.00,
+    "loan_amount": 450000.00,
+    "interest_rate": 0.0625,
+    "loan_term_months": 360,
+    "ltv": 0.8036,
+    "monthly_principal_and_interest": 2770.73,
+    "prepayment_penalty": false,
+    "balloon_payment": false,
+    "first_payment_date": "2026-11-01",
+    "maturity_date": "2056-10-01"
+  },
+  "projected_payments": {
+    "principal_and_interest": 2770.73,
+    "mortgage_insurance": 187.50,
+    "estimated_escrow": 410.00,
+    "estimated_total_monthly_payment": 3368.23
+  },
+  "estimated_taxes_insurance_assessments": {
+    "monthly_amount": 410.00,
+    "property_taxes": { "monthly": 285.00, "in_escrow": true },
+    "homeowners_insurance": { "monthly": 125.00, "in_escrow": true },
+    "other": null
+  },
+  "escrow_account_information": {
+    "has_escrow_account": true,
+    "escrowed_property_costs_year_1": 4920.00,
+    "escrowed_items": ["Property Taxes", "Homeowner's Insurance"],
+    "initial_escrow_payment_at_closing": 1230.50,
+    "monthly_escrow_payment": 410.00,
+    "note": "FHA monthly MIP (187.50) is disclosed under Mortgage Insurance and collected with escrow; servicer routes it with hazard insurance to the insurance impound."
+  },
+  "costs_at_closing": { "loan_costs": 4800.00, "other_costs": 3200.00, "lender_credits": 0.00, "closing_costs": 8000.00, "cash_to_close": 91400.00 },
+  "calculating_cash_to_close": { "sale_price": 560000.00, "closing_costs": 8000.00, "loan_amount": -450000.00, "deposit": -18600.00, "seller_credits": -8000.00, "cash_to_close": 91400.00 }
+}

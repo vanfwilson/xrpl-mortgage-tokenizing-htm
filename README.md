@@ -1,132 +1,132 @@
 # xrpl-mortgage-tokenizing-htm
 
-**A residential mortgage note on the XRP Ledger, end to end, on Devnet.**
-High Tech Mortgage, Inc. · reference implementation submitted with our application to the
-Brinc × XRPL **Hong Kong Financial Innovation Program** (tracks: Tokenization & Capital Markets, Credit & Lending).
+**A residential mortgage note on the XRP Ledger: paper in, servicing out. Devnet, end to end.**
+High Tech Mortgage, Inc. · reference implementation for our application to the Brinc × XRPL
+**Hong Kong Financial Innovation Program** (Tokenization & Capital Markets · Credit & Lending).
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions)
 
-> **Status: Devnet reference implementation.** Nothing here is a live financial product. HTM is not
-> issuing tokens, taking deposits, or servicing loans on-chain in production. Every document is
-> synthetic; every wallet is a faucet wallet. See [Compliance posture](#compliance-posture).
+> **Status: Devnet reference implementation.** Not a live financial product. HTM is not issuing
+> tokens, taking deposits, or servicing loans on-chain in production. Every document is synthetic;
+> every wallet is a faucet wallet. See [Compliance posture](#compliance-posture).
 
-## What it does
+## The whole loop
 
-One command takes a scanned closing package for a $450,000 FHA 30-year fixed loan and walks it
-through the whole XRPL RWA stack that is live on Devnet today:
+```
+ paper closing package ──scan──▶ OCR ──▶ canonical loan JSON ──▶ Postgres (system of record)
+        ▲                                        │
+        │ print                                  ▼
+ filled official forms ◀── DB ◀── XRPL Devnet: MPT note · vault · loan · monthly 3-way sweep
+```
 
-| # | Step | XRPL primitive | Standard |
-|---|------|----------------|----------|
-| 0 | OCR-normalise the 1003, Closing Disclosure, settlement statement, FHA clause, Deed of Trust and recorded Warranty Deed into one **canonical loan JSON**; hash the bundle | off-ledger | [canonical schema](src/ingest/canonical.ts) |
-| 1 | Attest investors (KYC / accredited) and gather the attestations into a **permissioned domain** | `CredentialCreate/Accept`, `PermissionedDomainSet` | XLS-70, XLS-80 |
-| 2 | Issue the note as **one permissioned Multi-Purpose Token**: units are USD cents of unpaid principal, metadata binds it to the document hash | `MPTokenIssuanceCreate`, `MPTokenAuthorize`, `Payment` | XLS-33, XLS-89 |
-| 3 | Pool depositor capital in a **private Single Asset Vault** gated by the domain | `VaultCreate`, `VaultDeposit` | XLS-65 |
-| 4 | Register a **LoanBroker**, post first-loss cover, and originate a fixed-term amortising loan with **two-party signing** | `LoanBrokerSet`, `LoanBrokerCoverDeposit`, `LoanSet` | XLS-66 |
-| 5 | Lock the buyer's **cash to close** in a time-locked escrow to the title company and release it | `EscrowCreate/Finish` | native |
-| 6 | **Service** the loan: `LoanPay` carrying the PITI breakdown as a memo, impair / un-impair, and with `--full-lifecycle` default and delete | `LoanPay`, `LoanManage`, `LoanDelete` | XLS-66 |
+1. **Four documents, nothing else.** Closing Disclosure (financial truth), Form 3200 Note (payment
+   rules), Form 3013 Deed of Trust (lien, APN, legal), recorded Warranty Deed (registry). The URLA,
+   ALTA statement and FHA clause are deliberately out: nothing recurring lives on them.
+   See [docs/forms-and-sources.md](docs/forms-and-sources.md) for the official form URLs.
+2. **Three servicing buckets, nothing else.** Every monthly sweep from the homeowner splits into
+   P&I → lender vault, property tax → Tax Impound, hazard + FHA insurance → Insurance Impound,
+   audited to the cent before a single transaction is built. HOA, home warranty and credit life are
+   never impounded by a standard servicer, so the code never sees them.
+3. **Native primitives only.** MPT (XLS-33/89) for the note, credentials + permissioned domain
+   (XLS-70/80) for eligibility, Single Asset Vault (XLS-65) for funding, Lending Protocol (XLS-66)
+   for the amortising facility, time-locked escrows for impound disbursement. No Hooks, no custom contract.
 
-Every transaction hash and ledger-object ID lands in `out/latest.md` with Devnet explorer links.
-The most recent run we did is in [docs/devnet-run.md](docs/devnet-run.md).
+## Commands
 
-## The model (what each on-ledger object *is*)
+```bash
+npm ci
+npm run ingest   # 4 documents -> canonical loan JSON; refuses to build if the figures do not tie out
+npm test         # 29 offline tests
+npm run print    # fill/typeset the official forms -> out/print/closing-package-stack.pdf (6 pages)
+npm run scan -- out/print/closing-package-stack.pdf   # OCR the stack back, compare to the loan of record, emit LoanPay inputs
+npm run demo     # ~5 min on Devnet: credentials, MPT, vault, loan, 2 monthly sweeps split 3 ways, impound escrows
+npm run export   # canonical JSON, MISMO 3.4-aligned XML subset, XRPL payload templates
+npm run db:seed | scripts/db-apply.sh -     # seed CouncilForge Postgres (htm_mortgages) from the fixtures
+npm run db:record | scripts/db-apply.sh -   # mirror the latest Devnet run's objects + tx hashes into Postgres
+```
 
-Getting this mapping right was the main design work. A mortgage is not a DeFi loan, and pretending
-otherwise is how tokenization projects lose credibility with reviewers.
+Requires Node 20+, `tesseract` and `pdftoppm` (poppler) for `scan`, SSH access to the database host for `db:*`.
+Latest Devnet run with explorer links: [docs/devnet-run.md](docs/devnet-run.md).
+
+## What each on-ledger object *is*
 
 ```mermaid
 flowchart LR
-  subgraph offchain[Off-ledger: law and paper]
-    HO[Homeowner] -->|PITI monthly| SV[HTM Servicer]
-    NOTE[Promissory note + Deed of Trust\nrecorded, Ada County ID]
-    DOCS[Closing package\n1003 · CD · ALTA · FHA clause · deeds]
-  end
-  subgraph onchain[XRPL Devnet]
-    MPT[MPT HTMN1\n45,000,000 units = $450,000.00\nRequireAuth · CanLock · CanClawback · CanEscrow]
-    DOM[Permissioned domain\naccepts KYC credential]
-    VAULT[Single Asset Vault\nprivate, XRP stand-in for RLUSD]
-    LB[LoanBroker: HTM Lending Desk\nfirst-loss cover 10%]
-    LOAN[Loan: borrower = HTM Warehouse\n6.25%, amortising]
-    ESC[Escrow: cash to close → title]
-  end
-  DOCS -->|sha256 in XLS-89 metadata| MPT
-  DOM --> MPT
-  DOM --> VAULT
-  VAULT --> LB --> LOAN
-  SV -->|LoanPay + PITI memo| LOAN
-  INV[Attested investors] -->|hold participations| MPT
-  INV -->|deposit| VAULT
-  HO -.-> NOTE
+  HO[Homeowner wallet] -->|monthly sweep $3,368.23| SV[HTM Loan Servicing]
+  SV -->|LoanPay P&I $2,770.73| LOAN[XLS-66 Loan<br/>borrower = HTM Servicing<br/>funded by vault]
+  SV -->|Payment $285.00| TAX[Tax Impound sub-account]
+  SV -->|Payment $312.50| INS[Insurance Impound sub-account]
+  TAX -->|EscrowCreate, FinishAfter Dec 20 / Jun 20| CTY[Ada County Treasurer]
+  INS -->|EscrowCreate, FinishAfter renewal| CAR[Hazard carrier / HUD MIP]
+  LOAN --> VAULT[XLS-65 private vault<br/>attested depositors]
+  MPT[MPT HTMN1<br/>45,000,000 units = $450,000.00] -.docs sha256.-> DOCS[4 closing documents]
+  INV[Attested investors] --> MPT
+  INV --> VAULT
 ```
 
-| On-ledger object | Represents | Does **not** represent |
+| Object | Represents | Does **not** represent |
 |---|---|---|
-| **MPT `HTMN1`** | A permissioned *participation certificate* in the cash flows of one note. 1 unit = $0.01 of original principal. Issuer can lock, claw back (court order / error), and gate holders. | The promissory note, the lien, or title. Those stay in the recorded Deed of Trust and the servicing file. |
-| **Single Asset Vault** | The *funding pool* (warehouse capital) supplied by attested depositors. | A deposit account for the homeowner. |
-| **LoanBroker** | HTM's lending desk: underwriting off-chain, first-loss capital on-chain. | A bank or an exchange. |
-| **Loan** | HTM Warehouse borrowing against the vault at the note rate. HTM, not the homeowner, is the on-chain borrower. The homeowner's PITI is what HTM remits. | The consumer mortgage. XLS-66 loans are uncollateralised on-ledger; the real collateral is the recorded lien. |
-| **Escrow** | Closing funds "good at recording". | Impound / reserve escrow (taxes, insurance), which stays in servicing. |
-
-## Quick start
-
-```bash
-git clone https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm && cd xrpl-mortgage-tokenizing-htm
-npm ci
-npm run ingest      # documents -> out/canonical-loan.json, validates tie-outs, OCR sample
-npm test            # offline unit tests
-npm run demo        # ~3 minutes on Devnet; faucet-funds 8 role wallets on first run
-npm run demo:full   # also waits out the grace period and exercises default + delete
-```
-
-Requires Node 20+. No API keys. Devnet endpoint and explorer are in `.env.example`.
-`out/wallets.json` keeps the Devnet seeds so re-runs reuse the same accounts (gitignored; Devnet XRP is worthless).
+| **MPT `HTMN1`** | Permissioned *participation certificate* in one note's cash flows; 1 unit = $0.01 of original principal; issuer can lock / claw back / gate holders; metadata carries the sha256 of the four documents | The promissory note or the lien. Those are the Form 3200 and the recorded Form 3013. |
+| **Vault** | The funding pool supplied by KYC-attested depositors (XRP stands in for RLUSD on Devnet) | A consumer deposit account |
+| **LoanBroker** | HTM Lending Desk: underwriting off-chain, first-loss cover on-chain | A bank |
+| **Loan** | HTM Loan Servicing borrowing against the vault at the note rate; P&I sweeps repay it | The consumer mortgage; XLS-66 loans are uncollateralised on-ledger, the collateral is the recorded lien |
+| **Impound sub-accounts + escrows** | Tax and insurance reserves, time-locked to the payee's statutory date | An "escrow account" in the closing sense |
 
 ## Repository map
 
 ```
-data/documents/        six synthetic closing documents as structured JSON (see docs/source for the PDF brief)
-data/ocr-samples/      a deliberately degraded scan for the normaliser
-src/ingest/            OCR repair + field extraction; canonical loan schema with cross-document tie-outs
-src/domain/            amortisation math, XLS-66 rate units, XLS-89 metadata encoder, bundle hashing
-src/xrpl/              client, faucet, submit-and-verify, CreatedNode lookup, Ripple-epoch helpers
-src/steps/             one file per ledger phase (credentials, MPT, vault, lending, servicing, escrow, report)
-src/demo.ts            orchestrator
-tests/                 vitest; tests/devnet/ is live and opt-in (DEVNET=1)
-docs/                  grant narrative, standards mapping, threat model, devnet run log, source brief
+data/documents/          the 4 synthetic closing documents as structured JSON (single source for DB, PDFs, ledger)
+data/servicing-parties.json  county treasurer / carrier payees and their disbursement calendar
+forms/blank/             official blank forms fetched from CFPB / Fannie Mae / Freddie Mac
+src/ingest/              OCR repair + field extraction; canonical loan schema with tie-outs
+src/servicing/           three-way split with checksum audit; impound disbursement scheduler
+src/pdf/                 CD overlay on the CFPB blank; Form 3200 / 3013 / deed / statement typesetting
+src/scan/                tesseract pipeline, compare-to-record, servicing-statement -> LoanPay gates
+src/steps/               ledger phases: credentials, MPT, vault, lending, servicing sweep
+src/db/                  seed + run recorder for the htm_mortgages Postgres schema (db/*.sql)
+src/export/              MISMO 3.4-aligned XML subset, XRPL payload templates
+scripts/                 db-apply / db-query over SSH, Python twin of the tax-vault scheduler
+docs/                    forms & sources, grant narrative, standards mapping, threat model, run log
 ```
 
-## Why the ledger side is honest about numbers
+## Numbers that must tie
 
-- **Units.** MPT `AssetScale: 2`, so `MaximumAmount` is exactly `45000000` cents. XLS-66 rates are in
-  1/10 basis points, so 6.25 % is `6250`. Tested in `tests/loan-math.test.ts`.
-- **Tie-outs.** The canonical record refuses to build if P&I, financed UFMIP, the ALTA debit/credit
-  ledger, cash to close, PITI or LTV disagree across documents. The synthetic package ties to the
-  cent: $2,770.73 P&I, $187.50 FHA MIP (0.50 % annual at 80 % LTV), $3,368.23 PITI, $91,400.00 cash to close.
-- **Demo scale.** On Devnet, 1 XRP stands in for US$10,000. The loan schedule is compressed to
-  12 payments at 60-second intervals so a full payment cycle happens inside one run.
+| Figure | Value | Source |
+|---|---|---|
+| Note amount | $450,000.00 = $442,125.00 base + $7,875.00 financed UFMIP | CD Loan Terms |
+| Rate / term | 6.250 % / 360 months | Form 3200 s.2, s.3 |
+| P&I | $2,770.73 | computed; must equal CD and Note |
+| Tax impound | $285.00 / month ($3,420 / yr, two Ada County installments of $1,710) | CD Estimated Taxes |
+| Insurance impound | $125.00 hazard + $187.50 FHA MIP (0.50 % at 80 % LTV) = $312.50 | CD Estimated Taxes + Mortgage Insurance |
+| Monthly sweep | $3,368.23 | CD Estimated Total Monthly Payment |
+| Late charge | 5 % of P&I = $138.54 after 15 days | Form 3200 s.6 |
+| Cash to close | $91,400.00 | CD Calculating Cash to Close |
+
+`npm run ingest` fails if any of these disagree across documents. On Devnet, 1 XRP stands in for
+US$10,000 and one "month" is 60 seconds, so a full sweep cycle fits in a demo run.
+
+## Database
+
+Schema `htm_mortgages` in CouncilForge Postgres (`db/001_closing_package.sql`, `db/002_servicing_three_buckets.sql`):
+`loans`, `parties`, `properties`, `loan_documents` (JSONB sections + sha256 + scan/OCR columns),
+`settlement_lines`, `recurring_obligations`, `servicing_payments` (360 rows with `pi_part`/`tax_part`/`insurance_part`
+and the four leg tx hashes), `impound_accounts`, `impound_disbursements`, `xrpl_objects`, `xrpl_transactions`.
+The database is the system of record for documents and the servicing ledger; the XRPL ledger is authoritative
+for token, vault and loan state; `db:record` reconciles the two.
 
 ## Compliance posture
 
-This repository demonstrates *technical* feasibility. It makes no legal claims.
-
-- The MPT is a participation certificate whose rights would be defined by a participation agreement.
-  Offering such interests to investors is a securities activity; production would require the
-  applicable exemption or registration (US: Reg D / Reg S; HK: SFC licensing or professional-investor
-  exemption) and transfer restrictions, which is why `RequireAuth` and the permissioned domain exist.
-- The **authoritative copy** of an eNote under UETA / E-SIGN lives in an eVault registered with MERS.
-  We do not replicate MERS. The token metadata carries the document-bundle hash so a MERS eNote or
-  paper note can be *bound* to the token, not replaced by it.
-- Real borrower data never goes on-chain. Memos carry aggregate PITI figures only; the fixtures are fictitious.
-- Idaho is a deed-of-trust state; the fixtures use a Deed of Trust with a title-company trustee.
-
-Longer form: [docs/grant-narrative.md](docs/grant-narrative.md) · [docs/standards-mapping.md](docs/standards-mapping.md) · [docs/threat-model.md](docs/threat-model.md).
+Technical feasibility only; no legal claims. Participation interests are securities activity and would need
+the applicable exemption (US Reg D / Reg S; HK professional-investor regime) and transfer restrictions, which is
+why `RequireAuth` and the permissioned domain exist. The authoritative eNote lives in a MERS-registered eVault;
+the token binds to its hash, it does not replace it. No borrower PII goes on-chain: memos carry loan id, period
+and amounts only. Idaho is a deed-of-trust state (Form 3013). Longer form: [docs/grant-narrative.md](docs/grant-narrative.md)
+· [docs/standards-mapping.md](docs/standards-mapping.md) · [docs/threat-model.md](docs/threat-model.md).
 
 ## About HTM
 
-High Tech Mortgage, Inc. is a licensed US mortgage lender (Sacramento, CA) with an operations office
-in Manila. MortgageOS™ is our digital-twin platform for the mortgage lifecycle; this repository is its
-XRPL settlement layer prototype. Web: <https://hightechmortgage.com/tokenized-mortgages/>.
+High Tech Mortgage, Inc. is a licensed US mortgage lender (Sacramento, CA) with an operations office in Manila.
+MortgageOS™ is our digital-twin platform for the mortgage lifecycle; this repository is its XRPL settlement-layer
+prototype. <https://hightechmortgage.com/tokenized-mortgages/>
 
-## License
-
-MIT. Amendment availability checked against Devnet on 2026-09-04: MPTokensV1, DynamicMPT,
-SingleAssetVault, LendingProtocol, PermissionedDomains, Credentials, TokenEscrow all enabled.
+MIT. Devnet amendments verified 2026-09-04: MPTokensV1, DynamicMPT, SingleAssetVault, LendingProtocol, PermissionedDomains, Credentials, TokenEscrow.

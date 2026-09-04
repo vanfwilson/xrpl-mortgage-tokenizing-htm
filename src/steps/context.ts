@@ -16,7 +16,8 @@ export interface Ctx {
     vaultShareMptId?: string;
     loanBrokerId?: string;
     loanId?: string;
-    escrowSequence?: number;
+    taxEscrowTx?: string;
+    insuranceEscrowTx?: string;
   };
   notes: string[];
   fullLifecycle: boolean;

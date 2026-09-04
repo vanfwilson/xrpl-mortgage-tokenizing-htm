@@ -1,0 +1,15 @@
+{
+  "document": "Multistate Fixed Rate Note - Single Family - Fannie Mae/Freddie Mac Uniform Instrument, Form 3200",
+  "form_reference": "Fannie Mae Form 3200 (1/01, rev. 2021). Legal documents: https://singlefamily.fanniemae.com/legal-docs",
+  "synthetic": true,
+  "note_date": "2026-09-01",
+  "city_state": "Meridian, Idaho",
+  "property_address": "123 Sandbox Lane, Meridian, ID 83642",
+  "section_1_borrowers_promise_to_pay": { "principal": 450000.00, "lender": "Sandbox Lending Corp. (HTM demo)" },
+  "section_2_interest": { "yearly_rate": 0.0625 },
+  "section_3_payments": { "payment_frequency": "monthly", "payment_due_day_of_month": 1, "first_payment_date": "2026-11-01", "maturity_date": "2056-10-01", "monthly_payment_amount": 2770.73, "place_of_payment": "High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814" },
+  "section_4_borrowers_right_to_prepay": { "prepayment_penalty": false },
+  "section_6_borrowers_failure_to_pay": { "grace_period_days": 15, "late_charge_percent_of_overdue_pi": 0.05, "late_charge_amount": 138.54 },
+  "section_10_uniform_secured_note": { "security_instrument": "Deed of Trust", "security_instrument_form": "Fannie Mae Form 3013 (Idaho)" },
+  "signatures": { "borrower": "Jordan A. Sandbox", "signed": "2026-09-01" }
+}

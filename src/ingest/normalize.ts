@@ -39,7 +39,9 @@ export function extractFields(raw: string): ExtractedFields {
   const fha = t.match(/FHA\s?Case\s?(?:No\.?|Number|#)?:?\s?(\d{3}-\d{7}-\d{3})/i);
   if (fha) out.fha_case_number = fha[1];
   out.cash_to_close = money(/Cash\s?to\s?Close(?:\s?Required)?:?\s?\$?\s?([\d,]+\.\d{2})/i, t);
-  out.monthly_piti = money(/(?:Total\s?)?(?:Monthly\s?)?(?:PITI|Estimated\s?Total\s?Monthly\s?Payment):?\s?\$?\s?([\d,]+\.\d{2})/i, t);
+  out.monthly_piti =
+    money(/Estimated\s?Total\s?Monthly\s?Payment[^$\d]{0,40}\$?\s?([\d,]+\.\d{2})/i, t) ??
+    money(/(?:Total\s?Amount\s?Due|Regular\s?Monthly\s?Payment|Monthly\s?PITI)[^$\d]{0,10}\$?\s?([\d,]+\.\d{2})/i, t);
   out.loan_amount = money(/Loan\s?Amount:?\s?\$?\s?([\d,]+\.\d{2})/i, t);
   const rate = t.match(/Interest\s?Rate:?\s?(\d{1,2}(?:\.\d{1,3})?)\s?%/i);
   if (rate) out.interest_rate = Number(rate[1]) / 100;
