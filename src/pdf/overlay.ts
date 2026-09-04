@@ -43,7 +43,7 @@ export async function overlayClosingDisclosure(loan: CanonicalLoan, cd: Record<s
   const pen2: Pen = { page: p2, font, bold, size: 9 };
   let y = 736;
   const line = (k: string, v: string, b = false) => { text(pen2, 54, y, k, { bold: b }); text(pen2, 380, y, v, { bold: b }); y -= 14; };
-  text(pen2, 54, 760, 'Closing Disclosure - Itemised Figures (synthetic)', { size: 12, bold: true });
+  text(pen2, 54, 760, 'Closing Disclosure - Figures from pages 2-5 (synthetic)', { size: 12, bold: true });
   line('Loan Amount', usd(lt.loan_amount), true); line('  Base loan amount', usd(lt.base_loan_amount)); line('  FHA UFMIP financed (1.75%)', usd(lt.financed_ufmip));
   line('Interest Rate', `${(lt.interest_rate * 100).toFixed(3)}%`, true); line('Loan Term', `${lt.loan_term_months} months`); line('LTV', `${(lt.ltv * 100).toFixed(2)}%`);
   line('First Payment Date', mdy(lt.first_payment_date)); line('Maturity Date', mdy(lt.maturity_date)); y -= 6;
@@ -51,7 +51,12 @@ export async function overlayClosingDisclosure(loan: CanonicalLoan, cd: Record<s
   line('Property Taxes (escrow)', usdPlain(taxM)); line("Homeowner's Insurance (escrow)", usdPlain(hoiM));
   line('Estimated Total Monthly Payment (PITI)', usd(pp.estimated_total_monthly_payment), true); y -= 6;
   line('Servicing split: P&I -> lender vault', usdPlain(pp.principal_and_interest)); line('Servicing split: tax impound', usdPlain(taxM)); line('Servicing split: insurance impound (hazard + MIP)', usdPlain(hoiM + pp.mortgage_insurance)); y -= 6;
-  line('Closing Costs', usd(cc.closing_costs)); line('Cash to Close', usd(cc.cash_to_close), true);
+  line('Sale Price', usd(ci.sale_price)); line('Appraised Property Value', usd(ci.appraised_property_value));
+  line('Closing Costs', usd(cc.closing_costs)); line('  Loan Costs', usd(cc.loan_costs)); line('  Other Costs', usd(cc.other_costs)); line('  Lender Credits', usd(cc.lender_credits));
+  line('Deposit (earnest money)', usd(-cd.calculating_cash_to_close.deposit)); line('Seller Credits', usd(-cd.calculating_cash_to_close.seller_credits));
+  line('Initial Escrow Payment at Closing', usd(cd.escrow_account_information.initial_escrow_payment_at_closing));
+  line('Cash to Close', usd(cc.cash_to_close), true);
+  line('Settlement Agent', ci.settlement_agent); line('File #', ci.file_number); line('Seller', ti.seller); line('Lender', ti.lender);
   line('FHA Case No.', li.mic_number ?? ''); line('APN', loan.property.apn); line('Loan ID #', li.loan_id);
   stampPages(doc, font, anchor);
   fs.writeFileSync(outPath, await doc.save());

@@ -6,7 +6,7 @@ High Tech Mortgage, Inc. · reference implementation for our application to the 
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions) [![devnet-demo](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml)
 
-**▶ Live demo (no install):** <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/> — the printed package, the OCR scan-back, and the token, vault, loan and impound accounts read live from Devnet. Reviewers can rerun the whole thing on fresh wallets with one click on the [devnet-demo Action](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml).
+**▶ Live demo (no install):** <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/> — the printed package, the OCR scan-back, and the token, vault, loan and impound accounts read live from Devnet, all produced by `npm run tokenize` from the scanned PDF. Reviewers can rerun the whole thing on fresh wallets with one click on the [devnet-demo Action](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml).
 
 > **Status: Devnet reference implementation.** Not a live financial product. HTM is not issuing
 > tokens, taking deposits, or servicing loans on-chain in production. Every document is synthetic;
@@ -33,15 +33,29 @@ High Tech Mortgage, Inc. · reference implementation for our application to the 
    (XLS-70/80) for eligibility, Single Asset Vault (XLS-65) for funding, Lending Protocol (XLS-66)
    for the amortising facility, time-locked escrows for impound disbursement. No Hooks, no custom contract.
 
-## Commands
+## Paper in, token out (the grant deliverable)
 
 ```bash
 npm ci
-npm run ingest   # 4 documents -> canonical loan JSON; refuses to build if the figures do not tie out
-npm test         # 29 offline tests
-npm run print    # fill/typeset the official forms -> out/print/closing-package-stack.pdf (6 pages)
-npm run scan -- out/print/closing-package-stack.pdf   # OCR the stack back, compare to the loan of record, emit LoanPay inputs
-npm run demo     # ~5 min on Devnet: credentials, MPT, vault, loan, 2 monthly sweeps split 3 ways, impound escrows
+npm run print                                   # produce the 6-page synthetic closing package to print
+# print it, scan it back to a PDF (300 dpi is plenty), then:
+npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> rebuild the loan from the paper -> MPT + XLS-65 vault + XLS-66 loan on Devnet
+npm run tokenize -- ~/scans/my-scan.pdf --service   # ...and run the monthly 3-way sweeps too
+```
+
+`tokenize` reads nothing from the database or the fixtures. It classifies each page (Closing Disclosure,
+Note, Deed of Trust, Warranty Deed, statement), extracts every field with per-field provenance, refuses to
+continue if a required field is missing or the figures do not tie out, hashes the scan file itself into the
+token's XLS-89 metadata, and then issues the note token and funds it. Output: `out/tokenize/<scan>.canonical.json`
+(with `_provenance`), `out/latest.md` with explorer links.
+
+## Other commands
+
+```bash
+npm run ingest   # fixtures -> canonical loan JSON; refuses to build if the figures do not tie out
+npm test         # 32 offline tests, including rebuilding the loan from saved OCR text
+npm run scan -- out/print/closing-package-stack.pdf   # OCR only: scanned-loan.json + compare-to-record report + LoanPay gates
+npm run demo     # ~5 min on Devnet from the fixtures: credentials, MPT, vault, loan, 2 monthly sweeps split 3 ways, impound escrows
 npm run export   # canonical JSON, MISMO 3.4-aligned XML subset, XRPL payload templates
 npm run db:seed | scripts/db-apply.sh -     # seed CouncilForge Postgres (htm_mortgages) from the fixtures
 npm run db:record | scripts/db-apply.sh -   # mirror the latest Devnet run's objects + tx hashes into Postgres

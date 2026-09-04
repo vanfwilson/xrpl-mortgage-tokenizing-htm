@@ -1,9 +1,9 @@
 # Devnet run log
 
-Latest full run of `npm run demo` (every transaction tesSUCCESS). Regenerate by running the demo and copying `out/latest.md` here.
+Latest full run of `npm run tokenize -- out/print/closing-package-stack.pdf --service` (paper → OCR → token → vault → loan → sweeps; every transaction tesSUCCESS).
 
 
-Loan MORT-2026-88492X · documents sha256 `fe7eb3a5e402ee50d174e9c0e7604fadecdc1a6e8ae315c1545312cf63d98bc1`
+Loan MORT-2026-88492X · documents sha256 `c5e3728582f7aea2b2a04cd631af38cafa4ba40b55512cc57f94d4a36d994d58`
 
 ## Accounts
 - issuer: [r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY](https://devnet.xrpl.org/accounts/r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY)
@@ -19,42 +19,45 @@ Loan MORT-2026-88492X · documents sha256 `fe7eb3a5e402ee50d174e9c0e7604fadecdc1
 - kyc: [rNpt7UPQSCoZtCFcadtRSZ4t2vJdWg4mLh](https://devnet.xrpl.org/accounts/rNpt7UPQSCoZtCFcadtRSZ4t2vJdWg4mLh)
 
 ## Ledger objects
-- domainId: `CD522C6648876AB0C7F34F96741735E9B6110C96FBCBC017773A3D4FC48A41C1`
-- mptIssuanceId: `004CF678569EE765E2CFF129A4C26DD5411FAAB8ECE0D207`
-- vaultId: `71C2C3D5A6375430FE8C0578EBAF2AA9A273EF87FC134CE815530D94486EECD5`
-- vaultShareMptId: `0000000198E1F9A6CC767173CB7946D190E42060C3F2B25E`
-- loanBrokerId: `EBB7CD8BA99A2C94417B34AF9BD5CB9A109A5E94073A92C63C7D7B964D2691F6`
-- loanId: `7C04099212AD7E48957B01E678F7B4E148EB87040E67C6BE9943C17E9FBB6FBA`
-- taxEscrowTx: `06835AF2024AB84F053A3743C1A28FEC6B1CC19A94D8C6F7C2B02F2A4385E492`
-- insuranceEscrowTx: `BB1A3C1158054C073310E9501A06774DD2E1A80C2BDB3F181D8809BA0152C13E`
+- domainId: `97D2201975FB860EFA07D81C3042C43C65F7429DBC37408FB827BD2A03816259`
+- mptIssuanceId: `004CF682569EE765E2CFF129A4C26DD5411FAAB8ECE0D207`
+- vaultId: `0BB3DA97A8FD2B88E91346EA03880DC765D6E4564421AC6527AC286D258E7BD0`
+- vaultShareMptId: `000000017DE9B36CFC22A4922F43A5A7D93CA4A286DB1939`
+- loanBrokerId: `89E7708D1037FD533B917D6A8E7CF2AC6BF3470D7EED3F252A8B4C33F59580B8`
+- loanId: `AE52AD5F09181A93C3AB6328D5F329267D445B0C49C0696E0EE439B25B6D8256`
+- taxEscrowTx: `1BF91F725702DC06D3E4B5C1616D465DF7BDE8A1A04AABE6E7324944AC0A2F88`
+- insuranceEscrowTx: `8FA5B54E139DAD59733BFBE1FF4DED07FBB88E96D472715F847F2FDAE7A9ECD9`
 
 ## Transactions
 | step | type | result | tx |
 |---|---|---|---|
-| credentials | PermissionedDomainSet | tesSUCCESS | [A6C7BAAB63E4…](https://devnet.xrpl.org/transactions/A6C7BAAB63E4309D2053AA35A89FDEBB88A4B500E5A130BC5A4D7CFE42A95283) |
-| mpt | MPTokenIssuanceCreate | tesSUCCESS | [2534C933B875…](https://devnet.xrpl.org/transactions/2534C933B87510280A57884681C80A2EE384BEAD3609E649B22567639B147C6E) |
-| mpt | MPTokenAuthorize | tesSUCCESS | [523678BA89FE…](https://devnet.xrpl.org/transactions/523678BA89FE71F30E10932AA12699632B6521D9BE1897A66A1AE6D6F4D88330) |
-| mpt | MPTokenAuthorize | tesSUCCESS | [6BFF8F9F717D…](https://devnet.xrpl.org/transactions/6BFF8F9F717DC227F3590811E84268D5F3DAA659E5280A069DC9DAD696F352B2) |
-| mpt | MPTokenAuthorize | tesSUCCESS | [85B015054294…](https://devnet.xrpl.org/transactions/85B015054294AAC99E32978EA1F1AAA39EB6E530DC62B7CE3F09C5011CB7C65C) |
-| mpt | MPTokenAuthorize | tesSUCCESS | [EB5AC8EDFEB7…](https://devnet.xrpl.org/transactions/EB5AC8EDFEB763D796F026EE087CBEC36AE17F64CD7B69272EBEB63A89171A6C) |
-| mpt | Payment | tesSUCCESS | [A0D2623A749C…](https://devnet.xrpl.org/transactions/A0D2623A749CE7CA7069748C216EDDEF384F3E6B9F77FF46A398633AAC3427F1) |
-| mpt | Payment | tesSUCCESS | [B252E84D32BA…](https://devnet.xrpl.org/transactions/B252E84D32BA90B35DCC72E4480C24113102A8F9CFA0ECC8C2FD0AFA15147929) |
-| vault | VaultCreate | tesSUCCESS | [5E046B6140CB…](https://devnet.xrpl.org/transactions/5E046B6140CB53EF759C20920B522809C4C8C18C7192AEA679A6B3FBEBCE15D2) |
-| vault | VaultDeposit | tesSUCCESS | [42CA6A11D99F…](https://devnet.xrpl.org/transactions/42CA6A11D99F3666C9A37F9D1E4D3E60A66068A491F0DA3861F49B3811D6889C) |
-| vault | VaultDeposit | tesSUCCESS | [3CB033DDA6FD…](https://devnet.xrpl.org/transactions/3CB033DDA6FD63C2B988FCE19311B4051C12CDEA8EB60483DBE69400C7E5D4D8) |
-| lending | LoanBrokerSet | tesSUCCESS | [E20D15A791A2…](https://devnet.xrpl.org/transactions/E20D15A791A21B7361E2AE4FB174A704563314527488A3BA281D6BCA9F5664B2) |
-| lending | LoanBrokerCoverDeposit | tesSUCCESS | [A8FB8D4C3E0D…](https://devnet.xrpl.org/transactions/A8FB8D4C3E0D1F34E2F0559BFDB596B3A4EB0CF03C6F5EB14B8C4DE394C9111A) |
-| lending | LoanSet | tesSUCCESS | [C098C0EC3322…](https://devnet.xrpl.org/transactions/C098C0EC3322250E0863C434BCE8D2ED65C4CA12A2D46F3963FF466C21FC91CA) |
-| servicing | Payment | tesSUCCESS | [B6DE572606FA…](https://devnet.xrpl.org/transactions/B6DE572606FAC72FF83B3341B49DDEEB35BD0B7C08A1101EF530BF4EAE717F67) |
-| servicing | LoanPay | tesSUCCESS | [E945C40CF126…](https://devnet.xrpl.org/transactions/E945C40CF126CDC83BD61E0C705DBBFE35E441A268F51BDC5374CAD0B211B6FC) |
-| servicing | Payment | tesSUCCESS | [5476EC2252A2…](https://devnet.xrpl.org/transactions/5476EC2252A297AE3D67E2955FCC8760814F56AD9F96D16E6E885348FED69AD4) |
-| servicing | Payment | tesSUCCESS | [A21A039B5FC8…](https://devnet.xrpl.org/transactions/A21A039B5FC802451AD592F81CE118F72EF1852AB7A76C8FC567D9075F0A5B92) |
-| servicing | Payment | tesSUCCESS | [917C835D05C0…](https://devnet.xrpl.org/transactions/917C835D05C061A1E38D08F81731D8A79C9DB2406C8CF6D5C94D93A6ADDC5C6B) |
-| servicing | LoanPay | tesSUCCESS | [299A249F7187…](https://devnet.xrpl.org/transactions/299A249F7187F76AFA4F42E675EB5CFCA9F19B669E288161BAC1452CB9806B3A) |
-| servicing | Payment | tesSUCCESS | [56B4B1C16129…](https://devnet.xrpl.org/transactions/56B4B1C16129E39FDFE26BDB4DD18E579938AD0B897C4092DA36A85C852D3490) |
-| servicing | Payment | tesSUCCESS | [A12D8FDFD2F6…](https://devnet.xrpl.org/transactions/A12D8FDFD2F69D3C8A216444F1E321E54EA785CEA8946A041C3C876E3C05F3E3) |
-| servicing | EscrowCreate | tesSUCCESS | [06835AF2024A…](https://devnet.xrpl.org/transactions/06835AF2024AB84F053A3743C1A28FEC6B1CC19A94D8C6F7C2B02F2A4385E492) |
-| servicing | EscrowCreate | tesSUCCESS | [BB1A3C115805…](https://devnet.xrpl.org/transactions/BB1A3C1158054C073310E9501A06774DD2E1A80C2BDB3F181D8809BA0152C13E) |
-| servicing | LoanManage | tesSUCCESS | [FAB0DE701CAA…](https://devnet.xrpl.org/transactions/FAB0DE701CAAC2CBA19A3A7855CA656C02B3E5235E45D87513AA0A8C4083B385) |
-| servicing | LoanManage | tesSUCCESS | [28EE3BC0EA65…](https://devnet.xrpl.org/transactions/28EE3BC0EA6579474C2B19CC5A55A7CB4BD3BB6D593B05DDB46B0CEF9E937E58) |
+| credentials | PermissionedDomainSet | tesSUCCESS | [801F8B68950D…](https://devnet.xrpl.org/transactions/801F8B68950D32F02A9F8DB512A41010E2DCEAB746221CFA8D89DE7C694A444C) |
+| mpt | MPTokenIssuanceCreate | tesSUCCESS | [1FF1577449B4…](https://devnet.xrpl.org/transactions/1FF1577449B4A6AF8AF7EBD1280B47F127F578A712E47AC221DCA83E356BEE68) |
+| mpt | MPTokenAuthorize | tesSUCCESS | [913C01EDB81B…](https://devnet.xrpl.org/transactions/913C01EDB81BE82AF272EF7ED0BEF7D7049CE6BFFBC4227D7BD0D6FD76B776CA) |
+| mpt | MPTokenAuthorize | tesSUCCESS | [A0F6F4BE2EA7…](https://devnet.xrpl.org/transactions/A0F6F4BE2EA7A9547362917761C4AE0D847E03B751F6A4D8229D6F13C1130D97) |
+| mpt | MPTokenAuthorize | tesSUCCESS | [DBBD00099293…](https://devnet.xrpl.org/transactions/DBBD00099293771FC34A5552CBBF8B87E7712989D2129B3917F0FCFEF4BAA563) |
+| mpt | MPTokenAuthorize | tesSUCCESS | [7ABA8CCABAA5…](https://devnet.xrpl.org/transactions/7ABA8CCABAA5E7BBAD56504C90A594E277F78AA919F60B8652A1C1DCB3311B39) |
+| mpt | Payment | tesSUCCESS | [0C9E02965B75…](https://devnet.xrpl.org/transactions/0C9E02965B75A57D6CB3C0245574A5C41294BEBAEB1784D46805AA0BDB1E6D61) |
+| mpt | Payment | tesSUCCESS | [59BA67B11E3A…](https://devnet.xrpl.org/transactions/59BA67B11E3AF0654E1FD3F7567E1D351B8A43D8C52DAC4DBB0FBF788A719EB6) |
+| vault | VaultCreate | tesSUCCESS | [6B53D0AC61B2…](https://devnet.xrpl.org/transactions/6B53D0AC61B2A9D5C3872533A314C00AD9DA9589AE13AFAC6AE7AB1D62295B28) |
+| vault | VaultDeposit | tesSUCCESS | [8DF7774C3714…](https://devnet.xrpl.org/transactions/8DF7774C3714DA0F18B7FD814418A0CCC5DBC4FA79496FFCBBA9CC6F318778AB) |
+| vault | VaultDeposit | tesSUCCESS | [3432E55BEA96…](https://devnet.xrpl.org/transactions/3432E55BEA9697FA9FCFEE74AD1137D0DEBF430F750EC2901B7191245EB9C5EE) |
+| lending | LoanBrokerSet | tesSUCCESS | [F04667EAEC65…](https://devnet.xrpl.org/transactions/F04667EAEC652CF02448ACDEF3ED915E5B9FD77FE23C6DF4CC057A7219E7FCD7) |
+| lending | LoanBrokerCoverDeposit | tesSUCCESS | [F7E78C907D87…](https://devnet.xrpl.org/transactions/F7E78C907D87C048FE532EA8E6FE493B4E889CE0D5BD5C17D8E3F431024C605F) |
+| lending | LoanSet | tesSUCCESS | [E316C97354B9…](https://devnet.xrpl.org/transactions/E316C97354B98F2E05AD0DEA6B9BDCF9F0ABA48856CE483EE0E153E4DFC80D9B) |
+| servicing | Payment | tesSUCCESS | [46ADD0DDE1D7…](https://devnet.xrpl.org/transactions/46ADD0DDE1D794149B9304A3AA75E47774B733B550D8443D1CD9AD4EF04205A0) |
+| servicing | LoanPay | tesSUCCESS | [B1A78ED900C2…](https://devnet.xrpl.org/transactions/B1A78ED900C23F9FD4915DCA57650886BB0E4F8DDAF7D6D289ECBAA444CBAA8B) |
+| servicing | Payment | tesSUCCESS | [CA27B8AB7218…](https://devnet.xrpl.org/transactions/CA27B8AB7218C759DCC908AE948A813615017D007B9C9FEF4F368A6E94A7EDE3) |
+| servicing | Payment | tesSUCCESS | [56020980A8F8…](https://devnet.xrpl.org/transactions/56020980A8F8426AE2BED820775186E287F1D52E863557B6E9A99366F7E3544E) |
+| servicing | Payment | tesSUCCESS | [201EF042B1EA…](https://devnet.xrpl.org/transactions/201EF042B1EAC5CCE9F6117154FD829A32BDE4ED954723D1C9C2093BF47CD108) |
+| servicing | LoanPay | tesSUCCESS | [027184DBC139…](https://devnet.xrpl.org/transactions/027184DBC139F2AF25AF13E3128E97C3259C0108D5C7F2C9804A1313017C6C8F) |
+| servicing | Payment | tesSUCCESS | [3EA6ABDCEAD1…](https://devnet.xrpl.org/transactions/3EA6ABDCEAD1DECEE5A06EAF561E4D44C4B0EB0D67EBF6B1C6FBDFA79D3C2DBB) |
+| servicing | Payment | tesSUCCESS | [6F314C542A40…](https://devnet.xrpl.org/transactions/6F314C542A40CF2FFD98F8499C490CF3F3E6358275ABAC350FD20F622F1391ED) |
+| servicing | EscrowCreate | tesSUCCESS | [1BF91F725702…](https://devnet.xrpl.org/transactions/1BF91F725702DC06D3E4B5C1616D465DF7BDE8A1A04AABE6E7324944AC0A2F88) |
+| servicing | EscrowCreate | tesSUCCESS | [8FA5B54E139D…](https://devnet.xrpl.org/transactions/8FA5B54E139DAD59733BFBE1FF4DED07FBB88E96D472715F847F2FDAE7A9ECD9) |
+| servicing | LoanManage | tesSUCCESS | [581584017044…](https://devnet.xrpl.org/transactions/581584017044FCADC42DB372BC343F2ACD1020C17739B09CC33850EF60F1482B) |
+| servicing | LoanManage | tesSUCCESS | [DCC95DA7A6A7…](https://devnet.xrpl.org/transactions/DCC95DA7A6A73327755E9166D7C828B8779E699FC96DFD0F248A3ABC37B78E04) |
 
+## Notes
+- tokenized from scan closing-package-stack.pdf
+- provenance: {"loan.loan_id":"closing_disclosure","loan.principal_amount":"closing_disclosure","loan.annual_interest_rate":"closing_disclosure","loan.term_months":"closing_disclosure","loan.first_payment_date":"closing_disclosure","loan.maturity_date":"closing_disclosure","loan.monthly_principal_and_interest":"closing_disclosure","servicing.insurance_detail.fha_mip":"closing_disclosure","servicing.property_tax_impound":"closing_disclosure","servicing.insurance_detail.hazard_homeowners":"closing_disclosure","servicing.monthly_total_sweep":"closing_disclosure","closing.closing_costs":"closing_disclosure","closing.cash_to_close":"closing_disclosure","closing.closing_date":"closing_disclosure","seller.name":"closing_disclosure","lender.name":"deed_of_trust","note_terms.payment_due_day_of_month":"note","note_terms.grace_period_days":"note","note_terms.late_charge_percent_of_pi":"note","borrower.name":"deed_of_trust","security_instrument.recording_number":"deed_of_trust","security_instrument.recording_date":"deed_of_trust","property.legal_description":"deed_of_trust","property.apn":"deed_of_trust","property.address":"deed_of_trust","vesting_deed.recording_number":"warranty_deed","vesting_deed.recording_date":"warranty_deed","property.contract_sales_price":"closing_disclosure","servicing.insurance_impound":"derived","closing.date_issued":"closing_disclosure"}

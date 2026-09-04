@@ -21,7 +21,8 @@
     "db:seed": "tsx src/db/seed.ts",
     "db:apply": "scripts/db-apply.sh",
     "db:record": "tsx src/db/record-run.ts",
-    "demo:publish": "tsx src/cli/publish-demo.ts"
+    "demo:publish": "tsx src/cli/publish-demo.ts",
+    "tokenize": "tsx src/tokenize.ts"
   },
   "dependencies": {
     "pdf-lib": "^1.17.1",

@@ -15,7 +15,7 @@ a{color:var(--acc)}.ok{color:var(--ok)}.bad{color:var(--bad)}.pill{display:inlin
 img{max-width:100%;border-radius:6px;border:1px solid var(--line)}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.two{grid-template-columns:1fr}}
 .note{font-size:.8rem;color:var(--mut)}code{background:#0b1220;padding:1px 5px;border-radius:4px}
 </style></head><body>
-<header><h1>HTM Mortgage Note Tokenization <small>Close-of-escrow paper → OCR → canonical loan → XRPL Devnet (MPT · XLS-65 vault · XLS-66 loan · 3-bucket servicing). Everything below is read live from Devnet or produced by <code>npm run demo</code>. Synthetic data only.</small></h1></header>
+<header><h1>HTM Mortgage Note Tokenization <small>Close-of-escrow paper → OCR → canonical loan → XRPL Devnet (MPT · XLS-65 vault · XLS-66 loan · 3-bucket servicing). Everything below was produced by <code>npm run tokenize -- closing-package-stack.pdf</code> (OCR of the printed package, no database) or is read live from Devnet. Synthetic data only.</small></h1></header>
 <main>
 <section><h2>1 · The flow</h2><div class="flow">
 <div class="step"><b>Scan</b>4 closing docs: Closing Disclosure, Form 3200 Note, Form 3013 Deed of Trust, recorded deed</div>
@@ -40,7 +40,8 @@ img{max-width:100%;border-radius:6px;border:1px solid var(--line)}.two{display:g
 <table id="txs"><thead><tr><th>#</th><th>Step</th><th>Type</th><th>Account</th><th>Result</th><th>Tx</th></tr></thead><tbody></tbody></table></section>
 
 <section><h2>Run it yourself</h2><pre class="w">git clone https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm && cd xrpl-mortgage-tokenizing-htm
-npm ci && npm run ingest && npm run print && npm run scan -- out/print/closing-package-stack.pdf && npm run demo</pre>
+npm ci && npm run print                      # make the paper
+npm run tokenize -- out/print/closing-package-stack.pdf --service   # or your own scan of it</pre>
 <p class="note">Or press “Run workflow” on the <a href="https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml">Devnet demo Action</a>; it reruns everything on a fresh Devnet wallet set and republishes this page.</p></section>
 </main>
 <script>

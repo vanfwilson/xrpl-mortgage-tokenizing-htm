@@ -17,7 +17,7 @@ jobs:
       - run: npm run ingest
       - run: npm run print
       - run: npm run scan -- out/print/closing-package-stack.pdf
-      - run: npm run demo            # fresh faucet wallets on the runner; ~5 minutes
+      - run: npm run tokenize -- out/print/closing-package-stack.pdf --service   # paper -> OCR -> token -> vault -> loan -> sweeps; fresh faucet wallets; ~6 min
       - run: npm run export
       - run: npm run demo:publish
       - run: |
