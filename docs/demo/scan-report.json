@@ -4,32 +4,117 @@
     {
       "page": 1,
       "confidence": 89,
-      "chars": 1940
+      "chars": 3092
     },
     {
       "page": 2,
-      "confidence": 95,
-      "chars": 1158
+      "confidence": 86,
+      "chars": 2234
     },
     {
       "page": 3,
-      "confidence": 95,
-      "chars": 3894
+      "confidence": 86,
+      "chars": 2446
     },
     {
       "page": 4,
-      "confidence": 96,
-      "chars": 3222
+      "confidence": 88,
+      "chars": 2465
     },
     {
       "page": 5,
-      "confidence": 95,
-      "chars": 1838
+      "confidence": 89,
+      "chars": 1938
     },
     {
       "page": 6,
+      "confidence": 93,
+      "chars": 2865
+    },
+    {
+      "page": 7,
+      "confidence": 94,
+      "chars": 5416
+    },
+    {
+      "page": 8,
+      "confidence": 90,
+      "chars": 3583
+    },
+    {
+      "page": 9,
+      "confidence": 91,
+      "chars": 611
+    },
+    {
+      "page": 10,
+      "confidence": 90,
+      "chars": 3140
+    },
+    {
+      "page": 11,
+      "confidence": 95,
+      "chars": 1944
+    },
+    {
+      "page": 12,
+      "confidence": 89,
+      "chars": 1940
+    },
+    {
+      "page": 13,
+      "confidence": 94,
+      "chars": 1304
+    },
+    {
+      "page": 14,
+      "confidence": 80,
+      "chars": 1030
+    },
+    {
+      "page": 15,
+      "confidence": 95,
+      "chars": 1119
+    },
+    {
+      "page": 16,
+      "confidence": 95,
+      "chars": 1484
+    },
+    {
+      "page": 17,
+      "confidence": 96,
+      "chars": 1798
+    },
+    {
+      "page": 18,
+      "confidence": 95,
+      "chars": 3870
+    },
+    {
+      "page": 19,
+      "confidence": 96,
+      "chars": 3278
+    },
+    {
+      "page": 20,
+      "confidence": 94,
+      "chars": 1879
+    },
+    {
+      "page": 21,
+      "confidence": 95,
+      "chars": 1094
+    },
+    {
+      "page": 22,
       "confidence": 94,
       "chars": 1276
+    },
+    {
+      "page": 23,
+      "confidence": 86,
+      "chars": 984
     }
   ],
   "extracted": {

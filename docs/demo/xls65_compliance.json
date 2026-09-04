@@ -63,6 +63,7 @@
     },
     "counterparty_identity_mappings": {
       "borrower_wallet": "rGEX9MLNNkZcrRviVYYfDZ9aswYaGwCndg",
+      "seller_wallet": "<SELLER_ACCOUNT (off-ledger party; paid at closing by title)>",
       "lender_lienholder_wallet": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
       "servicer_wallet": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
       "note_token_issuer_wallet": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
