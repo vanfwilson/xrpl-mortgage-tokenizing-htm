@@ -53,3 +53,6 @@ for (const [name, fn] of jobs) {
 const stack = path.join(dir, 'closing-package-stack.pdf');
 fs.writeFileSync(stack, await merged.save());
 console.log(`stack ${stack}  ${merged.getPageCount()} pages`);
+// Publish the filled set into forms/ (committed) so reviewers see completed documents, not blanks.
+for (const f of fs.readdirSync(dir).filter((n) => n.endsWith('.pdf'))) fs.copyFileSync(path.join(dir, f), path.join('forms', f));
+console.log('copied filled forms -> forms/');

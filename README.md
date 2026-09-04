@@ -41,7 +41,7 @@ What it does **not** do: it does not replace the Note, the Deed of Trust, the li
 puts a borrower's personal data on the ledger. Everything shown here runs on the ledger's public **test network** with
 play money and a fictitious homeowner.
 
-**See it:** [live demo page](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/) · [the filled, signed closing package we scan (PDF)](package/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [team and credentials](TEAM.md) · [our grant proposal](docs/grant-proposal-2026-08-24.pdf)
+**See it:** [live demo page](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/) · [the filled, signed closing package we scan (PDF)](forms/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [team and credentials](TEAM.md) · [our grant proposal](docs/grant-proposal-2026-08-24.pdf)
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions) [![devnet-demo](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml)
 
@@ -68,7 +68,7 @@ Everything here runs on the ledger's **test network** with play money and made-u
 
 | # | Step | What you see |
 |---|---|---|
-| 1 | **Print** the synthetic closing package: 12 documents, 23 pages, one homeowner, every signature line signed in blue ink. Official CFPB and Fannie Mae forms where they exist. | [package/](package/) |
+| 1 | **Print** the synthetic closing package: 12 documents, 23 pages, one homeowner, every signature line signed in blue ink. Official CFPB and Fannie Mae forms where they exist. | [forms/](forms/) |
 | 2 | **Scan** it on any office scanner. | your PDF |
 | 3 | **Read** it: OCR, page recognition, and a rebuilt loan record where every field says which document it came from. The run **stops** if a required field is missing or the numbers don't tie out. | `out/tokenize/<scan>.canonical.json` |
 | 4 | **Tokenize** it: the note becomes one token on the ledger, bound to the scan's fingerprint; approved investors fund it through a vault; a 360-payment loan facility is originated to the servicer. | explorer links in `out/latest.md` |
@@ -161,7 +161,7 @@ flowchart LR
 ```
 data/documents/          the 4 tokenization documents as structured JSON (single source for DB, PDFs, ledger)
 data/supporting/         URLA 1003, settlement statement, FHA clause fixtures (printed, scanned, not needed to tokenize)
-package/                 the printed, filled, signed 23-page closing package and its 12 component PDFs
+forms/                   the printed, filled, signed closing package: 12 filled PDFs + the merged 23-page stack; forms/blank/ holds the official blanks
 data/servicing-parties.json  county treasurer / carrier payees and their disbursement calendar
 forms/blank/             official blank forms fetched from CFPB / Fannie Mae / Freddie Mac
 src/ingest/              OCR repair + field extraction; canonical loan schema with tie-outs

@@ -4,7 +4,7 @@ Two layers. **Tokenization needs four documents** (the servicer's minimum, below
 contains twelve** (23 pages): the four, plus the supporting paper a title company actually hands over, so the
 scanner and the page classifier are tested on the real thing. All twelve are filled for the same fictitious
 homeowner (Jordan A. Sandbox, 123 Sandbox Lane, Meridian ID) and every signature line carries a blue-ink signature.
-The printed, signed package is committed at [`package/`](../package/).
+The printed, signed package is committed at [`forms/`](../forms/).
 
 ## The four the tokenizer reads
 

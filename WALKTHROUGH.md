@@ -6,7 +6,7 @@ XRP Ledger's **Devnet** (a public test network with play money; see [GLOSSARY.md
 
 | Stage | What happens | Input → output | Where to look |
 |---|---|---|---|
-| **0. Paper** | The title/escrow company delivers the closing package. For testing we print our own: `npm run print`. | fixtures in `data/documents/` and `data/supporting/` → `out/print/closing-package-stack.pdf` (23 pages, every signature line signed in blue ink) | [package/closing-package-stack.pdf](package/closing-package-stack.pdf) |
+| **0. Paper** | The title/escrow company delivers the closing package. For testing we print our own: `npm run print`. | fixtures in `data/documents/` and `data/supporting/` → `out/print/closing-package-stack.pdf` (23 pages, every signature line signed in blue ink) | [package/closing-package-stack.pdf](forms/closing-package-stack.pdf) |
 | **1. Scan** | You print the stack and scan it back on any office scanner to one PDF (300 dpi is plenty). | paper → `my-scan.pdf` | your scanner |
 | **2. OCR** | Each page is rendered to an image and read by `tesseract`. Confidence is recorded per page. | `my-scan.pdf` → `out/tokenize/my-scan.ocr.txt` | `src/scan/ocr.ts` |
 | **3. Classify pages** | Each page is recognised by its own wording: Closing Disclosure, Note, Deed of Trust, Warranty Deed, URLA, settlement statement, escrow instructions, FHA clause, recorder receipt, statement. Nothing is assumed from page order. | text → page kinds (printed to the console) | `src/ingest/from-scan.ts` → `classifyPage` |
