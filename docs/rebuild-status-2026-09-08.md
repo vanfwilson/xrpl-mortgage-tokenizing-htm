@@ -72,7 +72,7 @@ Executor: Claude Fable 5.1, 2026-09-08. Build prompt: [build-prompt-servicing-ar
 | 11 | "native escrow for closing funds" claim | FIXED — grant narrative rewritten |
 | 12 | Grace = 100 % of interval | OBSOLETE — no ledger loan; grace is the note's 15 days in `LoanTerms` |
 | 13 | Escrows without CancelAfter | FIXED — bounded `CancelAfter` (due + 45 days; mapped on Testnet) |
-| 14 | "32 offline tests" | FIXED — README states 86 |
+| 14 | "32 offline tests" | FIXED — README states 82 |
 | 15 | xrpl.js 5.1.0 vs LendingProtocolV1_1 | OBSOLETE — lending protocol not used; 5.1.0 kept (S6) |
 
 ## Findings from the Codex Phase 1 table (`xrpl-servicing-research-audit-design-2026-09-08.md`)
