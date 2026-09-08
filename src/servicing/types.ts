@@ -21,7 +21,8 @@ export type Account =
   | 'fees'
   | 'advance'
   | 'refund'
-  | 'loss_draft';
+  | 'loss_draft'
+  | 'hud';
 
 export const ESCROW_PURPOSES = ['tax', 'hazard'] as const;
 export type EscrowPurpose = (typeof ESCROW_PURPOSES)[number];

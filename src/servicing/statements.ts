@@ -85,7 +85,7 @@ export const annualStatementRows = (a: EscrowAnalysis): Array<[string, string]> 
   ['Computation year', `${a.computation_year_start} to ${a.computation_year_end}`],
   ['Annual disbursements', usd(a.annual_disbursements_cents)],
   ['Monthly escrow deposit', usd(a.monthly_deposit_cents)],
-  ['Cushion (≤ 1/6 of annual)', usd(a.cushion_cents)],
+  ['Cushion (max 1/6 of annual)', usd(a.cushion_cents)],
   ['Lowest projected balance', `${usd(a.lowest_balance_cents)} in month ${a.lowest_month}`],
   ['Target starting balance', usd(a.target_starting_balance_cents)],
   ['Actual starting balance', usd(a.starting_balance_cents)],

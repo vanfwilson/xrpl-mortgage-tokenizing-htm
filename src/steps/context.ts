@@ -13,6 +13,8 @@ export interface Ctx {
   ids: Record<string, string | undefined>;
   notes: string[];
   log: (msg: string) => void;
+  /** Idempotency map for settlement legs (S11). */
+  settled?: Map<string, string>;
 }
 
 export const record = (ctx: Ctx, r: TxRecord) => {

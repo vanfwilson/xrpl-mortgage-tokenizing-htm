@@ -27,7 +27,7 @@ create table if not exists subledger_entries (
   entry_id       uuid primary key default gen_random_uuid(),
   company_id     uuid not null references public.companies(company_id),
   loan_id        uuid not null references loans(loan_id) on delete cascade,
-  account        text not null check (account in ('collection','suspense','note_holder','tax','hazard','mip','fees','advance','refund','loss_draft')),
+  account        text not null check (account in ('collection','suspense','note_holder','tax','hazard','mip','fees','advance','refund','loss_draft','hud')),
   cents          bigint not null,
   leg            text not null,
   period_no      int,

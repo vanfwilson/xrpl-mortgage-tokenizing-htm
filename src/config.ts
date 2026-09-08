@@ -45,5 +45,6 @@ export const WALLET_ROLES = [
   'countyTreasurer',  // Ada County Treasurer destination
   'insuranceCarrier', // hazard carrier destination
   'hud',              // HUD / FHA MIP destination
+  'transfereeServicer', // successor subservicer for the servicing-transfer proof (R11)
 ] as const;
 export type Role = (typeof WALLET_ROLES)[number];
