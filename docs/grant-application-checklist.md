@@ -1,40 +1,36 @@
-# What it takes to start the grant process (checked 2026-09-04)
+# What it takes to start the grant process (checked 2026-09-08)
 
 ## Where to apply
 
-| Program | Status | How |
-|---|---|---|
-| **Brinc × XRPL Hong Kong Financial Innovation Program (HFIP)** | Applications for the current cohort are **closed**; the page offers a form to be notified of the next one | <https://brinc.io/xrpl-program> → Airtable form <https://airtable.com/appO6UjaQfU92aIhc/pagojNBqROFqN80Xl/form> (page 1 asks: Program, Company Name, Your Email, Company Website; later pages cover startup, team, traction, use case) |
-| **XRPL Grants (global, rolling)** | Open, rolling pre-screen within 2–3 weeks | <https://xrplgrants.org> → Apply; award range US$10k–200k, ~30 % tied to product/integration milestones, ~70 % to growth milestones |
-| **XRPL Accelerator** | Cohort-based, US$50k–200k | via xrplgrants.org; incorporated entities only for post-programme venture funding |
+| Program | How |
+|---|---|
+| **XRPL Grants (global, rolling)** | <https://xrplgrants.org> → Apply; award range US$10k–200k; product/integration first, growth metrics for later funding |
+| **Brinc × XRPL Hong Kong Financial Innovation Program (HFIP)** | <https://brinc.io/xrpl-program> (cohort-based; register for the next cohort) |
 
-Process (both): online application → pre-screen → full application invitation → interview → award → onboarding with first milestone funding. HFIP: 12 weeks online, Demo Day in Hong Kong, grants awarded *during* the programme against milestones, not guaranteed on acceptance.
+## What a strong application contains (XRPL Grants FAQ and rubric)
 
-## What a strong application contains (from the XRPL Grants FAQ)
-
-- [x] **Public GitHub repo with a working proof of concept** — this repository; Devnet run log in [devnet-run.md](devnet-run.md)
-- [ ] **2-minute demo video** — record `npm run print` → paper stack → `npm run scan` → `npm run demo` (explorer links appear live)
-- [x] **Clear XRPL integration plan** — [standards-mapping.md](standards-mapping.md): why MPT + XLS-65/66 instead of NFTs or IOUs
-- [x] **3–12 month milestone roadmap** — 12-week plan in [grant-narrative.md](grant-narrative.md)
-- [x] **Budget breakdown** — $200,000 over 12 months, M1–M7, in the [August 2026 proposal](grant-proposal-2026-08-24.pdf) §5–7
-- [x] **At least one experienced developer on the core team** — name them in the form
-- [x] **Team bios + company details** — [TEAM.md](../TEAM.md): Rich Young (Founder/President, DRE #01106294, NMLS #291547), Dr. Van Wilson (data science, MIT), Trish Wilson (PRC #0024025), Bill Thompson
-- [ ] **Traction** — pipeline of loans that could be boarded; title/escrow partner willing to run the scanner pilot; HK investor conversations
-- [ ] **Hong Kong connection** (HFIP preference) — HK PI-offering angle, Manila operations in HK time zone, any HK partner or advisor
+- [x] **Public GitHub repo with a working proof of concept** — this repository; Testnet loan year in [testnet-run.md](testnet-run.md)
+- [ ] **2-minute demo video** — record `npm run print` → paper → `npm run tokenize` → `npm run loan-year` (explorer links appear live)
+- [x] **Clear XRPL integration plan** — [standards-mapping.md](standards-mapping.md) and [architecture.md](architecture.md): Payment, NFToken, TokenEscrow, key management; why XLS-65/66, EVM and Hooks were rejected ([appendix](appendix-deferred-amendments.md))
+- [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
+- [x] **Budget breakdown** — [August 2026 proposal](grant-proposal-2026-08-24.pdf) §5–7 (reconcile the M4 wording to the servicing-only design before submission)
+- [x] **Team bios + company details** — [TEAM.md](../TEAM.md)
+- [ ] **Traction** — bank subservicer design-partner conversations; pipeline of loans that could be boarded
+- [x] **Security posture** — [threat-model.md](threat-model.md); key drill proven on Testnet
 - [x] Eligibility basics: 18+, not OFAC-sanctioned, not Ripple employees; companies may apply
 
 ## The one-paragraph pitch to paste
 
-High Tech Mortgage, Inc. is a licensed US mortgage lender (Sacramento + Manila). We take the close-of-escrow
-paper package a title company hands us (Closing Disclosure, Fannie Mae Form 3200 Note, Form 3013 Deed of Trust,
-recorded deed), scan it, tie every figure out to the cent, and tokenize the note on the XRP Ledger as a
-permissioned Multi-Purpose Token funded through a Single Asset Vault and Lending Protocol facility (XLS-65/66),
-with the servicer's three standard disbursements (P&I, property tax, hazard insurance) mirrored on-ledger.
-It runs today on Devnet: <https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm>.
+High Tech Mortgage, Inc. is a licensed California mortgage broker (Sacramento + Manila). We take the close-of-escrow paper
+package a title company hands us, scan it, tie every figure out to the cent, board the loan, and service it for thirty years
+for the bank that owns it: payment application, escrow analysis under 12 CFR 1024.17, statements, Form 1098. The XRP Ledger
+records every settlement leg to the cent without borrower data, holds each verified impound bill under a native date lock,
+and carries one loan-record token per loan. It runs today on Testnet with only Mainnet-live transaction types:
+<https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm>.
 
 ## Before submitting
 
-1. Record the 2-minute video (screen capture of the three commands + the Devnet explorer).
-2. Reconcile the 12-week HFIP milestones in grant-narrative.md with the 12-month M1–M7 plan in the August proposal (the repo now completes most of M1–M2).
-3. Decide the HK anchor: partner, advisor, or PI-offering counsel.
-4. Register on the Brinc notification form now; apply to XRPL Grants (rolling) in parallel so the repo is under review while waiting for the next HFIP cohort.
+1. Record the 2-minute video.
+2. Reconcile the proposal PDF's milestone table with the servicing-only plan in grant-narrative.md.
+3. State the UNVERIFIED items verbatim (licensing/MSR, subservicer contract, custodial stablecoin, Idaho interest rule, traction).
+4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.

@@ -1,86 +1,63 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HTM Mortgage Note Tokenization - Live Devnet Demo</title>
+<title>HTM MortgageOS — servicing a residential mortgage on the XRP Ledger (Testnet)</title>
 <style>
-:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--fg:#e2e8f0;--mut:#94a3b8;--acc:#38bdf8;--ok:#34d399;--bad:#f87171}
-body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.45}
-header{padding:28px 24px 8px;max-width:1100px;margin:0 auto}h1{margin:0 0 6px;font-size:1.6rem}h1 small{color:var(--mut);font-weight:400;font-size:.95rem;display:block;margin-top:4px}
-main{max-width:1100px;margin:0 auto;padding:0 24px 48px;display:grid;gap:20px}
-section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}h2{margin:0 0 12px;font-size:1.05rem;color:var(--acc)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.m{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
-.l{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}.v{font-weight:700;margin-top:3px;word-break:break-all}.w{font-family:ui-monospace,monospace;font-size:.8rem}
-table{width:100%;border-collapse:collapse;font-size:.85rem}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--mut);font-weight:600}
-a{color:var(--acc)}.ok{color:var(--ok)}.bad{color:var(--bad)}.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;background:#0b3b2e;color:var(--ok)}
-.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.step{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}.step b{display:block;color:var(--acc);font-size:.8rem}
-img{max-width:100%;border-radius:6px;border:1px solid var(--line)}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.two{grid-template-columns:1fr}}
-.note{font-size:.8rem;color:var(--mut)}code{background:#0b1220;padding:1px 5px;border-radius:4px}
-</style></head><body>
-<header><p style="margin:0 0 10px"><a href="https://hightechmortgage.com"><img src="htm-logo.png" alt="HighTechMortgage" style="height:64px;border:0;border-radius:6px"></a> &nbsp; <a href="https://hightechmortgage.com/mortgageos.html"><img src="mortgageos-lockup.png" alt="MortgageOS" style="height:64px;border:0;border-radius:6px"></a></p><h1>HTM Mortgage Note Tokenization <small>Close-of-escrow paper → OCR → canonical loan → XRPL Devnet (MPT · XLS-65 vault · XLS-66 loan · 3-bucket servicing). Everything below was produced by <code>npm run tokenize -- closing-package-stack.pdf</code> (OCR of the printed package, no database) or is read live from Devnet. Synthetic data only.</small></h1></header>
-<main>
-<section><h2>1 · The flow</h2><div class="flow">
-<div class="step"><b>Scan</b>23-page closing package, 12 documents, one homeowner, signed in blue ink. The tokenizer reads 4 of them: Closing Disclosure, Form 3200 Note, Form 3013 Deed of Trust, recorded deed</div>
-<div class="step"><b>OCR + tie-out</b>tesseract → canonical loan JSON; P&amp;I, LTV, cash-to-close, sweep must balance</div>
-<div class="step"><b>Tokenize</b>MPT <code>HTMN1</code>, 45,000,000 units = $450,000.00, KYC-gated, docs sha256 in metadata</div>
-<div class="step"><b>Fund</b>XLS-65 private vault (attested depositors) → XLS-66 LoanBroker + two-party LoanSet</div>
-<div class="step"><b>Service</b>monthly sweep → P&amp;I LoanPay · tax impound · insurance impound → escrows to payees</div>
-</div></section>
+body{font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;color:#111;background:#fafafa}
+main{max-width:1080px;margin:0 auto;padding:24px}
+header h1{font-size:22px;margin:8px 0} header small{display:block;font-weight:400;color:#444;margin-top:6px}
+section{background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:16px 20px;margin:16px 0}
+h2{font-size:17px;margin:0 0 10px} .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.step{background:#f2f6fb;border-radius:6px;padding:10px} .step b{display:block;margin-bottom:4px}
+table{border-collapse:collapse;width:100%;font-size:13px} th,td{border-bottom:1px solid #eee;padding:5px 7px;text-align:left;vertical-align:top}
+code{background:#f3f3f3;padding:1px 4px;border-radius:3px;font-size:12.5px} .note{color:#555;font-size:13px}
+.ok{color:#0a7a2f;font-weight:600} .warn{color:#a05a00;font-weight:600}
+.m{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px dotted #e5e5e5} .m span:last-child{font-variant-numeric:tabular-nums}
+</style></head><body><main>
+<header><p style="margin:0 0 10px"><a href="https://hightechmortgage.com"><img src="htm-logo.png" alt="HighTechMortgage" style="height:64px;border:0;border-radius:6px"></a> &nbsp; <a href="https://hightechmortgage.com/mortgageos.html"><img src="mortgageos-lockup.png" alt="MortgageOS" style="height:64px;border:0;border-radius:6px"></a></p>
+<h1>Servicing one residential mortgage for a year on the XRP Ledger <small>Close-of-escrow paper → OCR → canonical loan record → twelve monthly cycles → escrow analysis → Form 1098. Ledger legs, the loan-record NFToken and the impound date locks were produced by <code>npm run loan-year</code> on XRPL <b>Testnet</b> using only transaction types that are live on Mainnet. Synthetic loan, controlled test USD; nothing here is a deposit or a claim on cash.</small></h1></header>
 
-<section><h2>2 · The loan (from the scanned package)</h2><div class="grid" id="loan"></div>
-<p class="note">Sources: <a href="canonical-loan.json">canonical-loan.json</a> · <a href="xls65_compliance.json">xls65_compliance.json</a> · <a href="closing-package-stack.pdf">printed 23-page stack, filled and signed (PDF)</a> · <a href="scan-report.json">scan-back report</a></p></section>
+<section><h2>The five steps</h2><div class="steps">
+<div class="step"><b>Print &amp; scan</b>23-page synthetic closing package, every signature in blue ink</div>
+<div class="step"><b>Read &amp; tie out</b>OCR → canonical record; P&amp;I, base + UFMIP, cash to close, four legs, FHA 4 % cap must agree to the cent</div>
+<div class="step"><b>Board</b>licence + HUD check, initial escrow deposit, initial analysis, loan-record NFToken (hash only)</div>
+<div class="step"><b>Service</b>payment credited on receipt → P&amp;I to the bank · tax impound · hazard impound · MIP → HUD; bills escrowed under a date lock, advanced if short</div>
+<div class="step"><b>Year end</b>aggregate escrow analysis (12 CFR 1024.17), statements, Form 1098, transfer, reconciliation</div></div>
+<p class="note">Sources: <a href="canonical-loan.json">canonical-loan.json</a> · <a href="run.json">run.json</a> · <a href="closing-package-stack.pdf">printed 23-page stack, filled and signed (PDF)</a> · <a href="../testnet-run.md">testnet-run.md</a> · <a href="../escrow-analysis-example.md">escrow analysis</a> · <a href="../form-1098-example.json">Form 1098</a> · <a href="../clock-mapping-manifest.json">clock mapping</a></p></section>
 
-<section><h2>3 · Paper in, data out</h2><div class="two"><div><img src="cd-page1.png" alt="Closing Disclosure page 1, filled"><p class="note">Closing Disclosure overlaid on the official CFPB blank.</p></div>
-<div><table id="scan"><thead><tr><th>Field</th><th>On the paper (OCR)</th><th>Loan of record</th><th></th></tr></thead><tbody></tbody></table><p class="note" id="scanmeta"></p></div></div></section>
+<section><h2>The loan, from the paper</h2><div id="loan">loading…</div></section>
+<section><h2>Four legs per month (integer cents)</h2><div id="legs">loading…</div></section>
+<section><h2>Impound bills: advance if short, then a date-locked escrow</h2><div id="bills">loading…</div></section>
+<section><h2>Proofs on the ledger</h2><div id="proofs">loading…</div></section>
+<section><h2>Year-end escrow analysis and Form 1098</h2><div id="yearend">loading…</div></section>
+<section><h2>Live ledger objects (read from Testnet now)</h2><div id="live">loading…</div><p class="note">Read-only JSON-RPC calls to <code>s.altnet.rippletest.net</code>. Balances are test USD; the NFToken URI decodes to <code>{v, loan, sha256, ptr}</code> and nothing else.</p></section>
+<section><h2>Every transaction</h2><div id="txs">loading…</div></section>
 
-<section><h2>4 · Live on XRPL Devnet <span class="pill" id="live">connecting…</span></h2>
-<div class="grid" id="ledger"></div><p class="note">Read over WebSocket from <code>wss://s.devnet.rippletest.net:51233</code> when you opened this page. Each ID links to the Devnet explorer.</p></section>
-
-<section><h2>5 · Servicing: three buckets, on-ledger</h2><div class="grid" id="buckets"></div></section>
-
-<section><h2>6 · Every transaction of the latest run</h2><p class="note" id="runmeta"></p>
-<table id="txs"><thead><tr><th>#</th><th>Step</th><th>Type</th><th>Account</th><th>Result</th><th>Tx</th></tr></thead><tbody></tbody></table></section>
-
-<section><h2>Run it yourself</h2><pre class="w">git clone https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm && cd xrpl-mortgage-tokenizing-htm
-npm ci && npm run print                      # make the paper
-npm run tokenize -- out/print/closing-package-stack.pdf --service   # or your own scan of it</pre>
-<p class="note">Or press “Run workflow” on the <a href="https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml">Devnet demo Action</a>; it reruns everything on a fresh Devnet wallet set and republishes this page.</p></section>
-</main>
 <script>
-const $=s=>document.querySelector(s);const usd=n=>'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2});
-const EXP='https://devnet.xrpl.org';const m=(l,v,w)=>`<div class="m"><div class="l">${l}</div><div class="v${w?' w':''}">${v}</div></div>`;
-async function j(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.json();}
+const $=s=>document.querySelector(s), j=u=>fetch(u).then(r=>r.json()), usd=c=>(c/100).toLocaleString('en-US',{style:'currency',currency:'USD'}), usdF=n=>Number(n).toLocaleString('en-US',{style:'currency',currency:'USD'});
+const m=(k,v)=>`<div class="m"><span>${k}</span><span>${v}</span></div>`;
+const EXP='https://testnet.xrpl.org', link=(h,k='transactions')=>h&&h.length===64?`<a href="${EXP}/${k}/${h}">${h.slice(0,12)}…</a>`:(h||'-');
 (async()=>{
- const [loan,run,scan]=await Promise.all([j('canonical-loan.json'),j('run.json'),j('scan-report.json').catch(()=>null)]);
- const L=loan.loan,S=loan.servicing;
- $('#loan').innerHTML=m('Loan',L.loan_id)+m('Note amount',usd(L.principal_amount))+m('Rate / term',(L.annual_interest_rate*100).toFixed(3)+'% / '+L.term_months+' mo')+m('P&I (Form 3200 s.3)',usd(L.monthly_principal_and_interest))
-  +m('Property',loan.property.address.street+', '+loan.property.address.city+' '+loan.property.address.state)+m('APN',loan.property.apn)+m('Deed of Trust recorded',loan.security_instrument.recording_number+' · '+loan.security_instrument.recording_date)+m('Cash to close',usd(loan.closing.cash_to_close))
-  +m('Late charge (s.6)',(loan.note_terms.late_charge_percent_of_pi*100)+'% after '+loan.note_terms.grace_period_days+' days = '+usd(loan.note_terms.late_charge_amount))+m('Document bundle sha256',run.document_bundle_sha256,1);
- if(scan){$('#scan tbody').innerHTML=scan.matches.map(x=>`<tr><td>${x.field}</td><td>${x.scanned??'—'}</td><td>${x.expected}</td><td class="${x.match?'ok':'bad'}">${x.match?'✓':'✗'}</td></tr>`).join('');
-  const c=Math.round(scan.pages.reduce((a,p)=>a+(p.confidence||0),0)/scan.pages.length);$('#scanmeta').textContent=`${scan.pages.length} pages OCR'd, mean confidence ${c}%. Servicing statement: ${JSON.stringify(scan.servicing_statement)} → LoanPay ${scan.loan_pay.ok?'READY':'BLOCKED'}.`;}
- $('#buckets').innerHTML=m('Monthly sweep (CD p.1 total)',usd(S.monthly_total_sweep))+m('→ P&I to lender vault (LoanPay)',usd(S.principal_and_interest))+m('→ Tax impound → Ada County Treasurer (Dec 20 / Jun 20)',usd(S.property_tax_impound))+m('→ Insurance impound → carrier / HUD (hazard '+usd(S.insurance_detail.hazard_homeowners)+' + FHA MIP '+usd(S.insurance_detail.fha_mip)+')',usd(S.insurance_impound));
- $('#runmeta').textContent=`Run ${run.ran_at} on ${run.network}: ${run.transactions.length} transactions, ${run.transactions.filter(t=>t.result==='tesSUCCESS').length} tesSUCCESS.`;
- $('#txs tbody').innerHTML=run.transactions.map((t,i)=>`<tr><td>${i+1}</td><td>${t.step}</td><td>${t.type}</td><td class="w">${Object.entries(run.accounts).find(([k,v])=>v===t.account)?.[0]??t.account}</td><td class="${t.result==='tesSUCCESS'?'ok':'bad'}">${t.result}</td><td><a href="${t.explorer}" target="_blank" rel="noopener">${t.hash.slice(0,10)}…</a></td></tr>`).join('');
- // live ledger
- const ids=run.ids,A=run.accounts;const ws=new WebSocket('wss://s.devnet.rippletest.net:51233');let id=0;const pend={};
- const rpc=req=>new Promise((res,rej)=>{const i=++id;pend[i]={res,rej};ws.send(JSON.stringify({id:i,...req}));});
- ws.onmessage=e=>{const d=JSON.parse(e.data);const p=pend[d.id];if(!p)return;delete pend[d.id];d.status==='success'?p.res(d.result):p.rej(d)};
- ws.onerror=()=>{$('#live').textContent='offline (showing last run)';$('#live').style.background='#3b1d1d';$('#live').style.color='#f87171'};
- ws.onopen=async()=>{
-  const le=i=>rpc({command:'ledger_entry',index:i,ledger_index:'validated'}).then(r=>r.node).catch(()=>null);
-  const mptE=i=>rpc({command:'ledger_entry',mpt_issuance:i,ledger_index:'validated'}).then(r=>r.node).catch(()=>null);
-  const bal=a=>rpc({command:'account_info',account:a,ledger_index:'validated'}).then(r=>Number(r.account_data.Balance)/1e6).catch(()=>null);
-  const [mpt,vault,lb,loanE,tax,ins,cty,car]=await Promise.all([mptE(ids.mptIssuanceId),le(ids.vaultId),le(ids.loanBrokerId),le(ids.loanId),bal(A.taxImpound),bal(A.insuranceImpound),bal(A.countyTreasurer),bal(A.insuranceCarrier)]);
-  const link=(i,t)=>`<a href="${EXP}/${t}/${i}" target="_blank" rel="noopener">${i.slice(0,14)}…</a>`;
-  const meta=mpt?.MPTokenMetadata?JSON.parse(new TextDecoder().decode(Uint8Array.from(mpt.MPTokenMetadata.match(/../g).map(h=>parseInt(h,16))))):null;
-  $('#ledger').innerHTML=
-   m('Mortgage note token '+(meta?meta.t:'')+' (issued with the XRPL MPT standard, XLS-33)',(mpt?`${Number(mpt.OutstandingAmount).toLocaleString()} / ${Number(mpt.MaximumAmount).toLocaleString()} units outstanding (cents) · flags ${mpt.Flags}`:'not found')+'<br>'+link(ids.mptIssuanceId,'mpt'),1)
-  +m('Vault (XLS-65)',(vault?`assets ${(Number(vault.AssetsTotal)/1e6).toFixed(2)} XRP · available ${(Number(vault.AssetsAvailable)/1e6).toFixed(2)} XRP · private=${!!(vault.Flags&65536)}`:'not found')+'<br>'+link(ids.vaultId,'objects'),1)
-  +m('LoanBroker (XLS-66)',(lb?`debt total ${(Number(lb.DebtTotal||0)/1e6).toFixed(4)} XRP · first-loss cover ${(Number(lb.CoverAvailable||0)/1e6).toFixed(2)} XRP`:'not found')+'<br>'+link(ids.loanBrokerId,'objects'),1)
-  +m('Loan (XLS-66)',(loanE?`principal outstanding ${(Number(loanE.PrincipalOutstanding)/1e6).toFixed(4)} XRP · payments remaining ${loanE.PaymentRemaining} of 360 · flags ${loanE.Flags}`:'not found (deleted or expired)')+'<br>'+link(ids.loanId,'objects'),1)
-  +m('Tax impound account (balance after escrow to payee)',(tax!=null?tax.toFixed(4)+' XRP':'?')+' · <a target="_blank" rel="noopener" href="'+EXP+'/accounts/'+A.taxImpound+'">'+A.taxImpound.slice(0,12)+'…</a>',1)
-  +m('Insurance impound account',(ins!=null?ins.toFixed(4)+' XRP':'?')+' · <a target="_blank" rel="noopener" href="'+EXP+'/accounts/'+A.insuranceImpound+'">'+A.insuranceImpound.slice(0,12)+'…</a>',1)
-  +m('County treasurer (escrow payee)',(cty!=null?cty.toFixed(4)+' XRP':'?')+' · <a target="_blank" rel="noopener" href="'+EXP+'/transactions/'+ids.taxEscrowTx+'">tax escrow tx</a>',1)
-  +m('Insurance carrier (escrow payee)',(car!=null?car.toFixed(4)+' XRP':'?')+' · <a target="_blank" rel="noopener" href="'+EXP+'/transactions/'+ids.insuranceEscrowTx+'">insurance escrow tx</a>',1);
-  $('#live').textContent='live · validated ledger';ws.close();
- };
-})().catch(e=>{document.body.insertAdjacentHTML('beforeend','<p class="bad" style="padding:24px">'+e.message+'</p>')});
-</script></body></html>
+ const [loan,run]=await Promise.all([j('canonical-loan.json'),j('run.json').catch(()=>null)]);
+ const S=loan.servicing, L=loan.loan;
+ $('#loan').innerHTML=m('Loan',`${L.loan_id} · ${L.product} · ${L.loan_type} · consumer purpose`)+m('Note amount',`${usdF(L.principal_amount)} = base ${usdF(L.base_loan_amount)} + UFMIP ${usdF(L.financed_ufmip)} (1.75 % of base)`)+m('Rate / term',`${(L.annual_interest_rate*100).toFixed(3)} % / ${L.term_months} months`)+m('P&I (fixed for the life of the loan)',usdF(L.monthly_principal_and_interest))+m('Monthly payment',usdF(S.monthly_total_sweep))+m('Late charge',`${(loan.note_terms.late_charge_percent_of_pi*100).toFixed(0)} % of P&I = ${usdF(loan.note_terms.late_charge_amount)} after ${loan.note_terms.grace_period_days} days (24 CFR 203.25)`)+m('LTV (base / lesser of price and appraisal)',`${(loan.property.ltv*100).toFixed(2)} %`);
+ $('#legs').innerHTML=m('P&I → note holder (funding bank)',usdF(S.principal_and_interest))+m('Tax impound → Ada County Treasurer (Dec 20 / Jun 20, Idaho Code 63-903)',usdF(S.property_tax_impound))+m('Hazard impound → carrier (Sep 1)',usdF(S.hazard_insurance_impound))+m('FHA MIP → HUD (monthly)',usdF(S.fha_mip))+m('<b>Total</b>',`<b>${usdF(S.monthly_total_sweep)}</b>`);
+ if(!run){$('#bills').textContent='No published run yet.';return;}
+ $('#bills').innerHTML='<table><tr><th>purpose</th><th>due</th><th>amount</th><th>decision</th><th>advance</th><th>EscrowCreate</th><th>EscrowFinish</th><th>EscrowCancel</th></tr>'+run.escrows.map(e=>{const d=(run.disbursements||[]).find(x=>x.due_date===e.due&&x.purpose===e.purpose);return `<tr><td>${e.purpose}</td><td>${e.due}</td><td>${usd(e.cents)}</td><td>${d?d.decision.action:'-'}</td><td>${d&&d.decision.advance_cents?usd(d.decision.advance_cents):'-'}</td><td>${link(e.hash)}</td><td>${link(e.done)}</td><td>${link(e.cancelled)}</td></tr>`;}).join('')+'</table>';
+ $('#proofs').innerHTML=Object.entries(run.proofs||{}).map(([k,v])=>m(k,v&&v.length===64?link(v):v)).join('');
+ const a=run.year_end.analysis;
+ $('#yearend').innerHTML=m('Computation year',`${a.computation_year_start} → ${a.computation_year_end}`)+m('Annual disbursements / monthly deposit',`${usd(a.annual_disbursements_cents)} / ${usd(a.monthly_deposit_cents)}`)+m('Cushion (max one-sixth)',usd(a.cushion_cents))+m('Target vs actual starting balance',`${usd(a.target_starting_balance_cents)} vs ${usd(a.starting_balance_cents)}`)+m('Result',`<span class="warn">${a.classification} ${usd(a.shortage_cents||a.surplus_cents||a.deficiency_cents)}</span>`)+m('Year-2 monthly escrow',usd(run.year_end.year_two_monthly_escrow_cents))+m('Annual statement due',a.annual_statement_due)+(run.form_1098||[]).map(f=>m(`Form 1098 ${f.year}`,`box 1 ${usd(f.boxes[1])} · box 2 ${usd(f.boxes[2])} · box 5 ${usd(f.boxes[5])} · box 10 ${f.boxes[10]===null?'-':usd(f.boxes[10])} · required ${f.required} · furnish by ${f.calendar.furnish_to_borrower_by}`)).join('');
+ $('#txs').innerHTML='<table><tr><th>step</th><th>type</th><th>result</th><th>tx</th></tr>'+run.transactions.map(t=>`<tr><td>${t.step}</td><td>${t.type}</td><td class="${t.result==='tesSUCCESS'?'ok':'warn'}">${t.result}</td><td>${link(t.hash)}</td></tr>`).join('')+'</table>';
+ // live reads
+ try{
+  const rpc=async(method,params)=>{const r=await fetch('https://s.altnet.rippletest.net:51234',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({method,params:[params]})});return (await r.json()).result;};
+  const A=run.accounts, iss=A.issuer;
+  const bal=async acct=>{const r=await rpc('account_lines',{account:acct,peer:iss,ledger_index:'validated'});const l=(r.lines||[]).find(x=>x.currency==='USD');return l?usdF(l.balance):'0';};
+  const nft=await rpc('account_nfts',{account:A.transfereeServicer||A.servicer,ledger_index:'validated'});
+  const tok=(nft.account_nfts||[]).find(n=>n.NFTokenID===run.ids.loanRecordNFTokenId);
+  const uri=tok?new TextDecoder().decode(Uint8Array.from(tok.URI.match(/../g).map(h=>parseInt(h,16)))):'(not found)';
+  const [sv,nh,tx,hz,cty,car,hud]=await Promise.all([bal(A.servicer),bal(A.noteHolder),bal(A.taxImpound),bal(A.hazardImpound),bal(A.countyTreasurer),bal(A.insuranceCarrier),bal(A.hud)]);
+  $('#live').innerHTML=m('Loan-record NFToken (held by the successor servicer after the transfer)',`<code>${uri}</code>`)+m('Note holder (bank) test USD',nh)+m('Servicer collection',sv)+m('Tax impound',tx)+m('Hazard impound',hz)+m('Ada County Treasurer received',cty)+m('Hazard carrier received',car)+m('HUD received (MIP)',hud)+m('Issuer flags',`allowTrustLineLocking must be true → <a href="${EXP}/accounts/${iss}">${iss}</a>`);
+ }catch(e){$('#live').innerHTML='<span class="warn">Live read unavailable from this browser: '+e.message+'</span>';}
+})();
+</script>
+</main></body></html>

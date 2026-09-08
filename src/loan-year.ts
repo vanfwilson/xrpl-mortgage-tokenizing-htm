@@ -34,7 +34,7 @@ const args = process.argv.slice(2);
 const noLedger = args.includes('--no-ledger');
 const keyDrill = args.includes('--key-drill');
 const stepArg = args.indexOf('--step');
-const STEP = stepArg >= 0 ? Number(args[stepArg + 1]) : 35; // ledger seconds per business month (Track 2)
+const STEP = stepArg >= 0 ? Number(args[stepArg + 1]) : 45; // ledger seconds per business month (Track 2)
 const canonicalPath = args.find((a) => a.endsWith('.json'));
 const log = (m: string) => console.log(m);
 const head = (n: string, t: string) => log(`\n[${n}] ${t}`);
@@ -91,7 +91,7 @@ const advances: Array<{ bill: string; cents: Cents; on: IsoDate }> = [];
 // ---------------------------------------------------------------------------
 let ctx: Ctx | undefined;
 const RUN = `run-${Date.now().toString(36)}`;
-const manifest: Array<{ business_date: IsoDate; ripple_time: number; iso: string; what: string }> = [];
+const manifest: Array<{ business_date: IsoDate; ripple_time: number; iso: string; what: string; clamped?: boolean }> = [];
 let t0 = 0;
 const mapTime = (iso: IsoDate) => {
   const [y, m, d] = iso.split('-').map(Number);
@@ -99,7 +99,9 @@ const mapTime = (iso: IsoDate) => {
   const months = (y - y0) * 12 + (m - m0);
   return Math.floor(t0 + (months + (d - 1) / 31) * STEP);
 };
-const note = (business_date: IsoDate, what: string, ripple_time = mapTime(business_date)) => manifest.push({ business_date, ripple_time, iso: new Date((ripple_time + 946_684_800) * 1000).toISOString(), what });
+const note = (business_date: IsoDate, what: string, ripple_time = mapTime(business_date), clamped = false) => manifest.push({ business_date, ripple_time, iso: new Date((ripple_time + 946_684_800) * 1000).toISOString(), what, ...(clamped ? { clamped } : {}) });
+/** S7/T10: a FinishAfter must be in the future when the escrow is created; if the mapped statutory instant has already passed on the ledger clock, clamp forward and say so in the manifest. */
+const futureFinish = (mapped: number) => Math.max(mapped, nowRipple() + 10);
 const memo = (period: string, leg: Leg, cents: Cents) => ({ v: 1 as const, loan: OPAQUE_LOAN, period, leg, cents, run: RUN });
 const PAYEES: readonly Role[] = ['countyTreasurer', 'insuranceCarrier', 'hud'];
 interface OpenEscrow { bill: VerifiedBill; owner: string; sequence: number; hash: string; finish_after: number; cancel_after: number; from: Role; to: Role; done?: string; cancelled?: string }
@@ -120,8 +122,6 @@ async function main() {
     const client = await connect();
     const wallets = await loadOrFundWallets(client, log);
     ctx = { client, wallets, loan, bundle, txs: [], ids: {}, notes: [], log, settled: new Map() };
-    t0 = nowRipple() + 15;
-    note(yearStart, 'business clock origin (period 1 due date)', t0);
     head('3', 'Controlled test-USD issuer: trust-line locking BEFORE any trust line (S5); trust lines; test USD');
     await bootstrapIssuer(ctx);
     proofs.T9_issuer_preflight = `allowTrustLineLocking=true on ${ctx.ids.issuer}`;
@@ -136,6 +136,7 @@ async function main() {
   await pay('servicer', 'taxImpound', boarded.opening_postings[0].cents, 'boarding', 'initial_deposit', `${RUN}:boarding:tax`);
   await pay('servicer', 'hazardImpound', boarded.opening_postings[1].cents, 'boarding', 'initial_deposit', `${RUN}:boarding:hazard`);
 
+  if (ctx) { t0 = nowRipple() + 10; note(yearStart, 'business clock origin (period 1 due date), set after setup', t0); }
   head('6', `Twelve monthly cycles ${yearStart} .. ${yearEnd} (business clock; ${noLedger ? 'no ledger' : `${STEP}s per month on ${config.network}`})`);
   let early = false;
   for (let p = 1; p <= 12; p++) {
@@ -185,10 +186,11 @@ async function main() {
       }
       const from: Role = bill.purpose === 'tax' ? 'taxImpound' : 'hazardImpound';
       const to: Role = bill.purpose === 'tax' ? 'countyTreasurer' : 'insuranceCarrier';
-      const finish_after = ctx ? mapTime(bill.due_date) : rippleTimeAt(bill.due_date);
+      const mapped = ctx ? mapTime(bill.due_date) : rippleTimeAt(bill.due_date);
+      const finish_after = ctx ? futureFinish(mapped) : mapped;
       const cancel_after = ctx ? finish_after + STEP : rippleTimeAt(addDays(bill.due_date, config.escrow.cancelAfterDays));
       if (ctx) {
-        note(bill.due_date, `${bill.purpose} bill FinishAfter`, finish_after); note(addDays(bill.due_date, config.escrow.cancelAfterDays), `${bill.purpose} bill CancelAfter (mapped +${STEP}s)`, cancel_after);
+        note(bill.due_date, `${bill.purpose} bill FinishAfter`, finish_after, finish_after !== mapped); note(addDays(bill.due_date, config.escrow.cancelAfterDays), `${bill.purpose} bill CancelAfter (FinishAfter + ${STEP}s)`, cancel_after);
         const e = await createImpoundEscrow(ctx, { from, to, cents: bill.cents, finish_after, cancel_after, memo: memo(period, bill.purpose, bill.cents), allowlist: PAYEES });
         escrows.push({ bill, ...e, finish_after, cancel_after, from, to });
         if (!early) { early = true; proofs.T10_early_finish = await attemptEarlyFinish(ctx, 'servicer', e.owner, e.sequence); }
@@ -271,6 +273,7 @@ async function main() {
   fs.writeFileSync(path.join('docs', 'form-1098-example.json'), JSON.stringify({ note: 'Synthetic loan; 1098 data for the demo loan year. Box 1 reconciles to interest applied by receipt date; Box 2 is principal at January 1.', forms: form1098 }, null, 2));
   if (ctx) {
     fs.writeFileSync(path.join('docs', 'clock-mapping-manifest.json'), JSON.stringify({ network: config.network, run: RUN, step_seconds: STEP, origin_ripple_time: t0, rule: 'ripple_time = origin + (months since period-1 due + (day-1)/31) * step_seconds', manifest }, null, 2));
+    if (config.network === 'testnet') fs.writeFileSync(path.join('docs', 'demo', 'run.json'), JSON.stringify({ network: run.network, ran_at: run.ran_at, run: run.run, loan: run.loan, document_bundle_sha256: run.document_bundle_sha256, accounts: run.accounts, ids: run.ids, proofs: run.proofs, escrows: run.escrows, periods: run.periods, year_end: { analysis: run.year_end.analysis, year_two_monthly_escrow_cents: run.year_end.year_two_monthly_escrow_cents }, form_1098: run.form_1098, transactions: run.transactions }, null, 2));
     if (config.network === 'testnet') fs.writeFileSync(path.join('docs', 'testnet-run.md'), '# Testnet loan-year run\n\nLatest run of `npm run loan-year` on XRPL Testnet (Mainnet-live transaction types only; statutory dates mapped per docs/clock-mapping-manifest.json). Every hash links to the explorer.\n\n' + runMarkdown(run).replace(/^# .*\n/, ''));
     await ctx.client.disconnect();
   }

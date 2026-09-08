@@ -1,12 +1,12 @@
 name: ci
 on:
   push:
-    branches: [main]
+    branches: [main, 'claude/**', 'codex/**']
   pull_request:
   workflow_dispatch:
     inputs:
-      devnet:
-        description: 'Also run the live Devnet amendment check'
+      testnet:
+        description: 'Also assert the latest Testnet loan-year proofs'
         type: boolean
         default: false
 jobs:
@@ -20,12 +20,13 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run ingest
-  devnet:
-    if: github.event_name == 'workflow_dispatch' && inputs.devnet
+      - run: npm run loan-year:replay
+  devnet-smoke:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: npm run test:devnet
+      - run: XRPL_WSS=wss://s.devnet.rippletest.net:51233 npm run loan-year -- --step 12   # compressed Devnet smoke; never cited as Mainnet proof

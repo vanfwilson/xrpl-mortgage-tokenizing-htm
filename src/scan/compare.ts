@@ -60,11 +60,10 @@ function toIso(d: string): string {
 }
 
 /**
- * Build XLS-66 LoanPay inputs from a verified servicing statement. The on-ledger
- * periodic amount comes from the Loan ledger entry at submit time; here we return
- * what the memo must carry and the sanity gates that must pass first.
+ * Build the payment-application inputs from a verified servicing statement: the four-leg split the
+ * engine will post and the sanity gates that must pass before anything is applied or settled.
  */
-export function loanPayInputs(s: ServicingStatementFields, loan: CanonicalLoan) {
+export function applicationInputs(s: ServicingStatementFields, loan: CanonicalLoan) {
   const gates = {
     loan_number_matches: s.loan_number === loan.loan.loan_id,
     amount_due_matches_piti: s.amount_due !== undefined && Math.abs(s.amount_due - loan.servicing.monthly_total_sweep) <= 0.011,

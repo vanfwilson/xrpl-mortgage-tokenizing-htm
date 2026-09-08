@@ -5,176 +5,108 @@
   <a href="https://hightechmortgage.com/mortgageos.html"><img src="assets/brand/mortgageos-lockup-tight.png" alt="MortgageOS™ — Financial coordination layer. Secure Digital Mortgage Operating System." width="640"></a>
 </p>
 
-# Scan a closed home loan. Record it on the XRP Ledger.
+# Service a residential mortgage for thirty years. Prove every dollar on the XRP Ledger.
 
 ## What this software does
 
-This is the working software behind **MortgageOS™**, HighTechMortgage's digital mortgage operating system. It takes
-the paper a title company produces when a home purchase closes, reads it, checks it, and records the loan on the
-**XRP Ledger**, a public financial ledger that has run continuously since 2012.
+This is the servicing layer of **MortgageOS™**, High Tech Mortgage's digital mortgage operating system. It takes the
+paper a title company produces when a home purchase closes, reads it, checks every figure to the cent, boards the loan,
+and then does what a mortgage servicer does every month for thirty years: apply the borrower's payment, remit principal
+and interest to the bank that owns the note, reserve property tax and hazard insurance, remit the FHA mortgage-insurance
+premium, pay the county and the carrier on their statutory dates, run the annual escrow analysis, send the borrower's
+statements, and produce the IRS Form 1098. The XRP Ledger is used for three things it does better than a database:
+an immutable fingerprint of the loan file, exact-cent settlement events anyone can reconcile without seeing borrower data,
+and a native date lock that makes it impossible to release impound money before the day it is due.
 
-In one sentence: **paper in, verified digital mortgage record out, funded and serviced on a public ledger, with no
-personal data leaving the servicer's files.**
+**Who we are.** HTM is a licensed California mortgage broker with an operations centre in Manila. The loans are standard
+Fannie Mae uniform-instrument, fixed-rate, 30-year residential loans (the fixture is FHA-insured, Idaho property) funded and
+owned by banks we work with under contract. A bank-owned licensed subservicer is servicer of record; HTM is the technology
+provider and its Manila team executes servicing tasks as the subservicer's vendor under dual control. We do not raise
+capital, sell interests in loans, or run a lending pool.
 
-**Why a ledger instead of a paper file.** Today the original note sits in one escrow office's vault or one
-servicer's filing cabinet. Loans are sold and re-sold, and after a few transfers nobody can say with certainty who
-holds the original or whether a copy is genuine. Anyone with a printer can produce a convincing fake. A public ledger
-record fixes that: one record, created once, visible to every party, impossible to alter or backdate, bound to the
-exact paper by its fingerprint, and carrying the payment history for the life of the loan.
+**What it is not.** The ledger record does not replace the Note, the Deed of Trust, the lien, the county record, the
+bank's custodial accounts or the servicer's books. A validated ledger transaction is evidence of a settlement event; it is
+not proof of legal compliance, of payee receipt, of document validity, of servicing authority, or of custody. No borrower
+personal data goes on the ledger. Everything here runs on the ledger's public **test network** with a controlled test USD
+and a fictitious homeowner.
 
-**Verifiable. Immutable. Traceable. Transferable. Auditable. Private. Fast. Open.**
+**See it:** [Testnet loan-year run](docs/testnet-run.md) · [escrow analysis worked example](docs/escrow-analysis-example.md) · [Form 1098 example](docs/form-1098-example.json) · [the filled, signed closing package we scan (PDF)](forms/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [architecture](docs/architecture.md) · [threat model](docs/threat-model.md) · [team](TEAM.md) · [grant proposal](docs/grant-proposal-2026-08-24.pdf)
 
-What a lender, a title officer, or an investor gets from it:
-
-- **A single, checked record of the loan.** The software reads every page, pulls out the loan number, amounts, rate,
-  dates, parcel number and recording numbers, and refuses to continue unless every figure agrees across documents to
-  the cent. Errors that would surface months later in servicing are caught the day the package is scanned.
-- **A tamper-proof certificate of the note.** The loan becomes one token on the ledger whose description carries the
-  fingerprint of the exact scanned paper. Anyone can verify that token exists and what it represents; nobody can alter it.
-- **Funding and repayment on the same ledger.** Approved investors pool money in a vault; the servicer draws a
-  fixed-term facility against it; each monthly payment is split into the three things a servicer actually collects
-  (principal & interest, property tax, hazard insurance) and the tax and insurance reserves are locked to the county
-  treasurer and the insurance carrier until their due dates.
-- **A complete audit trail.** Every step is a signed transaction with a public ID. Reviewers can click each one.
-
-What it does **not** do: it does not replace the Note, the Deed of Trust, the lien or the county record, and it never
-puts a borrower's personal data on the ledger. Everything shown here runs on the ledger's public **test network** with
-play money and a fictitious homeowner.
-
-**See it:** [live demo page](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/) · [the filled, signed closing package we scan (PDF)](forms/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [team and credentials](TEAM.md) · [our grant proposal](docs/grant-proposal-2026-08-24.pdf)
-
-[![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions) [![devnet-demo](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/demo.yml)
+[![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions)
 
 ---
 
 ## How it works, in plain words
 
-When a home purchase closes, the title company produces a stack of paper: the Closing Disclosure, the promissory
-Note, the Deed of Trust, the recorded deed, and supporting forms. Today that paper is scanned into a servicer's
-filing system and the loan lives on as rows in a database that only the servicer can see.
+1. **Paper in.** The closing package (Closing Disclosure, FHA model Note, FHA Idaho Deed of Trust, recorded Warranty Deed
+   and the supporting forms) is printed, scanned and read by OCR. Every figure is cross-checked: P&I must match rate and
+   term, base loan plus financed UFMIP must equal the note, cash to close must balance, the late charge may not exceed the
+   FHA cap, the four payment legs must sum to the monthly payment. If anything disagrees, the run stops.
+2. **Board.** The loan becomes a canonical record with one legal owner (the funding bank) and one servicer of record.
+   Boarding refuses a loan without a current servicing licence and, for FHA, HUD-approved mortgagee status. The initial
+   escrow deposit from the Closing Disclosure enters the tax and hazard subledgers on day one.
+3. **Every month.** The borrower's payment is credited as of the day it is received and split into four legs to the cent:
+   principal and interest to the bank, tax to the tax impound, hazard insurance to the hazard impound, FHA MIP to its own
+   payable and on to HUD. Each leg is an exact-cent issued-USD payment on the ledger with a six-key memo and no personal
+   data. Partial payments go to suspense; a full payment is never diverted to late charges.
+4. **When a bill is due.** A verified county or carrier bill, never a forecast, is escrowed on the ledger only when the
+   impound can fund it in full. If it cannot and the borrower is not more than 30 days overdue, the servicer advances the
+   shortfall first, as RESPA requires. The escrow cannot be released before its statutory date; an early release attempt
+   fails on the ledger itself.
+5. **Once a year.** The escrow account is analysed with the aggregate method: a one-sixth cushion cap, and surplus,
+   shortage or deficiency handled exactly as 12 CFR 1024.17(f) allows. The borrower gets the annual statement within
+   30 days. Form 1098 is built from receipt-dated interest and the January 1 balance.
+6. **Servicing transfer.** Records are exported, the 1024.33 notices go out, misdirected payments are honoured for 60 days,
+   and the loan-record token moves to the successor by a zero-price offer. Ownership of the note never changes on the
+   ledger; that is a separate legal event with its own notice.
 
-This project does one extra thing with that same stack. After scanning, software reads the pages, checks that every
-figure agrees across documents to the cent, and then records the loan on the **XRP Ledger**, a public, tamper-proof
-ledger that has run since 2012. The record is a **token**: a digital certificate that says "this is the note whose
-paper has this exact fingerprint, for this much principal, with these controls on who may hold it." The same ledger
-then funds the loan from approved investors and tracks the monthly payment split into the three things a servicer
-actually collects: principal & interest, property tax, and hazard insurance.
+## Which XRPL feature does what
 
-**What it is not.** The token does not replace the Note, the Deed of Trust, the lien or the county record. Those stay
-exactly where the law puts them. No borrower personal data goes on the ledger, only amounts, dates and a fingerprint.
-Everything here runs on the ledger's **test network** with play money and made-up documents for a fictitious homeowner.
-
-## The five steps
-
-| # | Step | What you see |
+| Primitive | Live on Mainnet | What we create with it |
 |---|---|---|
-| 1 | **Print** the synthetic closing package: 12 documents, 23 pages, one homeowner, every signature line signed in blue ink. Official CFPB and Fannie Mae forms where they exist. | [forms/](forms/) |
-| 2 | **Scan** it on any office scanner. | your PDF |
-| 3 | **Read** it: OCR, page recognition, and a rebuilt loan record where every field says which document it came from. The run **stops** if a required field is missing or the numbers don't tie out. | `out/tokenize/<scan>.canonical.json` |
-| 4 | **Tokenize** it: the note becomes one token on the ledger, bound to the scan's fingerprint; approved investors fund it through a vault; a 360-payment loan facility is originated to the servicer. | explorer links in `out/latest.md` |
-| 5 | **Service** it (optional): monthly payment in, three buckets out, impounds time-locked to the county treasurer and the insurance carrier. | explorer links |
+| `Payment` in an issued USD | yes | every settlement leg, exact cents, versioned memo |
+| `NFTokenMint` / `NFTokenCreateOffer` / `NFTokenAcceptOffer` | yes | one loan-record handle per loan (hash + opaque id + pointer); hand-off on servicing transfer |
+| `EscrowCreate` / `EscrowFinish` / `EscrowCancel` for issued currency (TokenEscrow) | yes | the date lock on each verified near-term impound bill |
+| `AccountSet` `asfAllowTrustLineLocking`, `asfDefaultRipple` | yes | the controlled test-USD issuer; the locking flag must be set before any trust line exists |
+| `SetRegularKey`, `SignerListSet`, `lsfDisableMaster` | yes | bank key management; the recovery drill is proven on Testnet |
 
-```bash
-npm ci
-npm run print                                            # step 1
-npm run tokenize -- ~/scans/my-scan.pdf                  # steps 3–4 from your scan
-npm run tokenize -- ~/scans/my-scan.pdf --service        # … plus step 5
-```
-
-Requires Node 20+, plus `tesseract` and `poppler` for OCR. No accounts or API keys: the test network hands out play money automatically.
-
-## Which ledger standard does what
-
-The XRP Ledger publishes numbered standards ("XLS-nn"). We **use** four of them; we do not write or change them.
-
-| Standard | Plain meaning | What we create with it |
-|---|---|---|
-| **XLS-33 Multi-Purpose Token (MPT)** | the ledger's template for issuing a token with a fixed supply and holder controls | **the mortgage note token, `HTMN1`** (45,000,000 units = $450,000.00 principal) |
-| **XLS-89 token metadata** | the agreed 1 KB description attached to a token | the note token's description, including the scan's fingerprint |
-| **XLS-65 Single Asset Vault** | a pooled funding account with shares, optionally members-only | **one private vault** funded by two KYC-attested investors |
-| **XLS-66 Lending Protocol** | a lending desk with first-loss capital and fixed-term amortising loans | **one LoanBroker and one 360-payment loan** to HTM Loan Servicing |
-
-So: the OCR output becomes the **token** (XLS-33). The token's loan is then **funded** (XLS-65) and **originated** (XLS-66). Full definitions in [GLOSSARY.md](GLOSSARY.md).
+Not used, and why: XLS-65 and XLS-66 (funding protocols for new loans, not on Mainnet), DynamicMPT, Batch,
+Smart Escrows, the EVM sidechain and Hooks. See [docs/appendix-deferred-amendments.md](docs/appendix-deferred-amendments.md).
+The settlement asset is a controlled test USD because RLUSD's issuers do not permit trust-line locking on Mainnet or Testnet
+(checked 2026-09-08); the code refuses to build an escrow when the issuer flag is off.
 
 ---
 
 ## For engineers
 
-### Paper in, token out
-
 ```bash
 npm ci
-npm run print                                   # produce the 23-page synthetic closing package to print
-# print it, scan it back to a PDF (300 dpi is plenty), then:
-npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> rebuild the loan from the paper -> MPT + XLS-65 vault + XLS-66 loan on Devnet
-npm run tokenize -- ~/scans/my-scan.pdf --service   # ...and run the monthly 3-way sweeps too
+npm run print                                   # print the 23-page synthetic closing package (forms/)
+npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> canonical loan record -> tie-outs -> bundle hash
+npm run loan-year:replay                        # Track 1: full loan year on the business clock, no network
+npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~10 min)
+npm test                                        # 86 offline tests, R01-R31 named
+npm run test:testnet                            # assert the proofs in the latest Testnet run
 ```
 
-`tokenize` reads nothing from the database or the fixtures. It classifies each page (Closing Disclosure,
-Note, Deed of Trust, Warranty Deed, statement), extracts every field with per-field provenance, refuses to
-continue if a required field is missing or the figures do not tie out, hashes the scan file itself into the
-token's XLS-89 metadata, and then issues the note token and funds it. Output: `out/tokenize/<scan>.canonical.json`
-(with `_provenance`), `out/latest.md` with explorer links.
-
-### Other commands
-
-```bash
-npm run ingest   # fixtures -> canonical loan JSON; refuses to build if the figures do not tie out
-npm test         # 32 offline tests, including rebuilding the loan from saved OCR text
-npm run scan -- out/print/closing-package-stack.pdf   # OCR only: scanned-loan.json + compare-to-record report + LoanPay gates
-npm run demo     # ~5 min on Devnet from the fixtures: credentials, MPT, vault, loan, 2 monthly sweeps split 3 ways, impound escrows
-npm run export   # canonical JSON, MISMO 3.4-aligned XML subset, XRPL payload templates
-npm run db:seed | scripts/db-apply.sh -     # seed CouncilForge Postgres (htm_mortgages) from the fixtures
-npm run db:record | scripts/db-apply.sh -   # mirror the latest Devnet run's objects + tx hashes into Postgres
-npm run demo:publish                        # copy run report, stack PDF, scan report into docs/demo for the GitHub Pages demo
-```
-
-Requires Node 20+, `tesseract` and `pdftoppm` (poppler) for `scan`, SSH access to the database host for `db:*`.
-Latest Devnet run with explorer links: [docs/devnet-run.md](docs/devnet-run.md).
-
-### What each on-ledger object *is*
-
-```mermaid
-flowchart LR
-  HO[Homeowner wallet] -->|monthly payment $3,365.01| SV[Servicer collection account]
-  SV -->|LoanPay P&I $2,770.73| LOAN[XLS-66 Loan<br/>borrower = HTM Servicing<br/>funded by vault]
-  SV -->|Payment $285.00| TAX[Tax Impound sub-account]
-  SV -->|Payment $125.00| INS[Hazard Impound sub-account]
-  SV -->|Payment $184.28| MIPP[FHA MIP payable]
-  TAX -->|EscrowCreate, FinishAfter Dec 20 / Jun 20| CTY[Ada County Treasurer]
-  INS -->|EscrowCreate, FinishAfter renewal| CAR[Hazard carrier / HUD MIP]
-  LOAN --> VAULT[XLS-65 private vault<br/>attested depositors]
-  MPT[MPT HTMN1<br/>45,000,000 units = $450,000.00] -.docs sha256.-> DOCS[4 closing documents]
-  INV[Attested investors] --> MPT
-  INV --> VAULT
-```
-
-| Object | Represents | Does **not** represent |
-|---|---|---|
-| **MPT `HTMN1`** | Permissioned *participation certificate* in one note's cash flows; 1 unit = $0.01 of original principal; issuer can lock / claw back / gate holders; metadata carries the sha256 of the four documents | The promissory note or the lien. Those are the FHA model note and the recorded FHA deed of trust. |
-| **Vault** | The funding pool supplied by KYC-attested depositors (XRP stands in for RLUSD on Devnet) | A consumer deposit account |
-| **LoanBroker** | HTM Lending Desk: underwriting off-chain, first-loss cover on-chain | A bank |
-| **Loan** | HTM Loan Servicing borrowing against the vault at the note rate; P&I sweeps repay it | The consumer mortgage; XLS-66 loans are uncollateralised on-ledger, the collateral is the recorded lien |
-| **Impound sub-accounts + escrows** | Tax and insurance reserves, time-locked to the payee's statutory date | An "escrow account" in the closing sense |
+Requires Node 20.19+, plus `tesseract` and `poppler` for OCR. No accounts or API keys: the test network hands out play money.
 
 ### Repository map
 
 ```
-data/documents/          the 4 tokenization documents as structured JSON (single source for DB, PDFs, ledger)
-data/supporting/         URLA 1003, settlement statement, FHA clause fixtures (printed, scanned, not needed to tokenize)
-forms/                   the printed, filled, signed closing package: 12 filled PDFs + the merged 23-page stack; forms/blank/ holds the official blanks
-data/servicing-parties.json  county treasurer / carrier payees and their disbursement calendar
-forms/blank/             official blank forms fetched from CFPB / Fannie Mae / Freddie Mac
-src/ingest/              OCR repair + field extraction; canonical loan schema with tie-outs
-src/servicing/           three-way split with checksum audit; impound disbursement scheduler
-src/pdf/                 CD overlay on the CFPB blank; FHA note / FHA deed of trust / deed / statement typesetting
-src/scan/                tesseract pipeline, compare-to-record, servicing-statement -> LoanPay gates
-src/steps/               ledger phases: credentials, MPT, vault, lending, servicing sweep
-src/db/                  seed + run recorder for the htm_mortgages Postgres schema (db/*.sql)
-src/export/              MISMO 3.4-aligned XML subset, XRPL payload templates
-scripts/                 db-apply / db-query over SSH
-extras/servicing-automation/  Python scheduler, xrpl-py disbursement builder, FastAPI dashboard (beyond grant scope)
-docs/                    forms & sources, grant narrative, standards mapping, threat model, run log
+data/documents/          the 4 servicing documents as structured JSON (single source for DB, PDFs, ledger)
+data/supporting/         URLA 1003, settlement statement, FHA clause fixtures (printed and scanned, not needed to board)
+data/servicing-parties.json  county treasurer / carrier / HUD payees and their calendars
+forms/                   the printed, filled, signed closing package; forms/blank/ holds the blanks; blank/reference/ the GSE masters
+src/ingest/              OCR repair + field extraction; canonical loan schema with tie-outs (R19, R20, R21)
+src/domain/              amortization, FHA premiums and late charge, document hashing
+src/servicing/           the engine: calendar, boarding, apply, analysis, disburse, statements, transfer, cases, tax, reconcile
+src/xrpl/                the adapter: issuer preflight, NFToken record, exact-cent settlement, TokenEscrow, keys
+src/loan-year.ts         the loan-year orchestrator (replay, Testnet, Devnet smoke)
+src/pdf/                 CD overlay on the CFPB blank; FHA note / deed of trust / deed / statement typesetting
+src/scan/                tesseract pipeline, compare-to-record, servicing statement -> application gates
+src/db/, db/             Postgres schema: closing package, subledger, escrow decisions, statements, tax forms, reconciliation
+docs/                    architecture, threat model, worked examples, Testnet run, research and audits
 ```
 
 ### Numbers that must tie
@@ -183,39 +115,43 @@ docs/                    forms & sources, grant narrative, standards mapping, th
 |---|---|---|
 | Note amount | $450,000.00 = $442,260.44 base + $7,739.56 financed UFMIP (1.75 % of base, HUD ML 2023-05) | CD Loan Terms |
 | Rate / term | 6.250 % / 360 months | FHA model note s.2, s.3 |
-| P&I | $2,770.73 | computed; must equal CD and Note |
-| Tax impound | $285.00 / month ($3,420 / yr, two Ada County installments of $1,710) | CD Estimated Taxes |
-| Hazard impound | $125.00 / month | CD Estimated Taxes |
+| P&I | $2,770.73, fixed for the life of the loan | computed; must equal CD and Note |
+| Tax impound | $285.00 / month ($3,420 / yr, Ada County halves of $1,710 on Dec 20 and Jun 20, Idaho Code 63-903) | CD Estimated Taxes |
+| Hazard impound | $125.00 / month ($1,500 renewal Sep 1) | CD Estimated Taxes |
 | FHA MIP | $184.28 / month (0.50 % of base at 78.98 % LTV), remitted monthly to HUD | CD Mortgage Insurance |
 | Monthly payment | $3,365.01 | CD Estimated Total Monthly Payment |
 | Late charge | 4 % of P&I = $110.83 after 15 days (24 CFR 203.25) | FHA model note s.6 |
 | Cash to close | $91,400.00 | CD Calculating Cash to Close |
 
-`npm run ingest` fails if any of these disagree across documents. On Devnet, 1 XRP stands in for
-US$10,000 and one "month" is 60 seconds, so a full sweep cycle fits in a demo run.
-
-### Database
-
-Schema `htm_mortgages` in CouncilForge Postgres (`db/001_closing_package.sql`, `db/002_servicing_three_buckets.sql`):
-`loans`, `parties`, `properties`, `loan_documents` (JSONB sections + sha256 + scan/OCR columns),
-`settlement_lines`, `recurring_obligations`, `servicing_payments` (360 rows with `pi_part`/`tax_part`/`insurance_part`
-and the four leg tx hashes), `impound_accounts`, `impound_disbursements`, `xrpl_objects`, `xrpl_transactions`.
-The database is the system of record for documents and the servicing ledger; the XRPL ledger is authoritative
-for token, vault and loan state; `db:record` reconciles the two.
+`npm run ingest` fails if any of these disagree across documents.
 
 ### Compliance posture
 
-Technical feasibility only; no legal claims. Participation interests are securities activity and would need
-the applicable exemption (US Reg D / Reg S; HK professional-investor regime) and transfer restrictions, which is
-why `RequireAuth` and the permissioned domain exist. The authoritative eNote lives in a MERS-registered eVault;
-the token binds to its hash, it does not replace it. No borrower PII goes on-chain: memos carry loan id, period
-and amounts only. Idaho is a deed-of-trust state. Longer form: [docs/grant-narrative.md](docs/grant-narrative.md)
-· [docs/standards-mapping.md](docs/standards-mapping.md) · [docs/threat-model.md](docs/threat-model.md).
+Technical feasibility only; no legal claims. The regulatory control map is implemented row by row (module and named test per
+row, see [docs/architecture.md](docs/architecture.md#11-regulatory-control-map--modules-and-tests)):
+
+- **RESPA Regulation X** 12 CFR 1024.17 (escrow accounts: aggregate analysis, one-sixth cushion, surplus, shortage,
+  deficiency, timely disbursement, initial and annual statements), 1024.33 (servicing transfers), 1024.35–.36 (errors and
+  information requests), 1024.37 (force-placed insurance), 1024.38 (records), 1024.39–.41 (early intervention, loss mitigation).
+- **Regulation Z** 12 CFR 1026.36(c) (crediting as of receipt), 1026.41 (periodic statements), 1026.39 (ownership-transfer
+  notice), 1026.3(a) (consumer purpose; the business-credit exemption is never available here).
+- **FHA** 24 CFR 203.25 (late charge ≤ 4 %), HUD Mortgagee Letter 2023-05 (UFMIP and MIP on the base loan), HUD Handbook
+  4000.1 (servicing and custodial accounts).
+- **State** Idaho Code 63-903 (tax dates); Cal. Civ. Code 2954.8 (2 % impound interest) and 2954.85 (loss-draft accounts).
+- **IRS** Form 1098, Form 1099-INT; 1099-A/C handoffs.
+- **GLBA** safeguards and CFPB Bulletin 2016-02 vendor oversight for the Manila team.
+
+Explicit non-guarantees: a ledger transaction does not prove legal compliance, payee receipt, document validity, servicing
+authority or custody. Items that remain **UNVERIFIED** pending counsel and the bank subservicer: HTM's licence scope and
+mortgage-servicing-rights treatment in California and Idaho; the subservicer contract; whether any production stablecoin can
+serve as a custodial asset; the Idaho escrow-interest rule; the bank's acceptance of ledger evidence in its books; traction.
 
 ### About HTM
 
-High Tech Mortgage, Inc. is a licensed US mortgage lender (Sacramento, CA) with an operations office in Manila.
-MortgageOS™ is our digital-twin platform for the mortgage lifecycle; this repository is its XRPL settlement-layer
-prototype. <https://hightechmortgage.com/tokenized-mortgages/>
+High Tech Mortgage, Inc. is a licensed US mortgage broker (Sacramento, CA) with an operations office in Manila. MortgageOS™
+is our digital-twin platform for the mortgage lifecycle; this repository is its servicing and settlement layer.
+<https://hightechmortgage.com/tokenized-mortgages/>
 
-Licence: MIT License (the software licence, unrelated to the MIT university credential on the team page). Devnet amendments verified 2026-09-04: MPTokensV1, DynamicMPT, SingleAssetVault, LendingProtocol, PermissionedDomains, Credentials, TokenEscrow.
+Licence: MIT License (the software licence, unrelated to the MIT university credential on the team page). Mainnet feature
+state verified 2026-09-08: MPTokensV1, Credentials, PermissionedDomains, TokenEscrow, NonFungibleTokensV1_1 enabled;
+SingleAssetVault, LendingProtocol, DynamicMPT, BatchV1_1 disabled.

@@ -1,6 +1,6 @@
 # Architecture: residential mortgage servicing on the XRP Ledger
 
-Status: Phase A of `docs/build-prompt-servicing-architecture-2026-09-08.md`. Branch `claude/servicing-rebuild`. This document replaces the investor/vault architecture; the previous version is in git history at commit 76ead3b.
+Status: Phase A of `docs/build-prompt-servicing-architecture-2026-09-08.md`. Branch `claude/servicing-rebuild`. This document replaces the previous (funding-pool) architecture; that version is in git history at commit 76ead3b.
 
 ## 1. Trust boundary
 
@@ -160,7 +160,7 @@ Settlement asset on Testnet is a controlled `USD` issuer created by this repo wi
 
 ## 10. Deferred amendments
 
-XLS-65 Single Asset Vault, XLS-66 Lending Protocol, DynamicMPT, Batch, Smart Escrows, XRPL EVM sidechain and Hooks are not used. See `docs/appendix-deferred-amendments.md` for the reason each was rejected and what would change the decision.
+XLS-65, XLS-66, DynamicMPT, Batch, Smart Escrows, XRPL EVM sidechain and Hooks are not used. See `docs/appendix-deferred-amendments.md` for the reason each was rejected and what would change the decision.
 
 ## 11. Regulatory control map → modules and tests
 
@@ -196,4 +196,4 @@ XLS-65 Single Asset Vault, XLS-66 Lending Protocol, DynamicMPT, Batch, Smart Esc
 | R28 | GLBA safeguards | `docs/threat-model.md`, Phase F scan | `R28_no_pii_payloads` |
 | R29 | Form 1098 | `tax.ts` `build1098` | `R29_form_1098` |
 | R30 | 1099-INT / 1099-A/C | `tax.ts` `build1099INT` | `R30_1099int_threshold` |
-| R31 | no participation, no Reg D | schema: `legal_owner_id` only | `R31_no_participation_fields` |
+| R31 | single legal owner; no third-party ownership ledger | schema: `legal_owner_id` only | `R31_no_participation_fields` |

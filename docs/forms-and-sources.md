@@ -40,7 +40,7 @@ stack so the scanner pipeline is tested on a realistic bundle, not a curated one
 ## Explicitly out of scope
 
 - **HOA dues, home warranty, mortgage credit life** — never impounded by a standard servicer; the homeowner pays them directly.
-- **Downstream splits** after the lender vault (investor distributions, sub-servicer fees) — beyond what the closing documents describe.
+- **Downstream of the note holder** (the bank's own reporting, sub-servicer fees) — beyond what the closing documents describe.
 
 ## The four legs, from the Closing Disclosure page 1
 

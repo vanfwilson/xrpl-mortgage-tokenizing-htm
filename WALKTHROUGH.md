@@ -1,34 +1,36 @@
 # What happens to a scanned closing package, step by step
 
-One command does everything: `npm run tokenize -- <your-scan.pdf>`. This page shows each stage, the file it produces,
-and what a reviewer can check. Times are for the 23-page test package on a laptop; the ledger steps run on the
-XRP Ledger's **Devnet** (a public test network with play money; see [GLOSSARY.md](GLOSSARY.md)).
+Two commands do everything: `npm run tokenize -- <your-scan.pdf>` boards the loan from the paper; `npm run loan-year`
+services it for a year. This page shows each stage, the file it produces, and what a reviewer can check. Ledger steps run
+on the XRP Ledger's **Testnet** (play money; only features that are live on Mainnet; see [GLOSSARY.md](GLOSSARY.md)).
 
 | Stage | What happens | Input → output | Where to look |
 |---|---|---|---|
-| **0. Paper** | The title/escrow company delivers the closing package. For testing we print our own: `npm run print`. | fixtures in `data/documents/` and `data/supporting/` → `out/print/closing-package-stack.pdf` (23 pages, every signature line signed in blue ink) | [package/closing-package-stack.pdf](forms/closing-package-stack.pdf) |
-| **1. Scan** | You print the stack and scan it back on any office scanner to one PDF (300 dpi is plenty). | paper → `my-scan.pdf` | your scanner |
+| **0. Paper** | The title/escrow company delivers the closing package. For testing we print our own: `npm run print`. | fixtures in `data/` → `forms/closing-package-stack.pdf` (23 pages, every signature line signed in blue ink) | [forms/](forms/) |
+| **1. Scan** | Print the stack and scan it back on any office scanner to one PDF (300 dpi is plenty). | paper → `my-scan.pdf` | your scanner |
 | **2. OCR** | Each page is rendered to an image and read by `tesseract`. Confidence is recorded per page. | `my-scan.pdf` → `out/tokenize/my-scan.ocr.txt` | `src/scan/ocr.ts` |
-| **3. Classify pages** | Each page is recognised by its own wording: Closing Disclosure, Note, Deed of Trust, Warranty Deed, URLA, settlement statement, escrow instructions, FHA clause, recorder receipt, statement. Nothing is assumed from page order. | text → page kinds (printed to the console) | `src/ingest/from-scan.ts` → `classifyPage` |
-| **4. Rebuild the loan from the paper** | Loan number, amounts, rate, term, dates, P&I, tax and insurance figures, borrower, seller, lender, trustee, APN, legal description, both recording numbers. Each field records which document supplied it. **No database lookup.** | text → `out/tokenize/my-scan.canonical.json` (with `_provenance`) | `src/ingest/from-scan.ts` → `buildCanonicalFromScan` |
-| **5. Tie-out (fail closed)** | P&I must match rate and term; base loan + financed UFMIP must equal the note; closing costs and cash to close must balance; the three servicing buckets must sum to the monthly payment; late charge must match the Note. If anything is missing or disagrees, the run **stops with exit code 2** and names the field. Nothing reaches the ledger. | canonical → pass / STOP | `src/ingest/canonical.ts` → `validateCanonical` |
-| **6. Fingerprint the paper** | The sha256 of the scan file itself becomes part of the token's metadata, so this token is bound to this exact paper. | `my-scan.pdf` → 64-character hash | console line "scan sha256 …" |
-| **7. Eligibility** | A KYC account attests the two investors; the lending desk gathers those attestations into a permissioned domain. | → DomainID | `src/steps/01-credentials.ts` |
-| **8. Tokenize the note** | The note is issued as **one token** using the ledger's MPT standard (XLS-33): 45,000,000 units = $450,000.00 of principal, allow-listed holders only, issuer can freeze and claw back, metadata (XLS-89) carries the paper's fingerprint. Participations are distributed 60/40 to the two investors. | → MPT issuance ID | `src/steps/02-mpt.ts` |
-| **9. Fund it** | A private Single Asset Vault (XLS-65) accepts deposits from the attested investors. | → VaultID | `src/steps/03-vault.ts` |
-| **10. Originate the facility** | The lending desk registers a LoanBroker, posts first-loss capital, and originates a 360-payment loan (XLS-66) to HTM Loan Servicing, co-signed by both parties. | → LoanBrokerID, LoanID | `src/steps/04-lending.ts` |
-| **11. Service (optional, `--service`)** | Each month the homeowner's payment arrives and is split three ways: P&I repays the loan (`LoanPay`), the tax portion goes to the Tax Impound account, the insurance portion to the Insurance Impound account; the impounds are time-locked to the county treasurer and the carrier. | → payment transactions, impound escrows | `src/steps/05-servicing.ts`, `src/servicing/` |
-| **12. Report** | Every transaction hash with an explorer link, every ledger object ID, and the notes. | → `out/latest.md`, `out/run-<time>.json` | [docs/devnet-run.md](docs/devnet-run.md) |
+| **3. Classify pages** | Each page is recognised by its own wording (Closing Disclosure, FHA note, deed of trust, deed, URLA, statement…). Nothing is assumed from page order. | text → page kinds | `src/ingest/from-scan.ts` |
+| **4. Rebuild the loan from the paper** | Loan number, amounts, rate, term, dates, P&I, tax, hazard and MIP figures, borrower, seller, lender, trustee, APN, legal description, recording numbers. Each field records which document supplied it. **No database lookup.** | text → `out/tokenize/my-scan.canonical.json` | `src/ingest/from-scan.ts` |
+| **5. Tie-out (fail closed)** | P&I must match rate and term; base + UFMIP (1.75 % of base) must equal the note; closing costs and cash to close must balance; the four legs must sum to the payment; the late charge must match the note and stay within the FHA 4 % cap; LTV and MIP must be computed on the base loan. Any disagreement stops the run with exit code 2. | canonical → pass / STOP | `src/ingest/canonical.ts` |
+| **6. Fingerprint the paper** | The SHA-256 of the scan itself becomes the hash in the loan-record token. | `my-scan.pdf` → 64-character hash | `out/tokenize/my-scan.bundle.json` |
+| **7. Board** | Licence and HUD-approval check for the servicer of record; the initial escrow deposit enters the tax and hazard subledgers pro-rata; the initial escrow analysis and statement clock (45 days) start. | canonical → terms, opening postings | `src/servicing/boarding.ts` |
+| **8. Loan-record token** | One NFToken minted by the servicer with the hash, an opaque loan id and a pointer. Nothing else. | → NFTokenID | `src/xrpl/record.ts` |
+| **9. Twelve monthly cycles** | Payment credited as of receipt; four exact-cent legs on the ledger (P&I to the note holder, tax, hazard, MIP → HUD); subledger and bank mirror updated. | → four `Payment` hashes per month | `src/servicing/apply.ts`, `src/xrpl/settle.ts` |
+| **10. Bills** | Each verified county or carrier bill is escrowed on the ledger only when fully funded; a shortfall is advanced first. The escrow cannot be finished before its date (the run proves an early attempt fails) and is finished when the date passes. A corrected-bill path is shown by cancelling an adjustment escrow after `CancelAfter`. | → `EscrowCreate` / `EscrowFinish` / `EscrowCancel` | `src/servicing/disburse.ts`, `src/xrpl/escrow.ts` |
+| **11. Year end** | Aggregate escrow analysis, annual statement (due within 30 days), Form 1098 for each calendar year touched, California profile illustration (2 % interest, 1099-INT). | → `docs/escrow-analysis-example.md`, `docs/form-1098-example.json`, PDFs in `out/statements/` | `src/servicing/analysis.ts`, `tax.ts` |
+| **12. Transfer and reconcile** | Servicing-transfer notice clocks; the loan-record token moves to the successor by a zero-price offer; every leg is matched across bank, subledger and ledger and the result is hash-chained. Optional key drill proves the master key can be disabled after a regular key signs. | → `docs/testnet-run.md`, `out/loan-year/run-*.json` | `src/servicing/transfer.ts`, `reconcile.ts`, `src/xrpl/keys.ts` |
 
-## What "tokenize the mortgage" means here, precisely
+## Two clocks
 
-- The **legal** mortgage stays exactly where it is: the signed Note, the recorded Deed of Trust, the county record.
-- The **token** (`HTMN1`) is a ledger record that says "here is a participation in the cash flows of the note whose paper has fingerprint X", with the issuer's controls attached. It does not replace the note or the lien.
-- The **vault and loan** (XLS-65, XLS-66) are how that tokenized note is funded and repaid on the same ledger. They are the "send it through 65/66" part of the brief.
+Public networks cannot advance time, so the auditable proof has two tracks. **Track 1** replays the whole loan year on an
+injected business clock with no network (`npm run loan-year:replay`): every regulatory deadline and every cent is checked
+there. **Track 2** runs the same code on Testnet with statutory dates mapped to near-future ledger timestamps; the mapping is
+published with every run in `docs/clock-mapping-manifest.json` so a reviewer can check that each `FinishAfter` is the mapped
+statutory date. A compressed Devnet run exists for CI only.
 
 ## Where the database fits
 
-The Postgres schema in `db/` (`htm_mortgages`) is the servicer's system of record for documents, parties, the 360-row
-payment schedule and the impound calendar. `npm run db:seed` fills it from the fixtures; `npm run db:record` mirrors
-each Devnet run's object IDs and transaction hashes into it for reconciliation. The tokenizer itself never reads the
-database, so a reviewer can verify the paper-to-ledger path without it.
+The Postgres schema in `db/` (`htm_mortgages`) is the servicer's subledger and decision record: documents, the 360-row
+schedule, integer-cent postings, verified bills and escrow decisions, analyses, statements, tax forms, cases and the
+hash-chained reconciliation events. The bank's custodial accounts remain the legal cash; the ledger is the reconcilable
+evidence. `npm run db:seed` fills the schema from the fixtures.

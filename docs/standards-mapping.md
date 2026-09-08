@@ -1,76 +1,60 @@
-# Standards mapping
+# XRPL primitives used, the exact fields we set, and why
 
-How each XRPL standard is used, the exact transaction fields we set, and why.
+Every transaction type below is enabled on Mainnet (feature RPC checked 2026-09-08). Nothing here depends on a Devnet-only
+amendment. For the rejected routes see [appendix-deferred-amendments.md](appendix-deferred-amendments.md).
 
-## XLS-33 Multi-Purpose Tokens (amendment `MPTokensV1`)
+## Settlement asset: controlled test USD (S5)
 
-`MPTokenIssuanceCreate` (src/steps/02-mpt.ts)
+`AccountSet` on the issuer, in this order and before any trust line exists (src/xrpl/issuer.ts):
 
 | Field | Value | Why |
 |---|---|---|
-| `AssetScale` | 2 | units are USD cents |
-| `MaximumAmount` | `"45000000"` | original principal, $450,000.00 |
-| `TransferFee` | 0 | no secondary-sale fee |
-| `Flags` | `tfMPTRequireAuth \| tfMPTCanLock \| tfMPTCanClawback \| tfMPTCanEscrow \| tfMPTCanTransfer` | allow-listed holders; servicer freeze; error/court correction; XLS-85 escrow of participations; transferable among authorised holders |
-| `MPTokenMetadata` | XLS-89 JSON, 775 bytes | see below |
+| `SetFlag` | `asfAllowTrustLineLocking` (17) | required for TokenEscrow of an issued currency; RLUSD's issuers have it off on Mainnet and Testnet, so RLUSD is never used |
+| `SetFlag` | `asfDefaultRipple` (8) | lets holders pay each other in the issued USD |
 
-Not set: `tfMPTCanTrade` (no DEX listing of a private-credit interest), `DomainID` on the issuance
-(we authorise holders explicitly with `MPTokenAuthorize` + `Holder` so the demo is deterministic; a
-domain-gated issuance is the production path).
+Runtime preflight: `account_info` → `account_flags.allowTrustLineLocking` must be `true` or `createImpoundEscrow` refuses.
+`TrustSet` from every servicing account: `LimitAmount { currency: "USD", issuer, value: "100000000" }`.
 
-Holder flow: holder `MPTokenAuthorize` (opt-in, creates the `MPToken` object) → issuer
-`MPTokenAuthorize` with `Holder` (allow-list) → issuer `Payment` with `{ mpt_issuance_id, value }`.
-`mpt_issuance_id` is read from `meta.mpt_issuance_id` of the create transaction.
+## Settlement legs: `Payment` (src/xrpl/settle.ts)
 
-## XLS-89 MPT metadata schema
+| Field | Value | Why |
+|---|---|---|
+| `Amount` | `{ currency: "USD", issuer, value: "<cents/100 to 2 dp>" }` | exact cents; never XRP for servicing money |
+| `Memos[0].MemoType` | hex `htm/servicing` | one memo type for every leg |
+| `Memos[0].MemoData` | hex JSON `{"v":1,"loan":"<opaque>","period":"YYYY-MM","leg":"tax","cents":28500,"run":"<id>"}` | six allow-listed keys, ≤ 256 bytes, PII guard at build time |
 
-Short keys, `ac: "rwa"`, `as: "private_credit"` (a mortgage participation is private credit secured by
-real estate; `real_estate` is reserved for equity-like property interests). `ai` carries loan id,
-note amount, rate, term, maturity, lien position, state, and `docs_sha256`, the bundle hash from
-`src/domain/hash.ts`. Encoder enforces the 1024-byte limit (src/domain/metadata.ts).
+Legs per month: `receipt` (homeowner → servicer), `pi` (servicer → note holder), `tax`, `hazard`, `mip` (servicer → payables),
+`mip_remit` (MIP payable → HUD); plus `initial_deposit` at boarding and `advance` when a bill is short. Each leg carries one
+idempotency key; a replay returns the first hash. Batch is not Mainnet-live, so legs are independent, never "atomic".
 
-## XLS-70 Credentials and XLS-80 Permissioned Domains
+## Loan record: XLS-20 NFToken (src/xrpl/record.ts)
 
-`CredentialCreate` by the KYC issuer (`CredentialType` = hex `HTM_ACCREDITED_KYC_2026`), `CredentialAccept`
-by each investor, then `PermissionedDomainSet` on the issuer account accepting that credential. The
-resulting `DomainID` gates the vault (`tfVaultPrivate` + `DomainID`).
+| Transaction | Fields | Why |
+|---|---|---|
+| `NFTokenMint` | `NFTokenTaxon 0`, `Flags tfTransferable`, `URI` = hex JSON `{"v":1,"loan":"<opaque>","sha256":"<bundle>","ptr":"cas://…"}` (≤ 256 bytes) | one non-economic handle per loan; no `Amount`, no `Destination` |
+| `NFTokenCreateOffer` | `Amount "0"`, `Flags tfSellNFToken`, `Destination` = successor servicer | hand-off on a servicing transfer |
+| `NFTokenAcceptOffer` | `NFTokenSellOffer` = offer id | successor accepts |
 
-## XLS-65 Single Asset Vault (amendment `SingleAssetVault`)
+An MPT with supply 1 would also work but its metadata is immutable without DynamicMPT and "supply" implies units of
+something. No token carries principal units or cash-flow rights.
 
-`VaultCreate`: `Asset: { currency: "XRP" }` (Devnet stand-in for RLUSD), `Flags: tfVaultPrivate`,
-`DomainID`, `WithdrawalPolicy: vaultStrategyFirstComeFirstServe`, `AssetsMaximum: "0"` (uncapped),
-`Data` = hex JSON `{ n, w }`. `VaultID` is the `CreatedNode` of type `Vault`; `ShareMPTID` from the
-ledger entry is the vault's share token (itself an MPT). Depositors `VaultDeposit` XRP drops.
+## Impound date lock: TokenEscrow (src/xrpl/escrow.ts)
 
-## XLS-66 Lending Protocol (amendment `LendingProtocol`)
+| Transaction | Fields | Why |
+|---|---|---|
+| `EscrowCreate` | `Account` = impound sub-account, `Destination` = allow-listed payee, `Amount` = issued USD for the full verified bill, `FinishAfter` = statutory date (17:00 UTC), `CancelAfter` = due + 45 days, `Memos` as above | cannot be finished before the date (proof T10); bounded recovery |
+| `EscrowFinish` | `Owner`, `OfferSequence` = the EscrowCreate sequence | anyone may finish after `FinishAfter`; the servicer's automation does |
+| `EscrowCancel` | `Owner`, `OfferSequence` | after `CancelAfter` if the payee never took delivery or the bill was corrected downward |
 
-`LoanBrokerSet`: `VaultID`, `ManagementFeeRate: 100` (0.10 %), `CoverRateMinimum: 10000` (10 %),
-`CoverRateLiquidation: 5000` (50 % of the minimum per default), `DebtMaximum: "0"`.
-`LoanBrokerCoverDeposit`: first-loss capital in the vault asset.
+Policy: never more than three near-term objects in flight; 0.2 XRP owner reserve each; never 360 pre-created escrows.
 
-`LoanSet` is **two-party**: the broker signs as `Account` with `Counterparty` = HTM Loan Servicing, then
-the counterparty countersigns with `signLoanSetByCounterparty` (xrpl.js ≥ 5.1). Fields:
-`PrincipalRequested` in drops, `InterestRate: 6250` (6.25 % in 1/10 bp), `LateInterestRate: 5000`,
-`PaymentTotal: 360`, `PaymentInterval: 60` (Devnet compression of one month), `GracePeriod: 60`, fees in drops, `Flags: tfLoanOverpayment`.
-`LoanID` is the `CreatedNode` of type `Loan`; `PeriodicPayment` and `NextPaymentDueDate` come from the entry.
+## Key management (src/xrpl/keys.ts)
 
-`LoanPay`: `Amount` = `PeriodicPayment + LoanServiceFee` (the ledger's own amortisation of the 45 XRP facility);
-memo type `htm/pi` carries the USD P&I leg of the homeowner sweep. The other two legs are plain `Payment`s to the
-Tax Impound and Insurance Impound sub-accounts (memo types `htm/tax-impound`, `htm/insurance-impound`).
-`LoanManage`: `tfLoanImpair` / `tfLoanUnimpair` (early-warning), `tfLoanDefault` after grace
-(consumes first-loss cover), then `LoanDelete`.
-
-## Native escrow: impound disbursement
-
-Each impound sub-account locks its accumulated balance to the payee with `EscrowCreate` whose `FinishAfter`
-is the statutory date (Ada County property tax Dec 20 / Jun 20; carrier renewal Sep 1). Anyone can submit
-`EscrowFinish` after that time, so disbursement needs no daemon and cannot happen early. Scheduling and
-sufficiency checks are in `src/servicing/impound-scheduler.ts` (Python twin in `extras/servicing-automation/`).
+`SetRegularKey` → proof transaction signed by the regular key → `AccountSet asfDisableMaster` → proof that the master key is
+refused. `SignerListSet` with `SignerQuorum 2` across three bank roles for production accounts.
 
 ## Not used, and why
 
-- **NFTokenMint** for the note: an NFT cannot carry a balance, cannot be allow-listed per holder,
-  and cannot be held by a vault. The note is one MPT issuance whose supply *is* the principal.
-- **Trust-line IOUs**: no per-holder authorisation without `RequireAuth` on the whole account, no
-  clawback granularity, ~5× the reserve footprint of MPT.
-- **Hooks / smart contracts**: not on Devnet's amendment set; the native primitives above cover the flow.
+- **XLS-65 / XLS-66**: funding protocols for new loans; not on Mainnet; cannot represent an already-funded loan.
+- **Credentials / Permissioned Domains**: live on Mainnet, but there is no third-party depositor to gate.
+- **Batch, DynamicMPT, Smart Escrows, EVM sidechain, Hooks**: see the appendix.

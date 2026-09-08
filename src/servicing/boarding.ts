@@ -9,7 +9,7 @@ import type { Cents, IsoDate, LoanTerms, Posting, UsState } from './types.js';
  * R24  California loss-draft proceeds get their own account (Cal. Civ. Code 2954.85), never the impounds.
  * R25  Idaho production profile is blocked until counsel signs the escrow-interest question.
  * R26  no boarding without a current servicing authority for the servicer of record in the property's state.
- * R31  the only owner field is legal_owner_id; there is no investor or participation ledger.
+ * R31  the only owner field is legal_owner_id; there is no third-party ownership ledger.
  */
 export interface Authority { holder_id: string; state: UsState; kind: 'bank_exempt' | 'CRMLA' | 'CFL' | 'ID_mortgage_servicer' | 'HUD_mortgagee'; valid_from: IsoDate; valid_to: IsoDate }
 
