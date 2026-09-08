@@ -128,12 +128,17 @@ export async function usdBalance(client: Client, address: string, issuer: string
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Wait until the validated ledger's close time is at or past a Ripple-epoch instant. */
+/**
+ * Wait until the validated ledger's close time is safely past a Ripple-epoch instant. rippled compares the
+ * parent ledger's close time STRICTLY against FinishAfter/CancelAfter, and close times are rounded to a
+ * 10-second resolution, so a margin is required before an EscrowFinish or EscrowCancel is submitted.
+ */
+export const LEDGER_TIME_MARGIN = 12;
 export async function waitForLedgerTime(client: Client, rippleTime: number, log?: (m: string) => void): Promise<void> {
   for (;;) {
     const res = await client.request({ command: 'ledger', ledger_index: 'validated' });
     const close = (res.result.ledger as { close_time: number }).close_time;
-    if (close >= rippleTime) return;
+    if (close >= rippleTime + LEDGER_TIME_MARGIN) return;
     log?.(`    waiting for ledger time ${rippleTime - close}s`);
     await sleep(Math.min(10_000, Math.max(2_000, (rippleTime - close) * 1000)));
   }

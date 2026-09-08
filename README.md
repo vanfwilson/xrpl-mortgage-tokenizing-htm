@@ -85,7 +85,7 @@ npm run print                                   # print the 23-page synthetic cl
 npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> canonical loan record -> tie-outs -> bundle hash
 npm run loan-year:replay                        # Track 1: full loan year on the business clock, no network
 npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~10 min)
-npm test                                        # 86 offline tests, R01-R31 named
+npm test                                        # 82 offline tests, R01-R31 named
 npm run test:testnet                            # assert the proofs in the latest Testnet run
 ```
 

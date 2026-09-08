@@ -1,269 +1,1488 @@
 {
-  "network": "wss://s.devnet.rippletest.net:51233",
-  "ran_at": "2026-09-04T21:27:38.620Z",
-  "loan_id": "MORT-2026-88492X",
-  "document_bundle_sha256": "30d6566d91f8ad14f798f09ad897d5280e364f5208232effa875eec36e816e18",
+  "network": "testnet",
+  "ran_at": "2026-09-08T23:19:26.700Z",
+  "run": "run-mtta2pac",
+  "loan": "HTM-d4790bba9e7c",
+  "document_bundle_sha256": "c950d51d745ffb77c94fb17a47a252fb175cf9fd46b7adf40164a699f8079cb0",
   "accounts": {
-    "issuer": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-    "broker": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-    "servicer": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-    "homeowner": "rGEX9MLNNkZcrRviVYYfDZ9aswYaGwCndg",
-    "taxImpound": "rPf2udJqfhCc9YP7ZFHzf6CioAPbzDDnuz",
-    "insuranceImpound": "rPVgcwDHSJVcTW2xZDuuaaAAMkAnZrn3NA",
-    "countyTreasurer": "rshw3vk3eBkJggvtLWzcwRZqZwnSQCYxH9",
-    "insuranceCarrier": "rNngEb7dRTHEFXGhjq4tNyhoP3CF7QFgXG",
-    "investorA": "rGpdAekB61czroo4cKJdfyJmsJAo8PycVW",
-    "investorB": "rJv7yryX3uCosje4geqPhHNFnWGaq7zVtT",
-    "kyc": "rNpt7UPQSCoZtCFcadtRSZ4t2vJdWg4mLh"
+    "issuer": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+    "servicer": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+    "noteHolder": "rfgYNn4wLevkjxDA68T3z34d6f3xUrfioh",
+    "homeowner": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+    "taxImpound": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+    "hazardImpound": "rwm8WUoXrdcGb5LsC4VXwoC9RkbkTssXyp",
+    "mipPayable": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+    "countyTreasurer": "rH2sR6WgULwoy6oWYvmHwEZ43XuvK3ipkA",
+    "insuranceCarrier": "rHh8LBieW9pG2rrya1RHVJjKLVAfEjyhLj",
+    "hud": "rLRum79hJZmExuQhVPqUYz781XbcA755qs",
+    "transfereeServicer": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i"
   },
   "ids": {
-    "domainId": "45B12560DE0FB7437989DC9EE1422C2264300E589E93FB0249223F1B07D68597",
-    "mptIssuanceId": "004CF687569EE765E2CFF129A4C26DD5411FAAB8ECE0D207",
-    "vaultId": "8F5D11A8942A82ABF6A57B9462CE4C71808C3B23A8F4E3942E11FC4A4A5D3F85",
-    "vaultShareMptId": "0000000120A434200BA6D7EB043A2E64E26CB6A98975276E",
-    "loanBrokerId": "C35DF4863BCCB86B0255F85C2C0F463BF02D80631765C30AA720A0DC6A51DBF0",
-    "loanId": "D5E8FA40042E3072B8ED528AA85ACAD2BADA531850D2CE8C51820DBC5C926F11",
-    "taxEscrowTx": "A97B2B2A1352F48B1360501875BF71E056ED70720CDFAAD6F607493B04B67BB6",
-    "insuranceEscrowTx": "8E11E3121B4A2BEB118175921FCB6E510E0DB1CA1ADD501C84D7C311FE254F64"
+    "issuer": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+    "loanRecordNFTokenId": "00080000BF4259F548859F0829AA3995E9727307075B94CACC3B0656013A51BB"
   },
-  "transactions": [
+  "proofs": {
+    "T9_issuer_preflight": "allowTrustLineLocking=true on rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+    "T10_early_finish": "tecNO_PERMISSION",
+    "S7_cancel_after": "293F0EB14A167E25F6CE066F8D5341C433BE618DC39BE7B95E8A939EA9368131",
+    "R11_nftoken_transfer": "CD16C9310245F4EB42790DAEB821A78E97E11603DE7CE28D0546E13D3A219690",
+    "R27_key_drill": "tefMASTER_DISABLED"
+  },
+  "escrows": [
     {
-      "step": "credentials",
-      "type": "PermissionedDomainSet",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "9B3936C56074A0FB13F3DB00009F199D1249C6AD89A8FD72B8CB6B896150B79F",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/9B3936C56074A0FB13F3DB00009F199D1249C6AD89A8FD72B8CB6B896150B79F",
-      "ledgerIndex": 5049761
+      "purpose": "tax",
+      "due": "2026-12-20",
+      "cents": 171000,
+      "hash": "03C711D3F93217C4C239EE12CF4563976B4FA863FE9E58933653D1AD640B8E12",
+      "owner": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+      "sequence": 20599230,
+      "finish_after": 842224212,
+      "cancel_after": 842224257,
+      "from": "taxImpound",
+      "to": "countyTreasurer",
+      "done": "1016CDB916E242120EBBD26736264E392836DD495E7E54CFBF9A666B00C754B9"
     },
     {
-      "step": "mpt",
-      "type": "MPTokenIssuanceCreate",
-      "account": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-      "hash": "C522E0227EBA5D2595AF70288EC8DC9342E58BBC84EED6B43B3C27A3598EADD4",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/C522E0227EBA5D2595AF70288EC8DC9342E58BBC84EED6B43B3C27A3598EADD4",
-      "ledgerIndex": 5049762
+      "purpose": "tax",
+      "due": "2027-06-20",
+      "cents": 171000,
+      "hash": "51CF81B7B9EC10D6A2ED294D1D3E877EC9C4D909D4D21075F63B8069DE9D16C1",
+      "owner": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+      "sequence": 20599231,
+      "finish_after": 842224469,
+      "cancel_after": 842224514,
+      "from": "taxImpound",
+      "to": "countyTreasurer",
+      "done": "1811208F85B8C94904F35103A6CEF54D370BD973E33864726E1FA8D8DA71260E"
     },
     {
-      "step": "mpt",
-      "type": "MPTokenAuthorize",
-      "account": "rGpdAekB61czroo4cKJdfyJmsJAo8PycVW",
-      "hash": "7CE6E34274E63133EAA0CCAD682ADFE1962CEF863CA65EEC21BB66735FD0011C",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/7CE6E34274E63133EAA0CCAD682ADFE1962CEF863CA65EEC21BB66735FD0011C",
-      "ledgerIndex": 5049764
-    },
-    {
-      "step": "mpt",
-      "type": "MPTokenAuthorize",
-      "account": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-      "hash": "868A3AB9C8299C6B8A76D207241BC72A82897DD1BE39D7E39A93F876A0043866",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/868A3AB9C8299C6B8A76D207241BC72A82897DD1BE39D7E39A93F876A0043866",
-      "ledgerIndex": 5049765
-    },
-    {
-      "step": "mpt",
-      "type": "MPTokenAuthorize",
-      "account": "rJv7yryX3uCosje4geqPhHNFnWGaq7zVtT",
-      "hash": "2255ACF2127EF2CA61F4E34792F7895B5EE26F76D76F19B34DC3DFD11F1DB933",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/2255ACF2127EF2CA61F4E34792F7895B5EE26F76D76F19B34DC3DFD11F1DB933",
-      "ledgerIndex": 5049767
-    },
-    {
-      "step": "mpt",
-      "type": "MPTokenAuthorize",
-      "account": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-      "hash": "1C267B8360932137248F84C0DCE104CEC8135EA7AB53E0A99FC05AE43A187C1B",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/1C267B8360932137248F84C0DCE104CEC8135EA7AB53E0A99FC05AE43A187C1B",
-      "ledgerIndex": 5049769
-    },
-    {
-      "step": "mpt",
-      "type": "Payment",
-      "account": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-      "hash": "70605C17860B8C608398F204DF702791F1726D29263B9AA43E9C7411C8C481DA",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/70605C17860B8C608398F204DF702791F1726D29263B9AA43E9C7411C8C481DA",
-      "ledgerIndex": 5049770
-    },
-    {
-      "step": "mpt",
-      "type": "Payment",
-      "account": "r3ur7L4pTeK7ALSvtuPYoWXvUmZ97scXoY",
-      "hash": "CD47BD6649285B1FC144DF8E558BB4C9A831F5BADBC17CD15C196417EA614C97",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/CD47BD6649285B1FC144DF8E558BB4C9A831F5BADBC17CD15C196417EA614C97",
-      "ledgerIndex": 5049772
-    },
-    {
-      "step": "vault",
-      "type": "VaultCreate",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "8AEEA4FB81E43523FF5B200B1C8396D64DC586990DA76C8C366627A1EC00CC4E",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/8AEEA4FB81E43523FF5B200B1C8396D64DC586990DA76C8C366627A1EC00CC4E",
-      "ledgerIndex": 5049774
-    },
-    {
-      "step": "vault",
-      "type": "VaultDeposit",
-      "account": "rGpdAekB61czroo4cKJdfyJmsJAo8PycVW",
-      "hash": "D1C586DA42BFA3A6744906B0FDD6C3D09CA29DEA2377CB996F691230A852EDF0",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/D1C586DA42BFA3A6744906B0FDD6C3D09CA29DEA2377CB996F691230A852EDF0",
-      "ledgerIndex": 5049776
-    },
-    {
-      "step": "vault",
-      "type": "VaultDeposit",
-      "account": "rJv7yryX3uCosje4geqPhHNFnWGaq7zVtT",
-      "hash": "F898DD510999554CD7A89A3778C04507D31AAD9638C8CBEE441EC711C580D2C3",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/F898DD510999554CD7A89A3778C04507D31AAD9638C8CBEE441EC711C580D2C3",
-      "ledgerIndex": 5049777
-    },
-    {
-      "step": "lending",
-      "type": "LoanBrokerSet",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "AA4402DE07CBFDD6DA37C81CFD00A06834520F910DA8E338A5DDDE2B80FB4652",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/AA4402DE07CBFDD6DA37C81CFD00A06834520F910DA8E338A5DDDE2B80FB4652",
-      "ledgerIndex": 5049779
-    },
-    {
-      "step": "lending",
-      "type": "LoanBrokerCoverDeposit",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "BBF1B2BBB6A00BC9CC6AB50B42D26F70B1B9DD2D54C6DC984B3BEFA9BCE1B0F7",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/BBF1B2BBB6A00BC9CC6AB50B42D26F70B1B9DD2D54C6DC984B3BEFA9BCE1B0F7",
-      "ledgerIndex": 5049781
-    },
-    {
-      "step": "lending",
-      "type": "LoanSet",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "78926DD6BC74CC34742C0240F0DBBF2EDE0C515569CFF02A9E5EC39444448535",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/78926DD6BC74CC34742C0240F0DBBF2EDE0C515569CFF02A9E5EC39444448535",
-      "ledgerIndex": 5049783
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "rGEX9MLNNkZcrRviVYYfDZ9aswYaGwCndg",
-      "hash": "3E490E9F048B5B11FE6C95B3E684FB4DA1A6AFBFF9BE49A34D060955D6E31430",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/3E490E9F048B5B11FE6C95B3E684FB4DA1A6AFBFF9BE49A34D060955D6E31430",
-      "ledgerIndex": 5049784
-    },
-    {
-      "step": "servicing",
-      "type": "LoanPay",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "58E8B37CCD53B8679957C9FCAF39A33B9A3D8C17B16F7DE45F60B3D1249AEA5F",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/58E8B37CCD53B8679957C9FCAF39A33B9A3D8C17B16F7DE45F60B3D1249AEA5F",
-      "ledgerIndex": 5049785
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "7027E2CB38265712B627322BC1D3B1E307C83C5819B7B57DBF37B12A2582B1AA",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/7027E2CB38265712B627322BC1D3B1E307C83C5819B7B57DBF37B12A2582B1AA",
-      "ledgerIndex": 5049787
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "FEB07304B3FAB5BCEE669F3695B1FC41503BE8C1671C33A7905056C3168AAFB2",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/FEB07304B3FAB5BCEE669F3695B1FC41503BE8C1671C33A7905056C3168AAFB2",
-      "ledgerIndex": 5049788
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "rGEX9MLNNkZcrRviVYYfDZ9aswYaGwCndg",
-      "hash": "BE9AF303024DF832AAB879B84B976C859BA4E71BFEB7C06AF55A05782AE51418",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/BE9AF303024DF832AAB879B84B976C859BA4E71BFEB7C06AF55A05782AE51418",
-      "ledgerIndex": 5049789
-    },
-    {
-      "step": "servicing",
-      "type": "LoanPay",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "9FDB2211546681B9FF1045B065EE1732DE83C056D441062CE5C7145CD280C650",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/9FDB2211546681B9FF1045B065EE1732DE83C056D441062CE5C7145CD280C650",
-      "ledgerIndex": 5049791
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "0098B4C554A2185AE459B93643E86F2D45E2257056187FB61C75A1682B3D8757",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/0098B4C554A2185AE459B93643E86F2D45E2257056187FB61C75A1682B3D8757",
-      "ledgerIndex": 5049792
-    },
-    {
-      "step": "servicing",
-      "type": "Payment",
-      "account": "r3Qt78S9DsB8hSyFpU2JdofKTQaHa1V67w",
-      "hash": "1C8C4F00FD5704D4BAC23CDC77B72BA4EEE0B422E986886404A1453F1428FA47",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/1C8C4F00FD5704D4BAC23CDC77B72BA4EEE0B422E986886404A1453F1428FA47",
-      "ledgerIndex": 5049793
-    },
-    {
-      "step": "servicing",
-      "type": "EscrowCreate",
-      "account": "rPf2udJqfhCc9YP7ZFHzf6CioAPbzDDnuz",
-      "hash": "A97B2B2A1352F48B1360501875BF71E056ED70720CDFAAD6F607493B04B67BB6",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/A97B2B2A1352F48B1360501875BF71E056ED70720CDFAAD6F607493B04B67BB6",
-      "ledgerIndex": 5049795
-    },
-    {
-      "step": "servicing",
-      "type": "EscrowCreate",
-      "account": "rPVgcwDHSJVcTW2xZDuuaaAAMkAnZrn3NA",
-      "hash": "8E11E3121B4A2BEB118175921FCB6E510E0DB1CA1ADD501C84D7C311FE254F64",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/8E11E3121B4A2BEB118175921FCB6E510E0DB1CA1ADD501C84D7C311FE254F64",
-      "ledgerIndex": 5049796
-    },
-    {
-      "step": "servicing",
-      "type": "LoanManage",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "14A445A39879CE876BDF2B26F386E25E6D5A7B0CCA3516912787B4B6B56A3685",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/14A445A39879CE876BDF2B26F386E25E6D5A7B0CCA3516912787B4B6B56A3685",
-      "ledgerIndex": 5049797
-    },
-    {
-      "step": "servicing",
-      "type": "LoanManage",
-      "account": "raHmGXmzzXUtcxZ6XHfEyfkzSPzto7EPg1",
-      "hash": "C2E231A515E8D5BCFFA0D990C3139C619DAEF1340093678375191EAA7E3C318B",
-      "result": "tesSUCCESS",
-      "explorer": "https://devnet.xrpl.org/transactions/C2E231A515E8D5BCFFA0D990C3139C619DAEF1340093678375191EAA7E3C318B",
-      "ledgerIndex": 5049799
+      "purpose": "hazard",
+      "due": "2027-09-01",
+      "cents": 150000,
+      "hash": "8BF3AB2B68AAC7A207F4858801B3F8C804C5F1408122B160AA6CEAF70561AA64",
+      "owner": "rwm8WUoXrdcGb5LsC4VXwoC9RkbkTssXyp",
+      "sequence": 20599232,
+      "finish_after": 842224556,
+      "cancel_after": 842224601,
+      "from": "hazardImpound",
+      "to": "insuranceCarrier",
+      "done": "0F5B9CB77DA75F9D37156C116AA9E4C9DBCE6DC69E207BA9687863D8C003F6D9"
     }
   ],
-  "notes": [
-    "tokenized from scan closing-package-stack.pdf",
-    "provenance: {\"loan.loan_id\":\"closing_disclosure\",\"loan.principal_amount\":\"closing_disclosure\",\"loan.annual_interest_rate\":\"closing_disclosure\",\"loan.term_months\":\"closing_disclosure\",\"loan.first_payment_date\":\"closing_disclosure\",\"loan.maturity_date\":\"closing_disclosure\",\"loan.monthly_principal_and_interest\":\"closing_disclosure\",\"servicing.insurance_detail.fha_mip\":\"closing_disclosure\",\"servicing.property_tax_impound\":\"closing_disclosure\",\"servicing.insurance_detail.hazard_homeowners\":\"closing_disclosure\",\"servicing.monthly_total_sweep\":\"closing_disclosure\",\"closing.closing_costs\":\"closing_disclosure\",\"closing.cash_to_close\":\"closing_disclosure\",\"closing.closing_date\":\"closing_disclosure\",\"seller.name\":\"closing_disclosure\",\"lender.name\":\"deed_of_trust\",\"note_terms.payment_due_day_of_month\":\"note\",\"note_terms.grace_period_days\":\"note\",\"note_terms.late_charge_percent_of_pi\":\"note\",\"borrower.name\":\"deed_of_trust\",\"security_instrument.recording_number\":\"deed_of_trust\",\"security_instrument.recording_date\":\"deed_of_trust\",\"property.legal_description\":\"deed_of_trust\",\"property.apn\":\"deed_of_trust\",\"property.address\":\"deed_of_trust\",\"vesting_deed.recording_number\":\"warranty_deed\",\"vesting_deed.recording_date\":\"warranty_deed\",\"property.contract_sales_price\":\"closing_disclosure\",\"servicing.insurance_impound\":\"derived\",\"closing.date_issued\":\"closing_disclosure\"}"
+  "periods": [
+    {
+      "period": 1,
+      "due": "2026-11-01",
+      "received": "2026-11-01",
+      "legs": {
+        "principal": 42698,
+        "interest": 234375,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 2,
+      "due": "2026-12-01",
+      "received": "2026-12-01",
+      "legs": {
+        "principal": 42920,
+        "interest": 234153,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 3,
+      "due": "2027-01-01",
+      "received": "2027-01-01",
+      "legs": {
+        "principal": 43144,
+        "interest": 233929,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 4,
+      "due": "2027-02-01",
+      "received": "2027-02-01",
+      "legs": {
+        "principal": 43369,
+        "interest": 233704,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 5,
+      "due": "2027-03-01",
+      "received": "2027-03-01",
+      "legs": {
+        "principal": 43595,
+        "interest": 233478,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 6,
+      "due": "2027-04-01",
+      "received": "2027-04-01",
+      "legs": {
+        "principal": 43822,
+        "interest": 233251,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 7,
+      "due": "2027-05-01",
+      "received": "2027-05-01",
+      "legs": {
+        "principal": 44050,
+        "interest": 233023,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 8,
+      "due": "2027-06-01",
+      "received": "2027-06-01",
+      "legs": {
+        "principal": 44279,
+        "interest": 232794,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 9,
+      "due": "2027-07-01",
+      "received": "2027-07-01",
+      "legs": {
+        "principal": 44510,
+        "interest": 232563,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 10,
+      "due": "2027-08-01",
+      "received": "2027-08-01",
+      "legs": {
+        "principal": 44742,
+        "interest": 232331,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 11,
+      "due": "2027-09-01",
+      "received": "2027-09-01",
+      "legs": {
+        "principal": 44975,
+        "interest": 232098,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    },
+    {
+      "period": 12,
+      "due": "2027-10-01",
+      "received": "2027-10-01",
+      "legs": {
+        "principal": 45209,
+        "interest": 231864,
+        "tax": 28500,
+        "hazard": 12500,
+        "mip": 18428,
+        "fees": 0,
+        "suspense_in": 0,
+        "suspense_out": 0
+      },
+      "total_due_cents": 336501
+    }
+  ],
+  "year_end": {
+    "analysis": {
+      "computation_year_start": "2027-11-01",
+      "computation_year_end": "2028-10-31",
+      "annual_disbursements_cents": 492000,
+      "monthly_deposit_cents": 41000,
+      "cushion_cents": 82000,
+      "trial_balances": [
+        {
+          "month": 1,
+          "date": "2027-11-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 41000
+        },
+        {
+          "month": 2,
+          "date": "2027-12-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -89000
+        },
+        {
+          "month": 3,
+          "date": "2028-01-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -48000
+        },
+        {
+          "month": 4,
+          "date": "2028-02-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -7000
+        },
+        {
+          "month": 5,
+          "date": "2028-03-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 34000
+        },
+        {
+          "month": 6,
+          "date": "2028-04-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 75000
+        },
+        {
+          "month": 7,
+          "date": "2028-05-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 116000
+        },
+        {
+          "month": 8,
+          "date": "2028-06-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -14000
+        },
+        {
+          "month": 9,
+          "date": "2028-07-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 27000
+        },
+        {
+          "month": 10,
+          "date": "2028-08-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 68000
+        },
+        {
+          "month": 11,
+          "date": "2028-09-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 150000,
+          "balance_cents": -41000
+        },
+        {
+          "month": 12,
+          "date": "2028-10-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 0
+        }
+      ],
+      "lowest_balance_cents": -89000,
+      "lowest_month": 2,
+      "target_starting_balance_cents": 171000,
+      "starting_balance_cents": 123050,
+      "classification": "shortage",
+      "surplus_cents": 0,
+      "shortage_cents": 47950,
+      "deficiency_cents": 0,
+      "shortage_options": [
+        {
+          "kind": "do_nothing",
+          "cite": "12 CFR 1024.17(f)(3)"
+        },
+        {
+          "kind": "equal_monthly_payments",
+          "min_months": 12,
+          "cite": "12 CFR 1024.17(f)(3)(ii): shortage of one month or more, equal monthly payments over at least 12 months"
+        }
+      ],
+      "deficiency_options": [],
+      "new_monthly_escrow_cents": 41000,
+      "california_interest_cents": 0,
+      "annual_statement_due": "2028-11-30"
+    },
+    "year_two_monthly_escrow_cents": 44996
+  },
+  "form_1098": [
+    {
+      "year": 2026,
+      "required": true,
+      "filer_of_record": "bank-subservicer",
+      "boxes": {
+        "1": 468528,
+        "2": 45000000,
+        "3": "2026-09-01",
+        "4": 0,
+        "5": 36856,
+        "6": 0,
+        "7": true,
+        "8": "off-ledger property record",
+        "9": 1,
+        "10": 171000,
+        "11": null
+      },
+      "calendar": {
+        "tax_year": 2026,
+        "furnish_to_borrower_by": "2027-02-01",
+        "paper_file_by": "2027-03-01",
+        "efile_by": "2027-03-31",
+        "cite": "IRS General Instructions for Certain Information Returns: recipient copy Jan 31, paper Feb 28, e-file Mar 31, next business day if on a weekend or legal holiday (verify each filing year)"
+      },
+      "cite": "IRS Instructions for Form 1098 (2026 revision): $600 threshold per mortgage; Box 2 principal as of Jan 1; Box 10 optional; Box 11 acquisition in the year"
+    },
+    {
+      "year": 2027,
+      "required": true,
+      "filer_of_record": "bank-subservicer",
+      "boxes": {
+        "1": 2329035,
+        "2": 44914382,
+        "3": "2026-09-01",
+        "4": 0,
+        "5": 184280,
+        "6": 0,
+        "7": true,
+        "8": "off-ledger property record",
+        "9": 1,
+        "10": 321000,
+        "11": null
+      },
+      "calendar": {
+        "tax_year": 2027,
+        "furnish_to_borrower_by": "2028-01-31",
+        "paper_file_by": "2028-02-29",
+        "efile_by": "2028-03-31",
+        "cite": "IRS General Instructions for Certain Information Returns: recipient copy Jan 31, paper Feb 28, e-file Mar 31, next business day if on a weekend or legal holiday (verify each filing year)"
+      },
+      "cite": "IRS Instructions for Form 1098 (2026 revision): $600 threshold per mortgage; Box 2 principal as of Jan 1; Box 10 optional; Box 11 acquisition in the year"
+    }
+  ],
+  "transactions": [
+    {
+      "step": "issuer",
+      "type": "AccountSet",
+      "account": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+      "hash": "40476BF9BCB47027802217EC452065DF53A9D335884823D49A0E1E2F3A13D5BB",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/40476BF9BCB47027802217EC452065DF53A9D335884823D49A0E1E2F3A13D5BB",
+      "ledgerIndex": 20599240,
+      "sequence": 20599225
+    },
+    {
+      "step": "issuer",
+      "type": "AccountSet",
+      "account": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+      "hash": "AC11C8B149AA68BBBC19ADFD3F0DA8B1E998FE6FF31433369A079A92AE73BA5E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/AC11C8B149AA68BBBC19ADFD3F0DA8B1E998FE6FF31433369A079A92AE73BA5E",
+      "ledgerIndex": 20599242,
+      "sequence": 20599226
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "85EB030027043B34DA41A394E42C6076F89C16B865431DA914C3D4A4FD38EF3A",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/85EB030027043B34DA41A394E42C6076F89C16B865431DA914C3D4A4FD38EF3A",
+      "ledgerIndex": 20599244,
+      "sequence": 20599226
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rfgYNn4wLevkjxDA68T3z34d6f3xUrfioh",
+      "hash": "A10118D2DBFF83BC598D29D23874FC144F81C67714F6DE87DB3499FDF5ED310B",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/A10118D2DBFF83BC598D29D23874FC144F81C67714F6DE87DB3499FDF5ED310B",
+      "ledgerIndex": 20599246,
+      "sequence": 20599227
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "3E147012A40F2D104E58110656CF550B485751357A42CF2E579A2245DAC51BE1",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/3E147012A40F2D104E58110656CF550B485751357A42CF2E579A2245DAC51BE1",
+      "ledgerIndex": 20599248,
+      "sequence": 20599228
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+      "hash": "2C61730A234F6DCDB3DDB28C5308AF04B4EEA3CF745F0D93D045C707CA851A08",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/2C61730A234F6DCDB3DDB28C5308AF04B4EEA3CF745F0D93D045C707CA851A08",
+      "ledgerIndex": 20599250,
+      "sequence": 20599229
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rwm8WUoXrdcGb5LsC4VXwoC9RkbkTssXyp",
+      "hash": "7A134D4832ADB76B6CC2C7893158E141FDC3233A9573A0290C13F14021A518EB",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/7A134D4832ADB76B6CC2C7893158E141FDC3233A9573A0290C13F14021A518EB",
+      "ledgerIndex": 20599251,
+      "sequence": 20599231
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "0D345A92B7FAD90126396C430FE33D311E69FB6369E57BFDC44673908B2D8209",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/0D345A92B7FAD90126396C430FE33D311E69FB6369E57BFDC44673908B2D8209",
+      "ledgerIndex": 20599253,
+      "sequence": 20599233
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rH2sR6WgULwoy6oWYvmHwEZ43XuvK3ipkA",
+      "hash": "CE3896ED23BF52EA0562B83E621564F46ED84047000F357912655CBD9640B158",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/CE3896ED23BF52EA0562B83E621564F46ED84047000F357912655CBD9640B158",
+      "ledgerIndex": 20599255,
+      "sequence": 20599234
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rHh8LBieW9pG2rrya1RHVJjKLVAfEjyhLj",
+      "hash": "59AEF1B7B1B932EADBFE5E9980E2FA18BBD23530E1689AA099BB869C33C5D5F8",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/59AEF1B7B1B932EADBFE5E9980E2FA18BBD23530E1689AA099BB869C33C5D5F8",
+      "ledgerIndex": 20599257,
+      "sequence": 20599235
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rLRum79hJZmExuQhVPqUYz781XbcA755qs",
+      "hash": "FB288A81AB43FFB3AF733CD4ED5ACF43C448F09517A3AC7C4CC2FD80C6614786",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/FB288A81AB43FFB3AF733CD4ED5ACF43C448F09517A3AC7C4CC2FD80C6614786",
+      "ledgerIndex": 20599259,
+      "sequence": 20599236
+    },
+    {
+      "step": "issuer",
+      "type": "TrustSet",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "4DD862929AEC358670A43C814FC1D2AA2D6975596AF12434D0F8F9A828F0FF5A",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/4DD862929AEC358670A43C814FC1D2AA2D6975596AF12434D0F8F9A828F0FF5A",
+      "ledgerIndex": 20599261,
+      "sequence": 20599238
+    },
+    {
+      "step": "issuer",
+      "type": "Payment",
+      "account": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+      "hash": "1094716E0A19333845C2FF87756BF17DCF2021F885C226FC3C64B9A57675A997",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/1094716E0A19333845C2FF87756BF17DCF2021F885C226FC3C64B9A57675A997",
+      "ledgerIndex": 20599263,
+      "sequence": 20599227
+    },
+    {
+      "step": "issuer",
+      "type": "Payment",
+      "account": "rNq2cj4hvRKdRQG9nXCdNk2YXAoKi8iMhN",
+      "hash": "A8DFF5A9925F0171B42AAD35F14D5095EE1162258B69F5CD08BD23F8C7197824",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/A8DFF5A9925F0171B42AAD35F14D5095EE1162258B69F5CD08BD23F8C7197824",
+      "ledgerIndex": 20599265,
+      "sequence": 20599228
+    },
+    {
+      "step": "record",
+      "type": "NFTokenMint",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C363827444BB73973B04C4FF0265F45CA9165E0E0EEA1D09E3A9BAAF308507E1",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C363827444BB73973B04C4FF0265F45CA9165E0E0EEA1D09E3A9BAAF308507E1",
+      "ledgerIndex": 20599267,
+      "sequence": 20599227
+    },
+    {
+      "step": "servicing:initial_deposit",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "904FA337E6AF2A96D39593F20A31BC1CB90067520C56DF62709348B854D3299F",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/904FA337E6AF2A96D39593F20A31BC1CB90067520C56DF62709348B854D3299F",
+      "ledgerIndex": 20599269,
+      "sequence": 20599228
+    },
+    {
+      "step": "servicing:initial_deposit",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "A1065F6E4EF4BDEBE7156C70E96F09B8118B2EAD2B39F6E0D396ECDD5594F128",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/A1065F6E4EF4BDEBE7156C70E96F09B8118B2EAD2B39F6E0D396ECDD5594F128",
+      "ledgerIndex": 20599270,
+      "sequence": 20599229
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "C6E092191152C9EE2B667D442759A8BC7ED76976E6F3DA2558BEE11EA8D083FD",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C6E092191152C9EE2B667D442759A8BC7ED76976E6F3DA2558BEE11EA8D083FD",
+      "ledgerIndex": 20599280,
+      "sequence": 20599229
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "D2548A8CA65FC60F250DC63459B3353B2ED9FC627C55D56A434598E0AFA080F3",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/D2548A8CA65FC60F250DC63459B3353B2ED9FC627C55D56A434598E0AFA080F3",
+      "ledgerIndex": 20599282,
+      "sequence": 20599230
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "5270D5C48643670368060BEBC9FB95DDDEA6654891E01C8CB6B5A90373AE5E92",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/5270D5C48643670368060BEBC9FB95DDDEA6654891E01C8CB6B5A90373AE5E92",
+      "ledgerIndex": 20599284,
+      "sequence": 20599231
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "3341F20E71C89856BA6011F5CC20FDBB995FA70DD32A54EB0913ABC47A5D362B",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/3341F20E71C89856BA6011F5CC20FDBB995FA70DD32A54EB0913ABC47A5D362B",
+      "ledgerIndex": 20599286,
+      "sequence": 20599232
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "4E592628CAF36B15709FB6EC45C5404F3A195A1DA88766C1E184898C3C9E4D80",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/4E592628CAF36B15709FB6EC45C5404F3A195A1DA88766C1E184898C3C9E4D80",
+      "ledgerIndex": 20599287,
+      "sequence": 20599233
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "39A05FFACB4817845AF2DCA38B12C6B8E34A738B5B8F662BB1B8CF7A56A03DC0",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/39A05FFACB4817845AF2DCA38B12C6B8E34A738B5B8F662BB1B8CF7A56A03DC0",
+      "ledgerIndex": 20599289,
+      "sequence": 20599234
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "FD0CD952FE5105B73C5031FB6515EFAA451DEA3A37540CF39A4254A87D91AC56",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/FD0CD952FE5105B73C5031FB6515EFAA451DEA3A37540CF39A4254A87D91AC56",
+      "ledgerIndex": 20599294,
+      "sequence": 20599230
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C3C7B3DB5769599A9C41E6A1C637B5747B1FDDB1C42B63A27EFD5DB914655F45",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C3C7B3DB5769599A9C41E6A1C637B5747B1FDDB1C42B63A27EFD5DB914655F45",
+      "ledgerIndex": 20599295,
+      "sequence": 20599234
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "7B5E925AAABDB506A89270194B143B6543331E26132EA68B08D24EB8C254B8BD",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/7B5E925AAABDB506A89270194B143B6543331E26132EA68B08D24EB8C254B8BD",
+      "ledgerIndex": 20599297,
+      "sequence": 20599235
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "2657A7A8637B5DCA1034952E348E75EDA239444256A9D11E1CF1906CB515AB1F",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/2657A7A8637B5DCA1034952E348E75EDA239444256A9D11E1CF1906CB515AB1F",
+      "ledgerIndex": 20599299,
+      "sequence": 20599236
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "E078378F7970EA45593F031353EB2D8BF72591778D62C73091B1BC2E3DC8E687",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/E078378F7970EA45593F031353EB2D8BF72591778D62C73091B1BC2E3DC8E687",
+      "ledgerIndex": 20599301,
+      "sequence": 20599237
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "2D838443B4A11E958DA8012BC476FC289057CCB681199FA17B013F89EAF3C48D",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/2D838443B4A11E958DA8012BC476FC289057CCB681199FA17B013F89EAF3C48D",
+      "ledgerIndex": 20599303,
+      "sequence": 20599235
+    },
+    {
+      "step": "servicing:advance",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "F6E87A7846FFE3712816A0C2220E27D1E4558DA6717CC05A27682BA464DE5E7E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/F6E87A7846FFE3712816A0C2220E27D1E4558DA6717CC05A27682BA464DE5E7E",
+      "ledgerIndex": 20599305,
+      "sequence": 20599238
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowCreate",
+      "account": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+      "hash": "03C711D3F93217C4C239EE12CF4563976B4FA863FE9E58933653D1AD640B8E12",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/03C711D3F93217C4C239EE12CF4563976B4FA863FE9E58933653D1AD640B8E12",
+      "ledgerIndex": 20599307,
+      "sequence": 20599230
+    },
+    {
+      "step": "escrow:early-finish",
+      "type": "EscrowFinish",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "8C470D9BBB9ADDF004E9EDFE10F9C4E56C3DD921D824B64DD28AC432041DCD63",
+      "result": "tecNO_PERMISSION",
+      "explorer": "https://testnet.xrpl.org/transactions/8C470D9BBB9ADDF004E9EDFE10F9C4E56C3DD921D824B64DD28AC432041DCD63",
+      "ledgerIndex": 20599309
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "EE047D0D3075BEFFE53988009CFEE9D3F36FDA0C0969FE81935070125C2E9782",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/EE047D0D3075BEFFE53988009CFEE9D3F36FDA0C0969FE81935070125C2E9782",
+      "ledgerIndex": 20599311,
+      "sequence": 20599231
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "4DD93A868801F47BBD8E138ABDA50D9EC12E18AF335F4353498682459244816E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/4DD93A868801F47BBD8E138ABDA50D9EC12E18AF335F4353498682459244816E",
+      "ledgerIndex": 20599313,
+      "sequence": 20599240
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "A6875B673B2B33BD97755585C2BBCF4A578B15FA5F09841C648ED533360CFD64",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/A6875B673B2B33BD97755585C2BBCF4A578B15FA5F09841C648ED533360CFD64",
+      "ledgerIndex": 20599315,
+      "sequence": 20599241
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "2B1C47DCA5C0EC9AB0499FD4C7E5DDD1575B1A397787D53D4D6652CB4362B120",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/2B1C47DCA5C0EC9AB0499FD4C7E5DDD1575B1A397787D53D4D6652CB4362B120",
+      "ledgerIndex": 20599317,
+      "sequence": 20599242
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "7DABE3B6021FC0E029A4878658ABC0C81F044F8A8D38B0E18197299983268D8B",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/7DABE3B6021FC0E029A4878658ABC0C81F044F8A8D38B0E18197299983268D8B",
+      "ledgerIndex": 20599318,
+      "sequence": 20599243
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "11EE146EF0E4D88C2E4E929C0766E008AEA13306E497E834991630045EEB8269",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/11EE146EF0E4D88C2E4E929C0766E008AEA13306E497E834991630045EEB8269",
+      "ledgerIndex": 20599320,
+      "sequence": 20599236
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowFinish",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "1016CDB916E242120EBBD26736264E392836DD495E7E54CFBF9A666B00C754B9",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/1016CDB916E242120EBBD26736264E392836DD495E7E54CFBF9A666B00C754B9",
+      "ledgerIndex": 20599322,
+      "sequence": 20599244
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "53CF1B8EC50648BE5285C83519B2E5D93DBE6E50D46BAFE69647C7DAC60019AB",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/53CF1B8EC50648BE5285C83519B2E5D93DBE6E50D46BAFE69647C7DAC60019AB",
+      "ledgerIndex": 20599324,
+      "sequence": 20599232
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "CEF6B0AC246811BB19BC175D7124BC7CB5BE6A934E33C12161FD56FB4AA4A246",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/CEF6B0AC246811BB19BC175D7124BC7CB5BE6A934E33C12161FD56FB4AA4A246",
+      "ledgerIndex": 20599326,
+      "sequence": 20599245
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "ADC34D781D0BF9B56DCB4BC12F2E8003E63859D6B88955205E3543BE7A43F235",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/ADC34D781D0BF9B56DCB4BC12F2E8003E63859D6B88955205E3543BE7A43F235",
+      "ledgerIndex": 20599327,
+      "sequence": 20599246
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "50283013C21AB6D1509F6096E0D4F4124624206B269DA214F185DE9509A7B6DD",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/50283013C21AB6D1509F6096E0D4F4124624206B269DA214F185DE9509A7B6DD",
+      "ledgerIndex": 20599329,
+      "sequence": 20599247
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "97C736FA07F732DF646354552BFED02A3E6B6425386FF261B5DFBC6EF9E48111",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/97C736FA07F732DF646354552BFED02A3E6B6425386FF261B5DFBC6EF9E48111",
+      "ledgerIndex": 20599330,
+      "sequence": 20599248
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "5890C857BFB5A0AB8680E3C8C7342871C8061C29C72C9171BDDB8DAA5B2F6AB9",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/5890C857BFB5A0AB8680E3C8C7342871C8061C29C72C9171BDDB8DAA5B2F6AB9",
+      "ledgerIndex": 20599332,
+      "sequence": 20599237
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "71DAE59F5513E0A7608FFDF30846A4C8DB3201EAD7F85B6B9B975B3E4E7CFBB5",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/71DAE59F5513E0A7608FFDF30846A4C8DB3201EAD7F85B6B9B975B3E4E7CFBB5",
+      "ledgerIndex": 20599336,
+      "sequence": 20599233
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "F4719695812EA33903B35A0D9388F55C17F5B2C934EA7C9E454FB9921DDEE8E6",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/F4719695812EA33903B35A0D9388F55C17F5B2C934EA7C9E454FB9921DDEE8E6",
+      "ledgerIndex": 20599338,
+      "sequence": 20599249
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "01E47EF878735E3AEC4BE20EF15499C7A7A24355FC45F6342CACA27C8D7D73F0",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/01E47EF878735E3AEC4BE20EF15499C7A7A24355FC45F6342CACA27C8D7D73F0",
+      "ledgerIndex": 20599340,
+      "sequence": 20599250
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C5B965736D14F6E0B6C486125F82CF02D076589EF800D2CE6C09DE725BAC860D",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C5B965736D14F6E0B6C486125F82CF02D076589EF800D2CE6C09DE725BAC860D",
+      "ledgerIndex": 20599341,
+      "sequence": 20599251
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "61A79A810C9DECC284CC8F78E4E3FD7AD2AE6378D47BC028C915A0FD552F14DD",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/61A79A810C9DECC284CC8F78E4E3FD7AD2AE6378D47BC028C915A0FD552F14DD",
+      "ledgerIndex": 20599343,
+      "sequence": 20599252
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "C5D9FBC48211722BCA4BCB1F9A4227B128650FAFAB2A51D975F0B15349C4BF4F",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C5D9FBC48211722BCA4BCB1F9A4227B128650FAFAB2A51D975F0B15349C4BF4F",
+      "ledgerIndex": 20599344,
+      "sequence": 20599238
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "D2B654310BE57B03D4F8A0EE0CA1C10671746A56AFE2BFAAA00573DD482713B0",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/D2B654310BE57B03D4F8A0EE0CA1C10671746A56AFE2BFAAA00573DD482713B0",
+      "ledgerIndex": 20599349,
+      "sequence": 20599234
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "14BE2627603F58355E878A76AE821C3220DB506B97CEB5FAE10C85CF39AA926E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/14BE2627603F58355E878A76AE821C3220DB506B97CEB5FAE10C85CF39AA926E",
+      "ledgerIndex": 20599350,
+      "sequence": 20599253
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "F5D352EAC1517E8CEF5D04AEA95432D7017F5D0F40626EB76D7B50AA3CBF6612",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/F5D352EAC1517E8CEF5D04AEA95432D7017F5D0F40626EB76D7B50AA3CBF6612",
+      "ledgerIndex": 20599352,
+      "sequence": 20599254
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "11B554ABBBE7E276BC2702A059626EA8E024C6A845CC1E26A9577AC42836B6D0",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/11B554ABBBE7E276BC2702A059626EA8E024C6A845CC1E26A9577AC42836B6D0",
+      "ledgerIndex": 20599353,
+      "sequence": 20599255
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "913498F6FF73C1C1DAF297C563A105F5DAFB54F4AB005C065EF11E9084D822F4",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/913498F6FF73C1C1DAF297C563A105F5DAFB54F4AB005C065EF11E9084D822F4",
+      "ledgerIndex": 20599355,
+      "sequence": 20599256
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "582A4858395025E5023E60C54AA2D678E3DA209EB9A95171FF004FAF53F15E7B",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/582A4858395025E5023E60C54AA2D678E3DA209EB9A95171FF004FAF53F15E7B",
+      "ledgerIndex": 20599356,
+      "sequence": 20599239
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "BDE4E140C58593B6A1585ABF944ECF3DCE93E0DC58E7A34BEB266501CA15E04C",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/BDE4E140C58593B6A1585ABF944ECF3DCE93E0DC58E7A34BEB266501CA15E04C",
+      "ledgerIndex": 20599365,
+      "sequence": 20599235
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "1980B8C8C29CB948ACEA1266E0D950FD4ECA3E513C75348A70E55A80524F1DCE",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/1980B8C8C29CB948ACEA1266E0D950FD4ECA3E513C75348A70E55A80524F1DCE",
+      "ledgerIndex": 20599367,
+      "sequence": 20599257
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "37936A4BE1EFD135C19C06E18015CC7D5A5ACA8536ADAE742BBAEEAB0C17272C",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/37936A4BE1EFD135C19C06E18015CC7D5A5ACA8536ADAE742BBAEEAB0C17272C",
+      "ledgerIndex": 20599368,
+      "sequence": 20599258
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "197E3507DECAB924BD46E8133CE7C5415885DFF0738DE4F937D17D0B789D6B7D",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/197E3507DECAB924BD46E8133CE7C5415885DFF0738DE4F937D17D0B789D6B7D",
+      "ledgerIndex": 20599370,
+      "sequence": 20599259
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "45E3992B175DEE7F2401142B500277D3AA2E5F40FDF5CA0EF9C15074E9BCAC8A",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/45E3992B175DEE7F2401142B500277D3AA2E5F40FDF5CA0EF9C15074E9BCAC8A",
+      "ledgerIndex": 20599371,
+      "sequence": 20599260
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "CCE9BFDCD05B84DE5AED8DD9FCBFAA9E43962344C30F274BB1DE1C0C48EF7C86",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/CCE9BFDCD05B84DE5AED8DD9FCBFAA9E43962344C30F274BB1DE1C0C48EF7C86",
+      "ledgerIndex": 20599372,
+      "sequence": 20599240
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "FE843A9AD3E0EE7D351AD31DF35C837ECEBCC063661AFD1B01E67C259FF03933",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/FE843A9AD3E0EE7D351AD31DF35C837ECEBCC063661AFD1B01E67C259FF03933",
+      "ledgerIndex": 20599380,
+      "sequence": 20599236
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "EC745D412DDEE560AB63FBE28A0462A9F63B44FBFCF34891C007D595C1CF3EB6",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/EC745D412DDEE560AB63FBE28A0462A9F63B44FBFCF34891C007D595C1CF3EB6",
+      "ledgerIndex": 20599382,
+      "sequence": 20599261
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "3D57CD1B105B1D424ACEE7F8CC66E8AEAFF32B2176AA0603BCBEA22E2F6DF999",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/3D57CD1B105B1D424ACEE7F8CC66E8AEAFF32B2176AA0603BCBEA22E2F6DF999",
+      "ledgerIndex": 20599383,
+      "sequence": 20599262
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "E06D790BC2C6B1D46FEC446BB366DB90FC5FDC6B4D866AB56B8388F7C1FB8969",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/E06D790BC2C6B1D46FEC446BB366DB90FC5FDC6B4D866AB56B8388F7C1FB8969",
+      "ledgerIndex": 20599384,
+      "sequence": 20599263
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "665FEACAB169552A7FDECB7F9AB81ABE16F524353D93396079EB91E2321C8FBB",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/665FEACAB169552A7FDECB7F9AB81ABE16F524353D93396079EB91E2321C8FBB",
+      "ledgerIndex": 20599386,
+      "sequence": 20599264
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "F6F15BD1689C80B9DA33DB052EE9E0AA7F8A431990132CA6DBB8608EF9F85492",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/F6F15BD1689C80B9DA33DB052EE9E0AA7F8A431990132CA6DBB8608EF9F85492",
+      "ledgerIndex": 20599388,
+      "sequence": 20599241
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowCreate",
+      "account": "rKkyhFFcJwG2CeM1VX5EcmHDWEZZJitUux",
+      "hash": "51CF81B7B9EC10D6A2ED294D1D3E877EC9C4D909D4D21075F63B8069DE9D16C1",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/51CF81B7B9EC10D6A2ED294D1D3E877EC9C4D909D4D21075F63B8069DE9D16C1",
+      "ledgerIndex": 20599389,
+      "sequence": 20599231
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "776B4B0C9C4A51CEE1508EF5F92841BD0A8C5DA1C9AEB40E94F0B1BFDE24A13E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/776B4B0C9C4A51CEE1508EF5F92841BD0A8C5DA1C9AEB40E94F0B1BFDE24A13E",
+      "ledgerIndex": 20599395,
+      "sequence": 20599237
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "83D8FA3FD900164ADEA51BF16208EFAFFB8A0ED2B4D54CE2AFC7638250DE0014",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/83D8FA3FD900164ADEA51BF16208EFAFFB8A0ED2B4D54CE2AFC7638250DE0014",
+      "ledgerIndex": 20599397,
+      "sequence": 20599265
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "78F8E0EE1CCDABF58023766A8295B921CB33299D357887FE452C0DF411FF69D8",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/78F8E0EE1CCDABF58023766A8295B921CB33299D357887FE452C0DF411FF69D8",
+      "ledgerIndex": 20599399,
+      "sequence": 20599266
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "FA5FD71DD7F8F612D212AD351E58273406ADE90644572C4AE0909440FD9CA80E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/FA5FD71DD7F8F612D212AD351E58273406ADE90644572C4AE0909440FD9CA80E",
+      "ledgerIndex": 20599400,
+      "sequence": 20599267
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "89BF91DB8ECD02798FC40EE51DC0364A59C1F4E3CFD8B58AF4027044A4F0A07A",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/89BF91DB8ECD02798FC40EE51DC0364A59C1F4E3CFD8B58AF4027044A4F0A07A",
+      "ledgerIndex": 20599402,
+      "sequence": 20599268
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "70A4673F051C67B7226CF301D1F0D36654981FDFEC125F0A01E952D485F13032",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/70A4673F051C67B7226CF301D1F0D36654981FDFEC125F0A01E952D485F13032",
+      "ledgerIndex": 20599404,
+      "sequence": 20599242
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowFinish",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "1811208F85B8C94904F35103A6CEF54D370BD973E33864726E1FA8D8DA71260E",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/1811208F85B8C94904F35103A6CEF54D370BD973E33864726E1FA8D8DA71260E",
+      "ledgerIndex": 20599406,
+      "sequence": 20599269
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "4BD38FD1659D2B81E56A900C134C2CFA7C000F8998111B861C9418A70E918C9C",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/4BD38FD1659D2B81E56A900C134C2CFA7C000F8998111B861C9418A70E918C9C",
+      "ledgerIndex": 20599408,
+      "sequence": 20599238
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "BA5721724C8AC6BDCE7E7DBD310691790F2DF8B12B6FA39E2752A1B041FEE7CD",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/BA5721724C8AC6BDCE7E7DBD310691790F2DF8B12B6FA39E2752A1B041FEE7CD",
+      "ledgerIndex": 20599409,
+      "sequence": 20599270
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C6927C6B0E5C6BA5CD3A63FA90DF904ECBAE9ECE94215AF3D68B6781F5CEB2A5",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C6927C6B0E5C6BA5CD3A63FA90DF904ECBAE9ECE94215AF3D68B6781F5CEB2A5",
+      "ledgerIndex": 20599410,
+      "sequence": 20599271
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C223EA95688C8F78F20AE9ABB4A1CC7C57A7ED5D865C27B4A8D3740E2E9443B9",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C223EA95688C8F78F20AE9ABB4A1CC7C57A7ED5D865C27B4A8D3740E2E9443B9",
+      "ledgerIndex": 20599412,
+      "sequence": 20599272
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "3279FF4CBA09BCECCFD6F001A679CEEB1131D1EF4608B3284D6D15054AA6D07F",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/3279FF4CBA09BCECCFD6F001A679CEEB1131D1EF4608B3284D6D15054AA6D07F",
+      "ledgerIndex": 20599414,
+      "sequence": 20599273
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "B7BE118924A292DDAD80A49927F695D739DA22B4483B9E2F801F37A1BE570AE1",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/B7BE118924A292DDAD80A49927F695D739DA22B4483B9E2F801F37A1BE570AE1",
+      "ledgerIndex": 20599415,
+      "sequence": 20599243
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowCreate",
+      "account": "rwm8WUoXrdcGb5LsC4VXwoC9RkbkTssXyp",
+      "hash": "8BF3AB2B68AAC7A207F4858801B3F8C804C5F1408122B160AA6CEAF70561AA64",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/8BF3AB2B68AAC7A207F4858801B3F8C804C5F1408122B160AA6CEAF70561AA64",
+      "ledgerIndex": 20599417,
+      "sequence": 20599232
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "BD158DCC300D71EAD319DDA4AC0FB3180E8A631E2016E7D501330023287BD2A5",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/BD158DCC300D71EAD319DDA4AC0FB3180E8A631E2016E7D501330023287BD2A5",
+      "ledgerIndex": 20599423,
+      "sequence": 20599239
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "E92D366584E520BC24C233451FCBCD8610CAB6CBA499BE8CB5CD680B27B6324D",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/E92D366584E520BC24C233451FCBCD8610CAB6CBA499BE8CB5CD680B27B6324D",
+      "ledgerIndex": 20599425,
+      "sequence": 20599274
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "54992164193EC5932B8C9DFF1B61DCFF4DA274695B23739C87923BB4660D9631",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/54992164193EC5932B8C9DFF1B61DCFF4DA274695B23739C87923BB4660D9631",
+      "ledgerIndex": 20599427,
+      "sequence": 20599275
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "C14E857223056717A8627A50C62665701B8FD615CC7E2CC50312056960207272",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C14E857223056717A8627A50C62665701B8FD615CC7E2CC50312056960207272",
+      "ledgerIndex": 20599429,
+      "sequence": 20599276
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "AC5662DC2EFD6A128B8920A15D88957891B0EEBFE522AED45739F6A1453621DC",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/AC5662DC2EFD6A128B8920A15D88957891B0EEBFE522AED45739F6A1453621DC",
+      "ledgerIndex": 20599430,
+      "sequence": 20599277
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "C9470268DBDE887592892B5946755C0867EE4CDC37AE2F56F2D4FE9552AD32E9",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/C9470268DBDE887592892B5946755C0867EE4CDC37AE2F56F2D4FE9552AD32E9",
+      "ledgerIndex": 20599431,
+      "sequence": 20599244
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowFinish",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "0F5B9CB77DA75F9D37156C116AA9E4C9DBCE6DC69E207BA9687863D8C003F6D9",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/0F5B9CB77DA75F9D37156C116AA9E4C9DBCE6DC69E207BA9687863D8C003F6D9",
+      "ledgerIndex": 20599432,
+      "sequence": 20599278
+    },
+    {
+      "step": "servicing:receipt",
+      "type": "Payment",
+      "account": "rMtt2GKArixq4GmJCNW4LogfEYAiXNje1P",
+      "hash": "F955BBFAB0FED020546CC3DDB6E148D9FB41C88DF90060D95F27921A0738E21C",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/F955BBFAB0FED020546CC3DDB6E148D9FB41C88DF90060D95F27921A0738E21C",
+      "ledgerIndex": 20599436,
+      "sequence": 20599240
+    },
+    {
+      "step": "servicing:pi",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "697C0BE6698E114DD916C6BE7ED1D679B095EA77996D4AB320E39AF3F0134450",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/697C0BE6698E114DD916C6BE7ED1D679B095EA77996D4AB320E39AF3F0134450",
+      "ledgerIndex": 20599438,
+      "sequence": 20599279
+    },
+    {
+      "step": "servicing:tax",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "80B9022111567AA4C3CF5F702A767C87F1E32B687D434B6DE2317C61C2E9C5E6",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/80B9022111567AA4C3CF5F702A767C87F1E32B687D434B6DE2317C61C2E9C5E6",
+      "ledgerIndex": 20599439,
+      "sequence": 20599280
+    },
+    {
+      "step": "servicing:hazard",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "494CD68662A11493D2516DC8B8177B22EAA847C3CC7CEC3E1C67FCD6707C6E16",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/494CD68662A11493D2516DC8B8177B22EAA847C3CC7CEC3E1C67FCD6707C6E16",
+      "ledgerIndex": 20599440,
+      "sequence": 20599281
+    },
+    {
+      "step": "servicing:mip",
+      "type": "Payment",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "B97BA9C439D028502244F0C42BEBD9B6665BDBD05BCB11EF6F9D83A745923F04",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/B97BA9C439D028502244F0C42BEBD9B6665BDBD05BCB11EF6F9D83A745923F04",
+      "ledgerIndex": 20599441,
+      "sequence": 20599282
+    },
+    {
+      "step": "servicing:mip_remit",
+      "type": "Payment",
+      "account": "raQW3dZfZ6Ycv43qzh7rpBgzqb6PFh38qt",
+      "hash": "2CF02546BC6173490053B211E5DB891C49B6FB609A78F73E923F227011B86C7D",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/2CF02546BC6173490053B211E5DB891C49B6FB609A78F73E923F227011B86C7D",
+      "ledgerIndex": 20599443,
+      "sequence": 20599245
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowCreate",
+      "account": "rwm8WUoXrdcGb5LsC4VXwoC9RkbkTssXyp",
+      "hash": "49A175AF6A7BCBB0A27A66F72DA55F28F82D95D689278725BA22B78C09AD1333",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/49A175AF6A7BCBB0A27A66F72DA55F28F82D95D689278725BA22B78C09AD1333",
+      "ledgerIndex": 20599445,
+      "sequence": 20599233
+    },
+    {
+      "step": "escrow",
+      "type": "EscrowCancel",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "293F0EB14A167E25F6CE066F8D5341C433BE618DC39BE7B95E8A939EA9368131",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/293F0EB14A167E25F6CE066F8D5341C433BE618DC39BE7B95E8A939EA9368131",
+      "ledgerIndex": 20599456,
+      "sequence": 20599283
+    },
+    {
+      "step": "record",
+      "type": "NFTokenCreateOffer",
+      "account": "rJSHYFJ8kVYB1pDFUBBznwbhUPJdt7sSRu",
+      "hash": "DDD1C102524DB2871D84BADA2AD6F5CA97F1EBEA88C9E10F1040D2652A9ACE48",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/DDD1C102524DB2871D84BADA2AD6F5CA97F1EBEA88C9E10F1040D2652A9ACE48",
+      "ledgerIndex": 20599458,
+      "sequence": 20599284
+    },
+    {
+      "step": "record",
+      "type": "NFTokenAcceptOffer",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "CD16C9310245F4EB42790DAEB821A78E97E11603DE7CE28D0546E13D3A219690",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/CD16C9310245F4EB42790DAEB821A78E97E11603DE7CE28D0546E13D3A219690",
+      "ledgerIndex": 20599459,
+      "sequence": 20599239
+    },
+    {
+      "step": "keys",
+      "type": "SetRegularKey",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "8DB9959FE114220C053FDA8E560AFEB9DEC8A8A30A4BE9B1F90C41E8EF8A3716",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/8DB9959FE114220C053FDA8E560AFEB9DEC8A8A30A4BE9B1F90C41E8EF8A3716",
+      "ledgerIndex": 20599460,
+      "sequence": 20599240
+    },
+    {
+      "step": "keys",
+      "type": "AccountSet",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "D30FDA7F9B9E675D5CCFB0751AD3EBA5121B8E1B3C419B341E3E7B2A0C8DF718",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/D30FDA7F9B9E675D5CCFB0751AD3EBA5121B8E1B3C419B341E3E7B2A0C8DF718",
+      "ledgerIndex": 20599462,
+      "sequence": 20599241
+    },
+    {
+      "step": "keys",
+      "type": "AccountSet",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "985783C8EDCB4D72DB938924E114B515B2C094A466C37BF0330503945DD03D98",
+      "result": "tesSUCCESS",
+      "explorer": "https://testnet.xrpl.org/transactions/985783C8EDCB4D72DB938924E114B515B2C094A466C37BF0330503945DD03D98",
+      "ledgerIndex": 20599463,
+      "sequence": 20599242
+    },
+    {
+      "step": "keys:master-refused",
+      "type": "AccountSet",
+      "account": "rnyZFB5PMcMD4qpushV4Zkkt2Spcc1931i",
+      "hash": "",
+      "result": "tefMASTER_DISABLED",
+      "explorer": ""
+    }
   ]
 }

@@ -1,0 +1,126 @@
+{
+  "network": "testnet",
+  "run": "run-mtta2pac",
+  "step_seconds": 45,
+  "origin_ripple_time": 842224100,
+  "rule": "ripple_time = origin + (months since period-1 due + (day-1)/31) * step_seconds",
+  "manifest": [
+    {
+      "business_date": "2026-11-01",
+      "ripple_time": 842224100,
+      "iso": "2026-09-08T23:08:20.000Z",
+      "what": "business clock origin (period 1 due date), set after setup"
+    },
+    {
+      "business_date": "2026-11-01",
+      "ripple_time": 842224100,
+      "iso": "2026-09-08T23:08:20.000Z",
+      "what": "period 1 due date"
+    },
+    {
+      "business_date": "2026-12-01",
+      "ripple_time": 842224145,
+      "iso": "2026-09-08T23:09:05.000Z",
+      "what": "period 2 due date"
+    },
+    {
+      "business_date": "2026-12-20",
+      "ripple_time": 842224212,
+      "iso": "2026-09-08T23:10:12.000Z",
+      "what": "tax bill FinishAfter",
+      "clamped": true
+    },
+    {
+      "business_date": "2027-02-03",
+      "ripple_time": 842224257,
+      "iso": "2026-09-08T23:10:57.000Z",
+      "what": "tax bill CancelAfter (FinishAfter + 45s)"
+    },
+    {
+      "business_date": "2027-01-01",
+      "ripple_time": 842224190,
+      "iso": "2026-09-08T23:09:50.000Z",
+      "what": "period 3 due date"
+    },
+    {
+      "business_date": "2027-02-01",
+      "ripple_time": 842224235,
+      "iso": "2026-09-08T23:10:35.000Z",
+      "what": "period 4 due date"
+    },
+    {
+      "business_date": "2027-03-01",
+      "ripple_time": 842224280,
+      "iso": "2026-09-08T23:11:20.000Z",
+      "what": "period 5 due date"
+    },
+    {
+      "business_date": "2027-04-01",
+      "ripple_time": 842224325,
+      "iso": "2026-09-08T23:12:05.000Z",
+      "what": "period 6 due date"
+    },
+    {
+      "business_date": "2027-05-01",
+      "ripple_time": 842224370,
+      "iso": "2026-09-08T23:12:50.000Z",
+      "what": "period 7 due date"
+    },
+    {
+      "business_date": "2027-06-01",
+      "ripple_time": 842224415,
+      "iso": "2026-09-08T23:13:35.000Z",
+      "what": "period 8 due date"
+    },
+    {
+      "business_date": "2027-06-20",
+      "ripple_time": 842224469,
+      "iso": "2026-09-08T23:14:29.000Z",
+      "what": "tax bill FinishAfter",
+      "clamped": true
+    },
+    {
+      "business_date": "2027-08-04",
+      "ripple_time": 842224514,
+      "iso": "2026-09-08T23:15:14.000Z",
+      "what": "tax bill CancelAfter (FinishAfter + 45s)"
+    },
+    {
+      "business_date": "2027-07-01",
+      "ripple_time": 842224460,
+      "iso": "2026-09-08T23:14:20.000Z",
+      "what": "period 9 due date"
+    },
+    {
+      "business_date": "2027-08-01",
+      "ripple_time": 842224505,
+      "iso": "2026-09-08T23:15:05.000Z",
+      "what": "period 10 due date"
+    },
+    {
+      "business_date": "2027-09-01",
+      "ripple_time": 842224556,
+      "iso": "2026-09-08T23:15:56.000Z",
+      "what": "hazard bill FinishAfter",
+      "clamped": true
+    },
+    {
+      "business_date": "2027-10-16",
+      "ripple_time": 842224601,
+      "iso": "2026-09-08T23:16:41.000Z",
+      "what": "hazard bill CancelAfter (FinishAfter + 45s)"
+    },
+    {
+      "business_date": "2027-09-01",
+      "ripple_time": 842224550,
+      "iso": "2026-09-08T23:15:50.000Z",
+      "what": "period 11 due date"
+    },
+    {
+      "business_date": "2027-10-01",
+      "ripple_time": 842224595,
+      "iso": "2026-09-08T23:16:35.000Z",
+      "what": "period 12 due date"
+    }
+  ]
+}

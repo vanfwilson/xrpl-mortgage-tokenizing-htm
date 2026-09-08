@@ -1,7 +1,7 @@
 import type { EscrowCancel, EscrowCreate, EscrowFinish } from 'xrpl';
 import type { Role } from '../config.js';
 import { record, type Ctx } from '../steps/context.js';
-import { submit, submitExpectingFailure, usdAmount } from './client.js';
+import { sleep, submit, submitExpectingFailure, TxError, usdAmount } from './client.js';
 import { preflightIssuerLocking } from './issuer.js';
 import { buildMemo, type LegMemo } from './settle.js';
 
@@ -40,7 +40,14 @@ export async function createImpoundEscrow(ctx: Ctx, b: EscrowBuild): Promise<{ h
 export async function finishEscrow(ctx: Ctx, by: Role, owner: string, sequence: number): Promise<string> {
   const { client, wallets } = ctx;
   const tx: EscrowFinish = { TransactionType: 'EscrowFinish', Account: wallets[by].classicAddress, Owner: owner, OfferSequence: sequence };
-  return record(ctx, await submit(client, wallets[by], tx, 'escrow')).hash;
+  // The date lock is evaluated against the parent ledger's close time (10 s resolution); retry briefly if we are early.
+  for (let attempt = 1; ; attempt++) {
+    try { return record(ctx, await submit(client, wallets[by], tx, 'escrow')).hash; }
+    catch (e) {
+      if (e instanceof TxError && e.record.result === 'tecNO_PERMISSION' && attempt < 4) { ctx.log(`    EscrowFinish early by ledger clock; retry ${attempt}`); await sleep(12_000); continue; }
+      throw e;
+    }
+  }
 }
 
 /** Proof that the date lock holds: an EscrowFinish before FinishAfter must fail. */
@@ -56,5 +63,11 @@ export async function attemptEarlyFinish(ctx: Ctx, by: Role, owner: string, sequ
 export async function cancelEscrow(ctx: Ctx, by: Role, owner: string, sequence: number): Promise<string> {
   const { client, wallets } = ctx;
   const tx: EscrowCancel = { TransactionType: 'EscrowCancel', Account: wallets[by].classicAddress, Owner: owner, OfferSequence: sequence };
-  return record(ctx, await submit(client, wallets[by], tx, 'escrow')).hash;
+  for (let attempt = 1; ; attempt++) {
+    try { return record(ctx, await submit(client, wallets[by], tx, 'escrow')).hash; }
+    catch (e) {
+      if (e instanceof TxError && e.record.result === 'tecNO_PERMISSION' && attempt < 4) { ctx.log(`    EscrowCancel early by ledger clock; retry ${attempt}`); await sleep(12_000); continue; }
+      throw e;
+    }
+  }
 }
