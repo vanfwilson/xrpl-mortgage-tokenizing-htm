@@ -1,58 +1,21 @@
+/**
+ * npm run demo -> ingest the four closing documents, run every tie-out, hash the bundle.
+ * The ledger loan-year proof lives in `npm run loan-year` (Phase D/E of the servicing rebuild).
+ */
 import { config } from './config.js';
 import { hashDocumentBundle } from './domain/hash.js';
 import { buildCanonicalFromDocuments, validateCanonical } from './ingest/canonical.js';
-import { connect, loadOrFundWallets } from './xrpl/client.js';
-import type { Ctx } from './steps/context.js';
-import { setupCredentialsAndDomain } from './steps/01-credentials.js';
-import { issueNoteToken } from './steps/02-mpt.js';
-import { createFundingVault } from './steps/03-vault.js';
-import { setupLendingAndOriginate } from './steps/04-lending.js';
-import { serviceLoan } from './steps/05-servicing.js';
-import { writeReport } from './steps/07-report.js';
 
-const log = (m: string) => console.log(m);
-const head = (n: number, t: string) => log(`\n[${n}] ${t}`);
-
-async function main() {
-  const fullLifecycle = process.argv.includes('--full-lifecycle');
-  head(0, 'Ingest documents -> canonical loan JSON -> bundle hash');
-  const loan = buildCanonicalFromDocuments(config.documentsDir);
-  const issues = validateCanonical(loan);
-  if (issues.length) throw new Error(`canonical loan failed validation: ${JSON.stringify(issues)}`);
-  const bundle = hashDocumentBundle(config.documentsDir);
-  log(`    ${loan.loan.loan_id}  $${loan.loan.principal_amount.toLocaleString()} @ ${loan.loan.annual_interest_rate * 100}% / ${loan.loan.term_months} mo  sweep $${loan.servicing.monthly_total_sweep} = P&I ${loan.servicing.principal_and_interest} + tax ${loan.servicing.property_tax_impound} + insurance ${loan.servicing.insurance_impound}`);
-  log(`    ${bundle.files.length} documents, bundle sha256 ${bundle.bundle_sha256}`);
-
-  head(1, `Connect ${config.wss} and fund role wallets`);
-  const client = await connect();
-  const wallets = await loadOrFundWallets(client, log);
-  loan.xrpl.issuer_address = wallets.issuer.classicAddress;
-  loan.xrpl.servicer_address = wallets.servicer.classicAddress;
-
-  const ctx: Ctx = { client, wallets, loan, bundle, txs: [], ids: {}, notes: [], fullLifecycle, log };
-  try {
-    head(2, 'KYC credentials + permissioned domain (XLS-70 / XLS-80)');
-    await setupCredentialsAndDomain(ctx);
-    head(3, 'Issue the note as a permissioned MPT and distribute participations (XLS-33 / XLS-89)');
-    await issueNoteToken(ctx);
-    head(4, 'Private Single Asset Vault funded by attested depositors (XLS-65)');
-    await createFundingVault(ctx);
-    head(5, 'LoanBroker + first-loss cover + two-party LoanSet (XLS-66)');
-    await setupLendingAndOriginate(ctx);
-    head(6, `Servicing: ${config.demoLoan.sweepsToRun} monthly sweeps split 3 ways (P&I -> vault loan, tax impound, insurance impound), impound escrows to payees, impair/unimpair`);
-    await serviceLoan(ctx);
-  } finally {
-    const p = writeReport(ctx);
-    log(`\nreport ${p}  (summary: out/latest.md)`);
-    await client.disconnect();
-  }
-  if (ctx.notes.length) {
-    log('\nnotes:');
-    for (const n of ctx.notes) log(`  - ${n}`);
-  }
-}
-
-main().catch((e) => {
-  console.error('\nDEMO FAILED:', e instanceof Error ? e.message : e);
+const loan = buildCanonicalFromDocuments(config.documentsDir);
+const issues = validateCanonical(loan);
+if (issues.length) {
+  console.error('canonical loan failed validation:');
+  for (const i of issues) console.error(`  ${i.field}: ${i.message}`);
   process.exit(1);
-});
+}
+const bundle = hashDocumentBundle(config.documentsDir);
+const s = loan.servicing;
+console.log(`${loan.loan.loan_id}  $${loan.loan.principal_amount.toLocaleString()} @ ${loan.loan.annual_interest_rate * 100}% / ${loan.loan.term_months} mo`);
+console.log(`payment $${s.monthly_total_sweep} = P&I ${s.principal_and_interest} + tax ${s.property_tax_impound} + hazard ${s.hazard_insurance_impound} + MIP ${s.fha_mip}`);
+console.log(`${bundle.files.length} documents, bundle sha256 ${bundle.bundle_sha256}`);
+console.log('all tie-outs pass (P&I, base + UFMIP, closing costs, cash to close, four legs, FHA LTV/MIP/late charge, recording dates)');

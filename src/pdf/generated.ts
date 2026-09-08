@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { PDFDocument } from 'pdf-lib';
 import type { CanonicalLoan } from '../ingest/canonical.js';
-import { Writer, mdy, pens, stampPages, usd, usdPlain } from './common.js';
+import { BLANK, Writer, mdy, pens, stampPages, usd, usdPlain } from './common.js';
 
 const isBlank = (loan: CanonicalLoan) => loan.borrower.name.startsWith('_');
 const who = (loan: CanonicalLoan, n: string) => (isBlank(loan) ? '' : n);
@@ -33,7 +33,7 @@ export async function deedOfTrust(loan: CanonicalLoan, d: Record<string, any>, o
   w.p('After recording return to: ' + d.beneficiary_lender, 8); w.p('Recording requested by: ' + d.trustee, 8); w.rule();
   w.p(`${String(d.recording.office).toUpperCase()}     Instrument No. ${d.recording.document_number}     Recorded ${mdy(d.recording.recorded_date)}     Fee ${usd(d.recording.recording_fee)}`, 8); w.rule();
   w.h(`DEED OF TRUST  (FHA Case No. ${loan.loan.fha_case_number})`, 14);
-  w.p('IDAHO - Single Family - Fannie Mae/Freddie Mac UNIFORM INSTRUMENT Form 3013 (synthetic rendering of the standard form text blocks)', 7.5);
+  w.p('IDAHO - FHA DEED OF TRUST - Single Family - HUD model security instrument on the uniform-instrument base (synthetic rendering of the standard text blocks)', 7.5);
   w.p(`THIS DEED OF TRUST ("Security Instrument") is made on ${mdy(d.note_date)}. The grantor is ${d.grantor_borrower} ("Borrower"). The trustee is ${d.trustee} ("Trustee"). The beneficiary is ${d.beneficiary_lender} ("Lender").`);
   w.p(`Borrower owes Lender the principal sum of ${usd(d.secured_note_amount)}. This debt is evidenced by Borrower's Note dated the same date as this Security Instrument, which provides for monthly payments, with the full debt, if not paid earlier, due and payable on ${mdy(d.maturity_date)}. The Note bears interest at ${pct(loan.loan.annual_interest_rate)} per annum.`);
   w.p(`For this purpose, Borrower irrevocably grants and conveys to Trustee, in trust, with power of sale, the following described property located in ${loan.property.address.county} County, Idaho:`);
@@ -71,11 +71,10 @@ export async function warrantyDeed(loan: CanonicalLoan, d: Record<string, any>, 
 export async function servicingStatement(loan: CanonicalLoan, period: number, dueDate: string, receivedDate: string | null, out: string, anchor: string) {
   const { doc, w, font } = await start();
   const sv = loan.servicing;
-  const m = { principal_and_interest: sv.principal_and_interest, property_tax_impound: sv.property_tax_impound, homeowners_insurance_impound: sv.insurance_detail.hazard_homeowners, fha_mip: sv.insurance_detail.fha_mip, total_piti: sv.monthly_total_sweep };
+  const m = { principal_and_interest: sv.principal_and_interest, property_tax_impound: sv.property_tax_impound, homeowners_insurance_impound: sv.hazard_insurance_impound, fha_mip: sv.fha_mip, total_piti: sv.monthly_total_sweep };
   const r = loan.loan.annual_interest_rate / 12;
   let bal = loan.loan.principal_amount, interest = 0, principal = 0;
   for (let n = 1; n <= period; n++) { interest = Math.round(bal * r * 100) / 100; principal = Math.round((m.principal_and_interest - interest) * 100) / 100; if (n < period) bal = Math.round((bal - principal) * 100) / 100; }
-  const insurance = m.fha_mip + m.homeowners_insurance_impound;
   w.h('HIGH TECH MORTGAGE  -  Monthly Mortgage Statement', 13);
   w.kv('Loan No.', loan.loan.loan_id); w.kv('Borrower', loan.borrower.name);
   w.kv('Property', `${loan.property.address.street}, ${loan.property.address.city}, ${loan.property.address.state} ${loan.property.address.zip}`);
@@ -84,27 +83,28 @@ export async function servicingStatement(loan: CanonicalLoan, period: number, du
   w.row([[0, 'Principal & Interest (P&I)', true], [300, usdPlain(m.principal_and_interest), true]]);
   w.row([[16, `of which principal ${usdPlain(principal)}, interest ${usdPlain(interest)}`]], 8);
   w.row([[0, 'Property Tax Impound', true], [300, usdPlain(m.property_tax_impound), true]]);
-  w.row([[0, 'Insurance Impound (Hazard + FHA MIP)', true], [300, usdPlain(insurance), true]]);
-  w.row([[16, `hazard homeowners ${usdPlain(m.homeowners_insurance_impound)}, FHA MIP ${usdPlain(m.fha_mip)}`]], 8);
+  w.row([[0, 'Hazard Insurance Impound', true], [300, usdPlain(m.homeowners_insurance_impound), true]]);
+  w.row([[0, 'FHA Mortgage Insurance Premium (monthly, to HUD)', true], [300, usdPlain(m.fha_mip), true]]);
   w.row([[0, 'Total Amount Due', true], [300, usd(m.total_piti), true]]); w.rule();
   w.h('Account Information', 11);
   w.kv('Outstanding Principal', usd(bal)); w.kv('Interest Rate', pct(loan.loan.annual_interest_rate));
-  w.kv('Tax Impound Balance', usd(m.property_tax_impound * period)); w.kv('Insurance Impound Balance', usd(insurance * period)); w.kv('Maturity Date', mdy(loan.loan.maturity_date)); w.rule();
+  w.kv('Tax Impound Balance', usd(m.property_tax_impound * period)); w.kv('Hazard Impound Balance', usd(m.homeowners_insurance_impound * period)); w.kv('Maturity Date', mdy(loan.loan.maturity_date)); w.rule();
   w.h('Transaction Activity', 11);
   if (receivedDate) { w.row([[0, mdy(receivedDate)], [110, 'Payment Received - Thank You'], [300, usdPlain(m.total_piti)]]); w.kv('Amount Received', usd(m.total_piti)); w.kv('Received on', mdy(receivedDate)); }
   else w.row([[0, '-'], [110, 'No payments received this period']]);
   w.gap(14); w.rule(); w.h('PAYMENT COUPON  (detach and return)', 11);
   w.kv('Loan No.', loan.loan.loan_id); w.kv('Payment Due Date', mdy(dueDate)); w.kv('Total Amount Due', usd(m.total_piti));
   w.kv('Additional Principal', '$ ____________'); w.kv('Total Enclosed', '$ ____________');
-  w.p('Make checks payable to High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814. Late charge of 5% of principal and interest applies after the 15th. Only P&I, property-tax impound and insurance impound are collected; HOA dues and any optional products are paid by the borrower directly.', 8);
+  w.p(`Make checks payable to High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814. A late charge of ${pct(loan.note_terms.late_charge_percent_of_pi)} of principal and interest (${usd(loan.note_terms.late_charge_amount)}) applies if the full payment is not received within ${num(loan.note_terms.grace_period_days)} days of the due date (24 CFR 203.25). Only P&I, property-tax impound, hazard-insurance impound and FHA MIP are collected; HOA dues and any optional products are paid by the borrower directly.`, 8);
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
 
-/** Fannie Mae Form 3200 Multistate Fixed Rate Note, rendered from the note fixture. */
-export async function promissoryNote3200(loan: CanonicalLoan, n: Record<string, any>, out: string, anchor: string) {
+/** FHA Fixed Rate Note (HUD model note language), rendered from the note fixture. */
+export async function fhaModelNote(loan: CanonicalLoan, n: Record<string, any>, out: string, anchor: string) {
   const { doc, w, font } = await start();
   const s3 = n.section_3_payments, s6 = n.section_6_borrowers_failure_to_pay;
   w.h('NOTE', 16);
+  w.p(`FHA Case No. ${n.fha_case_number ?? loan.loan.fha_case_number ?? BLANK}`, 9);
   w.row([[0, mdy(n.note_date)], [180, n.city_state], [400, 'Idaho']], 9);
   w.row([[0, '[Date]'], [180, '[City]'], [400, '[State]']], 7);
   w.p(n.property_address, 9.5); w.p('[Property Address]', 7); w.gap(4);
@@ -120,13 +120,13 @@ export async function promissoryNote3200(loan: CanonicalLoan, n: Record<string, 
   w.h('5. LOAN CHARGES', 10);
   w.p('If a law, which applies to this loan and which sets maximum loan charges, is finally interpreted so that the interest or other loan charges collected or to be collected in connection with this loan exceed the permitted limits, then any such loan charge shall be reduced by the amount necessary to reduce the charge to the permitted limit.');
   w.h('6. BORROWER\'S FAILURE TO PAY AS REQUIRED', 10);
-  w.p(`(A) Late Charge for Overdue Payments. If the Note Holder has not received the full amount of any monthly payment by the end of ${s6.grace_period_days} calendar days after the date it is due, I will pay a late charge to the Note Holder. The amount of the charge will be ${pct(s6.late_charge_percent_of_overdue_pi)} of my overdue payment of principal and interest (${usd(s6.late_charge_amount)}). I will pay this late charge promptly but only once on each late payment.`);
+  w.p(`(A) Late Charge for Overdue Payments. If the Note Holder has not received the full amount of any monthly payment by the end of ${s6.grace_period_days} calendar days after the date it is due, I will pay a late charge to the Note Holder. The amount of the charge will be ${pct(s6.late_charge_percent_of_overdue_pi)} of my overdue payment of principal and interest (${usd(s6.late_charge_amount)}), which does not exceed the four percent permitted by 24 CFR 203.25. I will pay this late charge promptly but only once on each late payment.`);
   w.p('(B) Default. If I do not pay the full amount of each monthly payment on the date it is due, I will be in default. (C) Notice of Default. If I am in default, the Note Holder may send me a written notice telling me that if I do not pay the overdue amount by a certain date, the Note Holder may require me to pay immediately the full amount of Principal which has not been paid and all the interest that I owe on that amount.');
   w.h('10. UNIFORM SECURED NOTE', 10);
   w.p(`This Note is a uniform instrument with limited variations in some jurisdictions. In addition to the protections given to the Note Holder under this Note, a ${n.section_10_uniform_secured_note.security_instrument} (${n.section_10_uniform_secured_note.security_instrument_form}), dated the same date as this Note, protects the Note Holder from possible losses which might result if I do not keep the promises which I make in this Note.`);
   w.p('WITNESS THE HAND(S) AND SEAL(S) OF THE UNDERSIGNED.', 9);
   w.sig(`${n.signatures.borrower}  -Borrower   (Seal)`, n.signatures.borrower, mdy(n.signatures.signed));
-  w.p('MULTISTATE FIXED RATE NOTE - Single Family - Fannie Mae/Freddie Mac UNIFORM INSTRUMENT   Form 3200 1/01 (synthetic rendering)', 7);
+  w.p('FHA FIXED RATE NOTE - IDAHO - HUD model note language (synthetic rendering; not the HUD form itself)', 7);
   stampPages(doc, font, anchor); fs.writeFileSync(out, await doc.save()); return 1;
 }
 

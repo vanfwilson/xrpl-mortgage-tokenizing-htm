@@ -44,8 +44,8 @@ describe('one homeowner, one property, one loan across all forms', () => {
     expect(f.parties.seller).toBe(loan.seller.name);
   });
   it('note, deed of trust and deed agree with each other', () => {
-    const note = JSON.parse(fs.readFileSync('data/documents/02-promissory-note-3200.json', 'utf8'));
-    const dot = JSON.parse(fs.readFileSync('data/documents/03-deed-of-trust-3013.json', 'utf8'));
+    const note = JSON.parse(fs.readFileSync('data/documents/02-fha-model-note.json', 'utf8'));
+    const dot = JSON.parse(fs.readFileSync('data/documents/03-fha-deed-of-trust-idaho.json', 'utf8'));
     const wd = JSON.parse(fs.readFileSync('data/documents/04-warranty-deed-recorded.json', 'utf8'));
     expect(note.section_1_borrowers_promise_to_pay.principal).toBe(dot.secured_note_amount);
     expect(note.property_address).toBe(dot.property_address);

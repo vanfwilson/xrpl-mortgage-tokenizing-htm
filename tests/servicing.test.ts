@@ -5,12 +5,15 @@ import { buildCanonicalFromDocuments } from '../src/ingest/canonical.js';
 
 const loan = buildCanonicalFromDocuments('data/documents');
 
-describe('three-way payment split', () => {
-  it('splits the sweep into P&I, tax impound, insurance impound and balances to the cent', () => {
-    expect(calculateAutomatedPaymentSplit(scannedCdFromLoan(loan))).toEqual({ lender_p_i_vault: 2770.73, tax_impound_vault: 285, insurance_impound_vault: 312.5 });
+describe('four-leg payment split', () => {
+  it('splits the payment into P&I, tax impound, hazard impound and FHA MIP and balances to the cent', () => {
+    expect(calculateAutomatedPaymentSplit(scannedCdFromLoan(loan))).toEqual({ principal_and_interest: 2770.73, property_tax_impound: 285, hazard_insurance_impound: 125, fha_mip: 184.28 });
   });
-  it('refuses an unbalanced ledger row set', () => {
-    expect(() => calculateAutomatedPaymentSplit({ monthly_piti: 3499.27, base_principal_and_interest: 2770.52, monthly_property_tax_impound: 285, monthly_hazard_insurance: 400 })).toThrow(/Audit Failure/);
+  it('refuses an unbalanced leg set', () => {
+    expect(() => calculateAutomatedPaymentSplit({ monthly_piti: 3499.27, base_principal_and_interest: 2770.52, monthly_property_tax_impound: 285, monthly_hazard_insurance: 400, monthly_fha_mip: 0 })).toThrow(/Audit Failure/);
+  });
+  it('P&I is the note amount and never changes', () => {
+    expect(loan.servicing.principal_and_interest).toBe(loan.loan.monthly_principal_and_interest);
   });
 });
 

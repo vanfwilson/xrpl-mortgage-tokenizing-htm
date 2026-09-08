@@ -11,17 +11,15 @@ The printed, signed package is committed at [`forms/`](../forms/), with a 1:1 bl
 | # | Document | What the scanner reads from it | Official source |
 |---|---|---|---|
 | 1 | **Closing Disclosure** (CFPB H-25) | Loan Amount, Interest Rate, Monthly P&I (Loan Terms / Projected Payments); Estimated Taxes, Insurance & Assessments; Escrow Account Information; Cash to Close | Blank model form: <https://files.consumerfinance.gov/f/201311_cfpb_kbyo_closing-disclosure_blank.pdf> · Completed fixed-rate sample: <https://files.consumerfinance.gov/f/201311_cfpb_kbyo_closing-disclosure.pdf> · Index: <https://www.consumerfinance.gov/compliance/compliance-resources/mortgage-resources/tila-respa-integrated-disclosures/forms-samples/> |
-| 2 | **Multistate Fixed Rate Note, Fannie Mae/Freddie Mac Form 3200** | Payment due day and first payment date (s.3); late-charge % and grace days (s.6); maturity | Fannie Mae PDF: <https://singlefamily.fanniemae.com/media/document/pdf/legal-documents/form-3200> (also <https://singlefamily.fanniemae.com/media/27086/display>) · FHFA copy: <https://www.fhfa.gov/mortgage-translations/document/form-3200-multi-state-fixed-rate-note> |
-| 3 | **Idaho Deed of Trust, Form 3013** (security instrument) | APN, legal description, lien position, Transfer of Rights in the Property, recording block | Fannie Mae legal documents index: <https://singlefamily.fanniemae.com/fannie-mae-legal-documents> · Freddie Mac Word master (same uniform instrument): <https://sf.freddiemac.com/docs/doc/uniform-instruments/3013-idahodeedoftrust.doc> · FHFA: <https://www.fhfa.gov/mortgage-translations/document/form-3013-idaho-deed-of-trust> |
+| 2 | **FHA Fixed Rate Note (HUD model note), Idaho** | Payment due day and first payment date (s.3); late-charge % (4 % cap, 24 CFR 203.25) and 15-day grace (s.6); maturity | HUD Model Note: <https://www.hud.gov/sites/documents/41651x3hsgh.pdf> · 24 CFR 203.25: <https://www.ecfr.gov/current/title-24/section-203.25> · Uniform-instrument base kept for reference in `forms/blank/reference/` |
+| 3 | **FHA Idaho Deed of Trust** (HUD model security instrument on the uniform-instrument base) | APN, legal description, lien position, Transfer of Rights in the Property, recording block | HUD Handbook 4000.1 model documents: <https://www.hud.gov/hud-partners/single-family-handbook-4000-1> · Uniform-instrument base (Fannie Mae legal documents index): <https://singlefamily.fanniemae.com/fannie-mae-legal-documents> |
 | 4 | **Recorded Warranty Deed** (county registry copy) | Instrument number, recording date and time, grantor/grantee, APN | Ada County Recorder: <https://adacounty.id.gov/clerk/recorder/> · Public index of recorded deeds: <https://deedrecords.idahoofficialrecords.com/county/ada> · Ada County warranty-deed form + completed example: <https://www.deeds.com/forms/idaho/warranty-deed/ada/> |
 
 Plus, for the servicing loop test only: the **monthly mortgage statement / payment coupon** the
 servicer issues (12 CFR 1026.41 periodic statement). We generate it; there is no agency form.
 
 Fannie Mae's site blocks non-browser downloads (HTTP 403 to curl); the PDFs in `forms/blank/` were fetched with a
-real browser session. The URLA forms are true AcroForms and are field-filled. The Form 3200 PDF and the CFPB Closing
-Disclosure are flat, and Form 3013 is distributed as Word (the official 07/2021 Idaho .docx is `forms/blank/08-deed-of-trust-form-3013-official.docx`), so
-those are produced by coordinate overlay or typeset rendering in `src/pdf/`.
+real browser session. The URLA forms are true AcroForms and are field-filled. The CFPB Closing Disclosure is flat, and HUD publishes model-note and security-instrument language rather than fillable forms, so those are produced by coordinate overlay or typeset rendering in `src/pdf/` (uniform-instrument masters kept in `forms/blank/reference/`).
 
 ## The supporting documents (printed and scanned, not needed to tokenize)
 
@@ -44,15 +42,17 @@ stack so the scanner pipeline is tested on a realistic bundle, not a curated one
 - **HOA dues, home warranty, mortgage credit life** — never impounded by a standard servicer; the homeowner pays them directly.
 - **Downstream splits** after the lender vault (investor distributions, sub-servicer fees) — beyond what the closing documents describe.
 
-## The three buckets, from the Closing Disclosure page 1
+## The four legs, from the Closing Disclosure page 1
 
 | Bucket | CD block | Sample | On-ledger leg |
 |---|---|---|---|
-| Principal & Interest | Loan Terms → Monthly Principal & Interest | $2,770.73 | `LoanPay` against the vault-funded loan (lender / lienholder vault) |
+| Principal & Interest | Loan Terms → Monthly Principal & Interest | $2,770.73 | `Payment` to the note holder (funding bank); fixed for the life of the loan |
 | Property tax impound | Estimated Taxes, Insurance & Assessments → Property Taxes | $285.00 | `Payment` to the Tax Impound sub-account → `EscrowCreate` to the County Treasurer, time-locked to Dec 20 / Jun 20 |
-| Insurance impound | Estimated Taxes… → Homeowner's Insurance ($125.00) + Projected Payments → Mortgage Insurance (FHA MIP $187.50) | $312.50 | `Payment` to the Insurance Impound sub-account → `EscrowCreate` to the carrier, time-locked to renewal |
-| **Sweep** | Estimated Total Monthly Payment | **$3,368.23** | `Payment` homeowner → servicer, audited to the cent before the split |
+| Hazard impound | Estimated Taxes… → Homeowner's Insurance | $125.00 | `Payment` to the Hazard Impound sub-account → `EscrowCreate` to the carrier, time-locked to renewal |
+| FHA MIP | Projected Payments → Mortgage Insurance (0.50 % of base / 12) | $184.28 | `Payment` to the MIP payable, remitted monthly to HUD; never escrowed with hazard |
+| **Payment** | Estimated Total Monthly Payment | **$3,365.01** | `Payment` homeowner → servicer, audited to the cent before the split |
 
-Numbers are corrected from the original brief: P&I on $450,000 at 6.25 % for 360 months is
-$2,770.73 (not $2,770.52), and FHA annual MIP at 80 % LTV on a 30-year loan is 0.50 %
-($187.50/month, not 0.85 %), so the sweep is $3,368.23 (not $3,499.27).
+Numbers are corrected from the original brief and from the 2026-09-08 audits: P&I on $450,000 at 6.25 % for 360 months is
+$2,770.73; the note is re-based so that base $442,260.44 + UFMIP $7,739.56 (1.75 % of base) = $450,000.00; FHA annual MIP
+is 0.50 % of the base at 78.98 % LTV ($184.28/month) and is remitted monthly to HUD, not escrowed with hazard; the late charge is
+4 % of P&I ($110.83) per 24 CFR 203.25. The monthly payment is therefore $3,365.01.

@@ -136,10 +136,11 @@ Latest Devnet run with explorer links: [docs/devnet-run.md](docs/devnet-run.md).
 
 ```mermaid
 flowchart LR
-  HO[Homeowner wallet] -->|monthly sweep $3,368.23| SV[HTM Loan Servicing]
+  HO[Homeowner wallet] -->|monthly payment $3,365.01| SV[Servicer collection account]
   SV -->|LoanPay P&I $2,770.73| LOAN[XLS-66 Loan<br/>borrower = HTM Servicing<br/>funded by vault]
   SV -->|Payment $285.00| TAX[Tax Impound sub-account]
-  SV -->|Payment $312.50| INS[Insurance Impound sub-account]
+  SV -->|Payment $125.00| INS[Hazard Impound sub-account]
+  SV -->|Payment $184.28| MIPP[FHA MIP payable]
   TAX -->|EscrowCreate, FinishAfter Dec 20 / Jun 20| CTY[Ada County Treasurer]
   INS -->|EscrowCreate, FinishAfter renewal| CAR[Hazard carrier / HUD MIP]
   LOAN --> VAULT[XLS-65 private vault<br/>attested depositors]
@@ -150,7 +151,7 @@ flowchart LR
 
 | Object | Represents | Does **not** represent |
 |---|---|---|
-| **MPT `HTMN1`** | Permissioned *participation certificate* in one note's cash flows; 1 unit = $0.01 of original principal; issuer can lock / claw back / gate holders; metadata carries the sha256 of the four documents | The promissory note or the lien. Those are the Form 3200 and the recorded Form 3013. |
+| **MPT `HTMN1`** | Permissioned *participation certificate* in one note's cash flows; 1 unit = $0.01 of original principal; issuer can lock / claw back / gate holders; metadata carries the sha256 of the four documents | The promissory note or the lien. Those are the FHA model note and the recorded FHA deed of trust. |
 | **Vault** | The funding pool supplied by KYC-attested depositors (XRP stands in for RLUSD on Devnet) | A consumer deposit account |
 | **LoanBroker** | HTM Lending Desk: underwriting off-chain, first-loss cover on-chain | A bank |
 | **Loan** | HTM Loan Servicing borrowing against the vault at the note rate; P&I sweeps repay it | The consumer mortgage; XLS-66 loans are uncollateralised on-ledger, the collateral is the recorded lien |
@@ -166,7 +167,7 @@ data/servicing-parties.json  county treasurer / carrier payees and their disburs
 forms/blank/             official blank forms fetched from CFPB / Fannie Mae / Freddie Mac
 src/ingest/              OCR repair + field extraction; canonical loan schema with tie-outs
 src/servicing/           three-way split with checksum audit; impound disbursement scheduler
-src/pdf/                 CD overlay on the CFPB blank; Form 3200 / 3013 / deed / statement typesetting
+src/pdf/                 CD overlay on the CFPB blank; FHA note / FHA deed of trust / deed / statement typesetting
 src/scan/                tesseract pipeline, compare-to-record, servicing-statement -> LoanPay gates
 src/steps/               ledger phases: credentials, MPT, vault, lending, servicing sweep
 src/db/                  seed + run recorder for the htm_mortgages Postgres schema (db/*.sql)
@@ -180,13 +181,14 @@ docs/                    forms & sources, grant narrative, standards mapping, th
 
 | Figure | Value | Source |
 |---|---|---|
-| Note amount | $450,000.00 = $442,125.00 base + $7,875.00 financed UFMIP | CD Loan Terms |
-| Rate / term | 6.250 % / 360 months | Form 3200 s.2, s.3 |
+| Note amount | $450,000.00 = $442,260.44 base + $7,739.56 financed UFMIP (1.75 % of base, HUD ML 2023-05) | CD Loan Terms |
+| Rate / term | 6.250 % / 360 months | FHA model note s.2, s.3 |
 | P&I | $2,770.73 | computed; must equal CD and Note |
 | Tax impound | $285.00 / month ($3,420 / yr, two Ada County installments of $1,710) | CD Estimated Taxes |
-| Insurance impound | $125.00 hazard + $187.50 FHA MIP (0.50 % at 80 % LTV) = $312.50 | CD Estimated Taxes + Mortgage Insurance |
-| Monthly sweep | $3,368.23 | CD Estimated Total Monthly Payment |
-| Late charge | 5 % of P&I = $138.54 after 15 days | Form 3200 s.6 |
+| Hazard impound | $125.00 / month | CD Estimated Taxes |
+| FHA MIP | $184.28 / month (0.50 % of base at 78.98 % LTV), remitted monthly to HUD | CD Mortgage Insurance |
+| Monthly payment | $3,365.01 | CD Estimated Total Monthly Payment |
+| Late charge | 4 % of P&I = $110.83 after 15 days (24 CFR 203.25) | FHA model note s.6 |
 | Cash to close | $91,400.00 | CD Calculating Cash to Close |
 
 `npm run ingest` fails if any of these disagree across documents. On Devnet, 1 XRP stands in for
@@ -207,7 +209,7 @@ Technical feasibility only; no legal claims. Participation interests are securit
 the applicable exemption (US Reg D / Reg S; HK professional-investor regime) and transfer restrictions, which is
 why `RequireAuth` and the permissioned domain exist. The authoritative eNote lives in a MERS-registered eVault;
 the token binds to its hash, it does not replace it. No borrower PII goes on-chain: memos carry loan id, period
-and amounts only. Idaho is a deed-of-trust state (Form 3013). Longer form: [docs/grant-narrative.md](docs/grant-narrative.md)
+and amounts only. Idaho is a deed-of-trust state. Longer form: [docs/grant-narrative.md](docs/grant-narrative.md)
 · [docs/standards-mapping.md](docs/standards-mapping.md) · [docs/threat-model.md](docs/threat-model.md).
 
 ### About HTM

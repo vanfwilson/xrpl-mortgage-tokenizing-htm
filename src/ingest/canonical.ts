@@ -1,18 +1,20 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { monthlyPayment, round2 } from '../domain/loan-math.js';
+import { FHA_GRACE_DAYS, FHA_LATE_CHARGE_MAX, FHA_UFMIP_RATE, fhaAnnualMipRate, monthlyPayment, round2, round4, toCents } from '../domain/loan-math.js';
 
 /**
  * Canonical loan record built from the FOUR closing documents a servicer needs:
- * Closing Disclosure (financial source of truth), Form 3200 Note (payment rules),
- * Form 3013 Deed of Trust (lien + APN + legal), recorded Warranty Deed (registry).
- * Servicing collects exactly three buckets: P&I, property-tax impound, insurance impound.
+ * Closing Disclosure (financial source of truth), FHA model Note (payment rules),
+ * FHA Idaho Deed of Trust (lien + APN + legal), recorded Warranty Deed (registry).
+ * Servicing collects exactly four legs: P&I, property-tax impound, hazard-insurance impound, FHA MIP.
  */
 export interface CanonicalLoan {
-  schema: 'htm.canonical-loan/2';
+  schema: 'htm.canonical-loan/3';
   loan: {
     loan_id: string;
     loan_type: 'FHA' | 'Conventional' | 'VA' | 'USDA';
+    /** R19: Regulation Z applies to consumer-purpose credit; the business-purpose exemption (1026.3(a)) is never available here. */
+    credit_purpose: 'consumer';
     fha_case_number?: string;
     product: string;
     purpose: string;
@@ -46,6 +48,7 @@ export interface CanonicalLoan {
     legal_description: string;
     appraised_value: number;
     contract_sales_price: number;
+    /** FHA basis: base loan / lesser of sale price and appraised value. */
     ltv: number;
   };
   security_instrument: {
@@ -73,59 +76,70 @@ export interface CanonicalLoan {
     cash_to_close: number;
     initial_escrow_deposit: number;
   };
-  /** The three, and only three, servicing buckets. */
+  /** The four, and only four, servicing legs. */
   servicing: {
     principal_and_interest: number;
     property_tax_impound: number;
-    insurance_impound: number;          // hazard homeowners + FHA MIP
-    insurance_detail: { hazard_homeowners: number; fha_mip: number };
-    monthly_total_sweep: number;        // == P&I + tax + insurance
+    hazard_insurance_impound: number;
+    fha_mip: number;
+    monthly_total_sweep: number; // == P&I + tax + hazard + MIP
   };
-  xrpl: { network: 'devnet'; issuer_address?: string; servicer_address?: string };
+  xrpl: { network: 'testnet' | 'devnet'; servicer_address?: string; note_holder_address?: string };
 }
 
 export interface ValidationIssue { field: string; message: string }
 
-/** Cross-document consistency checks a servicer's boarding QC would run. */
+/** Cross-document consistency checks a servicer's boarding QC would run. Every check is to the cent. */
 export function validateCanonical(l: CanonicalLoan): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   const pmt = monthlyPayment(l.loan.principal_amount, l.loan.annual_interest_rate, l.loan.term_months);
   if (Math.abs(pmt - l.loan.monthly_principal_and_interest) > 0.01) issues.push({ field: 'loan.monthly_principal_and_interest', message: `expected ${pmt}` });
-  if (round2(l.loan.base_loan_amount + l.loan.financed_ufmip) !== l.loan.principal_amount) issues.push({ field: 'loan.principal_amount', message: 'base + financed UFMIP must equal note amount' });
+  if (toCents(l.loan.base_loan_amount) + toCents(l.loan.financed_ufmip) !== toCents(l.loan.principal_amount)) issues.push({ field: 'loan.principal_amount', message: 'base + financed UFMIP must equal note amount' });
   const c = l.closing;
   if (round2(c.loan_costs + c.other_costs - c.lender_credits) !== c.closing_costs) issues.push({ field: 'closing.closing_costs', message: 'loan costs + other costs - lender credits' });
   const ctc = round2(l.property.contract_sales_price + c.closing_costs - l.loan.principal_amount - c.deposit - c.seller_credits);
   if (ctc !== c.cash_to_close) issues.push({ field: 'closing.cash_to_close', message: `ties to ${ctc}` });
   const s = l.servicing;
-  if (round2(s.insurance_detail.hazard_homeowners + s.insurance_detail.fha_mip) !== s.insurance_impound) issues.push({ field: 'servicing.insurance_impound', message: 'hazard + MIP' });
-  const sweep = round2(s.principal_and_interest + s.property_tax_impound + s.insurance_impound);
-  if (sweep !== s.monthly_total_sweep) issues.push({ field: 'servicing.monthly_total_sweep', message: `three buckets sum to ${sweep}` });
+  const sweep = toCents(s.principal_and_interest) + toCents(s.property_tax_impound) + toCents(s.hazard_insurance_impound) + toCents(s.fha_mip);
+  if (sweep !== toCents(s.monthly_total_sweep)) issues.push({ field: 'servicing.monthly_total_sweep', message: `four legs sum to ${sweep / 100}` });
   if (s.principal_and_interest !== l.loan.monthly_principal_and_interest) issues.push({ field: 'servicing.principal_and_interest', message: 'must equal Note P&I' });
-  if (Math.abs(round2(l.loan.principal_amount / l.property.contract_sales_price * 100) / 100 - l.property.ltv) > 0.0001) issues.push({ field: 'property.ltv', message: 'LTV' });
   if (Math.abs(round2(l.loan.monthly_principal_and_interest * l.note_terms.late_charge_percent_of_pi) - l.note_terms.late_charge_amount) > 0.01) issues.push({ field: 'note_terms.late_charge_amount', message: 'late charge % × P&I' });
   if (l.security_instrument.recording_date !== l.vesting_deed.recording_date) issues.push({ field: 'security_instrument.recording_date', message: 'deed and deed of trust recorded same day' });
+  if (l.loan.credit_purpose !== 'consumer') issues.push({ field: 'loan.credit_purpose', message: 'R19: only consumer-purpose residential loans are serviced here' });
+  if (l.loan.loan_type === 'FHA') {
+    // R20 24 CFR 203.25
+    if (l.note_terms.late_charge_percent_of_pi > FHA_LATE_CHARGE_MAX + 1e-9) issues.push({ field: 'note_terms.late_charge_percent_of_pi', message: `R20: FHA late charge may not exceed ${FHA_LATE_CHARGE_MAX * 100}% (24 CFR 203.25)` });
+    if (l.note_terms.grace_period_days < FHA_GRACE_DAYS) issues.push({ field: 'note_terms.grace_period_days', message: `R20: FHA late charge only after ${FHA_GRACE_DAYS} days` });
+    // R21 HUD ML 2023-05: UFMIP and annual MIP on the BASE loan; LTV = base / lesser of price and appraisal
+    if (round2(l.loan.base_loan_amount * FHA_UFMIP_RATE) !== l.loan.financed_ufmip) issues.push({ field: 'loan.financed_ufmip', message: `R21: UFMIP is ${FHA_UFMIP_RATE * 100}% of base = ${round2(l.loan.base_loan_amount * FHA_UFMIP_RATE)}` });
+    const ltv = round4(l.loan.base_loan_amount / Math.min(l.property.contract_sales_price, l.property.appraised_value));
+    if (Math.abs(ltv - l.property.ltv) > 0.00005) issues.push({ field: 'property.ltv', message: `R21: base / lesser of price and appraisal = ${ltv}` });
+    const mip = round2((l.loan.base_loan_amount * fhaAnnualMipRate(ltv, l.loan.base_loan_amount, l.loan.term_months)) / 12);
+    if (mip !== s.fha_mip) issues.push({ field: 'servicing.fha_mip', message: `R21: annual MIP on base / 12 = ${mip}` });
+  }
   return issues;
 }
 
 export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
   const read = (n: string) => JSON.parse(fs.readFileSync(path.join(dir, n), 'utf8'));
   const cd = read('01-closing-disclosure.json');
-  const note = read('02-promissory-note-3200.json');
-  const dot = read('03-deed-of-trust-3013.json');
+  const note = read('02-fha-model-note.json');
+  const dot = read('03-fha-deed-of-trust-idaho.json');
   const wd = read('04-warranty-deed-recorded.json');
   const [street, city, stzip] = String(cd.closing_information.property).split(', ');
   const [state, zip] = String(stzip).split(' ');
   const lt = cd.loan_terms, pp = cd.projected_payments, et = cd.estimated_taxes_insurance_assessments, cc = cd.costs_at_closing, calc = cd.calculating_cash_to_close;
   const hazard = et.homeowners_insurance.monthly, mip = pp.mortgage_insurance, tax = et.property_taxes.monthly;
   return {
-    schema: 'htm.canonical-loan/2',
+    schema: 'htm.canonical-loan/3',
     loan: {
       loan_id: cd.loan_information.loan_id,
       loan_type: cd.loan_information.loan_type,
+      credit_purpose: 'consumer',
       fha_case_number: cd.loan_information.mic_number,
       product: `${cd.loan_information.loan_term_years}-Year ${cd.loan_information.product}`,
       purpose: cd.loan_information.purpose,
-      note_form: 'Fannie Mae/Freddie Mac Form 3200 Multistate Fixed Rate Note',
+      note_form: 'FHA Fixed Rate Note (HUD model note), Idaho',
       currency: 'USD',
       base_loan_amount: lt.base_loan_amount,
       financed_ufmip: lt.financed_ufmip,
@@ -158,7 +172,7 @@ export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
       ltv: lt.ltv,
     },
     security_instrument: {
-      type: dot.instrument_type, form: 'Fannie Mae Form 3013 (Idaho)', lien_position: dot.lien_position, trustee: dot.trustee,
+      type: dot.instrument_type, form: 'FHA Idaho Deed of Trust (HUD model security instrument)', lien_position: dot.lien_position, trustee: dot.trustee,
       recording_number: dot.recording.document_number, recording_date: dot.recording.recorded_date, recording_time: dot.recording.recorded_time, recording_office: dot.recording.office,
     },
     vesting_deed: { type: wd.instrument_type, recording_number: wd.recording.document_number, recording_date: wd.recording.recorded_date, recording_time: wd.recording.recorded_time, recording_office: wd.recording.office },
@@ -172,10 +186,10 @@ export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
     servicing: {
       principal_and_interest: pp.principal_and_interest,
       property_tax_impound: tax,
-      insurance_impound: round2(hazard + mip),
-      insurance_detail: { hazard_homeowners: hazard, fha_mip: mip },
+      hazard_insurance_impound: hazard,
+      fha_mip: mip,
       monthly_total_sweep: pp.estimated_total_monthly_payment,
     },
-    xrpl: { network: 'devnet' },
+    xrpl: { network: 'testnet' },
   };
 }

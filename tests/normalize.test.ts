@@ -13,7 +13,7 @@ describe('OCR normalization', () => {
     expect(f).toMatchObject({
       fha_case_number: '411-9928340-703',
       cash_to_close: 91_400,
-      monthly_piti: 3368.23,
+      monthly_piti: 3365.01,
       loan_amount: 450_000,
       interest_rate: 0.0625,
       apn: 'R993821-0014',

@@ -44,13 +44,13 @@ export async function overlayClosingDisclosure(loan: CanonicalLoan, cd: Record<s
   let y = 736;
   const line = (k: string, v: string, b = false) => { text(pen2, 54, y, k, { bold: b }); text(pen2, 380, y, v, { bold: b }); y -= 14; };
   text(pen2, 54, 760, 'Closing Disclosure - Figures from pages 2-5 (synthetic)', { size: 12, bold: true });
-  line('Loan Amount', usd(lt.loan_amount), true); line('  Base loan amount', usd(lt.base_loan_amount)); line('  FHA UFMIP financed (1.75%)', usd(lt.financed_ufmip));
+  line('Loan Amount', usd(lt.loan_amount), true); line('  Base loan amount', usd(lt.base_loan_amount)); line('  FHA UFMIP financed (1.75% of base)', usd(lt.financed_ufmip));
   line('Interest Rate', `${(lt.interest_rate * 100).toFixed(3)}%`, true); line('Loan Term', `${lt.loan_term_months} months`); line('LTV', `${(lt.ltv * 100).toFixed(2)}%`);
   line('First Payment Date', mdy(lt.first_payment_date)); line('Maturity Date', mdy(lt.maturity_date)); y -= 6;
-  line('Principal & Interest', usdPlain(pp.principal_and_interest)); line('Mortgage Insurance (FHA MIP 0.50%)', usdPlain(pp.mortgage_insurance));
+  line('Principal & Interest', usdPlain(pp.principal_and_interest)); line(`Mortgage Insurance (FHA MIP ${(pp.mortgage_insurance_annual_rate * 100).toFixed(3)}% of base)`, usdPlain(pp.mortgage_insurance));
   line('Property Taxes (escrow)', usdPlain(taxM)); line("Homeowner's Insurance (escrow)", usdPlain(hoiM));
   line('Estimated Total Monthly Payment (PITI)', usd(pp.estimated_total_monthly_payment), true); y -= 6;
-  line('Servicing split: P&I -> lender vault', usdPlain(pp.principal_and_interest)); line('Servicing split: tax impound', usdPlain(taxM)); line('Servicing split: insurance impound (hazard + MIP)', usdPlain(hoiM + pp.mortgage_insurance)); y -= 6;
+  line('Servicing leg: P&I -> note holder', usdPlain(pp.principal_and_interest)); line('Servicing leg: tax impound', usdPlain(taxM)); line('Servicing leg: hazard insurance impound', usdPlain(hoiM)); line('Servicing leg: FHA MIP (monthly to HUD)', usdPlain(pp.mortgage_insurance)); y -= 6;
   line('Sale Price', usd(ci.sale_price)); line('Appraised Property Value', usd(ci.appraised_property_value));
   line('Closing Costs', usd(cc.closing_costs)); line('  Loan Costs', usd(cc.loan_costs)); line('  Other Costs', usd(cc.other_costs)); line('  Lender Credits', usd(cc.lender_credits));
   line('Deposit (earnest money)', usd(-cd.calculating_cash_to_close.deposit)); line('Seller Credits', usd(-cd.calculating_cash_to_close.seller_credits));

@@ -9,22 +9,13 @@ export interface Ctx {
   loan: CanonicalLoan;
   bundle: BundleManifest;
   txs: TxRecord[];
-  ids: {
-    domainId?: string;
-    mptIssuanceId?: string;
-    vaultId?: string;
-    vaultShareMptId?: string;
-    loanBrokerId?: string;
-    loanId?: string;
-    taxEscrowTx?: string;
-    insuranceEscrowTx?: string;
-  };
+  /** Ledger object identifiers produced by the run (NFTokenID, escrow object ids, issuer address...). */
+  ids: Record<string, string | undefined>;
   notes: string[];
-  fullLifecycle: boolean;
   log: (msg: string) => void;
 }
 
-export const record = (ctx: Ctx, r: import('../xrpl/client.js').TxRecord) => {
+export const record = (ctx: Ctx, r: TxRecord) => {
   ctx.txs.push(r);
   ctx.log(`    ${r.type.padEnd(24)} ${r.result}  ${r.explorer}`);
   return r;

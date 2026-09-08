@@ -86,8 +86,8 @@ export async function fillUrlaLender(loan: CanonicalLoan, blankPath: string, out
   radio(doc, 'Group8', 'Fee Simple'); radio(doc, 'Group9', 'Sole Ownership'); radio(doc, 'Group12', 'FHA'); radio(doc, 'Group13', 'First Lien'); radio(doc, 'Group14', 'Fixed Rate');
   setText(doc, 'L3_Terms1[0]', (loan.loan.annual_interest_rate * 100).toFixed(3)); setText(doc, 'L3_Terms2[0]', String(loan.loan.term_months));
   setText(doc, 'L3_Payment1[0]', usdPlain(s.principal_and_interest)); setText(doc, 'L3_Payment2[0]', '0.00');
-  setText(doc, 'L3_Payment3[0]', usdPlain(s.insurance_detail.hazard_homeowners)); setText(doc, 'L3_Payment4[0]', '0.00');
-  setText(doc, 'L3_Payment5[0]', usdPlain(s.property_tax_impound)); setText(doc, 'L3_Payment6[0]', usdPlain(s.insurance_detail.fha_mip));
+  setText(doc, 'L3_Payment3[0]', usdPlain(s.hazard_insurance_impound)); setText(doc, 'L3_Payment4[0]', '0.00');
+  setText(doc, 'L3_Payment5[0]', usdPlain(s.property_tax_impound)); setText(doc, 'L3_Payment6[0]', usdPlain(s.fha_mip));
   setText(doc, 'L3_Payment7[0]', '0.00'); setText(doc, 'L3_Payment8[0]', '0.00'); setText(doc, 'L3_Payment9[0]', usdPlain(s.monthly_total_sweep));
   setText(doc, 'DUE FROM BORROWER(S)_1', usdPlain(loan.property.contract_sales_price));
   setText(doc, 'Loan amount_1', usdPlain(loan.loan.base_loan_amount)); setText(doc, 'Loan amount_2', usdPlain(loan.loan.financed_ufmip));

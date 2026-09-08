@@ -11,7 +11,6 @@ export const nowRipple = () => toRippleTime(Date.now() / 1000);
 export const hex = (s: string) => Buffer.from(s, 'utf8').toString('hex').toUpperCase();
 export const unhex = (h: string) => Buffer.from(h, 'hex').toString('utf8');
 export const xrpToDrops = (xrp: number) => String(Math.round(xrp * 1_000_000));
-export const usdToDrops = (usd: number) => xrpToDrops(usd / config.usdPerXrp);
 
 export type Wallets = Record<Role, Wallet>;
 

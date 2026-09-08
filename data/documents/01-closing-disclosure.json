@@ -19,14 +19,16 @@
     "lender": "Sandbox Lending Corp. (HTM demo)",
     "lender_nmls_id": "0000000"
   },
-  "loan_information": { "loan_term_years": 30, "purpose": "Purchase", "product": "Fixed Rate", "loan_type": "FHA", "loan_id": "MORT-2026-88492X", "mic_number": "411-9928340-703" },
+  "loan_information": { "loan_term_years": 30, "purpose": "Purchase", "product": "Fixed Rate", "loan_type": "FHA", "credit_purpose": "consumer", "loan_id": "MORT-2026-88492X", "mic_number": "411-9928340-703" },
   "loan_terms": {
-    "base_loan_amount": 442125.00,
-    "financed_ufmip": 7875.00,
+    "base_loan_amount": 442260.44,
+    "financed_ufmip": 7739.56,
+    "ufmip_rate_of_base": 0.0175,
     "loan_amount": 450000.00,
     "interest_rate": 0.0625,
     "loan_term_months": 360,
-    "ltv": 0.8036,
+    "ltv": 0.7898,
+    "ltv_basis": "base loan amount / lesser of sale price and appraised value (HUD ML 2023-05)",
     "monthly_principal_and_interest": 2770.73,
     "prepayment_penalty": false,
     "balloon_payment": false,
@@ -35,9 +37,11 @@
   },
   "projected_payments": {
     "principal_and_interest": 2770.73,
-    "mortgage_insurance": 187.50,
+    "mortgage_insurance": 184.28,
+    "mortgage_insurance_annual_rate": 0.005,
+    "mortgage_insurance_basis": "annual MIP 0.50% of base loan amount / 12 (30-year term, base <= $726,200, LTV <= 95%; HUD ML 2023-05)",
     "estimated_escrow": 410.00,
-    "estimated_total_monthly_payment": 3368.23
+    "estimated_total_monthly_payment": 3365.01
   },
   "estimated_taxes_insurance_assessments": {
     "monthly_amount": 410.00,
@@ -51,7 +55,7 @@
     "escrowed_items": ["Property Taxes", "Homeowner's Insurance"],
     "initial_escrow_payment_at_closing": 1230.50,
     "monthly_escrow_payment": 410.00,
-    "note": "FHA monthly MIP (187.50) is disclosed under Mortgage Insurance and collected with escrow; servicer routes it with hazard insurance to the insurance impound."
+    "note": "FHA monthly MIP (184.28) is disclosed under Mortgage Insurance, collected with the payment, and remitted monthly to HUD from its own payable. It is not part of the hazard-insurance impound."
   },
   "costs_at_closing": { "loan_costs": 4800.00, "other_costs": 3200.00, "lender_credits": 0.00, "closing_costs": 8000.00, "cash_to_close": 91400.00 },
   "calculating_cash_to_close": { "sale_price": 560000.00, "closing_costs": 8000.00, "loan_amount": -450000.00, "deposit": -18600.00, "seller_credits": -8000.00, "cash_to_close": 91400.00 }
