@@ -18,7 +18,7 @@ the same word differently.
 | **Account / wallet / address** | A ledger account is identified by an address beginning with `r`. "Wallet" means the account plus the secret key that controls it. Each party (servicer, note-holding bank, impounds, county, carrier, HUD, homeowner) is one account. |
 | **Transaction / hash** | One signed instruction to the ledger. Each gets a permanent 64-character ID you can look up on the explorer (`testnet.xrpl.org`). |
 | **Memo** | A short note on a transaction, visible to everyone. Ours has exactly six keys: version, opaque loan id, period, leg, cents, run id. Never a name, address, parcel number or case number. |
-| **Amendment** | A ledger feature upgrade validators vote on. We use only amendments already live on Mainnet: MPTokensV1, TokenEscrow, NonFungibleTokensV1_1, Credentials, PermissionedDomains. |
+| **Amendment** | A ledger feature upgrade validators vote on. We use only features already live on Mainnet: issued-currency Payment, NonFungibleTokensV1_1 (the loan-record handle), TokenEscrow (the impound date lock) and multisign signer lists. |
 
 ## What we create on the ledger
 
@@ -41,7 +41,7 @@ the same word differently.
 | **Four legs** | What a servicer does with one payment on an FHA loan: principal & interest to the note holder, property-tax impound, hazard-insurance impound, FHA mortgage insurance premium to HUD. HOA dues and optional products are the homeowner's own business. |
 | **Impound / escrow account (mortgage sense)** | The servicer's reserve for taxes and insurance, funded monthly from the payment and held in the bank's custodial account. |
 | **Servicer advance** | The servicer's own money used to pay a bill in full when the impound is short, as RESPA requires when the borrower is not more than 30 days overdue. Recovered later under the deficiency rules. |
-| **Servicer of record** | The licensed entity legally responsible for servicing; here a bank-owned subservicer. HTM is its technology provider. |
+| **Servicer of record** | The licensed entity legally responsible for servicing; here HTM's servicing entity for its own clients, or the contracting bank. HTM is the technology provider. |
 | **Suspense** | Where a partial payment waits until a full periodic payment is available. |
 | **Form 1098** | The IRS mortgage-interest statement the servicer files and sends the borrower each January. |
 

@@ -6,7 +6,7 @@ Status: v2.0.0 (branch `v2/servicing`), merged from `claude/servicing-rebuild` a
 
 ```
 ┌──────────────────────────── LEGALLY AUTHORITATIVE ────────────────────────────┐
-│  Bank-owned licensed subservicer (servicer of record)                         │
+│  Servicer of record (HTM servicing entity, or the bank)                               │
 │  • insured custodial accounts (collection, tax, hazard, MIP, advances, refunds)│
 │  • servicing books, borrower accounting, notices, IRS filings                  │
 │  • signs ledger transactions through 2-of-3 signer lists it controls           │
@@ -41,17 +41,17 @@ Rules that follow from the boundary:
 
 | Object | Where | Owner / controller | Holds | Purpose |
 |---|---|---|---|---|
-| `loans` row | Postgres | subservicer tenant (`company_id`) | opaque `loan_id`, product, state, terms, `legal_owner_id`, `servicer_of_record_id` | tenant boundary and authority |
+| `loans` row | Postgres | servicer tenant (`company_id`) | opaque `loan_id`, product, state, terms, `legal_owner_id`, `servicer_of_record_id` | tenant boundary and authority |
 | `loan_document_versions` | Postgres + the bank's eNote custodian | bank document system | canonical bundle sha256, content-addressed pointer, effective dates | operative-document chain |
 | NFToken (XLS-20) | ledger | bank servicing account (`servicer` wallet) | URI ≤ 256 B: `{v, loan, sha256, ptr}` | public digital-twin handle; no economic rights |
-| Collection account | bank + `subledger_entries` | subservicer | borrower receipts, suspense | receipt-date credit and application (R16) |
-| Note-holder payable | bank + subledger | subservicer | P&I due to the funding bank | remittance and reconciliation |
-| Tax impound | bank custodial + subledger | subservicer | property-tax reserve | aggregate analysis and disbursement (R02–R10) |
-| Hazard impound | bank custodial + subledger | subservicer | hazard-premium reserve | carrier disbursement |
-| FHA MIP payable | bank clearing + subledger | subservicer | periodic MIP | monthly HUD remittance (S8); never merged with hazard |
-| Advance account | bank + subledger | subservicer | servicer advances, deficiency recovery | timely disbursement (R10) |
-| Refund payable | bank + subledger | subservicer | surplus and interest refunds | R07, R23 |
-| Loss-draft account | bank + subledger (California only) | subservicer | insurance loss proceeds | R24; separate from impounds |
+| Collection account | bank + `subledger_entries` | servicer | borrower receipts, suspense | receipt-date credit and application (R16) |
+| Note-holder payable | bank + subledger | servicer | P&I due to the funding bank | remittance and reconciliation |
+| Tax impound | bank custodial + subledger | servicer | property-tax reserve | aggregate analysis and disbursement (R02–R10) |
+| Hazard impound | bank custodial + subledger | servicer | hazard-premium reserve | carrier disbursement |
+| FHA MIP payable | bank clearing + subledger | servicer | periodic MIP | monthly HUD remittance (S8); never merged with hazard |
+| Advance account | bank + subledger | servicer | servicer advances, deficiency recovery | timely disbursement (R10) |
+| Refund payable | bank + subledger | servicer | surplus and interest refunds | R07, R23 |
+| Loss-draft account | bank + subledger (California only) | servicer | insurance loss proceeds | R24; separate from impounds |
 | `escrow_analyses` | Postgres | engine, approved by bank | projections, cushion, classification, options chosen | Reg X decision record (R02–R09) |
 | Ledger settlement accounts | ledger | bank-controlled 2-of-3 signer lists | test USD (Testnet) / approved token (production) | exact-cent Payment and near-term TokenEscrow |
 | Escrow objects | ledger | tax or hazard settlement account | one verified near-term bill each | date lock (S7) |
@@ -162,7 +162,7 @@ Evidence of the contract lives in `tests/engine/settlement-journal.test.ts` (PGl
 
 ## 7c. Bank receipt file: the input to the three-way match (v2.0, roast RS1)
 
-The bank side of R14 is the subservicer's own receipt export, not a mirror the software writes for itself. Contract (`src/servicing/bank-receipts.ts`, tests `T13_*`):
+The bank side of R14 is the bank's own receipt export, not a mirror the software writes for itself. Contract (`src/servicing/bank-receipts.ts`, tests `T13_*`):
 
 ```
 bank_ref,posted_on,loan_ref,direction,amount

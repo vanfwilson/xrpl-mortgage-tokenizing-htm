@@ -1,6 +1,6 @@
 # Threat model (servicing-only design)
 
-Scope: the servicing engine, the bank-subservicer trust boundary and the XRPL evidence rail. Test networks carry no value at risk; every row states what must be true before real borrower money or a real loan file touches the design.
+Scope: the servicing engine, the bank and servicer trust boundary and the XRPL evidence rail. Test networks carry no value at risk; every row states what must be true before real borrower money or a real loan file touches the design.
 
 | # | Threat | Where | Mitigation in this repo | Production requirement |
 |---|---|---|---|---|
@@ -13,12 +13,12 @@ Scope: the servicing engine, the bank-subservicer trust boundary and the XRPL ev
 | 7 | Manila operator moves ledger assets | design | Operators never receive seeds; the key module never persists secrets (security test) | Dual-control task queue; CFPB Bulletin 2016-02 vendor oversight; access reviews |
 | 8 | Legs submitted twice or half-submitted | `settle.ts` idempotency map | One idempotency key per leg; replay returns the first hash; Batch is not Mainnet-live so legs are never described as atomic (S11) | Compensating workflow with reconciliation before the next cycle; page on any unmatched leg |
 | 9 | Stablecoin cannot be escrowed or is not a permissible custodial asset | `src/xrpl/issuer.ts` preflight | Refuses to build an escrow when the issuer's `allowTrustLineLocking` is false (RLUSD is false on Mainnet and Testnet, checked 2026-09-08) | Written approval from the bank, HUD counsel and auditors before any production deposit token touches impounds |
-| 10 | Annual analysis wrong, borrower over- or under-charged | `src/servicing/analysis.ts` | Aggregate method, one-sixth cushion cap, surplus/shortage/deficiency options exactly per 12 CFR 1024.17(f); immutable analysis record | Approval by the subservicer's compliance function; statement delivery evidence |
+| 10 | Annual analysis wrong, borrower over- or under-charged | `src/servicing/analysis.ts` | Aggregate method, one-sixth cushion cap, surplus/shortage/deficiency options exactly per 12 CFR 1024.17(f); immutable analysis record | Approval by the servicer's compliance function; statement delivery evidence |
 | 11 | Corrected bill after an escrow exists | `disburse.ts` `correctedBill` | Increase → adjustment escrow or advance; decrease → finish and refund; FinishAfter is never "amended" | Exception approval and payee confirmation recorded |
 | 12 | Escrow objects pile up (reserve drain) | `config.escrow.maxInFlight`, `reserveForObjects` | Never more than three near-term objects; rolling 12–18 month forecast (S7) | Reserve monitoring per loan; 0.2 XRP per object on Mainnet |
 | 13 | Servicing transfer loses records or payments | `src/servicing/transfer.ts` | 1024.33 notice clocks; 60-day misdirected-payment grace; NFToken hand-off by zero-price offer | Complete servicing-file export (1024.38(c)); cut-over of signer lists and tenant access |
 | 14 | Wrong regulation applied (business-credit exemption) | `src/ingest/canonical.ts` R19 | `credit_purpose` must be `consumer`; boarding refuses otherwise | n/a |
-| 15 | Unlicensed servicing | `src/servicing/boarding.ts` R26 | Boarding refuses without a current state authority and HUD approval in the registry | Counsel memo on HTM's MSR position in California and Idaho; subservicer contract |
+| 15 | Unlicensed servicing | `src/servicing/boarding.ts` R26 | Boarding refuses without a current state authority and HUD approval in the registry | Counsel memo on HTM's MSR position in California and Idaho; servicer contract |
 | 16 | Idaho escrow-interest rule unknown | `calendar.ts` R25 | Production profile blocked until counsel sign-off is recorded | Counsel opinion |
 | 17 | Tax reporting wrong | `src/servicing/tax.ts` | Box 1 reconciles to receipt-dated interest; Box 2 to the Jan 1 balance; effective-dated MIP rule; filing calendar rolls to business days | Filer-of-record configuration; IRS acceptance records |
 | 18 | Test network cited as Mainnet proof | `docs/testnet-run.md`, `docs/appendix-deferred-amendments.md` | Only Mainnet-live transaction types are used (the security test forbids XLS-65/66 transaction types); the clock-mapping manifest is published with every run | n/a |

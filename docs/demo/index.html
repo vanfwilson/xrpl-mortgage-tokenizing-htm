@@ -29,13 +29,13 @@ code{background:#f3f3f3;padding:1px 4px;border-radius:3px;font-size:12.5px} .not
 <section><h2>Impound bills: advance if short, then a date-locked escrow</h2><div id="bills">loading…</div></section>
 <section><h2>Proofs on the ledger</h2><div id="proofs">loading…</div></section>
 <section><h2>Year-end escrow analysis and Form 1098</h2><div id="yearend">loading…</div></section>
-<section><h2>Live ledger objects (read from Testnet now)</h2><div id="live">loading…</div><p class="note">Read-only JSON-RPC calls to <code>s.altnet.rippletest.net</code>. Balances are test USD; the NFToken URI decodes to <code>{v, loan, sha256, ptr}</code> and nothing else.</p></section>
+<section><h2>Live ledger objects (read from Testnet now)</h2><div id="live">loading…</div><p class="note">Read-only WebSocket calls to <code>s.altnet.rippletest.net</code>. Balances are test USD; the NFToken URI decodes to <code>{v, loan, sha256, ptr}</code> and nothing else.</p></section>
 <section><h2>Every transaction</h2><div id="txs">loading…</div></section>
 
 <script>
 const $=s=>document.querySelector(s), j=u=>fetch(u).then(r=>r.json()), usd=c=>(c/100).toLocaleString('en-US',{style:'currency',currency:'USD'}), usdF=n=>Number(n).toLocaleString('en-US',{style:'currency',currency:'USD'});
 const m=(k,v)=>`<div class="m"><span>${k}</span><span>${v}</span></div>`;
-const EXP='https://testnet.xrpl.org', link=(h,k='transactions')=>h&&h.length===64?`<a href="${EXP}/${k}/${h}">${h.slice(0,12)}…</a>`:(h||'-');
+const EXP='https://testnet.xrpl.org', link=(h,k='transactions')=>h&&/^[0-9A-F]{64}$/.test(h)?`<a href="${EXP}/${k}/${h}">${h.slice(0,12)}…</a>`:(h||'-');
 (async()=>{
  const [loan,run]=await Promise.all([j('canonical-loan.json'),j('run.json').catch(()=>null)]);
  const S=loan.servicing, L=loan.loan;
@@ -43,13 +43,14 @@ const EXP='https://testnet.xrpl.org', link=(h,k='transactions')=>h&&h.length===6
  $('#legs').innerHTML=m('P&I → note holder (funding bank)',usdF(S.principal_and_interest))+m('Tax impound → Ada County Treasurer (Dec 20 / Jun 20, Idaho Code 63-903)',usdF(S.property_tax_impound))+m('Hazard impound → carrier (Sep 1)',usdF(S.hazard_insurance_impound))+m('FHA MIP → HUD (monthly)',usdF(S.fha_mip))+m('<b>Total</b>',`<b>${usdF(S.monthly_total_sweep)}</b>`);
  if(!run){$('#bills').textContent='No published run yet.';return;}
  $('#bills').innerHTML='<table><tr><th>purpose</th><th>due</th><th>amount</th><th>decision</th><th>advance</th><th>EscrowCreate</th><th>EscrowFinish</th><th>EscrowCancel</th></tr>'+run.escrows.map(e=>{const d=(run.disbursements||[]).find(x=>x.due_date===e.due&&x.purpose===e.purpose);return `<tr><td>${e.purpose}</td><td>${e.due}</td><td>${usd(e.cents)}</td><td>${d?d.decision.action:'-'}</td><td>${d&&d.decision.advance_cents?usd(d.decision.advance_cents):'-'}</td><td>${link(e.hash)}</td><td>${link(e.done)}</td><td>${link(e.cancelled)}</td></tr>`;}).join('')+'</table>';
- $('#proofs').innerHTML=Object.entries(run.proofs||{}).map(([k,v])=>m(k,v&&v.length===64?link(v):v)).join('');
+ $('#proofs').innerHTML=Object.entries(run.proofs||{}).map(([k,v])=>m(k,/^[0-9A-F]{64}$/.test(v||'')?link(v):(v||'').replace(/\b([0-9A-F]{64})\b/,(x)=>`<a href="${EXP}/transactions/${x}">${x.slice(0,12)}…</a>`))).join('');
  const a=run.year_end.analysis;
  $('#yearend').innerHTML=m('Computation year',`${a.computation_year_start} → ${a.computation_year_end}`)+m('Annual disbursements / monthly deposit',`${usd(a.annual_disbursements_cents)} / ${usd(a.monthly_deposit_cents)}`)+m('Cushion (max one-sixth)',usd(a.cushion_cents))+m('Target vs actual starting balance',`${usd(a.target_starting_balance_cents)} vs ${usd(a.starting_balance_cents)}`)+m('Result',`<span class="warn">${a.classification} ${usd(a.shortage_cents||a.surplus_cents||a.deficiency_cents)}</span>`)+m('Year-2 monthly escrow',usd(run.year_end.year_two_monthly_escrow_cents))+m('Annual statement due',a.annual_statement_due)+(run.form_1098||[]).map(f=>m(`Form 1098 ${f.year}`,`box 1 ${usd(f.boxes[1])} · box 2 ${usd(f.boxes[2])} · box 5 ${usd(f.boxes[5])} · box 10 ${f.boxes[10]===null?'-':usd(f.boxes[10])} · required ${f.required} · furnish by ${f.calendar.furnish_to_borrower_by}`)).join('');
  $('#txs').innerHTML='<table><tr><th>step</th><th>type</th><th>result</th><th>tx</th></tr>'+run.transactions.map(t=>`<tr><td>${t.step}</td><td>${t.type}</td><td class="${t.result==='tesSUCCESS'?'ok':'warn'}">${t.result}</td><td>${link(t.hash)}</td></tr>`).join('')+'</table>';
  // live reads
  try{
-  const rpc=async(method,params)=>{const r=await fetch('https://s.altnet.rippletest.net:51234',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({method,params:[params]})});return (await r.json()).result;};
+  const ws=await new Promise((res,rej)=>{const w=new WebSocket('wss://s.altnet.rippletest.net:51233');w.onopen=()=>res(w);w.onerror=()=>rej(new Error('WebSocket to Testnet failed'));});
+  let seq=0;const rpc=(command,params)=>new Promise((res,rej)=>{const id=++seq;const h=(ev)=>{const d=JSON.parse(ev.data);if(d.id!==id)return;ws.removeEventListener('message',h);d.status==='success'?res(d.result):rej(new Error(d.error_message||d.error||'rpc error'));};ws.addEventListener('message',h);ws.send(JSON.stringify({id,command,...params}));});
   const A=run.accounts, iss=A.issuer;
   const bal=async acct=>{const r=await rpc('account_lines',{account:acct,peer:iss,ledger_index:'validated'});const l=(r.lines||[]).find(x=>x.currency==='USD');return l?usdF(l.balance):'0';};
   const nft=await rpc('account_nfts',{account:A.transfereeServicer||A.servicer,ledger_index:'validated'});

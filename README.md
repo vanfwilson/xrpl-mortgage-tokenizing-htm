@@ -154,12 +154,12 @@ asset; the Idaho escrow-interest rule; the bank's acceptance of ledger evidence 
 
 ### What v2.0 is and is not
 
-v2.0 is a servicing engine, a settlement adapter and an evidence surface for a bank-owned subservicer's operations and
+v2.0 is a servicing engine, a settlement adapter and an evidence surface for the servicer's operations and
 compliance teams. Its product surface is the command line and the evidence pack: `npm run loan-year:replay` for a full
 loan year on the business clock, `npm run loan-year` for the Testnet proof, `npm run evidence` for the examiner folder,
 and the bank receipt-file contract in [docs/architecture.md](docs/architecture.md#7c-bank-receipt-file-the-input-to-the-three-way-match-v20-roast-rs1)
-for the subservicer's treasury export. There is no borrower portal and no operator web UI in v2.0; those are
-integration work for the subservicer's existing systems, not part of this release. Ledger cost per loan-year, and how
+for the bank's treasury export. There is no borrower portal and no operator web UI in v2.0; those are
+integration work for the bank's existing systems, not part of this release. Ledger cost per loan-year, and how
 the footprint scales, is stated in [docs/cost-model.md](docs/cost-model.md). Behaviour when the ledger is unreachable
 is a written contract, not an assumption ([architecture §7b](docs/architecture.md#7b-degraded-mode-the-ledger-is-unreachable-v20-roast-rs4)).
 

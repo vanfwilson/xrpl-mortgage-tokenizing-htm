@@ -46,10 +46,10 @@ Reading the table: a 10,000-loan book settles its monthly legs in under two hour
 
 ## What this does not include
 
-- Bank, subservicer and custodial fees, which do not change with the ledger.
+- Bank, servicing and custodial fees, which do not change with the ledger.
 - The cost of a production settlement asset. The Testnet runs use a controlled test USD because RLUSD issuers do not allow trust-line locking; a production instrument is an open business item (roast RS7).
 - Node or API costs. The runs use public Testnet endpoints; production would use a paid or self-hosted rippled.
 
 ## Pricing statement
 
-Position the software as an evidence and settlement add-on at $0.50 to $1.50 per loan per month on top of the subservicer's fee, not as a replacement for a servicing system. At that price the ledger cost is under a tenth of revenue in the worst case in the table above.
+Position the software as an evidence and settlement add-on at $0.50 to $1.50 per loan per month on top of the servicing fee, not as a replacement for a servicing system. At that price the ledger cost is under a tenth of revenue in the worst case in the table above.
