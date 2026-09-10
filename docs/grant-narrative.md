@@ -55,7 +55,7 @@ guarantee.
   bank stablecoin can serve as a custodial asset.
 - HTM's licence scope and mortgage-servicing-rights treatment in California and Idaho are for counsel. **UNVERIFIED.**
 - The Idaho escrow-interest rule could not be located; the Idaho production profile is blocked in code until counsel signs.
-- Documents are synthetic; production ingest hashes an eVault eNote, not a scan.
+- Documents are synthetic; production ingest hashes the custodian-held eNote, not a scan.
 
 ## 12-month milestones
 

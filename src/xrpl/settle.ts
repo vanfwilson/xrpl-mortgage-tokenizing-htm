@@ -1,7 +1,10 @@
 import type { Memo, Payment } from 'xrpl';
 import type { Role } from '../config.js';
 import { record, type Ctx } from '../steps/context.js';
-import { hex, submit, usdAmount } from './client.js';
+import { config } from '../config.js';
+import { hex, usdAmount } from './client.js';
+import { settleOnce } from './settlement-journal.js';
+import { XrplSettlementTransport } from './submission.js';
 
 /**
  * S10/S11: exact-cent issued-USD settlement events with a versioned memo (≤ 256 bytes, no PII) and an
@@ -36,14 +39,24 @@ export function buildMemo(m: LegMemo): Memo[] {
   return [{ Memo: { MemoType: hex('htm/servicing'), MemoData: hex(json) } }];
 }
 
-/** One exact-cent Payment leg. Re-submitting the same idempotency key returns the first hash without a new transaction. */
-export async function settlePayment(ctx: Ctx, from: Role, to: Role, cents: number, memo: LegMemo, idempotencyKey: string): Promise<string> {
-  ctx.settled ??= new Map<string, string>();
-  const prior = ctx.settled.get(idempotencyKey);
-  if (prior) { ctx.log(`    ${memo.leg.padEnd(12)} idempotent replay ${idempotencyKey} -> ${prior.slice(0, 12)}…`); return prior; }
-  const { client, wallets } = ctx;
-  const tx: Payment = { TransactionType: 'Payment', Account: wallets[from].classicAddress, Destination: wallets[to].classicAddress, Amount: usdAmount(wallets.issuer.classicAddress, cents), Memos: buildMemo(memo) };
-  const r = record(ctx, await submit(client, wallets[from], tx, `servicing:${memo.leg}`));
-  ctx.settled.set(idempotencyKey, r.hash);
-  return r.hash;
+export function buildLegPayment(ctx: Ctx, from: Role, to: Role, cents: number, memo: LegMemo): Payment {
+  const { wallets } = ctx;
+  return { TransactionType: 'Payment', Account: wallets[from].classicAddress, Destination: wallets[to].classicAddress, Amount: usdAmount(wallets.issuer.classicAddress, cents), Memos: buildMemo(memo) };
+}
+
+/**
+ * One exact-cent Payment leg through the S11 settlement journal: signed once, persisted before submission,
+ * the stored blob re-used after any ambiguous result. A repeated call for the same (company, loan, run, leg)
+ * returns the journaled hash without signing or submitting again.
+ */
+export async function settlePayment(ctx: Ctx, from: Role, to: Role, cents: number, memo: LegMemo, legKey: string): Promise<string> {
+  if (!ctx.journal || !ctx.tenant) throw new Error('S11: settlement journal and tenant scope are required before any leg is submitted');
+  const tx = buildLegPayment(ctx, from, to, cents, memo);
+  const scope = { companyId: ctx.tenant.companyId, loanId: ctx.tenant.loanId, run: memo.run, leg: legKey };
+  const before = await ctx.journal.get(JSON.stringify([scope.companyId, scope.loanId, scope.run, scope.leg]));
+  const job = await settleOnce(scope, tx, ctx.journal, new XrplSettlementTransport(ctx.client, ctx.wallets[from]));
+  const replay = before?.status === 'validated';
+  record(ctx, { step: `servicing:${memo.leg}`, type: 'Payment', account: tx.Account, hash: job.hash, result: job.result ?? 'tesSUCCESS', explorer: `${config.explorer}/transactions/${job.hash}`, journal: job.status });
+  if (replay) ctx.log(`    ${memo.leg.padEnd(12)} journal replay for ${legKey}: no signing, no submission`);
+  return job.hash;
 }

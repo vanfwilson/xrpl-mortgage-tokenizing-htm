@@ -1,6 +1,6 @@
 {
   "name": "xrpl-mortgage-tokenizing-htm",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "Residential mortgage servicing layer on the XRP Ledger: paper closing package -> canonical loan record -> 12 CFR 1024.17 escrow engine, Form 1098, and Mainnet-live XRPL primitives (Payment, NFToken record, TokenEscrow date locks) proven on Testnet. High Tech Mortgage, Inc.",
   "license": "MIT",
   "private": true,
@@ -32,6 +32,7 @@
     "xrpl": "5.1.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",

@@ -1,6 +1,6 @@
 # Architecture: residential mortgage servicing on the XRP Ledger
 
-Status: Phase A of `docs/build-prompt-servicing-architecture-2026-09-08.md`. Branch `claude/servicing-rebuild`. This document replaces the previous (funding-pool) architecture; that version is in git history at commit 76ead3b.
+Status: v2.0.0 (branch `v2/servicing`), merged from `claude/servicing-rebuild` and the strongest `codex-servicing-rebuild` modules. This document replaces the previous (funding-pool) architecture; that version is in git history at commit 76ead3b.
 
 ## 1. Trust boundary
 
@@ -42,7 +42,7 @@ Rules that follow from the boundary:
 | Object | Where | Owner / controller | Holds | Purpose |
 |---|---|---|---|---|
 | `loans` row | Postgres | subservicer tenant (`company_id`) | opaque `loan_id`, product, state, terms, `legal_owner_id`, `servicer_of_record_id` | tenant boundary and authority |
-| `loan_document_versions` | Postgres + bank eVault | bank document system | canonical bundle sha256, content-addressed pointer, effective dates | operative-document chain |
+| `loan_document_versions` | Postgres + the bank's eNote custodian | bank document system | canonical bundle sha256, content-addressed pointer, effective dates | operative-document chain |
 | NFToken (XLS-20) | ledger | bank servicing account (`servicer` wallet) | URI ≤ 256 B: `{v, loan, sha256, ptr}` | public digital-twin handle; no economic rights |
 | Collection account | bank + `subledger_entries` | subservicer | borrower receipts, suspense | receipt-date credit and application (R16) |
 | Note-holder payable | bank + subledger | subservicer | P&I due to the funding bank | remittance and reconciliation |
@@ -142,9 +142,15 @@ California profile: 2 % simple interest accrued daily, credited annually (R23); 
 - Transfer: freeze discretionary work → reconcile cash and items → export complete records → §1024.33 notices (15 days) and 60-day misdirected-payment grace → cut over signer lists and tenant access → NFToken transferred by zero-price sell offer. A legal owner change is a separate event and triggers §1026.39 when applicable (R11, R18).
 - Reserve per loan: three simultaneous escrows ≈ 0.6 XRP owner reserve plus 0.2 XRP for the NFToken page; base reserve on each bank account. Never 360 pre-created escrows (S7).
 
+## 7a. Settlement journal and event log (v2.0)
+
+Every ledger leg passes through `settleOnce` (`src/xrpl/settlement-journal.ts`): the transaction is autofilled and signed once, the signed blob, its hash and a fingerprint of the transaction JSON are persisted under the key (company, loan, run, leg) BEFORE submission, and the stored blob is re-used on any retry. After a timeout the transport first looks the hash up on the ledger and only submits the same blob if it is unknown; it never re-signs. A second call after a process or database restart returns the validated job without signing or submitting (proven in `tests/engine/settlement-journal.test.ts` on PGlite). Reusing a key for a different transaction is refused.
+
+Business events (boarding, applications, analyses, disbursement decisions, statements, cases, transfers) are appended to `htm_mortgages.servicing_event_log` with a per-loan hash chain; UPDATE and DELETE are rejected by trigger (`db/006_servicing_event_log.sql`, `src/servicing/event-log.ts`). Hashes detect alteration, not authenticity; database administrators remain trusted parties.
+
 ## 8. Key management and tenancy
 
-- Production ledger accounts: HSM-held regular keys, `SignerListSet` 2-of-3 across bank-controlled roles (operations, compliance, treasury), transaction allowlists and limits, monitored sequence and tickets, emergency rotation runbook, `lsfDisableMaster` only after a recovery drill has been proven.
+- Production ledger accounts: HSM-held regular keys, `SignerListSet` 2-of-3 across bank-controlled roles (operations, compliance, treasury), transaction allowlists and limits, monitored sequence and tickets, emergency rotation runbook, `lsfDisableMaster` only after a recovery drill has been proven. The Testnet run performs both drills: regular key then master disabled and refused; a 2-of-3 signer list where one signature is rejected and two validate (`src/xrpl/keys.ts`).
 - Manila users never receive signing secrets; they submit tasks to dual-control queues (R27).
 - Every Postgres row carries `company_id` and `loan_id`; queries are scoped by both; the tenant boundary is enforced in code and tested (Phase F).
 
@@ -154,7 +160,7 @@ California profile: 2 % simple interest accrued daily, credited annually (R23); 
 |---|---|---|
 | Testnet | `wss://s.altnet.rippletest.net:51233`, explorer testnet.xrpl.org | production-shape proof: NFToken, issued-USD Payments, TokenEscrow |
 | Devnet | `wss://s.devnet.rippletest.net:51233` | compressed CI smoke only; never cited as Mainnet proof |
-| Mainnet | not touched by this repo | rippled 3.3.0; MPTokensV1, Credentials, PermissionedDomains, TokenEscrow, NonFungibleTokensV1_1 enabled; SingleAssetVault, LendingProtocol, DynamicMPT, BatchV1_1 disabled (feature RPC 2026-09-08) |
+| Mainnet | not touched by this repo | rippled 3.3.0; MPTokensV1, Credentials, PermissionedDomains, TokenEscrow, NonFungibleTokensV1_1 enabled; the XLS-65 and XLS-66 amendments, DynamicMPT and BatchV1_1 disabled (feature RPC 2026-09-08) |
 
 Settlement asset on Testnet is a controlled `USD` issuer created by this repo with `asfAllowTrustLineLocking` set before any trust line exists. RLUSD cannot be escrowed on Mainnet or Testnet today (`allowTrustLineLocking=false` on both issuers, checked 2026-09-08). The runtime preflight refuses to build an escrow when the flag is false (S5).
 

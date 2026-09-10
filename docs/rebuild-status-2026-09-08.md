@@ -53,7 +53,7 @@ Executor: Claude Fable 5.1, 2026-09-08. Build prompt: [build-prompt-servicing-ar
 | R28 | `xrpl/settle.ts` `assertNoPii`; security scan | `R28_no_pii_payloads`, `T6_no_pii_in_payload_builders` |
 | R29 | `tax.ts` `build1098`, `filingCalendar` | `R29_form_1098` |
 | R30 | `tax.ts` `build1099INT`, `taxHandoffs` | `R30_1099int_threshold` |
-| R31 | `boarding.ts` `assertNoParticipation`; `LoanTerms.legal_owner_id` | `R31_no_participation_fields` |
+| R31 | `boarding.ts` `assertNointerest`; `LoanTerms.legal_owner_id` | `R31_no_interest_fields` |
 
 ## Findings from `audit-2026-09-08-fable.md`
 
@@ -64,7 +64,7 @@ Executor: Claude Fable 5.1, 2026-09-08. Build prompt: [build-prompt-servicing-ar
 | 3 | CoverRateLiquidation 5000 mislabelled 50 % | OBSOLETE — XLS-66 removed (S3) |
 | 4 | Token distributed for no consideration; no cash flow; supply never amortizes | OBSOLETE — MPT removed; NFToken record carries no economic rights (S2) |
 | 5 | Escrow locked partial balances; sufficiency ignored; initial deposit missing | FIXED — `src/servicing/disburse.ts` gate, `boarding.ts` initial deposit (R04), `analysis.ts` |
-| 6 | ASC 860 participation accounting, origination-fee deferral, CECL | OBSOLETE — no participations, no vault loan; single legal owner (R31) |
+| 6 | ASC 860 interest accounting, origination-fee deferral, CECL | OBSOLETE — no third-party interests, no funding-pool loan; single legal owner (R31) |
 | 7 | UFMIP, MIP and LTV computed on the total | FIXED — `src/domain/loan-math.ts` `fhaPremiums`, fixture re-based |
 | 8 | Credentials without Expiration or revocation; self-issued "accredited" | OBSOLETE — no third-party depositor; credentials removed |
 | 9 | APN in a public memo | FIXED — six-key memo with PII guard (`assertNoPii`), security scan |
@@ -83,8 +83,8 @@ Executor: Claude Fable 5.1, 2026-09-08. Build prompt: [build-prompt-servicing-ar
 | Blocking: partial impounds unconditionally escrowed; no deposit, advance, analysis or custody | FIXED — engine gate, advances, 1024.17 analysis; bank custody authoritative in `docs/architecture.md` |
 | Major: "P&I" ledger payment was demo-scale | FIXED — exact-cent issued-USD legs; `usdPerXrp` removed |
 | Major: 5 % mislabelled 50 % | OBSOLETE — lending layer removed |
-| Major: MPT called a participation | OBSOLETE — replaced by the NFToken handle |
-| Major: investor/vault story in README, grant narrative, walkthrough | FIXED — all rewritten |
+| Major: MPT called a interest | OBSOLETE — replaced by the NFToken handle |
+| Major: funding-pool story in README, grant narrative, walkthrough | FIXED — all rewritten |
 | Minor: UFMIP/MIP/LTV on the total | FIXED |
 | Minor: APN in memo | FIXED |
 | Minor: reserve figures | FIXED |
@@ -97,7 +97,7 @@ Executor: Claude Fable 5.1, 2026-09-08. Build prompt: [build-prompt-servicing-ar
 
 ## Won't-fix / intentional exceptions
 
-- The Phase G grep still matches `SingleAssetVault` / `LendingProtocol` in the two lines that report Mainnet feature state (factual), `eVault` (the MERS product name), and the R31 guard list in `src/servicing/boarding.ts` (it must contain the forbidden words to reject them). Historical documents (`servicing-research-*.md`, `build-prompt-*.md`, `docs/source/*`) are kept as written.
+- The Phase G grep still matches `SingleAssetfunding pool` / `LendingProtocol` in the two lines that report Mainnet feature state (factual), `efunding pool` (the MERS product name), and the R31 guard list in `src/servicing/boarding.ts` (it must contain the forbidden words to reject them). Historical documents (`servicing-research-*.md`, `build-prompt-*.md`, `docs/source/*`) are kept as written.
 - The Idaho escrow-interest question remains UNVERIFIED; the production profile is blocked in code until counsel signs (R25).
 - Statement PDFs are minimal renderings; the JSON is the system record. Golden PDFs are a milestone item.
 - Bank receipt files are simulated by a mirror of the subledger in `npm run loan-year`; the reconciliation code path is real, the bank feed is not (grant milestone 2–4).

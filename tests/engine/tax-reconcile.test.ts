@@ -24,7 +24,7 @@ describe('R29 Form 1098', () => {
     filer: { name: 'Bank Subservicer', is_first_recipient: true }, mip_reportable: () => true,
     property_address_same_as_mailing: true, properties_secured: 1,
   };
-  it('R29_form_1098: box 1 equals posted interest, box 2 the Jan 1 principal, box 5 by rule, box 11 only in-year', () => {
+  it('R29_form_1098 T8_form_1098_boxes: box 1 equals posted interest, box 2 the Jan 1 principal, box 5 by rule, box 11 only in-year', () => {
     const f = build1098(base);
     expect(f.required).toBe(true);
     expect(y2027).toHaveLength(12);

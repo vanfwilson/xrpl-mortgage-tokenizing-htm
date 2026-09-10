@@ -2,6 +2,7 @@ import type { Client } from 'xrpl';
 import type { Wallets, TxRecord } from '../xrpl/client.js';
 import type { CanonicalLoan } from '../ingest/canonical.js';
 import type { BundleManifest } from '../domain/hash.js';
+import type { SettlementStore } from '../xrpl/settlement-journal.js';
 
 export interface Ctx {
   client: Client;
@@ -13,8 +14,9 @@ export interface Ctx {
   ids: Record<string, string | undefined>;
   notes: string[];
   log: (msg: string) => void;
-  /** Idempotency map for settlement legs (S11). */
-  settled?: Map<string, string>;
+  /** S11 settlement journal: every leg is signed once and persisted before submission. */
+  journal?: SettlementStore;
+  tenant?: { companyId: string; loanId: string };
 }
 
 export const record = (ctx: Ctx, r: TxRecord) => {

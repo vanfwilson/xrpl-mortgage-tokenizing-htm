@@ -63,6 +63,8 @@ export interface TxRecord {
   ledgerIndex?: number;
   sequence?: number;
   meta?: TransactionMetadata;
+  /** S11: journal status for settlement legs. */
+  journal?: 'validated' | 'prepared' | 'failed';
 }
 
 export class TxError extends Error {

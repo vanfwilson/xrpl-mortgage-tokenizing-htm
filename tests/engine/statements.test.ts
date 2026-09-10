@@ -43,4 +43,22 @@ describe('borrower statements', () => {
     expect(d.delinquency_information?.days_delinquent).toBe(45);
     expect(d.delinquency_information?.total_to_bring_current_cents).toBe(700_000);
   });
+  it('R17_periodic_statement_contact_block: 1026.41(d)(6)-(7) contact, counseling, prepayment and rate-change items', () => {
+    const zero = { principal: 0, interest: 0, escrow: 0, mip: 0, fees: 0 };
+    const common = { row: schedule[0], escrow_cents: 41_000, mip_cents: 18_428, fees_due_cents: 0, statement_date: '2026-10-15', since_last: { ...zero, suspense: 0 }, ytd: zero, activity: [], suspense_balance_cents: 0, days_delinquent: 0 };
+    const s = periodicStatement({ ...common, terms, contact: { name: 'bank-subservicer', phone: '800-555-0100', website: 'https://servicer.example.test', correspondence_address: 'PO Box 1, Boise, ID 83701' } });
+    expect(s.contact).toBe('bank-subservicer');
+    expect(s.contact_block).toEqual({ phone: '800-555-0100', website: 'https://servicer.example.test', correspondence_address: 'PO Box 1, Boise, ID 83701' });
+    expect(s.counseling).toEqual({ agency: 'HUD Housing Counseling', phone: '800-569-4287', website: 'https://www.hud.gov/counseling' });
+    expect(s.account_information.prepayment_penalty).toBe(false);
+    expect(s.account_information.next_rate_change).toBeNull();
+    expect(s.account_information.interest_rate).toBe(terms.annual_rate);
+    // prepayment penalty flag is read from the terms when present, overridable per statement
+    expect(periodicStatement({ ...common, terms: { ...terms, prepayment_penalty: true }, contact: 'x' }).account_information.prepayment_penalty).toBe(true);
+    expect(periodicStatement({ ...common, terms, prepayment_penalty: true, contact: 'x' }).account_information.prepayment_penalty).toBe(true);
+    // legacy string contact still produces a block (address only) so existing callers keep working
+    const legacy = periodicStatement({ ...common, terms, contact: 'servicer@example.test' });
+    expect(legacy.contact_block).toEqual({ phone: null, website: null, correspondence_address: 'servicer@example.test' });
+    expect(legacy.amount_due_cents).toBe(336_501);
+  });
 });

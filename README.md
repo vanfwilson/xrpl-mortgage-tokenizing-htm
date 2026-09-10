@@ -7,6 +7,8 @@
 
 # Service a residential mortgage for thirty years. Prove every dollar on the XRP Ledger.
 
+**Version 2.0.0** — see [CHANGELOG.md](CHANGELOG.md). Two independent builds were compared and merged ([docs/branch-comparison-2026-09-10.md](docs/branch-comparison-2026-09-10.md)).
+
 ## What this software does
 
 This is the servicing layer of **MortgageOS™**, High Tech Mortgage's digital mortgage operating system. It takes the
@@ -48,7 +50,8 @@ and a fictitious homeowner.
 3. **Every month.** The borrower's payment is credited as of the day it is received and split into four legs to the cent:
    principal and interest to the bank, tax to the tax impound, hazard insurance to the hazard impound, FHA MIP to its own
    payable and on to HUD. Each leg is an exact-cent issued-USD payment on the ledger with a six-key memo and no personal
-   data. Partial payments go to suspense; a full payment is never diverted to late charges.
+   data, signed once and journaled before submission so a crash or timeout can never double-pay. Partial payments go to
+   suspense; a full payment is never diverted to late charges.
 4. **When a bill is due.** A verified county or carrier bill, never a forecast, is escrowed on the ledger only when the
    impound can fund it in full. If it cannot and the borrower is not more than 30 days overdue, the servicer advances the
    shortfall first, as RESPA requires. The escrow cannot be released before its statutory date; an early release attempt
@@ -154,4 +157,4 @@ is our digital-twin platform for the mortgage lifecycle; this repository is its 
 
 Licence: MIT License (the software licence, unrelated to the MIT university credential on the team page). Mainnet feature
 state verified 2026-09-08: MPTokensV1, Credentials, PermissionedDomains, TokenEscrow, NonFungibleTokensV1_1 enabled;
-SingleAssetVault, LendingProtocol, DynamicMPT, BatchV1_1 disabled.
+the XLS-65 and XLS-66 amendments, DynamicMPT and BatchV1_1 disabled.

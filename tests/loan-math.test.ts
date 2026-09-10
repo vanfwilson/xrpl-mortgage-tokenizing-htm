@@ -17,7 +17,7 @@ describe('loan math', () => {
 });
 
 describe('R21 FHA premiums on the BASE loan (HUD ML 2023-05)', () => {
-  it('re-bases a $450,000 note to base + 1.75% UFMIP', () => {
+  it('R21_fha_premiums T12_fixture_ufmip: re-bases a $450,000 note to base + 1.75% UFMIP', () => {
     const base = fhaBaseFromNote(450_000);
     expect(base).toBe(442_260.44);
     const p = fhaPremiums(base, 560_000, 565_000, 360);
@@ -37,7 +37,7 @@ describe('R21 FHA premiums on the BASE loan (HUD ML 2023-05)', () => {
 });
 
 describe('R20 FHA late charge (24 CFR 203.25)', () => {
-  it('is 4% of P&I: $2,770.73 -> $110.83', () => {
+  it('R20_fha_late_charge T12_fixture_late_charge: 4% of P&I: $2,770.73 -> $110.83', () => {
     expect(fhaLateCharge(2770.73)).toBe(110.83);
     expect(FHA_LATE_CHARGE_MAX).toBe(0.04);
   });

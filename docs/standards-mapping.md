@@ -23,7 +23,7 @@ Runtime preflight: `account_info` → `account_flags.allowTrustLineLocking` must
 | `Memos[0].MemoType` | hex `htm/servicing` | one memo type for every leg |
 | `Memos[0].MemoData` | hex JSON `{"v":1,"loan":"<opaque>","period":"YYYY-MM","leg":"tax","cents":28500,"run":"<id>"}` | six allow-listed keys, ≤ 256 bytes, PII guard at build time |
 
-Legs per month: `receipt` (homeowner → servicer), `pi` (servicer → note holder), `tax`, `hazard`, `mip` (servicer → payables),
+Every leg is journaled (signed once, stored, re-used on retry; see architecture §7a) before submission. Legs per month: `receipt` (homeowner → servicer), `pi` (servicer → note holder), `tax`, `hazard`, `mip` (servicer → payables),
 `mip_remit` (MIP payable → HUD); plus `initial_deposit` at boarding and `advance` when a bill is short. Each leg carries one
 idempotency key; a replay returns the first hash. Batch is not Mainnet-live, so legs are independent, never "atomic".
 
@@ -51,7 +51,8 @@ Policy: never more than three near-term objects in flight; 0.2 XRP owner reserve
 ## Key management (src/xrpl/keys.ts)
 
 `SetRegularKey` → proof transaction signed by the regular key → `AccountSet asfDisableMaster` → proof that the master key is
-refused. `SignerListSet` with `SignerQuorum 2` across three bank roles for production accounts.
+refused. `SignerListSet` with `SignerQuorum 2` across three bank roles; one signature is rejected (`tefBAD_QUORUM`), two validate.
+Issuer preflight binds `allowTrustLineLocking` to the validated issuer account and clears any issuer-side NoRipple flag left by a line created before DefaultRipple.
 
 ## Not used, and why
 

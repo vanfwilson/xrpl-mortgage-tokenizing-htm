@@ -19,6 +19,7 @@ import { addDays, addMonths, disbursementCalendar, rippleTimeAt } from './servic
 import { ensureDisbursement, type DisbursementDecision } from './servicing/disburse.js';
 import { appendReconciliationEvent, threeWayMatch, verifyChain, type Entry, type ReconciliationEvent } from './servicing/reconcile.js';
 import { annualEscrowStatement, annualStatementRows, initialEscrowStatement, periodicStatement, renderStatementPdf } from './servicing/statements.js';
+import { buildAnnualEscrowStatement, buildInitialEscrowStatement, recordStatementDelivery, type ActivityEntry } from './servicing/escrow-statements.js';
 import { build1098, build1099INT } from './servicing/tax.js';
 import { servicingTransferCase } from './servicing/transfer.js';
 import type { Cents, IsoDate, Posting, VerifiedBill } from './servicing/types.js';
@@ -26,9 +27,15 @@ import type { Ctx } from './steps/context.js';
 import { connect, loadOrFundWallets, nowRipple, waitForLedgerTime } from './xrpl/client.js';
 import { attemptEarlyFinish, cancelEscrow, createImpoundEscrow, finishEscrow, reserveForObjects } from './xrpl/escrow.js';
 import { bootstrapIssuer, issueTestUsd, openTrustLines, preflightIssuerLocking } from './xrpl/issuer.js';
-import { disableMasterDrill } from './xrpl/keys.js';
+import { disableMasterDrill, multisigRecoveryDrill } from './xrpl/keys.js';
+import { InMemoryEventStore, PostgresEventStore, type EventStore } from './db/event-store.js';
+import { verifyEventChain } from './servicing/event-log.js';
 import { mintLoanRecord, transferLoanRecord } from './xrpl/record.js';
 import { settlePayment, type Leg } from './xrpl/settle.js';
+import { PGlite } from '@electric-sql/pglite';
+import { PostgresSettlementStore } from './db/settlement-store.js';
+import { settleOnce } from './xrpl/settlement-journal.js';
+import { buildLegPayment } from './xrpl/settle.js';
 
 const args = process.argv.slice(2);
 const noLedger = args.includes('--no-ledger');
@@ -71,6 +78,9 @@ const disbursements: ProjectedDisbursement[] = disbursementCalendar('ID', partie
 const openingEscrow = boarded.opening_postings.reduce((a, p) => a + p.cents, 0);
 const initial = analyzeEscrowYear({ computation_year_start: yearStart, starting_balance_cents: openingEscrow, disbursements, borrower_current: true, state: 'ID' });
 const initialStmt = initialEscrowStatement({ settlement_date: loan.closing.closing_date, opening_balance_cents: openingEscrow, monthly_escrow_cents: initial.new_monthly_escrow_cents, disbursements });
+const initialAnalysisInput = { computation_year_start: yearStart, starting_balance_cents: openingEscrow, disbursements, borrower_current: true, state: 'ID' as const };
+const initialDocument = buildInitialEscrowStatement({ company_id: COMPANY, loan_id: OPAQUE_LOAN, principal_interest_cents: terms.monthly_pi_cents, settlement_date: loan.closing.closing_date, generated_on: loan.closing.closing_date, analysis_input: initialAnalysisInput });
+const initialDelivery = recordStatementDelivery(initialDocument, { on: loan.closing.closing_date, method: 'mail', evidenceId: `mail-log:initial:${loan.closing.escrow_file_number}` });
 log(`    initial analysis: monthly escrow ${usd(initial.monthly_deposit_cents)}, cushion ${usd(initial.cushion_cents)}, target ${usd(initial.target_starting_balance_cents)}, opening ${usd(openingEscrow)} -> ${initial.classification} ${usd(initial.shortage_cents)}; year-1 option: do nothing (12 CFR 1024.17(f)(3)); statement due ${initialStmt.due_by}`);
 const escrowSplit = { tax: Math.round(loan.servicing.property_tax_impound * 100), hazard: Math.round(loan.servicing.hazard_insurance_impound * 100) };
 
@@ -90,6 +100,9 @@ const advances: Array<{ bill: string; cents: Cents; on: IsoDate }> = [];
 // Track 2 setup (optional)
 // ---------------------------------------------------------------------------
 let ctx: Ctx | undefined;
+let journalPg: PGlite | undefined;
+let eventStore: EventStore = new InMemoryEventStore();
+const logEvent = (type: string, data: unknown) => eventStore.append(COMPANY, OPAQUE_LOAN, { type, data });
 const RUN = `run-${Date.now().toString(36)}`;
 const manifest: Array<{ business_date: IsoDate; ripple_time: number; iso: string; what: string; clamped?: boolean }> = [];
 let t0 = 0;
@@ -121,7 +134,15 @@ async function main() {
     head('2', `Connect ${config.wss} (${config.network}); fund ${WALLET_ROLES.length} role wallets`);
     const client = await connect();
     const wallets = await loadOrFundWallets(client, log);
-    ctx = { client, wallets, loan, bundle, txs: [], ids: {}, notes: [], log, settled: new Map() };
+    const journalDir = path.join(config.outDir, 'loan-year', `journal-${RUN}`);
+    fs.mkdirSync(journalDir, { recursive: true });
+    const pg = new PGlite(journalDir);
+    await pg.exec('create schema if not exists htm_mortgages;');
+    await pg.exec(fs.readFileSync(path.join('db', '005_settlement_journal.sql'), 'utf8'));
+    await pg.exec(fs.readFileSync(path.join('db', '006_servicing_event_log.sql'), 'utf8'));
+    eventStore = new PostgresEventStore(pg);
+    ctx = { client, wallets, loan, bundle, txs: [], ids: {}, notes: [], log, journal: new PostgresSettlementStore(pg), tenant: { companyId: COMPANY, loanId: OPAQUE_LOAN } };
+    journalPg = pg;
     head('3', 'Controlled test-USD issuer: trust-line locking BEFORE any trust line (S5); trust lines; test USD');
     await bootstrapIssuer(ctx);
     proofs.T9_issuer_preflight = `allowTrustLineLocking=true on ${ctx.ids.issuer}`;
@@ -132,6 +153,7 @@ async function main() {
     const id = await mintLoanRecord(ctx, { v: 1, loan: OPAQUE_LOAN, sha256: bundle.bundle_sha256, ptr: `cas://htm/${OPAQUE_LOAN}/v1` });
     log(`    NFTokenID ${id}`);
   }
+  await logEvent('boarding', { terms, opening_postings: boarded.opening_postings, initial_analysis: { classification: initial.classification, shortage_cents: initial.shortage_cents, monthly_deposit_cents: initial.monthly_deposit_cents }, initial_statement_due: initialStmt.due_by });
   head('5', `Boarding deposits (R04): tax ${usd(boarded.opening_postings[0].cents)}, hazard ${usd(boarded.opening_postings[1].cents)}`);
   await pay('servicer', 'taxImpound', boarded.opening_postings[0].cents, 'boarding', 'initial_deposit', `${RUN}:boarding:tax`);
   await pay('servicer', 'hazardImpound', boarded.opening_postings[1].cents, 'boarding', 'initial_deposit', `${RUN}:boarding:hazard`);
@@ -158,6 +180,7 @@ async function main() {
     await pay('mipPayable', 'hud', plan.legs.mip, period, 'mip_remit', `${RUN}:${period}:mip_remit`);
     post({ company_id: COMPANY, loan_id: OPAQUE_LOAN, account: 'mip', cents: -plan.legs.mip, leg: 'mip_remit', effective_date: row.due_date, period: p });
     post({ company_id: COMPANY, loan_id: OPAQUE_LOAN, account: 'hud', cents: plan.legs.mip, leg: 'mip_remit', effective_date: row.due_date, period: p });
+    await logEvent('application', { period: p, due: row.due_date, received: plan.effective_date, legs: plan.legs, total_due_cents: plan.total_due_cents });
 
     // Finish any escrow whose statutory date has passed on the business clock.
     for (const e of escrows) {
@@ -176,6 +199,7 @@ async function main() {
       const d = ensureDisbursement({ bill, purpose_balance_cents: balance, borrower_days_overdue: 0, escrows_in_flight: escrows.filter((e) => !e.done && !e.cancelled).length, max_in_flight: config.escrow.maxInFlight, today: row.due_date, cancel_after_days: config.escrow.cancelAfterDays, near_term_days: 31 });
       if (d.action === 'forecast_only') continue;
       decisions.push({ bill, decision: d, period: p });
+      await logEvent('disbursement_decision', { bill: { purpose: bill.purpose, due: bill.due_date, cents: bill.cents, source_ref: bill.source_ref }, decision: d, period: p });
       log(`    bill ${bill.purpose} ${bill.due_date} ${usd(bill.cents)}: balance ${usd(balance)} -> ${d.action}${d.advance_cents ? ` (advance ${usd(d.advance_cents)})` : ''}`);
       if (d.action === 'refuse') continue;
       if (d.advance_cents > 0) {
@@ -222,6 +246,21 @@ async function main() {
   const recovery = yearTwo.shortage_cents > 0 ? { shortage_months: 12 } : {};
   const yearTwoDeposit = escrowDepositWithRecovery(yearTwo, recovery);
   const annualStmt = annualEscrowStatement(yearTwo);
+  const yearTwoInput = { computation_year_start: yearTwoStart, starting_balance_cents: escrowBalanceForAnalysis, disbursements: disbursementCalendar('ID', parties.hazard_insurance_carrier.renewal, yearTwoStart, addDays(addMonths(yearTwoStart, 12), -1)).map((d) => ({ purpose: d.purpose, due: d.due, cents: d.purpose === 'tax' ? annualTax / 2 : annualHazard, description: d.description })), borrower_current: true, state: 'ID' as const };
+  const activity: ActivityEntry[] = [
+    ...postings.filter((x) => (x.account === 'tax' || x.account === 'hazard') && x.leg === 'escrow_deposit').map((x, i) => ({ on: x.effective_date, kind: 'deposit' as const, cents: x.cents, reference: `deposit:${x.period}:${x.account}:${i}`, description: `monthly ${x.account} escrow deposit` })),
+    ...escrows.filter((e) => e.done).map((e) => ({ on: e.bill.due_date, kind: e.bill.purpose, cents: -e.bill.cents, reference: `disbursement:${e.bill.source_ref}`, description: `${e.bill.purpose} paid to ${e.to}` })),
+  ];
+  const annualDocument = buildAnnualEscrowStatement({
+    company_id: COMPANY, loan_id: OPAQUE_LOAN, principal_interest_cents: terms.monthly_pi_cents, generated_on: addDays(yearEnd, 5),
+    prior_year_start: yearStart, prior_year_end: yearEnd, prior_monthly_escrow_cents: initial.monthly_deposit_cents, prior_projection_evidence_id: `initial-analysis:${RUN}`,
+    opening_balance_cents: openingEscrow, closing_balance_cents: escrowBalanceForAnalysis, activity, next: yearTwoInput,
+    election: yearTwo.shortage_cents > 0 ? 'equal_monthly_payments' : 'do_nothing', recovery_months: yearTwo.shortage_cents > 0 ? 12 : undefined,
+    difference_explanation: `Year-1 election was do-nothing on the ${usd(initial.shortage_cents)} initial shortage (12 CFR 1024.17(f)(3)); the December tax installment was short and the servicer advanced ${usd(advances.reduce((a, x) => a + x.cents, 0))} under 1024.17(k)(1); the account ran negative until the January deposit. Disbursements matched the projection.`,
+  });
+  const annualDelivery = recordStatementDelivery(annualDocument, { on: addDays(yearEnd, 6), method: 'mail', evidenceId: `mail-log:annual:${RUN}` });
+  log(`    annual escrow statement: ${annualDocument.kind} generated ${annualDocument.generated_on}, due ${annualDocument.due_by}, delivered ${annualDelivery.delivered_on} (${annualDelivery.status})`);
+  await logEvent('escrow_analysis', { computation_year_start: yearTwo.computation_year_start, classification: yearTwo.classification, shortage_cents: yearTwo.shortage_cents, surplus_cents: yearTwo.surplus_cents, deficiency_cents: yearTwo.deficiency_cents, recovery, year_two_monthly_escrow_cents: yearTwoDeposit, annual_statement_due: annualStmt.due_by });
   log(`    tax ${usd(bal.tax)} + hazard ${usd(bal.hazard)} - advances ${usd(bal.advance)} = ${usd(escrowBalanceForAnalysis)} vs target ${usd(yearTwo.target_starting_balance_cents)} -> ${yearTwo.classification} ${usd(yearTwo.shortage_cents || yearTwo.surplus_cents || yearTwo.deficiency_cents)}; year-2 escrow ${usd(yearTwoDeposit)}/month (${JSON.stringify(recovery)}); statement due ${annualStmt.due_by}`);
   // California profile, off-ledger illustration only (R23): same balances, 2 % interest.
   const caInterest = analyzeEscrowYear({ computation_year_start: yearTwoStart, starting_balance_cents: escrowBalanceForAnalysis, disbursements: yearTwo.trial_balances.length ? disbursements : [], borrower_current: true, state: 'CA', prior_year_balances: postings.filter((x) => x.account === 'tax' || x.account === 'hazard').map((x) => ({ date: x.effective_date, balance_cents: 0 })).length ? dailyBalances() : [] }).california_interest_cents;
@@ -239,13 +278,37 @@ async function main() {
   head('9', 'Servicing transfer (R11) and reconciliation (R14/R22)');
   const transfer = servicingTransferCase(addDays(yearEnd, 1));
   if (ctx) { const t = await transferLoanRecord(ctx, ctx.ids.loanRecordNFTokenId!, 'servicer', 'transfereeServicer'); proofs.R11_nftoken_transfer = t.accept; }
+  await logEvent('servicing_transfer', { transfer, nftoken_transfer: proofs.R11_nftoken_transfer ?? null });
   const recon = threeWayMatch({ bank, subledger: sub, ledger: ctx ? ledger : sub });
   const events: ReconciliationEvent[] = [];
   events.push(appendReconciliationEvent(undefined, { company_id: COMPANY, loan_id: OPAQUE_LOAN }, new Date().toISOString(), recon));
   log(`    three-way match: ${recon.matched.length} matched, ${recon.unmatched.length} unmatched; bank-authoritative balance ${usd(recon.authoritative_balance_cents)}; chain ok=${verifyChain(events)}`);
   if (!recon.reconciled) throw new Error('R14: unreconciled legs');
 
-  if (ctx && keyDrill) { head('10', 'Key drill (R27): regular key, proof, lsfDisableMaster, master refused'); const d = await disableMasterDrill(ctx, 'transfereeServicer'); proofs.R27_key_drill = d.hashes.masterRefused; }
+  if (ctx && journalPg) {
+    head('9b', 'Journal restart proof (S11): reopen the store, replay one leg, expect no signing and no submission');
+    await journalPg.close();
+    const reopened = new PGlite(path.join(config.outDir, 'loan-year', `journal-${RUN}`));
+    const store = new PostgresSettlementStore(reopened);
+    const period = schedule[0].due_date.slice(0, 7);
+    const tx = buildLegPayment(ctx, 'homeowner', 'servicer', schedule[0].interest_cents + schedule[0].principal_cents + escrowSplit.tax + escrowSplit.hazard + MIP, memo(period, 'receipt', schedule[0].interest_cents + schedule[0].principal_cents + escrowSplit.tax + escrowSplit.hazard + MIP));
+    const job = await settleOnce({ companyId: COMPANY, loanId: OPAQUE_LOAN, run: RUN, leg: `${RUN}:${period}:receipt` }, tx, store, { prepare: async () => { throw new Error('duplicate signing attempted'); }, submitOrFind: async () => { throw new Error('duplicate submission attempted'); } });
+    proofs.S11_journal_restart = `${job.status} ${job.hash}`;
+    log(`    replay after reopen: ${job.status} ${job.hash.slice(0, 12)}… (no signing, no submission)`);
+    await reopened.close();
+    journalPg = undefined;
+  }
+  if (ctx && keyDrill) {
+    head('10', 'Key drills (R27): 2-of-3 signer list (one signature refused, two validate), then regular key + lsfDisableMaster');
+    const m = await multisigRecoveryDrill(ctx, 'transfereeServicer', ['servicer', 'noteHolder', 'issuer']);
+    proofs.R27_multisig_one_signer = m.oneSignerResult; proofs.R27_multisig_two_signers = `${m.twoSignersResult} ${m.twoSignersHash}`;
+    const d = await disableMasterDrill(ctx, 'transfereeServicer'); proofs.R27_key_drill = d.hashes.masterRefused;
+    await logEvent('key_drill', { multisig: m, master_refused: d.hashes.masterRefused });
+  }
+  // R14: the business-event chain verifies end to end (and, on the ledger track, after a store reopen).
+  const chain = await eventStore.read(COMPANY, OPAQUE_LOAN);
+  verifyEventChain(chain);
+  proofs.R14_event_chain = `${chain.length} events, head ${chain.at(-1)?.eventHash.slice(0, 16)}…`;
 
   // ------------------------------------------------------------------------- outputs
   const outDir = path.join(config.outDir, 'loan-year'); fs.mkdirSync(outDir, { recursive: true }); fs.mkdirSync(path.join(config.outDir, 'statements'), { recursive: true });
@@ -261,9 +324,10 @@ async function main() {
     disbursements: decisions.map((d) => ({ ...d.bill, decision: d.decision, period: d.period })), advances,
     escrows: escrows.map(({ bill, ...e }) => ({ purpose: bill.purpose, due: bill.due_date, cents: bill.cents, ...e })),
     year_end: { balances, escrow_balance_for_analysis: escrowBalanceForAnalysis, analysis: yearTwo, recovery, year_two_monthly_escrow_cents: yearTwoDeposit, annual_statement_due: annualStmt.due_by, california_interest_cents: caInterest, form_1099_int: f1099 },
-    statements: { initial: initialStmt, periodic_1: periodic1 },
+    statements: { initial: initialStmt, initial_document: initialDocument, initial_delivery: initialDelivery, annual_document: annualDocument, annual_delivery: annualDelivery, periodic_1: periodic1 },
     form_1098: form1098, transfer, reconciliation: { result: recon, events },
     reserve_drops_for_objects: reserveForObjects(escrows.length + 1),
+    event_log: { count: chain.length, head_hash: chain.at(-1)?.eventHash ?? null, types: chain.map((e) => JSON.parse(e.payloadJson).type) },
     transactions: ctx ? ctx.txs.map(({ meta: _m, ...t }) => t) : [], notes: ctx?.notes ?? [],
   };
   const ts = new Date().toISOString().replace(/[:.]/g, '-');
@@ -273,6 +337,7 @@ async function main() {
   fs.writeFileSync(path.join('docs', 'form-1098-example.json'), JSON.stringify({ note: 'Synthetic loan; 1098 data for the demo loan year. Box 1 reconciles to interest applied by receipt date; Box 2 is principal at January 1.', forms: form1098 }, null, 2));
   if (ctx) {
     fs.writeFileSync(path.join('docs', 'clock-mapping-manifest.json'), JSON.stringify({ network: config.network, run: RUN, step_seconds: STEP, origin_ripple_time: t0, rule: 'ripple_time = origin + (months since period-1 due + (day-1)/31) * step_seconds', manifest }, null, 2));
+    if (journalPg) await journalPg.close();
     if (config.network === 'testnet') fs.writeFileSync(path.join('docs', 'demo', 'run.json'), JSON.stringify({ network: run.network, ran_at: run.ran_at, run: run.run, loan: run.loan, document_bundle_sha256: run.document_bundle_sha256, accounts: run.accounts, ids: run.ids, proofs: run.proofs, escrows: run.escrows, periods: run.periods, year_end: { analysis: run.year_end.analysis, year_two_monthly_escrow_cents: run.year_end.year_two_monthly_escrow_cents }, form_1098: run.form_1098, transactions: run.transactions }, null, 2));
     if (config.network === 'testnet') fs.writeFileSync(path.join('docs', 'testnet-run.md'), '# Testnet loan-year run\n\nLatest run of `npm run loan-year` on XRPL Testnet (Mainnet-live transaction types only; statutory dates mapped per docs/clock-mapping-manifest.json). Every hash links to the explorer.\n\n' + runMarkdown(run).replace(/^# .*\n/, ''));
     await ctx.client.disconnect();

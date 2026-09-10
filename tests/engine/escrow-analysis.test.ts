@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { analyzeEscrowYear, assertEscrowPurpose, californiaInterest, cushionLimit, deficiencyOptions, escrowDepositWithRecovery, resolveSurplus, shortageOptions, type ProjectedDisbursement } from '../../src/servicing/analysis.js';
+import { analyzeEscrowYear, assertEscrowPurpose, californiaInterest, cushionLimit, deficiencyOptions, equalInstallments, escrowDepositWithRecovery, monthlyDeposits, resolveAnalysis, resolveSurplus, shortageOptions, type ProjectedDisbursement } from '../../src/servicing/analysis.js';
 
 /** Idaho fixture year starting with the first payment: tax $1,710 on Dec 20 and Jun 20, hazard $1,500 on Sep 1. */
 const disbursements: ProjectedDisbursement[] = [
@@ -26,7 +26,7 @@ describe('12 CFR 1024.17 escrow analysis', () => {
     expect(a.target_starting_balance_cents).toBe(171_000);
   });
 
-  it('R03_cushion_cap: never exceeds min(1/6 annual, state cap, contract cap) (property)', () => {
+  it('R03_cushion_cap T3_cushion_cap: never exceeds min(1/6 annual, state cap, contract cap) (property)', () => {
     let seed = 7;
     const rnd = () => { seed = (seed * 1_103_515_245 + 12_345) % 2_147_483_648; return seed / 2_147_483_648; };
     for (let k = 0; k < 500; k++) {
@@ -41,7 +41,7 @@ describe('12 CFR 1024.17 escrow analysis', () => {
     }
   });
 
-  it('R07_surplus_options: $50.00 vs $49.99 and current vs delinquent', () => {
+  it('R07_surplus_options T4_surplus_boundary: $50.00 vs $49.99 and current vs delinquent', () => {
     expect(resolveSurplus(5_000, true)?.action).toBe('refund');
     expect(resolveSurplus(4_999, true)?.action).toBe('refund_or_credit');
     expect(resolveSurplus(5_000, false)?.action).toBe('refund_or_credit');
@@ -52,7 +52,7 @@ describe('12 CFR 1024.17 escrow analysis', () => {
     expect(a.surplus_action?.deadline_days).toBe(30);
   });
 
-  it('R08_shortage_options: 30-day option only under one month; at least 12 months otherwise', () => {
+  it('R08_shortage_options T5_shortage_boundary: 30-day option only under one month; at least 12 months otherwise', () => {
     const monthly = 41_000;
     expect(shortageOptions(40_999, monthly).map((o) => o.kind)).toEqual(['do_nothing', 'repay_30_days', 'equal_monthly_payments']);
     expect(shortageOptions(41_000, monthly).map((o) => o.kind)).toEqual(['do_nothing', 'equal_monthly_payments']);
@@ -64,7 +64,7 @@ describe('12 CFR 1024.17 escrow analysis', () => {
     expect(escrowDepositWithRecovery(a, { shortage_months: 12 })).toBe(41_000 + Math.ceil(47_950 / 12));
   });
 
-  it('R09_deficiency_options: 30 days or 2+ payments under one month; 2+ payments otherwise (not 12)', () => {
+  it('R09_deficiency_options T5_deficiency_boundary: 30 days or 2+ payments under one month; 2+ payments otherwise (not 12)', () => {
     const monthly = 41_000;
     expect(deficiencyOptions(40_999, monthly).map((o) => o.kind)).toEqual(['do_nothing', 'repay_30_days', 'equal_monthly_payments']);
     expect(deficiencyOptions(40_999, monthly).at(-1)?.min_months).toBe(2);
@@ -86,6 +86,93 @@ describe('12 CFR 1024.17 escrow analysis', () => {
     expect(californiaInterest(mixed, 'CA', '2028-12-31')).toBe(Math.round((100_000 * 182 * 0.02) / 366));
     const a = analyzeEscrowYear({ ...base, state: 'CA', starting_balance_cents: 171_000, prior_year_balances: flat, computation_year_start: '2027-01-01' });
     expect(a.california_interest_cents).toBe(2_000);
+  });
+
+  it('R02_annual_conservation: ceil(annual/12) deposits with a final-month adjustment sum exactly to annual', () => {
+    // 492,000 divides evenly: no adjustment.
+    const even = analyzeEscrowYear({ ...base, starting_balance_cents: 0 });
+    expect(even.final_month_adjustment_cents).toBe(0);
+    expect(even.trial_balances.reduce((t, r) => t + r.deposit_cents, 0)).toBe(492_000);
+    // 492,007 does not: monthly = ceil = 41,001; month 12 gives back 5 cents.
+    const odd = analyzeEscrowYear({ ...base, starting_balance_cents: 0, disbursements: [...disbursements.slice(0, 2), { purpose: 'hazard', due: '2027-09-01', cents: 150_007 }] });
+    expect(odd.annual_disbursements_cents).toBe(492_007);
+    expect(odd.monthly_deposit_cents).toBe(41_001);
+    expect(odd.final_month_adjustment_cents).toBe(-5);
+    expect(odd.trial_balances.map((t) => t.deposit_cents)).toEqual([...Array(11).fill(41_001), 40_996]);
+    expect(odd.trial_balances.reduce((t, r) => t + r.deposit_cents, 0)).toBe(492_007);
+    expect(odd.trial_balances[11].balance_cents).toBe(0); // zero-opening trial returns to zero after the last disbursement
+    // property: every annual in [0, 5000) conserves and the adjustment stays within (-12, 0]
+    for (let annual = 0; annual < 5_000; annual++) {
+      const m = monthlyDeposits(annual);
+      expect(m.deposits.reduce((a, b) => a + b, 0)).toBe(annual);
+      expect(m.final_month_adjustment).toBeLessThanOrEqual(0);
+      expect(m.final_month_adjustment).toBeGreaterThan(-12);
+    }
+  });
+
+  it('R07_delinquent_loan_document_review: not current and not balanced -> only loan_document_review; current keeps the $50 rule', () => {
+    const surplusDelinquent = analyzeEscrowYear({ ...base, starting_balance_cents: 177_000, borrower_current: false });
+    expect(surplusDelinquent.classification).toBe('surplus');
+    expect(surplusDelinquent.options).toEqual(['loan_document_review']);
+    expect(surplusDelinquent.surplus_action?.action).toBe('refund_or_credit'); // resolveSurplus semantics retained
+    expect(resolveAnalysis(surplusDelinquent, 'loan_document_review', '2027-11-05')).toMatchObject({ status: 'manual_review' });
+    expect(() => resolveAnalysis(surplusDelinquent, 'refund_30_days', '2027-11-05')).toThrow(/not permitted/);
+    const shortDelinquent = analyzeEscrowYear({ ...base, starting_balance_cents: 123_050, borrower_current: false });
+    expect(shortDelinquent.options).toEqual(['loan_document_review']);
+    expect(shortDelinquent.shortage_options.map((o) => o.kind)).toEqual(['loan_document_review']);
+    expect(() => escrowDepositWithRecovery(shortDelinquent, { shortage_months: 12 })).toThrow(/R08/);
+    const balancedDelinquent = analyzeEscrowYear({ ...base, starting_balance_cents: 171_000, borrower_current: false });
+    expect(balancedDelinquent.options).toEqual(['do_nothing']);
+    // current borrower: $50.00 refund only, $49.99 refund or credit
+    expect(analyzeEscrowYear({ ...base, starting_balance_cents: 176_000 }).options).toEqual(['refund_30_days']);
+    expect(analyzeEscrowYear({ ...base, starting_balance_cents: 175_999 }).options).toEqual(['refund_30_days', 'credit_next_year']);
+    const r = resolveAnalysis(analyzeEscrowYear({ ...base, starting_balance_cents: 176_000 }), 'refund_30_days', '2027-11-05');
+    expect(r).toMatchObject({ status: 'scheduled', direction: 'refund', amount_cents: 5_000, due_by: '2027-12-05' });
+  });
+
+  it('R08_installments_conserve_cents: shortage over >= 12 equal monthly payments, residual cents on the earliest installments', () => {
+    const a = analyzeEscrowYear({ ...base, starting_balance_cents: 123_050 }); // shortage 47,950 (one month or more)
+    expect(a.options).toEqual(['do_nothing', 'equal_monthly_payments']);
+    expect(() => resolveAnalysis(a, 'equal_monthly_payments', '2027-11-05', 11)).toThrow(/R08/);
+    expect(() => resolveAnalysis(a, 'collect_30_days', '2027-11-05')).toThrow(/not permitted/);
+    const r = resolveAnalysis(a, 'equal_monthly_payments', '2027-11-05', 12);
+    if (r.status !== 'scheduled' || r.election !== 'equal_monthly_payments') throw new Error('expected installment schedule');
+    expect(r.installments).toHaveLength(12);
+    expect(r.installments.reduce((t, i) => t + i.amount_cents, 0)).toBe(47_950);
+    // 47,950 / 12 = 3,995 r 10: first ten installments carry the extra cent
+    expect(r.installments.map((i) => i.amount_cents)).toEqual([...Array(10).fill(3_996), 3_995, 3_995]);
+    expect(r.installments[0].due).toBe('2027-12-05');
+    expect(r.new_monthly_escrow_cents).toBe(41_000 + 3_996);
+    // under one month: 30-day collection is also allowed
+    const small = analyzeEscrowYear({ ...base, starting_balance_cents: 170_999 });
+    expect(small.options).toEqual(['do_nothing', 'collect_30_days', 'equal_monthly_payments']);
+    expect(resolveAnalysis(small, 'collect_30_days', '2027-11-05')).toMatchObject({ direction: 'collect', amount_cents: 1, due_by: '2027-12-05' });
+    for (const [total, months] of [[1, 12], [47_950, 13], [123_457, 24], [0, 12]] as const) {
+      const inst = equalInstallments(total, months, '2027-12-01');
+      expect(inst.reduce((t, i) => t + i.amount_cents, 0)).toBe(total);
+      expect(Math.max(...inst.map((i) => i.amount_cents)) - Math.min(...inst.map((i) => i.amount_cents))).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('R09_installments_conserve_cents: deficiency over >= 2 equal payments (not 12); shortage component separately over >= 12', () => {
+    const a = analyzeEscrowYear({ ...base, starting_balance_cents: -10_001 });
+    expect(a.classification).toBe('deficiency');
+    expect(a.options).toEqual(['do_nothing', 'collect_30_days', 'equal_monthly_payments']);
+    expect(() => resolveAnalysis(a, 'equal_monthly_payments', '2027-11-05', 1)).toThrow(/R09/);
+    const r = resolveAnalysis(a, 'equal_monthly_payments', '2027-11-05', 3);
+    if (r.status !== 'scheduled' || r.election !== 'equal_monthly_payments') throw new Error('expected installment schedule');
+    expect(r.basis).toBe('deficiency');
+    expect(r.installments.map((i) => i.amount_cents)).toEqual([3_334, 3_334, 3_333]);
+    expect(r.installments.reduce((t, i) => t + i.amount_cents, 0)).toBe(10_001);
+    expect(r.shortage_installments).toHaveLength(12);
+    expect(r.shortage_installments!.reduce((t, i) => t + i.amount_cents, 0)).toBe(171_000);
+    expect(r.new_monthly_escrow_cents).toBe(41_000 + 3_334 + 14_250);
+    // one month or more: no 30-day option, still 2+ payments
+    const big = analyzeEscrowYear({ ...base, starting_balance_cents: -41_000 });
+    expect(big.options).toEqual(['do_nothing', 'equal_monthly_payments']);
+    const r2 = resolveAnalysis(big, 'equal_monthly_payments', '2027-11-05', 2);
+    if (r2.status !== 'scheduled' || r2.election !== 'equal_monthly_payments') throw new Error('expected installment schedule');
+    expect(r2.installments.map((i) => i.amount_cents)).toEqual([20_500, 20_500]);
   });
 
   it('balanced: actual equals target -> no surplus, shortage or deficiency', () => {
