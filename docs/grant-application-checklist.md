@@ -15,7 +15,7 @@
 - [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
 - [x] **Budget breakdown** — [August 2026 proposal](grant-proposal-2026-08-24.pdf) §5–7 (reconcile the M4 wording to the servicing-only design before submission)
 - [x] **Team bios + company details** — [TEAM.md](../TEAM.md)
-- [ ] **Traction** — bank subservicer design-partner conversations; pipeline of loans that could be boarded
+- [ ] **Traction** — banks that want HTM to run servicing operations under their name as the official servicer, and HTM's own-client servicing under its California licences; pipeline of loans that could be boarded (state honestly: conversations, no signed servicing contract yet)
 - [x] **Security posture** — [threat-model.md](threat-model.md); key drill proven on Testnet
 - [x] Eligibility basics: 18+, not OFAC-sanctioned, not Ripple employees; companies may apply
 
@@ -32,5 +32,5 @@ and carries one loan-record token per loan. It runs today on Testnet with only M
 
 1. Record the 2-minute video.
 2. Reconcile the proposal PDF's milestone table with the servicing-only plan in grant-narrative.md.
-3. State the UNVERIFIED items verbatim (licensing/MSR, subservicer contract, custodial stablecoin, Idaho interest rule, traction).
+3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.

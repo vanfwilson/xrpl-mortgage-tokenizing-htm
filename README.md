@@ -22,9 +22,11 @@ and a native date lock that makes it impossible to release impound money before 
 
 **Who we are.** HTM is a licensed California mortgage broker with an operations centre in Manila. The loans are standard
 Fannie Mae uniform-instrument, fixed-rate, 30-year residential loans (the fixture is FHA-insured, Idaho property) funded and
-owned by banks we work with under contract. A bank-owned licensed subservicer is servicer of record; HTM is the technology
-provider and its Manila team executes servicing tasks as the subservicer's vendor under dual control. We do not raise
-capital, sell interests in loans, or run a lending pool.
+owned by banks we work with under contract. HTM operates in one of two ways, and the software is the same in both: as the
+servicer of record for its own clients under its California DFPI and DRE licences, through a servicing entity kept separate
+from the brokerage; or as the servicing-operations and technology contractor to a bank that is itself the official servicer
+and keeps banking compliance and liability. The Manila team executes servicing tasks under dual control in both models. We
+do not raise capital, sell interests in loans, or run a lending pool.
 
 **What it is not.** The ledger record does not replace the Note, the Deed of Trust, the lien, the county record, the
 bank's custodial accounts or the servicer's books. A validated ledger transaction is evidence of a settlement event; it is
@@ -146,9 +148,9 @@ row, see [docs/architecture.md](docs/architecture.md#11-regulatory-control-map--
 - **GLBA** safeguards and CFPB Bulletin 2016-02 vendor oversight for the Manila team.
 
 Explicit non-guarantees: a ledger transaction does not prove legal compliance, payee receipt, document validity, servicing
-authority or custody. Items that remain **UNVERIFIED** pending counsel and the bank subservicer: HTM's licence scope and
-mortgage-servicing-rights treatment in California and Idaho; the subservicer contract; whether any production stablecoin can
-serve as a custodial asset; the Idaho escrow-interest rule; the bank's acceptance of ledger evidence in its books; traction.
+authority or custody. Items that remain **open** are listed under "Open business items" below: residential carve-outs and
+the Idaho posture to counsel; the first bank servicing contract; whether any production stablecoin can serve as a custodial
+asset; the Idaho escrow-interest rule; the bank's acceptance of ledger evidence in its books; a live tax-bill source; traction.
 
 ### What v2.0 is and is not
 
@@ -168,11 +170,15 @@ The v2.0 roast verdict and the engineering items it produced are recorded in
 
 These are not engineering gaps and the software does not claim them closed:
 
-- A bank subservicer's written acceptance of the ledger-side evidence trail as part of its books and records.
-- HTM's licensing posture as technology provider to a licensed servicer, confirmed by counsel for California and Idaho.
+- A bank's written acceptance of the ledger-side evidence trail as part of its books and records, in either operating model.
+- Licensing: HTM has confirmed that its California DFPI and DRE licences permit originating and servicing for its own
+  clients and contracting to banks, for commercial loans and for residential loans within California's consumer-protection
+  limits. The residential carve-outs and the Idaho posture still go to counsel before a live loan.
 - A production settlement instrument. The runs use a controlled test USD because RLUSD issuers do not allow trust-line
   locking on Mainnet or Testnet; nothing here depends on RLUSD changing.
-- The Idaho escrow-interest rule (gated as UNVERIFIED in the engine) and the subservicer contract itself.
+- The Idaho escrow-interest rule (gated as UNVERIFIED in the engine) and the first bank servicing contract itself.
+- A live tax-bill source. Bills in the runs come from a fixture; production needs a tax-service feed or county connectors
+  behind an operator verification gate before a bill can be escrowed.
 
 ### About HTM
 
