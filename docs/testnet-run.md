@@ -1,6 +1,6 @@
 # Testnet servicing evidence
 
-Verified 2026-09-09T21:11:29.899Z. Endpoint: wss://s.altnet.rippletest.net:51233.
+Verified 2026-09-10T14:05:56.756Z. Endpoint: wss://s.altnet.rippletest.net:51233.
 
 The borrower pays **once per month**. This proof contains **12 monthly borrower receipt cycles and 48 settlement transfers**, four transfers per receipt. Each modeled receipt is $3,365.01: $2,770.73 P&I, $285 tax, $125 hazard, and $184.28 FHA MIP. Borrower receipts are modeled in the private replay; Testnet starts with issuer-funded servicer tokens, not an ACH connection.
 

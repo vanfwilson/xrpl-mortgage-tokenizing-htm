@@ -2,7 +2,7 @@
 
 **Prepared for:** High Tech Mortgage Inc
 
-**Repository baseline:** `3368b4860679a6d307d311c82da908e1fc22bc1c`
+**Repository baseline:** `3368b4860679f254bfc7fd4945e2a001a81c8a15` (expanded hash corrected against Git on 2026-09-10; short baseline `3368b48` unchanged).
 
 **Research and verification date:** 2026-09-08
 
@@ -20,7 +20,7 @@ This report consolidates the independent technical research, repository audit, s
 
 ## Phase 0 — XRPL servicing decision memo
 
-**As of / accessed:** 2026-09-08. **Repository baseline:** `3368b4860679a6d307d311c82da908e1fc22bc1c`.
+**As of / accessed:** 2026-09-08. **Repository baseline:** `3368b4860679f254bfc7fd4945e2a001a81c8a15`.
 
 ### Decision
 
@@ -96,7 +96,7 @@ All sources above were accessed 2026-09-08. Network states, RLUSD flags, reserve
 
 ## Phase 1 — Independent audit
 
-**Commit:** `3368b4860679a6d307d311c82da908e1fc22bc1c` · **Accessed:** 2026-09-08 · **Method:** source inspection, hand recomputation, `npm test`, and independent public Devnet JSON-RPC reads. Values below were decoded from the ledger, not copied from `devnet-run.md`.
+**Commit:** `3368b4860679f254bfc7fd4945e2a001a81c8a15` · **Accessed:** 2026-09-08 · **Method reported in the original audit:** source inspection, hand recomputation, `npm test`, and independent public Devnet JSON-RPC reads. The expanded commit hash was corrected on 2026-09-10. Fresh historical ledger verification is pending; do not treat this correction as re-verification of every historical assertion.
 
 ### Test verdict
 
@@ -243,7 +243,7 @@ The on-ledger NFToken is a document-version handle, not the note, a security, an
 
 ## Phase 3 — Servicing mechanism design
 
-**Design date:** 2026-09-08. **Route:** off-ledger regulatory/accounting authority + bank custodial cash + XRPL Payment/TokenEscrow evidence and date locks. Legal sources are mapped in [Phase 2](astra-phase-2-servicing-law-2026-09-08.md).
+**Design date:** 2026-09-08. **Route:** off-ledger regulatory/accounting authority + bank custodial cash + XRPL Payment/TokenEscrow evidence and date locks. Legal sources are mapped in [Phase 2](#phase-2--servicing-law-requirements-matrix).
 
 ### Trust boundary
 

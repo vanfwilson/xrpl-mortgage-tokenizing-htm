@@ -1,6 +1,6 @@
 # Architecture: residential mortgage servicing on the XRP Ledger
 
-Status: Phase A of `docs/build-prompt-servicing-architecture-2026-09-08.md`. Branch `claude/servicing-rebuild`. This document replaces the investor/vault architecture; the previous version is in git history at commit 76ead3b.
+Status: Phase A design, maintained on `codex-servicing-rebuild`; original Phase A was inherited from commit `3bac61c`. This document specifies target controls, not proof that every bank operation is implemented. See `docs/build-validation-2026-09-09.md` and the completion audit for actual evidence. The previous architecture is in git history at commit `76ead3b`.
 
 ## 1. Trust boundary
 
@@ -25,7 +25,7 @@ Status: Phase A of `docs/build-prompt-servicing-architecture-2026-09-08.md`. Bra
 ┌──────────────────────────── XRP LEDGER (evidence + date lock) ────────────────┐
 │  Payment (issued USD)     exact-cent settlement events, versioned memos       │
 │  NFToken                  per-loan document-version handle (hash + pointer)  │
-│  TokenEscrow              impound money for a verified near-term bill cannot  │
+│  TokenEscrow              test settlement tokens for a verified bill cannot   │
 │                           be released before FinishAfter                      │
 └───────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -44,7 +44,7 @@ Rules that follow from the boundary:
 | `loans` row | Postgres | subservicer tenant (`company_id`) | opaque `loan_id`, product, state, terms, `legal_owner_id`, `servicer_of_record_id` | tenant boundary and authority |
 | `loan_document_versions` | Postgres + bank eVault | bank document system | canonical bundle sha256, content-addressed pointer, effective dates | operative-document chain |
 | NFToken (XLS-20) | ledger | bank servicing account (`servicer` wallet) | URI ≤ 256 B: `{v, loan, sha256, ptr}` | public digital-twin handle; no economic rights |
-| Collection account | bank + `subledger_entries` | subservicer | borrower receipts, suspense | receipt-date credit and application (R16) |
+| Collection account | bank + `servicing_entries` | subservicer | borrower receipts, suspense | receipt-date credit and application (R16) |
 | Note-holder payable | bank + subledger | subservicer | P&I due to the funding bank | remittance and reconciliation |
 | Tax impound | bank custodial + subledger | subservicer | property-tax reserve | aggregate analysis and disbursement (R02–R10) |
 | Hazard impound | bank custodial + subledger | subservicer | hazard-premium reserve | carrier disbursement |
@@ -98,7 +98,7 @@ Memo (versioned, ≤ 256 bytes):
 verified bill (payee, amount, statutory due date)          ← never a forecast alone
         │
         ▼
-projected balance at due date ≥ amount due?
+confirmed available balance now ≥ full verified amount due?
         │ no ──► ServicerAdvance Payment (memo leg=advance), deficiency record (R10, R09)
         │ yes
         ▼
@@ -170,8 +170,8 @@ XLS-65 Single Asset Vault, XLS-66 Lending Protocol, DynamicMPT, Batch, Smart Esc
 | R02 | 1024.17(c)(1)(i),(d) aggregate method | `analysis.ts` `analyzeEscrowYear` | `R02_aggregate_trial_balances` |
 | R03 | 1024.17(c)(1)(ii) cushion ≤ min(1/6, state, contract) | `analysis.ts` `cushionLimit` | `R03_cushion_cap` (property) |
 | R04 | 1024.17(c)(2) initial deposit enters subledgers | `src/servicing/boarding.ts` | `R04_initial_deposit` |
-| R05 | 1024.17(g) initial statement ≤ 45 d | `statements.ts` `initialEscrowStatement` | `R05_initial_statement_deadline` |
-| R06 | 1024.17(i) annual statement ≤ 30 d | `statements.ts` `annualEscrowStatement` | `R06_annual_statement_deadline` |
+| R05 | 1024.17(g) initial statement ≤ 45 d | `escrow-statements.ts` `buildInitialEscrowStatement`, `recordStatementDelivery` | `R05_initial_statement_deadline`; `statement-transfer.test.ts` |
+| R06 | 1024.17(i) annual statement ≤ 30 d | `escrow-statements.ts` `buildAnnualEscrowStatement`, `recordStatementDelivery` | `R06_annual_statement_deadline`; `statement-transfer.test.ts` |
 | R07 | 1024.17(f)(2) surplus | `analysis.ts` `analyzeEscrowYear` | `R07_surplus_options` |
 | R08 | 1024.17(f)(3) shortage | `analysis.ts` `analyzeEscrowYear` | `R08_shortage_options` |
 | R09 | 1024.17(f)(4) deficiency | `analysis.ts` `analyzeEscrowYear` | `R09_deficiency_options` |

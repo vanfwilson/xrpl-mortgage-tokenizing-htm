@@ -6,7 +6,7 @@ import { analyzeEscrowYear, assertServicingPurpose, californiaInterest, cushionL
 import { planMonthlyApplication, reverseApplication } from '../src/servicing/apply.js';
 import { authorityCheck, boardInitialDeposit } from '../src/servicing/boarding.js';
 import { idahoServicingCalendar } from '../src/servicing/calendar.js';
-import { delinquencyCase, forcePlacedCase, openRequestCase } from '../src/servicing/cases.js';
+import { earlyIntervention, forcePlacedCase, openRequestCase } from '../src/servicing/cases.js';
 import { ensureDisbursement, type VerifiedBill } from '../src/servicing/disburse.js';
 import { reconcileThreeWay } from '../src/servicing/reconcile.js';
 import { annualEscrowStatement, initialEscrowStatement, periodicStatement, renderStatementPdf } from '../src/servicing/statements.js';
@@ -35,9 +35,9 @@ describe('R01-R31 regulatory control matrix', () => {
   it('R10_advance_when_short', () => expect(ensureDisbursement({ bill, availableCents: 1000, borrowerDaysOverdue: 30, allowlistedPayeeIds: ['county'] }).advance?.amountCents).toBe(170000));
   it('R11_transfer_notices', () => expect(servicingTransfer('2026-10-16', '2026-10-01', '2026-10-31').graceEnds).toBe('2026-12-15'));
   it('R12_noe_rfi_clocks', () => { expect(openRequestCase({ kind: 'notice_of_error', openedOn: '2026-01-01', acknowledgedOn: '2026-01-06', evidence: [] }).status).toBe('investigating'); expect(() => openRequestCase({ kind: 'information_request', openedOn: '2026-01-01', acknowledgedOn: '2026-01-09', evidence: [] })).toThrow(); });
-  it('R13_force_placed', () => { expect(forcePlacedCase({ kind: 'force_placed', openedOn: '2026-01-01', evidence: [] }, 2, true).status).toBe('eligible'); expect(() => forcePlacedCase({ kind: 'force_placed', openedOn: '2026-01-01', evidence: [] }, 1, true)).toThrow(); });
+  it('R13_force_placed', () => { expect(forcePlacedCase({ asOf: '2026-01-01', basis: 'coverage_lapsed', basisEvidenceId: 'carrier-1', escrowCanMaintainExistingPolicy: true }).status).toBe('maintain_existing_policy'); });
   it('R14_three_way_match', () => { expect(reconcileThreeWay(10, 10, 10).matched).toBe(true); expect(() => reconcileThreeWay(10, 9, 10)).toThrow(); });
-  it('R15_delinquency_state_machine', () => { expect(() => delinquencyCase(36, false, false)).toThrow(); expect(() => delinquencyCase(120, true, false)).toThrow(); });
+  it('R15_delinquency_state_machine', () => { expect(earlyIntervention({ missedDueDates:['2026-01-01'], asOf:'2026-02-16', contacts:[], writtenNotices:[], profile:'ordinary' }).tasks[0]).toMatchObject({ contactOverdue:true, writtenOverdue:true }); });
   it('R16_receipt_date_credit', () => { const p = planMonthlyApplication({ companyId: 'c', loanId: 'l', period: '2026-01', receivedAt: '2026-01-01T01:00:00Z', receivedCents: 3, due: { principal: 1, interest: 1, tax: 1, hazard: 1, mip: 1, fees: 0 } }); expect(p.status).toBe('suspense'); expect(p.entries.suspense).toBe(3); expect(reverseApplication(p, '2026-01-02T00:00:00Z').entries.suspense).toBe(-3); });
   it('R17_periodic_statement', async () => { const s = periodicStatement('2026-11-01', { dueCents: 336501 }); expect(s.payload.dueCents).toBe(336501); expect(Buffer.from(await renderStatementPdf(s)).subarray(0, 4).toString()).toBe('%PDF'); });
   it('R18_ownership_notice', () => { expect(ownershipTransfer('2026-01-01', '2026-01-31', false, false).required).toBe(true); expect(ownershipTransfer('2026-01-01', '2026-03-01', true, false).required).toBe(false); });

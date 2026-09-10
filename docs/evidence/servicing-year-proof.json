@@ -1,5 +1,5 @@
 {
-  "schema": "htm.servicing-year-proof/1",
+  "schema": "htm.servicing-year-proof/2",
   "clock": "2026-11-01T00:00:00.000Z",
   "loan": "MORT-2026-88492X",
   "payments": [
@@ -659,7 +659,7 @@
       "data": {
         "status": "advance_required",
         "advance": {
-          "amountCents": 114000,
+          "amountCents": 40170,
           "reason": "timely_disbursement"
         }
       }
@@ -776,6 +776,521 @@
       ],
       "rounding": "One-cent residual is allocated to the earliest installments; total conserved."
     }
+  },
+  "impoundLedger": {
+    "companyId": "demo-bank",
+    "loanId": "MORT-2026-88492X",
+    "label": "synthetic bank-book simulation",
+    "openingCents": 123050,
+    "closingCents": 163220,
+    "balances": {
+      "tax": 114000,
+      "hazard": 49220,
+      "mip": 0
+    },
+    "monthly": [
+      {
+        "period": "2026-11",
+        "tax": 102330,
+        "hazard": 61720,
+        "mip": 0
+      },
+      {
+        "period": "2026-12",
+        "tax": 0,
+        "hazard": 74220,
+        "mip": 0
+      },
+      {
+        "period": "2027-01",
+        "tax": 28500,
+        "hazard": 86720,
+        "mip": 0
+      },
+      {
+        "period": "2027-02",
+        "tax": 57000,
+        "hazard": 99220,
+        "mip": 0
+      },
+      {
+        "period": "2027-03",
+        "tax": 85500,
+        "hazard": 111720,
+        "mip": 0
+      },
+      {
+        "period": "2027-04",
+        "tax": 114000,
+        "hazard": 124220,
+        "mip": 0
+      },
+      {
+        "period": "2027-05",
+        "tax": 142500,
+        "hazard": 136720,
+        "mip": 0
+      },
+      {
+        "period": "2027-06",
+        "tax": 0,
+        "hazard": 149220,
+        "mip": 0
+      },
+      {
+        "period": "2027-07",
+        "tax": 28500,
+        "hazard": 161720,
+        "mip": 0
+      },
+      {
+        "period": "2027-08",
+        "tax": 57000,
+        "hazard": 174220,
+        "mip": 0
+      },
+      {
+        "period": "2027-09",
+        "tax": 85500,
+        "hazard": 36720,
+        "mip": 0
+      },
+      {
+        "period": "2027-10",
+        "tax": 114000,
+        "hazard": 49220,
+        "mip": 0
+      }
+    ],
+    "events": [
+      {
+        "on": "2026-11-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 102330,
+        "reference": "receipt-2026-11-tax"
+      },
+      {
+        "on": "2026-11-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 61720,
+        "reference": "receipt-2026-11-hazard"
+      },
+      {
+        "on": "2026-11-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2026-11-mip"
+      },
+      {
+        "on": "2026-11-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2026-11"
+      },
+      {
+        "on": "2026-12-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 130830,
+        "reference": "receipt-2026-12-tax"
+      },
+      {
+        "on": "2026-12-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 74220,
+        "reference": "receipt-2026-12-hazard"
+      },
+      {
+        "on": "2026-12-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2026-12-mip"
+      },
+      {
+        "on": "2026-12-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2026-12"
+      },
+      {
+        "on": "2026-12-20",
+        "purpose": "tax",
+        "kind": "advance",
+        "cents": 40170,
+        "balanceCents": 171000,
+        "reference": "advance-tax-2026-1"
+      },
+      {
+        "on": "2026-12-20",
+        "purpose": "tax",
+        "kind": "disbursement",
+        "cents": -171000,
+        "balanceCents": 0,
+        "reference": "tax-2026-1"
+      },
+      {
+        "on": "2027-01-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 28500,
+        "reference": "receipt-2027-01-tax"
+      },
+      {
+        "on": "2027-01-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 86720,
+        "reference": "receipt-2027-01-hazard"
+      },
+      {
+        "on": "2027-01-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-01-mip"
+      },
+      {
+        "on": "2027-01-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-01"
+      },
+      {
+        "on": "2027-02-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 57000,
+        "reference": "receipt-2027-02-tax"
+      },
+      {
+        "on": "2027-02-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 99220,
+        "reference": "receipt-2027-02-hazard"
+      },
+      {
+        "on": "2027-02-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-02-mip"
+      },
+      {
+        "on": "2027-02-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-02"
+      },
+      {
+        "on": "2027-03-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 85500,
+        "reference": "receipt-2027-03-tax"
+      },
+      {
+        "on": "2027-03-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 111720,
+        "reference": "receipt-2027-03-hazard"
+      },
+      {
+        "on": "2027-03-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-03-mip"
+      },
+      {
+        "on": "2027-03-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-03"
+      },
+      {
+        "on": "2027-04-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 114000,
+        "reference": "receipt-2027-04-tax"
+      },
+      {
+        "on": "2027-04-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 124220,
+        "reference": "receipt-2027-04-hazard"
+      },
+      {
+        "on": "2027-04-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-04-mip"
+      },
+      {
+        "on": "2027-04-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-04"
+      },
+      {
+        "on": "2027-05-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 142500,
+        "reference": "receipt-2027-05-tax"
+      },
+      {
+        "on": "2027-05-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 136720,
+        "reference": "receipt-2027-05-hazard"
+      },
+      {
+        "on": "2027-05-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-05-mip"
+      },
+      {
+        "on": "2027-05-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-05"
+      },
+      {
+        "on": "2027-06-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 171000,
+        "reference": "receipt-2027-06-tax"
+      },
+      {
+        "on": "2027-06-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 149220,
+        "reference": "receipt-2027-06-hazard"
+      },
+      {
+        "on": "2027-06-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-06-mip"
+      },
+      {
+        "on": "2027-06-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-06"
+      },
+      {
+        "on": "2027-06-20",
+        "purpose": "tax",
+        "kind": "disbursement",
+        "cents": -171000,
+        "balanceCents": 0,
+        "reference": "tax-2027-2"
+      },
+      {
+        "on": "2027-07-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 28500,
+        "reference": "receipt-2027-07-tax"
+      },
+      {
+        "on": "2027-07-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 161720,
+        "reference": "receipt-2027-07-hazard"
+      },
+      {
+        "on": "2027-07-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-07-mip"
+      },
+      {
+        "on": "2027-07-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-07"
+      },
+      {
+        "on": "2027-08-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 57000,
+        "reference": "receipt-2027-08-tax"
+      },
+      {
+        "on": "2027-08-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 174220,
+        "reference": "receipt-2027-08-hazard"
+      },
+      {
+        "on": "2027-08-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-08-mip"
+      },
+      {
+        "on": "2027-08-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-08"
+      },
+      {
+        "on": "2027-09-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 85500,
+        "reference": "receipt-2027-09-tax"
+      },
+      {
+        "on": "2027-09-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 186720,
+        "reference": "receipt-2027-09-hazard"
+      },
+      {
+        "on": "2027-09-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-09-mip"
+      },
+      {
+        "on": "2027-09-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-09"
+      },
+      {
+        "on": "2027-09-01",
+        "purpose": "hazard",
+        "kind": "disbursement",
+        "cents": -150000,
+        "balanceCents": 36720,
+        "reference": "hazard-2027"
+      },
+      {
+        "on": "2027-10-01",
+        "purpose": "tax",
+        "kind": "deposit",
+        "cents": 28500,
+        "balanceCents": 114000,
+        "reference": "receipt-2027-10-tax"
+      },
+      {
+        "on": "2027-10-01",
+        "purpose": "hazard",
+        "kind": "deposit",
+        "cents": 12500,
+        "balanceCents": 49220,
+        "reference": "receipt-2027-10-hazard"
+      },
+      {
+        "on": "2027-10-01",
+        "purpose": "mip",
+        "kind": "deposit",
+        "cents": 18428,
+        "balanceCents": 18428,
+        "reference": "receipt-2027-10-mip"
+      },
+      {
+        "on": "2027-10-01",
+        "purpose": "mip",
+        "kind": "disbursement",
+        "cents": -18428,
+        "balanceCents": 0,
+        "reference": "hud-2027-10"
+      }
+    ],
+    "advances": [
+      {
+        "billId": "tax-2026-1",
+        "requestedCents": 40170,
+        "confirmedCents": 40170,
+        "confirmation": "simulated_bank_confirmation"
+      }
+    ],
+    "totalDepositsCents": 713136,
+    "totalAdvancesCents": 40170,
+    "totalDisbursementsCents": 713136
   },
   "eventChain": [
     {
@@ -927,48 +1442,56 @@
       "loanId": "MORT-2026-88492X",
       "sequence": 19,
       "previousHash": "10021920ff8e0c9d3d1dcf3300701077bf7b83a2b52be670d418b8b72a896c9b",
-      "payloadJson": "{\"type\":\"servicer_advance\",\"data\":{\"status\":\"advance_required\",\"advance\":{\"amountCents\":114000,\"reason\":\"timely_disbursement\"}}}",
-      "eventHash": "a679ce00123d17381d2c4a497445ad76fd8b52f224bdfdc971516fb1421296f9"
+      "payloadJson": "{\"type\":\"servicer_advance\",\"data\":{\"status\":\"advance_required\",\"advance\":{\"amountCents\":40170,\"reason\":\"timely_disbursement\"}}}",
+      "eventHash": "176f73b25ce986ea9e03e9a6c9c1bcfaed656933478be98663b71e2e9ecdf64b"
     },
     {
       "companyId": "demo-bank",
       "loanId": "MORT-2026-88492X",
       "sequence": 20,
-      "previousHash": "a679ce00123d17381d2c4a497445ad76fd8b52f224bdfdc971516fb1421296f9",
+      "previousHash": "176f73b25ce986ea9e03e9a6c9c1bcfaed656933478be98663b71e2e9ecdf64b",
       "payloadJson": "{\"type\":\"corrected_bill\",\"data\":{\"action\":\"adjustment_escrow_or_advance\",\"deltaCents\":4000}}",
-      "eventHash": "09c65c1670039091ca7726e04cf924808737d1e17449f7a99f8ca00d50ff573b"
+      "eventHash": "bba42332e28677315705ac4d033e35f3fe8cffba5b5af2879c8fc19194cd68c0"
     },
     {
       "companyId": "demo-bank",
       "loanId": "MORT-2026-88492X",
       "sequence": 21,
-      "previousHash": "09c65c1670039091ca7726e04cf924808737d1e17449f7a99f8ca00d50ff573b",
+      "previousHash": "bba42332e28677315705ac4d033e35f3fe8cffba5b5af2879c8fc19194cd68c0",
       "payloadJson": "{\"type\":\"ca_interest\",\"cents\":1200,\"form\":{\"required\":true,\"year\":2026,\"interestCents\":1200}}",
-      "eventHash": "143d5d693bbd742bb0270d483d889351bacdbfea9d8d7775d0fb71c7e7e9cfc6"
+      "eventHash": "de3e733f23f3ecad432ce8752008034c7ada2daa935eb134bee385a2a1d16230"
     },
     {
       "companyId": "demo-bank",
       "loanId": "MORT-2026-88492X",
       "sequence": 22,
-      "previousHash": "143d5d693bbd742bb0270d483d889351bacdbfea9d8d7775d0fb71c7e7e9cfc6",
+      "previousHash": "de3e733f23f3ecad432ce8752008034c7ada2daa935eb134bee385a2a1d16230",
       "payloadJson": "{\"type\":\"form_1098\",\"label\":\"2027 year-to-date through October; finalize after December receipts\",\"data\":{\"year\":2027,\"source\":\"posted_receipts\",\"box1InterestCents\":2329035,\"box2PrincipalCents\":44914382,\"box2Basis\":\"january_1\",\"box3OriginationDate\":\"2026-09-01\",\"box4RefundCents\":0,\"box5MipCents\":184280,\"box6PointsCents\":0,\"box7SameAddress\":false,\"box8PropertyAddress\":\"123 Sandbox Lane, Meridian, ID 83642\",\"box9PropertyCount\":1,\"box10OtherCents\":321000,\"calendar\":{\"borrower\":\"2028-01-31\",\"paper\":\"2028-02-28\",\"efile\":\"2028-03-31\"}}}",
-      "eventHash": "2f61bd40618c4ae2b3fc95a3636ca3e5105bcdef8c2cea10bcd2c30c34575267"
+      "eventHash": "1caedad6df0c6a571940ae8c2a33606b782715c22d686301589a94037aa2d2d9"
     },
     {
       "companyId": "demo-bank",
       "loanId": "MORT-2026-88492X",
       "sequence": 23,
-      "previousHash": "2f61bd40618c4ae2b3fc95a3636ca3e5105bcdef8c2cea10bcd2c30c34575267",
+      "previousHash": "1caedad6df0c6a571940ae8c2a33606b782715c22d686301589a94037aa2d2d9",
       "payloadJson": "{\"type\":\"servicing_transfer\",\"data\":{\"transferDate\":\"2027-10-16\",\"graceEnds\":\"2027-12-15\",\"nftTransferPermitted\":true}}",
-      "eventHash": "db66a04cd1c23489516985cf54e61bf1b928b62c394ce461cd0bf826db177dd6"
+      "eventHash": "161aba85b5d4b4370210bdc5f408d1e312f5f12a716aee316ebab6218956851d"
     },
     {
       "companyId": "demo-bank",
       "loanId": "MORT-2026-88492X",
       "sequence": 24,
-      "previousHash": "db66a04cd1c23489516985cf54e61bf1b928b62c394ce461cd0bf826db177dd6",
+      "previousHash": "161aba85b5d4b4370210bdc5f408d1e312f5f12a716aee316ebab6218956851d",
       "payloadJson": "{\"surplus\":{\"status\":\"scheduled\",\"direction\":\"refund\",\"dueOn\":\"2027-11-30\",\"amountCents\":92144},\"shortage\":{\"status\":\"scheduled\",\"direction\":\"collect\",\"baseDepositCents\":59428,\"installments\":[{\"month\":1,\"amountCents\":17238},{\"month\":2,\"amountCents\":17238},{\"month\":3,\"amountCents\":17238},{\"month\":4,\"amountCents\":17238},{\"month\":5,\"amountCents\":17238},{\"month\":6,\"amountCents\":17238},{\"month\":7,\"amountCents\":17238},{\"month\":8,\"amountCents\":17238},{\"month\":9,\"amountCents\":17238},{\"month\":10,\"amountCents\":17238},{\"month\":11,\"amountCents\":17238},{\"month\":12,\"amountCents\":17238}],\"rounding\":\"One-cent residual is allocated to the earliest installments; total conserved.\"}}",
-      "eventHash": "200499f6754e842c4f8061955a65b8dd243c2feb6d50bea8f8f7d2493b8c128e"
+      "eventHash": "9653e090968a5b3d2462b5223c2797ab8b916d14b1278f0fedb3d867d129d8a7"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 25,
+      "previousHash": "9653e090968a5b3d2462b5223c2797ab8b916d14b1278f0fedb3d867d129d8a7",
+      "payloadJson": "{\"companyId\":\"demo-bank\",\"loanId\":\"MORT-2026-88492X\",\"label\":\"synthetic bank-book simulation\",\"openingCents\":123050,\"closingCents\":163220,\"balances\":{\"tax\":114000,\"hazard\":49220,\"mip\":0},\"monthly\":[{\"period\":\"2026-11\",\"tax\":102330,\"hazard\":61720,\"mip\":0},{\"period\":\"2026-12\",\"tax\":0,\"hazard\":74220,\"mip\":0},{\"period\":\"2027-01\",\"tax\":28500,\"hazard\":86720,\"mip\":0},{\"period\":\"2027-02\",\"tax\":57000,\"hazard\":99220,\"mip\":0},{\"period\":\"2027-03\",\"tax\":85500,\"hazard\":111720,\"mip\":0},{\"period\":\"2027-04\",\"tax\":114000,\"hazard\":124220,\"mip\":0},{\"period\":\"2027-05\",\"tax\":142500,\"hazard\":136720,\"mip\":0},{\"period\":\"2027-06\",\"tax\":0,\"hazard\":149220,\"mip\":0},{\"period\":\"2027-07\",\"tax\":28500,\"hazard\":161720,\"mip\":0},{\"period\":\"2027-08\",\"tax\":57000,\"hazard\":174220,\"mip\":0},{\"period\":\"2027-09\",\"tax\":85500,\"hazard\":36720,\"mip\":0},{\"period\":\"2027-10\",\"tax\":114000,\"hazard\":49220,\"mip\":0}],\"events\":[{\"on\":\"2026-11-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":102330,\"reference\":\"receipt-2026-11-tax\"},{\"on\":\"2026-11-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":61720,\"reference\":\"receipt-2026-11-hazard\"},{\"on\":\"2026-11-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2026-11-mip\"},{\"on\":\"2026-11-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2026-11\"},{\"on\":\"2026-12-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":130830,\"reference\":\"receipt-2026-12-tax\"},{\"on\":\"2026-12-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":74220,\"reference\":\"receipt-2026-12-hazard\"},{\"on\":\"2026-12-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2026-12-mip\"},{\"on\":\"2026-12-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2026-12\"},{\"on\":\"2026-12-20\",\"purpose\":\"tax\",\"kind\":\"advance\",\"cents\":40170,\"balanceCents\":171000,\"reference\":\"advance-tax-2026-1\"},{\"on\":\"2026-12-20\",\"purpose\":\"tax\",\"kind\":\"disbursement\",\"cents\":-171000,\"balanceCents\":0,\"reference\":\"tax-2026-1\"},{\"on\":\"2027-01-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":28500,\"reference\":\"receipt-2027-01-tax\"},{\"on\":\"2027-01-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":86720,\"reference\":\"receipt-2027-01-hazard\"},{\"on\":\"2027-01-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-01-mip\"},{\"on\":\"2027-01-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-01\"},{\"on\":\"2027-02-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":57000,\"reference\":\"receipt-2027-02-tax\"},{\"on\":\"2027-02-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":99220,\"reference\":\"receipt-2027-02-hazard\"},{\"on\":\"2027-02-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-02-mip\"},{\"on\":\"2027-02-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-02\"},{\"on\":\"2027-03-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":85500,\"reference\":\"receipt-2027-03-tax\"},{\"on\":\"2027-03-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":111720,\"reference\":\"receipt-2027-03-hazard\"},{\"on\":\"2027-03-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-03-mip\"},{\"on\":\"2027-03-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-03\"},{\"on\":\"2027-04-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":114000,\"reference\":\"receipt-2027-04-tax\"},{\"on\":\"2027-04-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":124220,\"reference\":\"receipt-2027-04-hazard\"},{\"on\":\"2027-04-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-04-mip\"},{\"on\":\"2027-04-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-04\"},{\"on\":\"2027-05-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":142500,\"reference\":\"receipt-2027-05-tax\"},{\"on\":\"2027-05-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":136720,\"reference\":\"receipt-2027-05-hazard\"},{\"on\":\"2027-05-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-05-mip\"},{\"on\":\"2027-05-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-05\"},{\"on\":\"2027-06-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":171000,\"reference\":\"receipt-2027-06-tax\"},{\"on\":\"2027-06-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":149220,\"reference\":\"receipt-2027-06-hazard\"},{\"on\":\"2027-06-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-06-mip\"},{\"on\":\"2027-06-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-06\"},{\"on\":\"2027-06-20\",\"purpose\":\"tax\",\"kind\":\"disbursement\",\"cents\":-171000,\"balanceCents\":0,\"reference\":\"tax-2027-2\"},{\"on\":\"2027-07-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":28500,\"reference\":\"receipt-2027-07-tax\"},{\"on\":\"2027-07-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":161720,\"reference\":\"receipt-2027-07-hazard\"},{\"on\":\"2027-07-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-07-mip\"},{\"on\":\"2027-07-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-07\"},{\"on\":\"2027-08-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":57000,\"reference\":\"receipt-2027-08-tax\"},{\"on\":\"2027-08-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":174220,\"reference\":\"receipt-2027-08-hazard\"},{\"on\":\"2027-08-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-08-mip\"},{\"on\":\"2027-08-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-08\"},{\"on\":\"2027-09-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":85500,\"reference\":\"receipt-2027-09-tax\"},{\"on\":\"2027-09-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":186720,\"reference\":\"receipt-2027-09-hazard\"},{\"on\":\"2027-09-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-09-mip\"},{\"on\":\"2027-09-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-09\"},{\"on\":\"2027-09-01\",\"purpose\":\"hazard\",\"kind\":\"disbursement\",\"cents\":-150000,\"balanceCents\":36720,\"reference\":\"hazard-2027\"},{\"on\":\"2027-10-01\",\"purpose\":\"tax\",\"kind\":\"deposit\",\"cents\":28500,\"balanceCents\":114000,\"reference\":\"receipt-2027-10-tax\"},{\"on\":\"2027-10-01\",\"purpose\":\"hazard\",\"kind\":\"deposit\",\"cents\":12500,\"balanceCents\":49220,\"reference\":\"receipt-2027-10-hazard\"},{\"on\":\"2027-10-01\",\"purpose\":\"mip\",\"kind\":\"deposit\",\"cents\":18428,\"balanceCents\":18428,\"reference\":\"receipt-2027-10-mip\"},{\"on\":\"2027-10-01\",\"purpose\":\"mip\",\"kind\":\"disbursement\",\"cents\":-18428,\"balanceCents\":0,\"reference\":\"hud-2027-10\"}],\"advances\":[{\"billId\":\"tax-2026-1\",\"requestedCents\":40170,\"confirmedCents\":40170,\"confirmation\":\"simulated_bank_confirmation\"}],\"totalDepositsCents\":713136,\"totalAdvancesCents\":40170,\"totalDisbursementsCents\":713136}",
+      "eventHash": "84848ff36011b436b7accb916080f098b8b56d9b662814c90f3c56fde6a07c25"
     }
   ]
 }

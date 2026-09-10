@@ -77,10 +77,10 @@ describe('T1-T12 build acceptance', () => {
   it('T9 refuses TokenEscrow before issuer locking and accepts the controlled-issuer preflight', () => {
     const base = { account: 'rServicer', destination: 'rCounty', issuer: 'rIssuer', amountCents: 100, finishAfterUnix: 1800000000, cancelAfterUnix: 1800000100, allowlist: ['rCounty'] };
     expect(() => buildTokenEscrow({ ...base, issuerInfo: { account_flags: { allowTrustLineLocking: false } } })).toThrow(/preflight refused/);
-    expect(buildTokenEscrow({ ...base, issuerInfo: { account_flags: { allowTrustLineLocking: true } } }).Amount).toMatchObject({ value: '1.00' });
+    expect(buildTokenEscrow({ ...base, issuerInfo: { validated:true, account_data:{Account:'rIssuer'}, account_flags: { allowTrustLineLocking: true } } }).Amount).toMatchObject({ value: '1.00' });
   });
   it('T10 builds immutable finish/cancel windows; live early-failure evidence is recorded separately', () => {
-    const tx = buildTokenEscrow({ account: 'rS', destination: 'rD', issuer: 'rI', amountCents: 100, finishAfterUnix: 1800000000, cancelAfterUnix: 1800000100, issuerInfo: { account_flags: { allowTrustLineLocking: true } }, allowlist: ['rD'] });
+    const tx = buildTokenEscrow({ account: 'rS', destination: 'rD', issuer: 'rI', amountCents: 100, finishAfterUnix: 1800000000, cancelAfterUnix: 1800000100, issuerInfo: { validated:true, account_data:{Account:'rI'}, account_flags: { allowTrustLineLocking: true } }, allowlist: ['rD'] });
     expect(tx.FinishAfter).toBeLessThan(tx.CancelAfter!); expect(() => buildTokenEscrow({ account: 'rS', destination: 'rD', issuer: 'rI', amountCents: 100, finishAfterUnix: 2, cancelAfterUnix: 1, issuerInfo: { account_flags: { allowTrustLineLocking: true } }, allowlist: ['rD'] })).toThrow();
   });
   it('T11 bounds the NFToken URI, carries the bundle hash, and rejects PII-shaped memo IDs', () => {

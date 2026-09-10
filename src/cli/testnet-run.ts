@@ -53,7 +53,8 @@ try {
   const fund = async (dest: LiveRole, cents: number, leg: 'tax' | 'hazard' | 'mip') => ok(w.servicer, buildIssuedUsdPayment(w.servicer.classicAddress, w[dest].classicAddress, w.issuer.classicAddress, { v: 1, loan: loan.loan.loan_id, period: '2026-00', leg, cents, run: `escrow_fund_${leg}` }), `fund-${leg}-escrow-source`);
   await fund('taxImpound', 342_000, 'tax'); await fund('hazardImpound', 150_000, 'hazard'); await fund('mipPayable', 10_000, 'mip');
   const now = Math.floor(Date.now() / 1000), finish = now + 25, cancel = now + 3_600;
-  const lockInfo = { account_flags: { allowTrustLineLocking: true } };
+  const lockResponse = (await client.request({command:'account_info',account:w.issuer.classicAddress,ledger_index:'validated'})).result;
+  const lockInfo = {validated:lockResponse.validated,account_data:lockResponse.account_data};
   const escrowSpecs = [
     { name: 'tax-dec', owner: 'taxImpound' as const, dest: 'noteHolder' as const, cents: 171000 },
     { name: 'tax-jun', owner: 'taxImpound' as const, dest: 'newServicer' as const, cents: 171000 },

@@ -7,12 +7,14 @@ import { boardInitialDeposit } from './boarding.js';
 import { correctedBill, ensureDisbursement, type VerifiedBill } from './disburse.js';
 import { servicingTransfer } from './transfer.js';
 import { build1098, build1099INT } from './tax.js';
+import { replayImpoundYear } from './year-ledger.js';
 
 const monthId = (start: Date, offset: number) =>
   new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + offset, 1)).toISOString().slice(0, 7);
 
 /** Phase E — deterministic, injected-clock proof for one complete servicing year. */
 export function buildFullYearReplay(loan: CanonicalLoan, start: Date) {
+  if(start.toISOString().slice(0,10)!==loan.loan.first_payment_date)throw new Error('fixture replay must start on first payment date');
   const schedule = amortizationSchedule(loan.loan.principal_amount, loan.loan.annual_interest_rate, loan.loan.term_months);
   const payments = schedule.slice(0, 12).map((row, index) => {
     const period = monthId(start, index);
@@ -43,7 +45,11 @@ export function buildFullYearReplay(loan: CanonicalLoan, start: Date) {
   const surplus = analyzeEscrowYear({ ...analysisBase, currentBalanceCents: 300_000 });
   const shortage = analyzeEscrowYear({ ...analysisBase, currentBalanceCents: 1_000 });
   const bill: VerifiedBill = { id: 'tax-2026-1', purpose: 'tax', amountCents: 171_000, dueDate: '2026-12-20', payeeId: 'ada-treasurer', verifiedAt: '2026-12-01T00:00:00Z' };
-  const advance = ensureDisbursement({ bill, availableCents: 57_000, borrowerDaysOverdue: 0, allowlistedPayeeIds: ['ada-treasurer'] });
+  const impoundLedger=replayImpoundYear({companyId:'demo-bank',loanId:loan.loan.loan_id,opening:{tax:73830,hazard:49220,mip:0},
+    receipts:payments.map(p=>({period:p.period,tax:p.application.entries.tax,hazard:p.application.entries.hazard,mip:p.application.entries.mip})),
+    bills:[bill,{...bill,id:'tax-2027-2',dueDate:'2027-06-20',verifiedAt:'2027-06-01T00:00:00Z'},
+      {id:'hazard-2027',purpose:'hazard',amountCents:150000,dueDate:'2027-09-01',payeeId:'carrier',verifiedAt:'2027-08-20T00:00:00Z'}]});
+  const advance = ensureDisbursement({ bill, availableCents: 130_830, borrowerDaysOverdue: 0, allowlistedPayeeIds: ['ada-treasurer'] });
   const correction = correctedBill(bill, { ...bill, amountCents: 175_000 });
   const caInterestCents = californiaInterest(Array(365).fill(60_000));
   const form1098 = build1098({
@@ -69,6 +75,6 @@ export function buildFullYearReplay(loan: CanonicalLoan, start: Date) {
   ];
   const resolutions = { surplus: resolveAnalysis(surplus,'refund_30_days','2027-10-31'), shortage: resolveAnalysis(shortage,'collect_12_or_more','2027-10-31',12) };
   const eventChain: AnchoredEvent[]=[];
-  for(const event of [...payments,...events,resolutions])eventChain.push(anchorEvent('demo-bank',loan.loan.loan_id,event,eventChain.at(-1)));
-  return { schema: 'htm.servicing-year-proof/1', clock: start.toISOString(), loan: loan.loan.loan_id, payments, events, resolutions, eventChain };
+  for(const event of [...payments,...events,resolutions,impoundLedger])eventChain.push(anchorEvent('demo-bank',loan.loan.loan_id,event,eventChain.at(-1)));
+  return { schema: 'htm.servicing-year-proof/2', clock: start.toISOString(), loan: loan.loan.loan_id, payments, events, resolutions, impoundLedger, eventChain };
 }

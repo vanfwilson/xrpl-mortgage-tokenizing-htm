@@ -756,23 +756,23 @@
       "ledgerIndex": 20619356
     }
   ],
-  "verifiedAt": "2026-09-09T21:11:29.899Z",
+  "verifiedAt": "2026-09-10T14:05:56.756Z",
   "serverInfo": {
     "build_version": "3.3.0",
-    "complete_ledgers": "13073099-20624749",
+    "complete_ledgers": "13073099-20644150",
     "hostid": "MUFF",
     "initial_sync_duration_us": "285305569",
     "io_latency_ms": 1,
     "jq_trans_overflow": "227",
     "last_close": {
-      "converge_time_s": 3,
+      "converge_time_s": 2,
       "proposers": 6
     },
     "load_factor": 1,
     "network_id": 1,
-    "peer_disconnects": "886171",
-    "peer_disconnects_resources": "2017",
-    "peers": 93,
+    "peer_disconnects": "888809",
+    "peer_disconnects_resources": "2069",
+    "peers": 96,
     "ports": [
       {
         "port": "2459",
@@ -789,7 +789,7 @@
     ],
     "pubkey_node": "n94fvDin1mzPPqyK6cm6DWKpvYzVavSwvCRijCWwYiKkmaADHNED",
     "server_state": "full",
-    "server_state_duration_us": "2933291131594",
+    "server_state_duration_us": "2994157991096",
     "state_accounting": {
       "connected": {
         "duration_us": "280263027",
@@ -800,7 +800,7 @@
         "transitions": "2"
       },
       "full": {
-        "duration_us": "2933291131594",
+        "duration_us": "2994157991096",
         "transitions": "1"
       },
       "syncing": {
@@ -812,15 +812,15 @@
         "transitions": "1"
       }
     },
-    "time": "2026-Sep-09 21:11:29.898974 UTC",
-    "uptime": 2933576,
+    "time": "2026-Sep-10 14:05:56.758487 UTC",
+    "uptime": 2994443,
     "validated_ledger": {
-      "age": 1,
+      "age": 3,
       "base_fee_xrp": 0.00001,
-      "hash": "693BBFACC0002E7AE4E5FC6AD8437071D89E302AE0A2C0D6BB5695A0A976E518",
+      "hash": "89F914C61FC6297E0DD9E3B47AD4A205B454826073BBFA51585840D2090760C3",
       "reserve_base_xrp": 1,
       "reserve_inc_xrp": 0.2,
-      "seq": 20624749
+      "seq": 20644150
     },
     "validation_quorum": 5
   },
