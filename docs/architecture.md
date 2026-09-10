@@ -134,7 +134,7 @@ California profile: 2 % simple interest accrued daily, credited annually (R23); 
 
 ## 6. Form 1098 pipeline (R29)
 
-`build1098(year)` joins receipt-dated applications, the amortization schedule, MIP/tax/hazard disbursements, corrections and any acquisition date. Box 1 = interest posted; Box 2 = principal at January 1; Box 3 = origination date; Box 4 = refunds of prior-year interest; Box 5 = MIP under an effective-dated reportability rule; Box 6 = points (origination year); Boxes 7–9 = property address (off-ledger only); Box 10 = taxes and insurance paid from escrow (optional); Box 11 = acquisition date only for an in-year acquisition. Filer of record is configuration, not assumption. Calendar: borrower copy January 31, paper February 28, e-file March 31, adjusted for non-business days.
+`build1098(year)` joins receipt-dated applications, the amortization schedule, MIP/tax/hazard disbursements, corrections and any acquisition date. Box 1 = interest posted; Box 2 = principal at January 1, or origination/acquisition principal for an in-year event; Box 3 = origination date; Box 4 = refunds of prior-year interest; Box 5 = MIP under an effective-dated reportability rule; Box 6 = points (origination year); Box 7 = same-address checkbox; Box 8 = property address; Box 9 = property count (off-ledger only); Box 10 = taxes and insurance paid from escrow (optional); Box 11 = acquisition date only for an in-year acquisition. Filer of record is configuration, not assumption. Calendar: borrower copy January 31, paper February 28, e-file March 31, adjusted for non-business days.
 
 ## 7. Servicing transfer and 30-year operations
 
@@ -172,9 +172,9 @@ XLS-65 Single Asset Vault, XLS-66 Lending Protocol, DynamicMPT, Batch, Smart Esc
 | R04 | 1024.17(c)(2) initial deposit enters subledgers | `src/servicing/boarding.ts` | `R04_initial_deposit` |
 | R05 | 1024.17(g) initial statement ≤ 45 d | `statements.ts` `initialEscrowStatement` | `R05_initial_statement_deadline` |
 | R06 | 1024.17(i) annual statement ≤ 30 d | `statements.ts` `annualEscrowStatement` | `R06_annual_statement_deadline` |
-| R07 | 1024.17(f)(2) surplus | `analysis.ts` `resolveSurplus` | `R07_surplus_options` |
-| R08 | 1024.17(f)(3) shortage | `analysis.ts` `shortageOptions` | `R08_shortage_options` |
-| R09 | 1024.17(f)(4) deficiency | `analysis.ts` `deficiencyOptions` | `R09_deficiency_options` |
+| R07 | 1024.17(f)(2) surplus | `analysis.ts` `analyzeEscrowYear` | `R07_surplus_options` |
+| R08 | 1024.17(f)(3) shortage | `analysis.ts` `analyzeEscrowYear` | `R08_shortage_options` |
+| R09 | 1024.17(f)(4) deficiency | `analysis.ts` `analyzeEscrowYear` | `R09_deficiency_options` |
 | R10 | 1024.17(k)(1) timely disbursement, advance | `disburse.ts` `ensureDisbursement` | `R10_advance_when_short` |
 | R11 | 1024.33 transfer notices, 60-day grace | `transfer.ts` | `R11_transfer_notices` |
 | R12 | 1024.35/.36 NOE and RFI | `cases.ts` | `R12_noe_rfi_clocks` |
@@ -189,7 +189,7 @@ XLS-65 Single Asset Vault, XLS-66 Lending Protocol, DynamicMPT, Batch, Smart Esc
 | R21 | ML 2023-05 UFMIP/MIP on base | `loan-math.ts` `fhaPremiums` | `R21_fha_premiums` |
 | R22 | HUD 4000.1 custodial accounts | `reconcile.ts`, `docs/threat-model.md` | `R22_bank_balance_authoritative` |
 | R23 | Cal. Civ. Code 2954.8 interest | `analysis.ts` `californiaInterest` | `R23_ca_interest` |
-| R24 | Cal. Civ. Code 2954.85 loss draft | `boarding.ts` `LossDraftAccount` | `R24_loss_draft_separate` |
+| R24 | Cal. Civ. Code 2954.85 loss draft | `boarding.ts` `SubledgerPurpose` | `R24_loss_draft_separate` |
 | R25 | Idaho 63-903 calendar; interest UNVERIFIED gate | `src/servicing/calendar.ts` | `R25_idaho_calendar_gate` |
 | R26 | licensing registry gate | `boarding.ts` `authorityCheck` | `R26_license_gate` |
 | R27 | CFPB 2016-02 vendor oversight | `docs/threat-model.md`, `src/xrpl/keys.ts` | `R27_no_operator_keys` |

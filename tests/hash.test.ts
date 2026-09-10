@@ -10,7 +10,7 @@ describe('document bundle hash', () => {
     const b = hashDocumentBundle('data/documents');
     expect(a.bundle_sha256).toBe(b.bundle_sha256);
     expect(a.files.map((f) => f.name)).toEqual([
-      '01-closing-disclosure.json', '02-promissory-note-3200.json', '03-deed-of-trust-3013.json', '04-warranty-deed-recorded.json',
+      '01-closing-disclosure.json', '02-fha-model-note.json', '03-fha-security-instrument.json', '04-warranty-deed-recorded.json',
     ]);
   });
   it('changes when any page changes', () => {

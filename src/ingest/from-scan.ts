@@ -85,7 +85,7 @@ export function buildCanonicalFromScan(pageTexts: string[]): ScanBuild {
   const lender = need('lender.name', str(/The beneficiary is (.+?) \("Lender"\)/i, dot) ?? str(/The Lender is (.+?)\. I will/i, note) ?? str(/The Lender is (.+?)\./i, note), 'deed_of_trust', 'UNKNOWN');
   const dueDay = need('note_terms.payment_due_day_of_month', (() => { const m = note.match(/payment on the (\d{1,2})(?:st|nd|rd|th) day of each month/i); return m ? Number(m[1]) : undefined; })(), 'note', 1);
   const grace = need('note_terms.grace_period_days', (() => { const m = note.match(/end of (\d{1,2}) calendar days/i); return m ? Number(m[1]) : undefined; })(), 'note', 15);
-  const latePct = need('note_terms.late_charge_percent_of_pi', (() => { const m = note.match(/will be (\d{1,2}\.\d{1,3})\s?% of my overdue payment/i); return m ? Number(m[1]) / 100 : undefined; })(), 'note', 0.05);
+  const latePct = need('note_terms.late_charge_percent_of_pi', (() => { const m = note.match(/will be (\d{1,2}\.\d{1,3})\s?% of my overdue payment/i); return m ? Number(m[1]) / 100 : undefined; })(), 'note', 0.04);
   const lateAmt = money(/overdue payment of principal and interest \(\$([\d,]+\.\d{2})\)/i, note);
   const place = str(/monthly payments at (.+?) or at a different place/i, note);
   const noteDate = mdyToIso(str(/^(\d{2}\/\d{2}\/\d{4}) /, note) ?? str(/(\d{2}\/\d{2}\/\d{4}) Meridian/i, note) ?? str(/is made on (\d{2}\/\d{2}\/\d{4})/i, dot));
@@ -122,7 +122,7 @@ export function buildCanonicalFromScan(pageTexts: string[]): ScanBuild {
     schema: 'htm.canonical-loan/2',
     loan: {
       loan_id: loanId, loan_type: loanType, fha_case_number: caseNo, product: `${term / 12}-Year Fixed Rate`, purpose: /Purpose Purchase/i.test(cd) ? 'Purchase' : 'Refinance',
-      note_form: 'Fannie Mae/Freddie Mac Form 3200 Multistate Fixed Rate Note', currency: 'USD',
+      credit_purpose: 'consumer', note_form: 'HUD FHA Model Fixed Rate Note', currency: 'USD',
       base_loan_amount: baseAmt, financed_ufmip: ufmipAmt, principal_amount: principal, annual_interest_rate: rate, term_months: term,
       origination_date: noteDate ?? closingDate, first_payment_date: firstPay, maturity_date: maturity, monthly_principal_and_interest: pi,
     },
@@ -133,17 +133,17 @@ export function buildCanonicalFromScan(pageTexts: string[]): ScanBuild {
     servicer: { name: place ? place.split(',')[0] : 'servicer per Note s.3' },
     property: {
       address: { street: am?.[1] ?? addr, city: am?.[2] ?? '', state: am?.[3] ?? '', zip: am?.[4] ?? '', county },
-      apn, legal_description: legal, appraised_value: appraised ?? price, contract_sales_price: price, ltv: ltv ?? (price ? round2(principal / price * 100) / 100 : 0),
+      apn, legal_description: legal, appraised_value: appraised ?? price, contract_sales_price: price, ltv: ltv ?? (price ? round2(baseAmt / Math.min(price, appraised ?? price) * 10_000) / 10_000 : 0),
     },
-    security_instrument: { type: 'Deed of Trust', form: /Form 3013/i.test(dot) ? 'Fannie Mae Form 3013 (Idaho)' : 'Deed of Trust', lien_position: lien, trustee, recording_number: dotRec, recording_date: dotDate, recording_time: toTime(dotTime), recording_office: office ?? '' },
+    security_instrument: { type: 'Deed of Trust', form: 'HUD FHA Idaho Security Instrument', lien_position: lien, trustee, recording_number: dotRec, recording_date: dotDate, recording_time: toTime(dotTime), recording_office: office ?? '' },
     vesting_deed: { type: 'Warranty Deed', recording_number: wdRec, recording_date: wdDate, recording_time: toTime(wdTime), recording_office: office ?? '' },
     closing: {
       settlement_agent: agent ?? trustee, escrow_file_number: fileNo ?? '', closing_date: closingDate, disbursement_date: disbDate,
       loan_costs: loanCosts ?? 0, other_costs: otherCosts ?? 0, lender_credits: lenderCredits, closing_costs: closingCosts,
       deposit: dep, seller_credits: sc, cash_to_close: cashToClose, initial_escrow_deposit: initialEscrow ?? 0,
     },
-    servicing: { principal_and_interest: pi, property_tax_impound: tax, insurance_impound: insurance, insurance_detail: { hazard_homeowners: hoi, fha_mip: mip }, monthly_total_sweep: sweep },
-    xrpl: { network: 'devnet' },
+    servicing: { principal_and_interest: pi, property_tax_impound: tax, hazard_insurance_impound: hoi, fha_mip_payable: mip, monthly_total_sweep: sweep },
+    xrpl: { network: 'testnet' },
   };
   if (appraised === undefined) derived('property.appraised_value');
   if (dateIssued) prov['closing.date_issued'] = 'closing_disclosure';

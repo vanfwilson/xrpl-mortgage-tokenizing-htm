@@ -1,0 +1,10 @@
+{
+  "network": "testnet",
+  "verifiedAt": "2026-09-09T21:04:40.348Z",
+  "account": "rfv4DLq2ibWAQCYn5zGPRWp2TKiJGX2FRi",
+  "masterPreviouslyDisabled": true,
+  "regularKeyHash": "D5CDD85025B34F64BB9B7EEBFECEE2AB0AC27441FE01993343B27F6B70378DB9",
+  "oneSignerResult": "tefBAD_QUORUM",
+  "twoSignersHash": "A7ABF3368C6BD88A9F813D54DA31F65628F42B149B5B7C9E5C4AD86DE45C0987",
+  "limitation": "Software test wallets only; HSM and organizational independence are not proved."
+}

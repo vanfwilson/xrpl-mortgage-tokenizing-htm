@@ -1,20 +1,21 @@
 {
   "name": "xrpl-mortgage-tokenizing-htm",
   "version": "0.1.0",
-  "description": "XRPL Devnet reference implementation: a residential mortgage note as a permissioned Multi-Purpose Token (XLS-33/XLS-89), funded and serviced through Single Asset Vault (XLS-65) and Lending Protocol (XLS-66). High Tech Mortgage, Inc.",
+  "description": "XRPL Testnet reference implementation for bank-authoritative residential mortgage servicing with exact-USD settlement evidence and TokenEscrow date locks.",
   "license": "MIT",
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.19"
   },
   "scripts": {
     "demo": "tsx src/demo.ts",
     "demo:full": "tsx src/demo.ts --full-lifecycle",
     "ingest": "tsx src/cli/ingest.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --exclude tests/devnet/**",
+    "test": "vitest run --exclude 'tests/devnet/**'",
     "test:devnet": "DEVNET=1 vitest run tests/devnet --testTimeout=300000",
+    "testnet:run": "tsx src/cli/testnet-run.ts",
     "export": "tsx src/cli/export.ts",
     "print": "tsx src/cli/print.ts",
     "scan": "tsx src/cli/scan.ts",
@@ -31,6 +32,7 @@
     "xrpl": "5.1.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",

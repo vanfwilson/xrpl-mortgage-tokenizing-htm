@@ -2,7 +2,7 @@
   "document": "Uniform Residential Loan Application (URLA) - Fannie Mae Form 1003 / Freddie Mac Form 65 (2019 version)",
   "synthetic": true,
   "loan_identifier": "MORT-2026-88492X",
-  "note_form": "Fannie Mae/Freddie Mac Form 3200 Multistate Fixed Rate Note",
+  "note_form": "HUD FHA Model Fixed Rate Note (synthetic demonstration)",
   "section_1": {
     "borrower_name": "Jordan A. Sandbox",
     "citizenship": "U.S. Citizen",

@@ -12,8 +12,8 @@ signed in blue ink with the signer's name in a handwriting font, one consistent 
 | `04-alta-settlement-statement.pdf` | ALTA Settlement Statement, Borrower/Buyer | 2 | `blank/04-alta-settlement-statement-blank.pdf` (official ALTA, overlaid) |
 | `05-escrow-holding-instructions.pdf` | Escrow holding instructions (title company) | 1 | `blank/05-escrow-holding-instructions-blank.pdf` |
 | `06-fha-amendatory-clause.pdf` | FHA Amendatory Clause & Real Estate Certification | 1 | `blank/06-fha-amendatory-clause-blank.pdf` |
-| `07-note-form-3200.pdf` | Multistate Fixed Rate Note, Fannie Mae Form 3200 | 1 | `blank/07-note-form-3200-blank.pdf` (official Fannie Mae, flat; filled version is typeset) |
-| `08-deed-of-trust-form-3013.pdf` | Idaho Deed of Trust, Fannie Mae Form 3013 | 1 | `blank/08-deed-of-trust-form-3013-blank.pdf` (typeset template) + `blank/08-deed-of-trust-form-3013-official.docx` (official Fannie Mae Word master) |
+| `07-fha-model-note.pdf` | Synthetic FHA fixed-rate note summary | 1 | `blank/07-fha-model-note-blank.pdf` (typeset test template, not an official instrument) |
+| `08-fha-security-instrument.pdf` | Synthetic FHA security-instrument summary | 1 | `blank/08-fha-security-instrument-blank.pdf` (typeset test template) |
 | `09-warranty-deed-recorded.pdf` | Warranty Deed, county-recorded copy | 1 | `blank/09-warranty-deed-blank.pdf` |
 | `10-county-recorder-certification.pdf` | Ada County Recorder receipt and certification | 1 | `blank/10-county-recorder-certification-blank.pdf` |
 | `11-servicing-statement-period-1.pdf` | Monthly mortgage statement, period 1 | 1 | `blank/11-servicing-statement-blank.pdf` |
@@ -24,5 +24,5 @@ The tokenizer needs only 03, 07, 08 and 09. The rest are in the stack so the sca
 
 ## blank/
 
-One blank per filled form, same number prefix. Official blanks (URLA, CFPB Closing Disclosure, ALTA statement, Form 3200; Form 3013 as the official Word master) plus typeset blank templates for the title-company and county documents that have no agency form. Also `03-closing-disclosure-cfpb-sample-fixed-rate.pdf`, the CFPB completed sample used as the layout benchmark. See
+One blank per filled form, same number prefix. Official blanks (URLA, CFPB Closing Disclosure and ALTA statement) plus synthetic typeset test templates. FHA summaries demonstrate fixture fields and charges; they are not complete HUD-approved execution documents. Historical Word source assets are retained for provenance and are not used by the generator. Also `03-closing-disclosure-cfpb-sample-fixed-rate.pdf`, the CFPB completed sample used as the layout benchmark. See
 [docs/forms-and-sources.md](../docs/forms-and-sources.md) for the source URLs.

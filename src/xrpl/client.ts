@@ -11,7 +11,6 @@ export const nowRipple = () => toRippleTime(Date.now() / 1000);
 export const hex = (s: string) => Buffer.from(s, 'utf8').toString('hex').toUpperCase();
 export const unhex = (h: string) => Buffer.from(h, 'hex').toString('utf8');
 export const xrpToDrops = (xrp: number) => String(Math.round(xrp * 1_000_000));
-export const usdToDrops = (usd: number) => xrpToDrops(usd / config.usdPerXrp);
 
 export type Wallets = Record<Role, Wallet>;
 
@@ -21,7 +20,7 @@ export async function connect(): Promise<Client> {
   return client;
 }
 
-/** Fund (or reload) one Devnet wallet per role. Seeds persist in out/wallets.json. */
+/** Fund (or reload) one Testnet wallet per role. Seeds persist outside source control. */
 export async function loadOrFundWallets(client: Client, log = console.log): Promise<Wallets> {
   fs.mkdirSync(path.dirname(config.walletsFile), { recursive: true });
   let seeds: Partial<Record<Role, string>> = {};

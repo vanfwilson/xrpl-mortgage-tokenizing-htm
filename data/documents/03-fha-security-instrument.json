@@ -1,6 +1,6 @@
 {
-  "document": "Idaho Deed of Trust - Single Family - Fannie Mae/Freddie Mac Uniform Instrument, Form 3013 (FHA case)",
-  "form_reference": "Fannie Mae Form 3013 Idaho standard form. Security instruments: https://singlefamily.fanniemae.com/legal-docs",
+  "document": "HUD FHA Idaho Security Instrument - synthetic fixture",
+  "form_reference": "HUD FHA model documents: https://www.hud.gov/hud-partners/single-family-model-documents",
   "synthetic": true,
   "instrument_type": "Deed of Trust",
   "lien_position": 1,

@@ -65,14 +65,14 @@ export function seedSql(): string {
   line('credit', 'CD-L1', 'Deposit', c.deposit); line('credit', 'CD-L2', 'Loan amount', loan.loan.principal_amount); line('credit', 'CD-L5', 'Seller credits', c.seller_credits); line('credit', 'CD-CTC', 'Cash to close from borrower', c.cash_to_close);
   const s = loan.servicing;
   const rec = (kind: string, amt: number, note?: string) => out.push(`insert into recurring_obligations (company_id, loan_id, kind, monthly_amount, impounded, note) values (${C}, ${L}, ${q(kind)}, ${amt}, true, ${q(note ?? null)});`);
-  rec('principal_interest', s.principal_and_interest, 'Form 3200 s.3; CD p.1 Loan Terms');
+  rec('principal_interest', s.principal_and_interest, 'FHA model note; CD p.1 Loan Terms');
   rec('property_tax', s.property_tax_impound, 'CD p.1 Estimated Taxes, Insurance & Assessments');
-  rec('homeowners_insurance', s.insurance_detail.hazard_homeowners, 'CD p.1 Estimated Taxes, Insurance & Assessments');
-  rec('mortgage_insurance', s.insurance_detail.fha_mip, 'CD p.1 Projected Payments (FHA MIP), routed with insurance impound');
+  rec('homeowners_insurance', s.hazard_insurance_impound, 'CD p.1 Estimated Taxes, Insurance & Assessments');
+  rec('mortgage_insurance', s.fha_mip_payable, 'CD p.1 Projected Payments; separate monthly FHA MIP payable');
   // Impound accounts + statutory disbursement calendar for the first loan year.
   out.push(`insert into impound_accounts (impound_id, company_id, loan_id, kind, monthly_amount, annual_total, payee_name, payee_reference, balance) values
     ('9d1f4c3e-2026-4b1a-8e7f-00000000a7a1', ${C}, ${L}, 'tax', ${s.property_tax_impound}, ${parties.county_treasurer.annual_tax}, ${q(parties.county_treasurer.name)}, ${q('APN ' + p.apn)}, ${c.initial_escrow_deposit * 0.6}),
-    ('9d1f4c3e-2026-4b1a-8e7f-00000000a7a2', ${C}, ${L}, 'insurance', ${s.insurance_impound}, ${parties.hazard_insurance_carrier.annual_premium + parties.fha_mip.annual}, ${q(parties.hazard_insurance_carrier.name + ' / HUD FHA MIP')}, ${q('Policy ' + parties.hazard_insurance_carrier.policy_number)}, ${c.initial_escrow_deposit * 0.4});`);
+    ('9d1f4c3e-2026-4b1a-8e7f-00000000a7a2', ${C}, ${L}, 'insurance', ${s.hazard_insurance_impound}, ${parties.hazard_insurance_carrier.annual_premium}, ${q(parties.hazard_insurance_carrier.name)}, ${q('controlled off-ledger reference')}, ${c.initial_escrow_deposit * 0.4});`);
   const y0 = Number(loan.loan.first_payment_date.slice(0, 4));
   for (const inst of ADA_COUNTY_TAX_INSTALLMENTS) {
     for (const y of [y0, y0 + 1]) {
@@ -94,7 +94,7 @@ export function seedSql(): string {
     bal = Math.round((bal - principal) * 100) / 100;
     const status = n === 1 ? 'received' : 'scheduled';
     out.push(`insert into servicing_payments (company_id, loan_id, period_no, due_date, amount_due, principal_part, interest_part, pi_part, tax_part, insurance_part, escrow_part, status, received_at, amount_received)
-       values (${C}, ${L}, ${n}, ${q(due)}, ${s.monthly_total_sweep}, ${principal}, ${interest}, ${s.principal_and_interest}, ${s.property_tax_impound}, ${s.insurance_impound}, ${s.property_tax_impound + s.insurance_impound}, ${q(status)}, ${n === 1 ? q(due + 'T17:05:00Z') : 'null'}, ${n === 1 ? s.monthly_total_sweep : 'null'});`);
+       values (${C}, ${L}, ${n}, ${q(due)}, ${s.monthly_total_sweep}, ${principal}, ${interest}, ${s.principal_and_interest}, ${s.property_tax_impound}, ${s.hazard_insurance_impound + s.fha_mip_payable}, ${s.property_tax_impound + s.hazard_insurance_impound + s.fha_mip_payable}, ${q(status)}, ${n === 1 ? q(due + 'T17:05:00Z') : 'null'}, ${n === 1 ? s.monthly_total_sweep : 'null'});`);
   }
   out.push('commit;');
   return out.join('\n');

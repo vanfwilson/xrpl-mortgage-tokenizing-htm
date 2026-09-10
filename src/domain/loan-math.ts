@@ -55,3 +55,18 @@ export function fhaAnnualMipRate(ltv: number): number {
   return 0.0055;
 }
 export const FHA_UFMIP_RATE = 0.0175;
+
+/** R20 — FHA late charge is capped at 4% of overdue P&I after 15 days. */
+export function fhaLateCharge(monthlyPiCents: number): number {
+  if (!Number.isInteger(monthlyPiCents) || monthlyPiCents < 0) throw new RangeError('monthly P&I must be non-negative integer cents');
+  return Math.round(monthlyPiCents * 0.04);
+}
+
+/** R21 — premiums and LTV are based on the base amount, not financed UFMIP. */
+export function fhaPremiums(baseCents: number, priceCents: number, appraisalCents: number) {
+  const ltv = baseCents / Math.min(priceCents, appraisalCents);
+  const ufmipCents = Math.round(baseCents * FHA_UFMIP_RATE);
+  const annualMipRate = fhaAnnualMipRate(ltv);
+  const monthlyMipCents = Math.round(baseCents * annualMipRate / 12);
+  return { ltv, ufmipCents, annualMipRate, monthlyMipCents };
+}

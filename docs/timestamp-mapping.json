@@ -1,0 +1,115 @@
+{
+  "schema": "htm.timestamp-mapping/1",
+  "network": "wss://s.altnet.rippletest.net:51233",
+  "warning": "Compressed demonstration. These ledger dates are not real statutory due dates or payee receipts.",
+  "businessYear": {
+    "start": "2026-11-01",
+    "end": "2027-10-31"
+  },
+  "monthlyMapping": [
+    {
+      "receipt": 1,
+      "businessPeriod": "2026-11",
+      "ledgerMemoPeriod": "2026-01"
+    },
+    {
+      "receipt": 2,
+      "businessPeriod": "2026-12",
+      "ledgerMemoPeriod": "2026-02"
+    },
+    {
+      "receipt": 3,
+      "businessPeriod": "2027-01",
+      "ledgerMemoPeriod": "2026-03"
+    },
+    {
+      "receipt": 4,
+      "businessPeriod": "2027-02",
+      "ledgerMemoPeriod": "2026-04"
+    },
+    {
+      "receipt": 5,
+      "businessPeriod": "2027-03",
+      "ledgerMemoPeriod": "2026-05"
+    },
+    {
+      "receipt": 6,
+      "businessPeriod": "2027-04",
+      "ledgerMemoPeriod": "2026-06"
+    },
+    {
+      "receipt": 7,
+      "businessPeriod": "2027-05",
+      "ledgerMemoPeriod": "2026-07"
+    },
+    {
+      "receipt": 8,
+      "businessPeriod": "2027-06",
+      "ledgerMemoPeriod": "2026-08"
+    },
+    {
+      "receipt": 9,
+      "businessPeriod": "2027-07",
+      "ledgerMemoPeriod": "2026-09"
+    },
+    {
+      "receipt": 10,
+      "businessPeriod": "2027-08",
+      "ledgerMemoPeriod": "2026-10"
+    },
+    {
+      "receipt": 11,
+      "businessPeriod": "2027-09",
+      "ledgerMemoPeriod": "2026-11"
+    },
+    {
+      "receipt": 12,
+      "businessPeriod": "2027-10",
+      "ledgerMemoPeriod": "2026-12"
+    }
+  ],
+  "escrows": [
+    {
+      "name": "tax-dec",
+      "dueDate": "2026-12-20",
+      "finishAfter": 842286314,
+      "cancelAfter": 842289889,
+      "finishUtc": "2026-09-09T16:25:14.000Z",
+      "createHash": "D36246C141266D63BE4DD74302BD1B0B1BA786B364D10452F4EE6877EE3CCE88",
+      "finishHash": "E10766FE309C7B15F08EC8A761BA1AB1BD62BA678DC3AF8CE2FC1E9D78563874",
+      "amount": {
+        "currency": "USD",
+        "issuer": "rDPfgqW3jwG6TZjr68cYf1NwZNSjDJxXMu",
+        "value": "1710"
+      }
+    },
+    {
+      "name": "tax-jun",
+      "dueDate": "2027-06-20",
+      "finishAfter": 842286314,
+      "cancelAfter": 842289889,
+      "finishUtc": "2026-09-09T16:25:14.000Z",
+      "createHash": "9FAA3A8C4BC60AD81BF8CCA149FD187F496C4C0C01352F9A7EDC6BE0154992AA",
+      "finishHash": "715703A82A617C16A39B67C36B36F07894DBFE5160F339C323C9B9053D92D3DD",
+      "amount": {
+        "currency": "USD",
+        "issuer": "rDPfgqW3jwG6TZjr68cYf1NwZNSjDJxXMu",
+        "value": "1710"
+      }
+    },
+    {
+      "name": "hazard-sep",
+      "dueDate": "2027-09-01",
+      "finishAfter": 842286314,
+      "cancelAfter": 842289889,
+      "finishUtc": "2026-09-09T16:25:14.000Z",
+      "createHash": "BACED551B64232364CD735CA4D04D51E0FE69BD800BD77C9EDA22C984C423178",
+      "finishHash": "02185CA13CF8D3A87FBAC7B22DE8AABF5D16B4E2850ADD9FDFF5C03BDE0F9F5C",
+      "amount": {
+        "currency": "USD",
+        "issuer": "rDPfgqW3jwG6TZjr68cYf1NwZNSjDJxXMu",
+        "value": "1250"
+      }
+    }
+  ]
+}

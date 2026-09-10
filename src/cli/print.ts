@@ -1,7 +1,7 @@
 /**
  * npm run print  -> out/print/*.pdf and out/print/closing-package-stack.pdf
  * The four-document servicing package: CFPB Closing Disclosure (overlay on the official blank),
- * Form 3200 Note, Form 3013 Deed of Trust, recorded Warranty Deed, plus the period-1
+ * FHA model note, FHA security instrument, recorded Warranty Deed, plus the period-1
  * servicing statement the scan-back test reads. Merged into one printable stack.
  */
 import fs from 'node:fs';
@@ -12,7 +12,7 @@ import { buildCanonicalFromDocuments } from '../ingest/canonical.js';
 import { overlayAltaStatement, overlayClosingDisclosure } from '../pdf/overlay.js';
 import { fillUrlaBorrower, fillUrlaLender } from '../pdf/fill-urla.js';
 import { blankLoan, blankOf } from '../pdf/blank.js';
-import { deedOfTrust, escrowInstructions, fhaAmendatoryClause, noisyOcrTestPage, promissoryNote3200, recorderCertification, servicingStatement, warrantyDeed } from '../pdf/generated.js';
+import { deedOfTrust, escrowInstructions, fhaAmendatoryClause, noisyOcrTestPage, fhaModelNote, recorderCertification, servicingStatement, warrantyDeed } from '../pdf/generated.js';
 
 const loan = buildCanonicalFromDocuments(config.documentsDir);
 const read = (n: string) => JSON.parse(fs.readFileSync(path.join(config.documentsDir, n), 'utf8'));
@@ -35,8 +35,8 @@ const jobs: Array<[string, () => Promise<number>]> = [
   ['04-alta-settlement-statement.pdf', () => overlayAltaStatement(loan, sup('settlement-statement.json'), blank('04-alta-settlement-statement-blank.pdf'), out('04-alta-settlement-statement.pdf'), anchor)],
   ['05-escrow-holding-instructions.pdf', () => escrowInstructions(loan, sup('settlement-statement.json'), out('05-escrow-holding-instructions.pdf'), anchor)],
   ['06-fha-amendatory-clause.pdf', () => fhaAmendatoryClause(loan, sup('fha-amendatory-clause.json'), out('06-fha-amendatory-clause.pdf'), anchor)],
-  ['07-note-form-3200.pdf', () => promissoryNote3200(loan, read('02-promissory-note-3200.json'), out('07-note-form-3200.pdf'), anchor)],
-  ['08-deed-of-trust-form-3013.pdf', () => deedOfTrust(loan, read('03-deed-of-trust-3013.json'), out('08-deed-of-trust-form-3013.pdf'), anchor)],
+  ['07-fha-model-note.pdf', () => fhaModelNote(loan, read('02-fha-model-note.json'), out('07-fha-model-note.pdf'), anchor)],
+  ['08-fha-security-instrument.pdf', () => deedOfTrust(loan, read('03-fha-security-instrument.json'), out('08-fha-security-instrument.pdf'), anchor)],
   ['09-warranty-deed-recorded.pdf', () => warrantyDeed(loan, read('04-warranty-deed-recorded.json'), out('09-warranty-deed-recorded.pdf'), anchor)],
   ['10-county-recorder-certification.pdf', () => recorderCertification(loan, out('10-county-recorder-certification.pdf'), anchor)],
   ['11-servicing-statement-period-1.pdf', () => servicingStatement(loan, 1, loan.loan.first_payment_date, loan.loan.first_payment_date, out('11-servicing-statement-period-1.pdf'), anchor)],
@@ -60,9 +60,10 @@ console.log('copied filled forms -> forms/');
 // Blank templates for the typeset documents, so every filled form has a 1:1 blank in forms/blank/.
 const bl = blankLoan(loan); const bdir = path.join('forms', 'blank'); const banchor = 'BLANK TEMPLATE';
 const blanks: Array<[string, () => Promise<number>]> = [
+  ['07-fha-model-note-blank.pdf', () => fhaModelNote(bl, blankOf(read('02-fha-model-note.json')), path.join(bdir, '07-fha-model-note-blank.pdf'), banchor)],
   ['05-escrow-holding-instructions-blank.pdf', () => escrowInstructions(bl, blankOf(sup('settlement-statement.json')), path.join(bdir, '05-escrow-holding-instructions-blank.pdf'), banchor)],
   ['06-fha-amendatory-clause-blank.pdf', () => fhaAmendatoryClause(bl, blankOf(sup('fha-amendatory-clause.json')), path.join(bdir, '06-fha-amendatory-clause-blank.pdf'), banchor)],
-  ['08-deed-of-trust-form-3013-blank.pdf', () => deedOfTrust(bl, blankOf(read('03-deed-of-trust-3013.json')), path.join(bdir, '08-deed-of-trust-form-3013-blank.pdf'), banchor)],
+  ['08-fha-security-instrument-blank.pdf', () => deedOfTrust(bl, blankOf(read('03-fha-security-instrument.json')), path.join(bdir, '08-fha-security-instrument-blank.pdf'), banchor)],
   ['09-warranty-deed-blank.pdf', () => warrantyDeed(bl, blankOf(read('04-warranty-deed-recorded.json')), path.join(bdir, '09-warranty-deed-blank.pdf'), banchor)],
   ['10-county-recorder-certification-blank.pdf', () => recorderCertification(bl, path.join(bdir, '10-county-recorder-certification-blank.pdf'), banchor)],
   ['11-servicing-statement-blank.pdf', () => servicingStatement(bl, NaN, '____-__-__', null, path.join(bdir, '11-servicing-statement-blank.pdf'), banchor)],

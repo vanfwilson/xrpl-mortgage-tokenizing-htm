@@ -1,0 +1,21 @@
+{
+  "label": "2027 year-to-date through October; finalize after December receipts",
+  "year": 2027,
+  "source": "posted_receipts",
+  "box1InterestCents": 2329035,
+  "box2PrincipalCents": 44914382,
+  "box2Basis": "january_1",
+  "box3OriginationDate": "2026-09-01",
+  "box4RefundCents": 0,
+  "box5MipCents": 184280,
+  "box6PointsCents": 0,
+  "box7SameAddress": false,
+  "box8PropertyAddress": "123 Sandbox Lane, Meridian, ID 83642",
+  "box9PropertyCount": 1,
+  "box10OtherCents": 321000,
+  "calendar": {
+    "borrower": "2028-01-31",
+    "paper": "2028-02-28",
+    "efile": "2028-03-31"
+  }
+}

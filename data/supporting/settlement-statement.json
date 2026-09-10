@@ -22,7 +22,7 @@
     { "line": "807", "description": "Flood certification", "amount": 15.00 }
   ],
   "informational": [
-    { "description": "FHA Upfront MIP 1.75% financed into loan, paid to HUD", "amount": 7875.00 }
+    { "description": "FHA Upfront MIP 1.75% of base financed into loan, paid to HUD", "amount": 7739.56 }
   ],
   "debits": [
     { "code": "101", "description": "Contract sales price", "amount": 560000.00 },

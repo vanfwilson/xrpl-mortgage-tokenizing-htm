@@ -4,9 +4,7 @@ import { monthlyPayment, round2 } from '../domain/loan-math.js';
 
 /**
  * Canonical loan record built from the FOUR closing documents a servicer needs:
- * Closing Disclosure (financial source of truth), Form 3200 Note (payment rules),
- * Form 3013 Deed of Trust (lien + APN + legal), recorded Warranty Deed (registry).
- * Servicing collects exactly three buckets: P&I, property-tax impound, insurance impound.
+ * Closing Disclosure, FHA model note, FHA security instrument and recorded deed.
  */
 export interface CanonicalLoan {
   schema: 'htm.canonical-loan/2';
@@ -16,6 +14,7 @@ export interface CanonicalLoan {
     fha_case_number?: string;
     product: string;
     purpose: string;
+    credit_purpose: 'consumer';
     note_form: string;
     currency: 'USD';
     base_loan_amount: number;
@@ -73,15 +72,15 @@ export interface CanonicalLoan {
     cash_to_close: number;
     initial_escrow_deposit: number;
   };
-  /** The three, and only three, servicing buckets. */
+  /** Four separately accounted servicing legs. */
   servicing: {
     principal_and_interest: number;
     property_tax_impound: number;
-    insurance_impound: number;          // hazard homeowners + FHA MIP
-    insurance_detail: { hazard_homeowners: number; fha_mip: number };
-    monthly_total_sweep: number;        // == P&I + tax + insurance
+    hazard_insurance_impound: number;
+    fha_mip_payable: number;
+    monthly_total_sweep: number;
   };
-  xrpl: { network: 'devnet'; issuer_address?: string; servicer_address?: string };
+  xrpl: { network: 'testnet'; issuer_address?: string; servicer_address?: string };
 }
 
 export interface ValidationIssue { field: string; message: string }
@@ -97,11 +96,11 @@ export function validateCanonical(l: CanonicalLoan): ValidationIssue[] {
   const ctc = round2(l.property.contract_sales_price + c.closing_costs - l.loan.principal_amount - c.deposit - c.seller_credits);
   if (ctc !== c.cash_to_close) issues.push({ field: 'closing.cash_to_close', message: `ties to ${ctc}` });
   const s = l.servicing;
-  if (round2(s.insurance_detail.hazard_homeowners + s.insurance_detail.fha_mip) !== s.insurance_impound) issues.push({ field: 'servicing.insurance_impound', message: 'hazard + MIP' });
-  const sweep = round2(s.principal_and_interest + s.property_tax_impound + s.insurance_impound);
-  if (sweep !== s.monthly_total_sweep) issues.push({ field: 'servicing.monthly_total_sweep', message: `three buckets sum to ${sweep}` });
+  const sweep = round2(s.principal_and_interest + s.property_tax_impound + s.hazard_insurance_impound + s.fha_mip_payable);
+  if (sweep !== s.monthly_total_sweep) issues.push({ field: 'servicing.monthly_total_sweep', message: `four legs sum to ${sweep}` });
   if (s.principal_and_interest !== l.loan.monthly_principal_and_interest) issues.push({ field: 'servicing.principal_and_interest', message: 'must equal Note P&I' });
-  if (Math.abs(round2(l.loan.principal_amount / l.property.contract_sales_price * 100) / 100 - l.property.ltv) > 0.0001) issues.push({ field: 'property.ltv', message: 'LTV' });
+  const collateral = Math.min(l.property.contract_sales_price, l.property.appraised_value);
+  if (Math.abs(round2(l.loan.base_loan_amount / collateral * 10_000) / 10_000 - l.property.ltv) > 0.0001) issues.push({ field: 'property.ltv', message: 'base loan / lesser of price and appraisal' });
   if (Math.abs(round2(l.loan.monthly_principal_and_interest * l.note_terms.late_charge_percent_of_pi) - l.note_terms.late_charge_amount) > 0.01) issues.push({ field: 'note_terms.late_charge_amount', message: 'late charge % × P&I' });
   if (l.security_instrument.recording_date !== l.vesting_deed.recording_date) issues.push({ field: 'security_instrument.recording_date', message: 'deed and deed of trust recorded same day' });
   return issues;
@@ -110,8 +109,8 @@ export function validateCanonical(l: CanonicalLoan): ValidationIssue[] {
 export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
   const read = (n: string) => JSON.parse(fs.readFileSync(path.join(dir, n), 'utf8'));
   const cd = read('01-closing-disclosure.json');
-  const note = read('02-promissory-note-3200.json');
-  const dot = read('03-deed-of-trust-3013.json');
+  const note = read('02-fha-model-note.json');
+  const dot = read('03-fha-security-instrument.json');
   const wd = read('04-warranty-deed-recorded.json');
   const [street, city, stzip] = String(cd.closing_information.property).split(', ');
   const [state, zip] = String(stzip).split(' ');
@@ -125,7 +124,8 @@ export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
       fha_case_number: cd.loan_information.mic_number,
       product: `${cd.loan_information.loan_term_years}-Year ${cd.loan_information.product}`,
       purpose: cd.loan_information.purpose,
-      note_form: 'Fannie Mae/Freddie Mac Form 3200 Multistate Fixed Rate Note',
+      credit_purpose: 'consumer',
+      note_form: 'HUD FHA Model Fixed Rate Note',
       currency: 'USD',
       base_loan_amount: lt.base_loan_amount,
       financed_ufmip: lt.financed_ufmip,
@@ -158,7 +158,7 @@ export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
       ltv: lt.ltv,
     },
     security_instrument: {
-      type: dot.instrument_type, form: 'Fannie Mae Form 3013 (Idaho)', lien_position: dot.lien_position, trustee: dot.trustee,
+      type: dot.instrument_type, form: 'HUD FHA Idaho Security Instrument', lien_position: dot.lien_position, trustee: dot.trustee,
       recording_number: dot.recording.document_number, recording_date: dot.recording.recorded_date, recording_time: dot.recording.recorded_time, recording_office: dot.recording.office,
     },
     vesting_deed: { type: wd.instrument_type, recording_number: wd.recording.document_number, recording_date: wd.recording.recorded_date, recording_time: wd.recording.recorded_time, recording_office: wd.recording.office },
@@ -172,10 +172,10 @@ export function buildCanonicalFromDocuments(dir: string): CanonicalLoan {
     servicing: {
       principal_and_interest: pp.principal_and_interest,
       property_tax_impound: tax,
-      insurance_impound: round2(hazard + mip),
-      insurance_detail: { hazard_homeowners: hazard, fha_mip: mip },
+      hazard_insurance_impound: hazard,
+      fha_mip_payable: mip,
       monthly_total_sweep: pp.estimated_total_monthly_payment,
     },
-    xrpl: { network: 'devnet' },
+    xrpl: { network: 'testnet' },
   };
 }

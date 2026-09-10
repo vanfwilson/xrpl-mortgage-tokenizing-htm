@@ -5,12 +5,12 @@ import { buildCanonicalFromDocuments } from '../src/ingest/canonical.js';
 
 const loan = buildCanonicalFromDocuments('data/documents');
 
-describe('three-way payment split', () => {
-  it('splits the sweep into P&I, tax impound, insurance impound and balances to the cent', () => {
-    expect(calculateAutomatedPaymentSplit(scannedCdFromLoan(loan))).toEqual({ lender_p_i_vault: 2770.73, tax_impound_vault: 285, insurance_impound_vault: 312.5 });
+describe('four-leg payment split', () => {
+  it('splits P&I, tax, hazard and MIP and balances to the cent', () => {
+    expect(calculateAutomatedPaymentSplit(scannedCdFromLoan(loan))).toEqual({ principal_and_interest: 2770.73, tax_impound: 285, hazard_impound: 125, mip_payable: 184.28 });
   });
   it('refuses an unbalanced ledger row set', () => {
-    expect(() => calculateAutomatedPaymentSplit({ monthly_piti: 3499.27, base_principal_and_interest: 2770.52, monthly_property_tax_impound: 285, monthly_hazard_insurance: 400 })).toThrow(/Audit Failure/);
+    expect(() => calculateAutomatedPaymentSplit({ monthly_piti: 3499.27, base_principal_and_interest: 2770.52, monthly_property_tax_impound: 285, monthly_hazard_insurance: 125, monthly_fha_mip: 184.28 })).toThrow(/Audit Failure/);
   });
 });
 

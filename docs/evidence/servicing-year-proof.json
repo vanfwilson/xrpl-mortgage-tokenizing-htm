@@ -1,0 +1,974 @@
+{
+  "schema": "htm.servicing-year-proof/1",
+  "clock": "2026-11-01T00:00:00.000Z",
+  "loan": "MORT-2026-88492X",
+  "payments": [
+    {
+      "period": "2026-11",
+      "row": {
+        "period": 1,
+        "interest": 2343.75,
+        "principal": 426.98,
+        "balance": 449573.02
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2026-11-01T17:00:00Z",
+        "entries": {
+          "principal": 42698,
+          "interest": 234375,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2026-12",
+      "row": {
+        "period": 2,
+        "interest": 2341.53,
+        "principal": 429.2,
+        "balance": 449143.82
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2026-12-01T17:00:00Z",
+        "entries": {
+          "principal": 42920,
+          "interest": 234153,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-01",
+      "row": {
+        "period": 3,
+        "interest": 2339.29,
+        "principal": 431.44,
+        "balance": 448712.38
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-01-01T17:00:00Z",
+        "entries": {
+          "principal": 43144,
+          "interest": 233929,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-02",
+      "row": {
+        "period": 4,
+        "interest": 2337.04,
+        "principal": 433.69,
+        "balance": 448278.69
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-02-01T17:00:00Z",
+        "entries": {
+          "principal": 43369,
+          "interest": 233704,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-03",
+      "row": {
+        "period": 5,
+        "interest": 2334.78,
+        "principal": 435.95,
+        "balance": 447842.74
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-03-01T17:00:00Z",
+        "entries": {
+          "principal": 43595,
+          "interest": 233478,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-04",
+      "row": {
+        "period": 6,
+        "interest": 2332.51,
+        "principal": 438.22,
+        "balance": 447404.52
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-04-01T17:00:00Z",
+        "entries": {
+          "principal": 43822,
+          "interest": 233251,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-05",
+      "row": {
+        "period": 7,
+        "interest": 2330.23,
+        "principal": 440.5,
+        "balance": 446964.02
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-05-01T17:00:00Z",
+        "entries": {
+          "principal": 44050,
+          "interest": 233023,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-06",
+      "row": {
+        "period": 8,
+        "interest": 2327.94,
+        "principal": 442.79,
+        "balance": 446521.23
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-06-01T17:00:00Z",
+        "entries": {
+          "principal": 44279,
+          "interest": 232794,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-07",
+      "row": {
+        "period": 9,
+        "interest": 2325.63,
+        "principal": 445.1,
+        "balance": 446076.13
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-07-01T17:00:00Z",
+        "entries": {
+          "principal": 44510,
+          "interest": 232563,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-08",
+      "row": {
+        "period": 10,
+        "interest": 2323.31,
+        "principal": 447.42,
+        "balance": 445628.71
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-08-01T17:00:00Z",
+        "entries": {
+          "principal": 44742,
+          "interest": 232331,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-09",
+      "row": {
+        "period": 11,
+        "interest": 2320.98,
+        "principal": 449.75,
+        "balance": 445178.96
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-09-01T17:00:00Z",
+        "entries": {
+          "principal": 44975,
+          "interest": 232098,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    },
+    {
+      "period": "2027-10",
+      "row": {
+        "period": 12,
+        "interest": 2318.64,
+        "principal": 452.09,
+        "balance": 444726.87
+      },
+      "application": {
+        "status": "applied",
+        "receivedAt": "2027-10-01T17:00:00Z",
+        "entries": {
+          "principal": 45209,
+          "interest": 231864,
+          "tax": 28500,
+          "hazard": 12500,
+          "mip": 18428,
+          "fees": 0,
+          "adjustment": 0,
+          "suspense": 0
+        },
+        "conservationCents": 336501
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "initial_deposit",
+      "data": [
+        {
+          "companyId": "demo-bank",
+          "loanId": "MORT-2026-88492X",
+          "purpose": "tax",
+          "amountCents": 73830,
+          "event": "initial_escrow_deposit"
+        },
+        {
+          "companyId": "demo-bank",
+          "loanId": "MORT-2026-88492X",
+          "purpose": "hazard",
+          "amountCents": 49220,
+          "event": "initial_escrow_deposit"
+        }
+      ]
+    },
+    {
+      "type": "tax_installments",
+      "dates": [
+        "2026-12-20",
+        "2027-06-20"
+      ]
+    },
+    {
+      "type": "hazard_renewal",
+      "date": "2027-09-01"
+    },
+    {
+      "type": "monthly_mip",
+      "count": 12
+    },
+    {
+      "type": "analysis_surplus",
+      "data": {
+        "annualDisbursementsCents": 713136,
+        "cushionCents": 118856,
+        "newMonthlyDepositCents": 59428,
+        "finalRoundingAdjustmentCents": 0,
+        "targetOpeningCents": 207856,
+        "trialBalances": [
+          {
+            "month": 1,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 248856
+          },
+          {
+            "month": 2,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 118856
+          },
+          {
+            "month": 3,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 159856
+          },
+          {
+            "month": 4,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 200856
+          },
+          {
+            "month": 5,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 241856
+          },
+          {
+            "month": 6,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 282856
+          },
+          {
+            "month": 7,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 323856
+          },
+          {
+            "month": 8,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 193856
+          },
+          {
+            "month": 9,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 234856
+          },
+          {
+            "month": 10,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 275856
+          },
+          {
+            "month": 11,
+            "depositCents": 59428,
+            "disbursedCents": 168428,
+            "endingBalanceCents": 166856
+          },
+          {
+            "month": 12,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 207856
+          }
+        ],
+        "actualProjection": [
+          {
+            "month": 1,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 164050
+          },
+          {
+            "month": 2,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 34050
+          },
+          {
+            "month": 3,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 75050
+          },
+          {
+            "month": 4,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 116050
+          },
+          {
+            "month": 5,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 157050
+          },
+          {
+            "month": 6,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 198050
+          },
+          {
+            "month": 7,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 239050
+          },
+          {
+            "month": 8,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 109050
+          },
+          {
+            "month": 9,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 150050
+          },
+          {
+            "month": 10,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 191050
+          },
+          {
+            "month": 11,
+            "depositCents": 59428,
+            "disbursedCents": 168428,
+            "endingBalanceCents": 82050
+          },
+          {
+            "month": 12,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 123050
+          }
+        ],
+        "classification": "surplus",
+        "amountCents": 92144,
+        "options": [
+          "refund_30_days"
+        ]
+      }
+    },
+    {
+      "type": "analysis_shortage",
+      "data": {
+        "annualDisbursementsCents": 713136,
+        "cushionCents": 118856,
+        "newMonthlyDepositCents": 59428,
+        "finalRoundingAdjustmentCents": 0,
+        "targetOpeningCents": 207856,
+        "trialBalances": [
+          {
+            "month": 1,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 248856
+          },
+          {
+            "month": 2,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 118856
+          },
+          {
+            "month": 3,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 159856
+          },
+          {
+            "month": 4,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 200856
+          },
+          {
+            "month": 5,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 241856
+          },
+          {
+            "month": 6,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 282856
+          },
+          {
+            "month": 7,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 323856
+          },
+          {
+            "month": 8,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 193856
+          },
+          {
+            "month": 9,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 234856
+          },
+          {
+            "month": 10,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 275856
+          },
+          {
+            "month": 11,
+            "depositCents": 59428,
+            "disbursedCents": 168428,
+            "endingBalanceCents": 166856
+          },
+          {
+            "month": 12,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 207856
+          }
+        ],
+        "actualProjection": [
+          {
+            "month": 1,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 164050
+          },
+          {
+            "month": 2,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 34050
+          },
+          {
+            "month": 3,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 75050
+          },
+          {
+            "month": 4,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 116050
+          },
+          {
+            "month": 5,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 157050
+          },
+          {
+            "month": 6,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 198050
+          },
+          {
+            "month": 7,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 239050
+          },
+          {
+            "month": 8,
+            "depositCents": 59428,
+            "disbursedCents": 189428,
+            "endingBalanceCents": 109050
+          },
+          {
+            "month": 9,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 150050
+          },
+          {
+            "month": 10,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 191050
+          },
+          {
+            "month": 11,
+            "depositCents": 59428,
+            "disbursedCents": 168428,
+            "endingBalanceCents": 82050
+          },
+          {
+            "month": 12,
+            "depositCents": 59428,
+            "disbursedCents": 18428,
+            "endingBalanceCents": 123050
+          }
+        ],
+        "classification": "shortage",
+        "amountCents": 206856,
+        "options": [
+          "do_nothing",
+          "collect_12_or_more"
+        ]
+      }
+    },
+    {
+      "type": "servicer_advance",
+      "data": {
+        "status": "advance_required",
+        "advance": {
+          "amountCents": 114000,
+          "reason": "timely_disbursement"
+        }
+      }
+    },
+    {
+      "type": "corrected_bill",
+      "data": {
+        "action": "adjustment_escrow_or_advance",
+        "deltaCents": 4000
+      }
+    },
+    {
+      "type": "ca_interest",
+      "cents": 1200,
+      "form": {
+        "required": true,
+        "year": 2026,
+        "interestCents": 1200
+      }
+    },
+    {
+      "type": "form_1098",
+      "label": "2027 year-to-date through October; finalize after December receipts",
+      "data": {
+        "year": 2027,
+        "source": "posted_receipts",
+        "box1InterestCents": 2329035,
+        "box2PrincipalCents": 44914382,
+        "box2Basis": "january_1",
+        "box3OriginationDate": "2026-09-01",
+        "box4RefundCents": 0,
+        "box5MipCents": 184280,
+        "box6PointsCents": 0,
+        "box7SameAddress": false,
+        "box8PropertyAddress": "123 Sandbox Lane, Meridian, ID 83642",
+        "box9PropertyCount": 1,
+        "box10OtherCents": 321000,
+        "calendar": {
+          "borrower": "2028-01-31",
+          "paper": "2028-02-28",
+          "efile": "2028-03-31"
+        }
+      }
+    },
+    {
+      "type": "servicing_transfer",
+      "data": {
+        "transferDate": "2027-10-16",
+        "graceEnds": "2027-12-15",
+        "nftTransferPermitted": true
+      }
+    }
+  ],
+  "resolutions": {
+    "surplus": {
+      "status": "scheduled",
+      "direction": "refund",
+      "dueOn": "2027-11-30",
+      "amountCents": 92144
+    },
+    "shortage": {
+      "status": "scheduled",
+      "direction": "collect",
+      "baseDepositCents": 59428,
+      "installments": [
+        {
+          "month": 1,
+          "amountCents": 17238
+        },
+        {
+          "month": 2,
+          "amountCents": 17238
+        },
+        {
+          "month": 3,
+          "amountCents": 17238
+        },
+        {
+          "month": 4,
+          "amountCents": 17238
+        },
+        {
+          "month": 5,
+          "amountCents": 17238
+        },
+        {
+          "month": 6,
+          "amountCents": 17238
+        },
+        {
+          "month": 7,
+          "amountCents": 17238
+        },
+        {
+          "month": 8,
+          "amountCents": 17238
+        },
+        {
+          "month": 9,
+          "amountCents": 17238
+        },
+        {
+          "month": 10,
+          "amountCents": 17238
+        },
+        {
+          "month": 11,
+          "amountCents": 17238
+        },
+        {
+          "month": 12,
+          "amountCents": 17238
+        }
+      ],
+      "rounding": "One-cent residual is allocated to the earliest installments; total conserved."
+    }
+  },
+  "eventChain": [
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 1,
+      "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "payloadJson": "{\"period\":\"2026-11\",\"row\":{\"period\":1,\"interest\":2343.75,\"principal\":426.98,\"balance\":449573.02},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2026-11-01T17:00:00Z\",\"entries\":{\"principal\":42698,\"interest\":234375,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "d6233a1ac0debddd9c455f54f4c92ba809a5749523c16e368272552c15bff77b"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 2,
+      "previousHash": "d6233a1ac0debddd9c455f54f4c92ba809a5749523c16e368272552c15bff77b",
+      "payloadJson": "{\"period\":\"2026-12\",\"row\":{\"period\":2,\"interest\":2341.53,\"principal\":429.2,\"balance\":449143.82},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2026-12-01T17:00:00Z\",\"entries\":{\"principal\":42920,\"interest\":234153,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "7875d1fd1a9feef855dd37800c11d0f3230b142fd217371ee72efdc7490e321a"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 3,
+      "previousHash": "7875d1fd1a9feef855dd37800c11d0f3230b142fd217371ee72efdc7490e321a",
+      "payloadJson": "{\"period\":\"2027-01\",\"row\":{\"period\":3,\"interest\":2339.29,\"principal\":431.44,\"balance\":448712.38},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-01-01T17:00:00Z\",\"entries\":{\"principal\":43144,\"interest\":233929,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "5edd8c7e5b145170c37b40e0321c1f365446d76db9af66db8f4ae3b208df5fc4"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 4,
+      "previousHash": "5edd8c7e5b145170c37b40e0321c1f365446d76db9af66db8f4ae3b208df5fc4",
+      "payloadJson": "{\"period\":\"2027-02\",\"row\":{\"period\":4,\"interest\":2337.04,\"principal\":433.69,\"balance\":448278.69},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-02-01T17:00:00Z\",\"entries\":{\"principal\":43369,\"interest\":233704,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "616558a10658994b5c18244a98ac127b5b470389fddf928bee2fe1180d9784ec"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 5,
+      "previousHash": "616558a10658994b5c18244a98ac127b5b470389fddf928bee2fe1180d9784ec",
+      "payloadJson": "{\"period\":\"2027-03\",\"row\":{\"period\":5,\"interest\":2334.78,\"principal\":435.95,\"balance\":447842.74},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-03-01T17:00:00Z\",\"entries\":{\"principal\":43595,\"interest\":233478,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "d6ad468bc2c4db53808cb179c51d0fc1948ecb17e55fe0ed877872c11bc86382"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 6,
+      "previousHash": "d6ad468bc2c4db53808cb179c51d0fc1948ecb17e55fe0ed877872c11bc86382",
+      "payloadJson": "{\"period\":\"2027-04\",\"row\":{\"period\":6,\"interest\":2332.51,\"principal\":438.22,\"balance\":447404.52},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-04-01T17:00:00Z\",\"entries\":{\"principal\":43822,\"interest\":233251,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "9dc8f4717b139bfeccb58556e99c78f15769d2e20b5a953b7b39f7b47d3d3224"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 7,
+      "previousHash": "9dc8f4717b139bfeccb58556e99c78f15769d2e20b5a953b7b39f7b47d3d3224",
+      "payloadJson": "{\"period\":\"2027-05\",\"row\":{\"period\":7,\"interest\":2330.23,\"principal\":440.5,\"balance\":446964.02},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-05-01T17:00:00Z\",\"entries\":{\"principal\":44050,\"interest\":233023,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "334dad9da812ac6e9b59628166ebf7d25d3ab027203dfbf4831180824e7058f9"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 8,
+      "previousHash": "334dad9da812ac6e9b59628166ebf7d25d3ab027203dfbf4831180824e7058f9",
+      "payloadJson": "{\"period\":\"2027-06\",\"row\":{\"period\":8,\"interest\":2327.94,\"principal\":442.79,\"balance\":446521.23},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-06-01T17:00:00Z\",\"entries\":{\"principal\":44279,\"interest\":232794,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "418e2537920f09b72521e367218cc0b51246e9159f5fb2fc929d301909d7ade3"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 9,
+      "previousHash": "418e2537920f09b72521e367218cc0b51246e9159f5fb2fc929d301909d7ade3",
+      "payloadJson": "{\"period\":\"2027-07\",\"row\":{\"period\":9,\"interest\":2325.63,\"principal\":445.1,\"balance\":446076.13},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-07-01T17:00:00Z\",\"entries\":{\"principal\":44510,\"interest\":232563,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "35223f512f309d01d151d6b8c05dcb4decc49b31e824ae78c3eafd6434227eee"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 10,
+      "previousHash": "35223f512f309d01d151d6b8c05dcb4decc49b31e824ae78c3eafd6434227eee",
+      "payloadJson": "{\"period\":\"2027-08\",\"row\":{\"period\":10,\"interest\":2323.31,\"principal\":447.42,\"balance\":445628.71},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-08-01T17:00:00Z\",\"entries\":{\"principal\":44742,\"interest\":232331,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "be928d9b2b4144bed5adf7c6c74f25d23fa3523558350e7c1855b50365a6733b"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 11,
+      "previousHash": "be928d9b2b4144bed5adf7c6c74f25d23fa3523558350e7c1855b50365a6733b",
+      "payloadJson": "{\"period\":\"2027-09\",\"row\":{\"period\":11,\"interest\":2320.98,\"principal\":449.75,\"balance\":445178.96},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-09-01T17:00:00Z\",\"entries\":{\"principal\":44975,\"interest\":232098,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "b1069530be1fda2f532eb969baa54e0d3268a5c7505b936699c1c1a8db06c8f1"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 12,
+      "previousHash": "b1069530be1fda2f532eb969baa54e0d3268a5c7505b936699c1c1a8db06c8f1",
+      "payloadJson": "{\"period\":\"2027-10\",\"row\":{\"period\":12,\"interest\":2318.64,\"principal\":452.09,\"balance\":444726.87},\"application\":{\"status\":\"applied\",\"receivedAt\":\"2027-10-01T17:00:00Z\",\"entries\":{\"principal\":45209,\"interest\":231864,\"tax\":28500,\"hazard\":12500,\"mip\":18428,\"fees\":0,\"adjustment\":0,\"suspense\":0},\"conservationCents\":336501}}",
+      "eventHash": "8acc7c3f5d17bda2f755301d0f6e7ec37d74290c4b191662179ba742ad1eb6c7"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 13,
+      "previousHash": "8acc7c3f5d17bda2f755301d0f6e7ec37d74290c4b191662179ba742ad1eb6c7",
+      "payloadJson": "{\"type\":\"initial_deposit\",\"data\":[{\"companyId\":\"demo-bank\",\"loanId\":\"MORT-2026-88492X\",\"purpose\":\"tax\",\"amountCents\":73830,\"event\":\"initial_escrow_deposit\"},{\"companyId\":\"demo-bank\",\"loanId\":\"MORT-2026-88492X\",\"purpose\":\"hazard\",\"amountCents\":49220,\"event\":\"initial_escrow_deposit\"}]}",
+      "eventHash": "746c5cafd0d30b1563ee3d14a5a1ae3b935dea23fc2015faaf4d8ed368d1ebe0"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 14,
+      "previousHash": "746c5cafd0d30b1563ee3d14a5a1ae3b935dea23fc2015faaf4d8ed368d1ebe0",
+      "payloadJson": "{\"type\":\"tax_installments\",\"dates\":[\"2026-12-20\",\"2027-06-20\"]}",
+      "eventHash": "4e3eb3140d365343e52ef7838b0c584a226a415fe41a8abcbbdd77a2d85aecb0"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 15,
+      "previousHash": "4e3eb3140d365343e52ef7838b0c584a226a415fe41a8abcbbdd77a2d85aecb0",
+      "payloadJson": "{\"type\":\"hazard_renewal\",\"date\":\"2027-09-01\"}",
+      "eventHash": "36094da8daab9a95059953e6ca32327fc94d32ed7d04690e2827c033da15eecf"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 16,
+      "previousHash": "36094da8daab9a95059953e6ca32327fc94d32ed7d04690e2827c033da15eecf",
+      "payloadJson": "{\"type\":\"monthly_mip\",\"count\":12}",
+      "eventHash": "c61879a7907658532eeef5ef7715fa962ca74aeb2e84f73f77789d1d624e2763"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 17,
+      "previousHash": "c61879a7907658532eeef5ef7715fa962ca74aeb2e84f73f77789d1d624e2763",
+      "payloadJson": "{\"type\":\"analysis_surplus\",\"data\":{\"annualDisbursementsCents\":713136,\"cushionCents\":118856,\"newMonthlyDepositCents\":59428,\"finalRoundingAdjustmentCents\":0,\"targetOpeningCents\":207856,\"trialBalances\":[{\"month\":1,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":248856},{\"month\":2,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":118856},{\"month\":3,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":159856},{\"month\":4,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":200856},{\"month\":5,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":241856},{\"month\":6,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":282856},{\"month\":7,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":323856},{\"month\":8,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":193856},{\"month\":9,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":234856},{\"month\":10,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":275856},{\"month\":11,\"depositCents\":59428,\"disbursedCents\":168428,\"endingBalanceCents\":166856},{\"month\":12,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":207856}],\"actualProjection\":[{\"month\":1,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":164050},{\"month\":2,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":34050},{\"month\":3,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":75050},{\"month\":4,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":116050},{\"month\":5,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":157050},{\"month\":6,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":198050},{\"month\":7,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":239050},{\"month\":8,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":109050},{\"month\":9,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":150050},{\"month\":10,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":191050},{\"month\":11,\"depositCents\":59428,\"disbursedCents\":168428,\"endingBalanceCents\":82050},{\"month\":12,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":123050}],\"classification\":\"surplus\",\"amountCents\":92144,\"options\":[\"refund_30_days\"]}}",
+      "eventHash": "1fc151cab9e30f2af672de13886e72d98a9caae6daaff015a24865da418835d2"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 18,
+      "previousHash": "1fc151cab9e30f2af672de13886e72d98a9caae6daaff015a24865da418835d2",
+      "payloadJson": "{\"type\":\"analysis_shortage\",\"data\":{\"annualDisbursementsCents\":713136,\"cushionCents\":118856,\"newMonthlyDepositCents\":59428,\"finalRoundingAdjustmentCents\":0,\"targetOpeningCents\":207856,\"trialBalances\":[{\"month\":1,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":248856},{\"month\":2,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":118856},{\"month\":3,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":159856},{\"month\":4,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":200856},{\"month\":5,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":241856},{\"month\":6,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":282856},{\"month\":7,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":323856},{\"month\":8,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":193856},{\"month\":9,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":234856},{\"month\":10,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":275856},{\"month\":11,\"depositCents\":59428,\"disbursedCents\":168428,\"endingBalanceCents\":166856},{\"month\":12,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":207856}],\"actualProjection\":[{\"month\":1,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":164050},{\"month\":2,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":34050},{\"month\":3,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":75050},{\"month\":4,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":116050},{\"month\":5,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":157050},{\"month\":6,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":198050},{\"month\":7,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":239050},{\"month\":8,\"depositCents\":59428,\"disbursedCents\":189428,\"endingBalanceCents\":109050},{\"month\":9,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":150050},{\"month\":10,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":191050},{\"month\":11,\"depositCents\":59428,\"disbursedCents\":168428,\"endingBalanceCents\":82050},{\"month\":12,\"depositCents\":59428,\"disbursedCents\":18428,\"endingBalanceCents\":123050}],\"classification\":\"shortage\",\"amountCents\":206856,\"options\":[\"do_nothing\",\"collect_12_or_more\"]}}",
+      "eventHash": "10021920ff8e0c9d3d1dcf3300701077bf7b83a2b52be670d418b8b72a896c9b"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 19,
+      "previousHash": "10021920ff8e0c9d3d1dcf3300701077bf7b83a2b52be670d418b8b72a896c9b",
+      "payloadJson": "{\"type\":\"servicer_advance\",\"data\":{\"status\":\"advance_required\",\"advance\":{\"amountCents\":114000,\"reason\":\"timely_disbursement\"}}}",
+      "eventHash": "a679ce00123d17381d2c4a497445ad76fd8b52f224bdfdc971516fb1421296f9"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 20,
+      "previousHash": "a679ce00123d17381d2c4a497445ad76fd8b52f224bdfdc971516fb1421296f9",
+      "payloadJson": "{\"type\":\"corrected_bill\",\"data\":{\"action\":\"adjustment_escrow_or_advance\",\"deltaCents\":4000}}",
+      "eventHash": "09c65c1670039091ca7726e04cf924808737d1e17449f7a99f8ca00d50ff573b"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 21,
+      "previousHash": "09c65c1670039091ca7726e04cf924808737d1e17449f7a99f8ca00d50ff573b",
+      "payloadJson": "{\"type\":\"ca_interest\",\"cents\":1200,\"form\":{\"required\":true,\"year\":2026,\"interestCents\":1200}}",
+      "eventHash": "143d5d693bbd742bb0270d483d889351bacdbfea9d8d7775d0fb71c7e7e9cfc6"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 22,
+      "previousHash": "143d5d693bbd742bb0270d483d889351bacdbfea9d8d7775d0fb71c7e7e9cfc6",
+      "payloadJson": "{\"type\":\"form_1098\",\"label\":\"2027 year-to-date through October; finalize after December receipts\",\"data\":{\"year\":2027,\"source\":\"posted_receipts\",\"box1InterestCents\":2329035,\"box2PrincipalCents\":44914382,\"box2Basis\":\"january_1\",\"box3OriginationDate\":\"2026-09-01\",\"box4RefundCents\":0,\"box5MipCents\":184280,\"box6PointsCents\":0,\"box7SameAddress\":false,\"box8PropertyAddress\":\"123 Sandbox Lane, Meridian, ID 83642\",\"box9PropertyCount\":1,\"box10OtherCents\":321000,\"calendar\":{\"borrower\":\"2028-01-31\",\"paper\":\"2028-02-28\",\"efile\":\"2028-03-31\"}}}",
+      "eventHash": "2f61bd40618c4ae2b3fc95a3636ca3e5105bcdef8c2cea10bcd2c30c34575267"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 23,
+      "previousHash": "2f61bd40618c4ae2b3fc95a3636ca3e5105bcdef8c2cea10bcd2c30c34575267",
+      "payloadJson": "{\"type\":\"servicing_transfer\",\"data\":{\"transferDate\":\"2027-10-16\",\"graceEnds\":\"2027-12-15\",\"nftTransferPermitted\":true}}",
+      "eventHash": "db66a04cd1c23489516985cf54e61bf1b928b62c394ce461cd0bf826db177dd6"
+    },
+    {
+      "companyId": "demo-bank",
+      "loanId": "MORT-2026-88492X",
+      "sequence": 24,
+      "previousHash": "db66a04cd1c23489516985cf54e61bf1b928b62c394ce461cd0bf826db177dd6",
+      "payloadJson": "{\"surplus\":{\"status\":\"scheduled\",\"direction\":\"refund\",\"dueOn\":\"2027-11-30\",\"amountCents\":92144},\"shortage\":{\"status\":\"scheduled\",\"direction\":\"collect\",\"baseDepositCents\":59428,\"installments\":[{\"month\":1,\"amountCents\":17238},{\"month\":2,\"amountCents\":17238},{\"month\":3,\"amountCents\":17238},{\"month\":4,\"amountCents\":17238},{\"month\":5,\"amountCents\":17238},{\"month\":6,\"amountCents\":17238},{\"month\":7,\"amountCents\":17238},{\"month\":8,\"amountCents\":17238},{\"month\":9,\"amountCents\":17238},{\"month\":10,\"amountCents\":17238},{\"month\":11,\"amountCents\":17238},{\"month\":12,\"amountCents\":17238}],\"rounding\":\"One-cent residual is allocated to the earliest installments; total conserved.\"}}",
+      "eventHash": "200499f6754e842c4f8061955a65b8dd243c2feb6d50bea8f8f7d2493b8c128e"
+    }
+  ]
+}

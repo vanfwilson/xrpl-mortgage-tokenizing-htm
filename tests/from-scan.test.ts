@@ -22,7 +22,7 @@ describe('rebuild the loan from OCR of the printed package', () => {
     expect(scanned.loan).toEqual(fx.loan);
     expect(scanned.servicing).toEqual(fx.servicing);
     expect(scanned.note_terms.grace_period_days).toBe(15);
-    expect(scanned.note_terms.late_charge_amount).toBe(138.54);
+    expect(scanned.note_terms.late_charge_amount).toBe(110.83);
     expect(scanned.property.apn).toBe(fx.property.apn);
     expect(scanned.property.legal_description).toBe(fx.property.legal_description);
     expect(scanned.security_instrument.recording_number).toBe(fx.security_instrument.recording_number);

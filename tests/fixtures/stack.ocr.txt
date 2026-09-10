@@ -341,7 +341,9 @@ property, its condition, or its value. determine any assistance that may be avai
 and/or electronic record of this application, whether or not the Loan
 is approved.
 
-Borrower Signature Date (mm/dd/yyyy) 08 / 20 / 2026
+( QV
+Borrower Signature -477 4 ON. LL and | Date (mm/dd/yyyy) 08 / 20 / 2026
+"A OE ef ef eveO
 
 Additional Borrower Signature Date (mm/dd/yyyy) / /
 
@@ -411,7 +413,7 @@ Loan Originator Organization NMLSR ID# 0000000 State License ID#
 Loan Originator Name
 Loan Originator NMLSR ID# 0000000 State License ID#
 Email originator.demo@example.com Phone ( ) -
-Signature Date (mm/dd/yyyy) 08 / 20 / 2026
+Signature R. niginators Date (mm/dd/yyyy) 08 / 20 / 2026
 Borrower Name:
 Uniform Residential Loan Application
 Freddie Mac Form 65 + Fannie Mae Form 1003
@@ -459,11 +461,11 @@ If Adjustable Rate: Homeowner's Insurance $ 125.00
 Initial Period Prior to First Adjustment (months) sO
 Subsequent Adjustment Period (months) Supplemental Property Insurance $ 0.00
 Loan Features Property Taxes $ 285.00
-_] Balloon/ Balloon Term (months) Mortgage Insurance $ 187.50
+_] Balloon/ Balloon Term (months) Mortgage Insurance $ 184.28
 Cl Interest Only / Interest OnlyTerm____ (months) Association/Project Dues (Condo, Co-Op, PUD) $ 0.00
 [] Negative Amortization —
 [_] Prepayment Penalty / Prepayment Penalty Term (months) Other $0.00
-[_] Temporary Interest Rate Buydown/Initial Buydown Rate TOTAL $ 3,368.23
+[_] Temporary Interest Rate Buydown/Initial Buydown Rate TOTAL $ 3,365.01
 [J Other (explain):
 Borrower Name(s):
 Uniform Residential Loan Application — Lender Loan Information
@@ -486,8 +488,8 @@ G. Discount Points $
 H. TOTAL DUE FROM BORROWER(s) (Total of A thru G) $
 TOTAL MORTGAGE LOANS
 I. Loan Amount
-Loan Amount Excluding Financed Mortgage Insurance (or Mortgage Insurance Equivalent) $ 442,125.00
-Financed Mortgage Insurance (or Mortgage Insurance Equivalent) Amount $7,875.00 $ 0.00
+Loan Amount Excluding Financed Mortgage Insurance (or Mortgage Insurance Equivalent) $ 442,260.44
+Financed Mortgage Insurance (or Mortgage Insurance Equivalent) Amount $7,739.56 $ 0.00
 J. Other New Mortgage Loans on the Property the Borrower(s) is Buying or Refinancing
 (See Table 4b. Other New Mortgage Loans on the Property You are Buying or Refinancing) $
 K. TOTAL MORTGAGE LOANS (Total of | and J) $ 0.00
@@ -534,10 +536,10 @@ Balloon Payment Does not have this feature.
 Projected Payments
 Payment Calculation Years 1-30
 Principal & Interest 2,770.73
-Mortgage Insurance 187.50
+Mortgage Insurance 184.28
 Estimated Escrow 410.00
 Amount can increase over time
-Estimated Total $3,368.23
+Estimated Total $3,365.01
 Monthly Payment
 This estimate includes In escrow?
 Estimated Taxes, Insurance $410.00 [4 Property Taxes YES
@@ -557,26 +559,31 @@ SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492xX | 
 
 Closing Disclosure - Figures from pages 2-5 (synthetic)
 Loan Amount $450,000.00
-Base loan amount $442,125.00
-FHA UFMIP financed (1.75%) $7,875.00
+
+Base loan amount $442,260.44
+
+FHA UFMIP financed (1.75%) $7,739.56
 Interest Rate 6.250%
 Loan Term 360 months
-LTV 80.36%
+LTV 78.98%
 First Payment Date 11/01/2026
 Maturity Date 10/01/2056
 Principal & Interest 2,770.73
-Mortgage Insurance (FHA MIP 0.50%) 187.50
+Mortgage Insurance (FHA MIP 0.50%) 184.28
 Property Taxes (escrow) 285.00
 Homeowner's Insurance (escrow) 125.00
-Estimated Total Monthly Payment (PITI) $3,368.23
+Estimated Total Monthly Payment (PITI) $3,365.01
 Servicing split: P&l -> lender vault 2,770.73
 Servicing split: tax impound 285.00
-Servicing split: insurance impound (hazard + MIP) 312.50
+Servicing split: insurance impound (hazard + MIP) 309.28
 Sale Price $560,000.00
 Appraised Property Value $565,000.00
 Closing Costs $8,000.00
+
 Loan Costs $4,800.00
+
 Other Costs $3,200.00
+
 Lender Credits $0.00
 Deposit (earnest money) $18,600.00
 Seller Credits $8,000.00
@@ -587,9 +594,10 @@ File # ESC-2026-99812
 Seller Jane Q. Placeholder
 Lender Sandbox Lending Corp. (HTM demo)
 Confirm Receipt: By signing, you are only confirming that you have received this form.
-Wrrmn~npyuvn”’
-FHA Case No. 09/01/2026 411-9928340-703
-Apaicant Signature Jordan A. Sandbox R993821-0014
+
+( SEPP OR 1 (} A
+niecadhea nO. land lees Ah-Ah 09/01/2026 411-9928340-703
+Apricant Signature Jordan A. Sandbox aon R993821-0014
 Loan ID # MORT-2026-88492X
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/2 [|
 
@@ -663,8 +671,11 @@ Cash from Borrower at Settlement: $91,400.00
 Escrow File No. ESC-2026-99812 Loan No. MORT-2026-88492X
 | have carefully reviewed the ALTA Settlement Statement and find it to be a true and accurate statement of all receipts and disbursements made on my accou
 
-09/01/2026
-Borrower Jordan A. Sandbox Escrow Officer, Sandbox Title & Escrow Inc.
+ona QV»
+
+ASA AH. he Oapdthnnrcs 09/01/2026
+
+Bortower Jordan A. Sandbox Escrow Officer, Sandbox Title & Escrow Inc.
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 2/2 [|
 
 
@@ -686,10 +697,12 @@ of a paid one-year policy naming Lender as mortgagee. Recording: Warranty Deed f
 thereafter, same day, Ada County Recorder.
 These instructions may be executed in counterparts. Escrow holder is not responsible for the sufficiency or correctness
 of documents prepared by others. All funds held are non-interest bearing.
-09/01/2026
-Buyer: Jordan A. Sandbox
-09/01/2026
-Seller: Jane Q. Placeholder
+(| ONO ON () X
+ARMM Lh Or bere 09/01/2026
+Buyér: Jordan A. Sandbox
+Gas) Cp aal_t}—> 09/01/2026
+Seller: Jane Q. Placeholder KR
+Escrow Officer, Sandbox Title & Escrow Inc.
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
 
 
@@ -712,18 +725,18 @@ terms and conditions of the sales contract are true to the best of our knowledge
 agreement entered into by any of these parties in connection with this transaction is part of, or attached to, the sales
 agreement.
 
-08/15/2026
-Buyer: Jordan A. Sandbox
+long QO
 
-08/15/2026
-Seller: Jane Q. Placeholder
+AE Ao. he apna herno 08/15/2026
+Buyér: Jordan A. Sandbox
 
-08/15/2026
+4am) CO) ppp 08/15/2026
+Seller: Jane Q. Placeholder OMAR
+
+LR geut., 08/15/2026
 Buyer's Agent: Sandbox Realty Group
-
-08/15/2026
+2S, Opens. 08/15/2026
 Seller's Agent: Placeholder Properties
-
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492xX | PAGE 1/1 [|
 
 
@@ -761,7 +774,7 @@ loan charge shall be reduced by the amount necessary to reduce the charge to the
 6. BORROWER'S FAILURE TO PAY AS REQUIRED
 (A) Late Charge for Overdue Payments. If the Note Holder has not received the full amount of any monthly payment by
 the end of 15 calendar days after the date it is due, | will pay a late charge to the Note Holder. The amount of the charge
-will be 5.000% of my overdue payment of principal and interest ($138.54). | will pay this late charge promptly but only
+will be 4.000% of my overdue payment of principal and interest ($110.83). | will pay this late charge promptly but only
 once on each late payment.
 (B) Default. If | do not pay the full amount of each monthly payment on the date it is due, | will be in default. (C) Notice of
 Default. If | am in default, the Note Holder may send me a written notice telling me that if | do not pay the overdue
@@ -769,19 +782,22 @@ amount by a certain date, the Note Holder may require me to pay immediately the 
 been paid and all the interest that | owe on that amount.
 10. UNIFORM SECURED NOTE
 This Note is a uniform instrument with limited variations in some jurisdictions. In addition to the protections given to the
-Note Holder under this Note, a Deed of Trust (Fannie Mae Form 3013 (Idaho)), dated the same date as this Note,
+Note Holder under this Note, a Deed of Trust (HUD FHA Idaho Security Instrument), dated the same date as this Note,
 protects the Note Holder from possible losses which might result if | do not keep the promises which | make in this Note.
 WITNESS THE HAND(S) AND SEAL(S) OF THE UNDERSIGNED.
-(09/01/2026
 
-SYNTHETHONdaT AoSendbox nBormower TEealAcTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
+(be QV
+
+AZAA ON. nnd bans 09/01/2026
+
+SYNTHE Tonga AoSendbax nBorower TESeAIACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
 
 
 After recording return to: Sandbox Lending Corp. (HTM demo)
 Recording requested by: Sandbox Title & Escrow Inc.
 ADA COUNTY RECORDER, BOISE, IDAHO _ Instrument No. 2026-0099483A Recorded 09/02/2026 Fee $25.00
 DEED OF TRUST (FHA Case No. 411-9928340-703)
-IDAHO - Single Family - Fannie Mae/Freddie Mac UNIFORM INSTRUMENT Form 3013 (synthetic rendering of the standard form text blocks)
+HUD FHA IDAHO SECURITY INSTRUMENT (synthetic rendering; not an executed legal instrument)
 THIS DEED OF TRUST ("Security Instrument") is made on 09/01/2026. The grantor is Jordan A. Sandbox ("Borrower").
 The trustee is Sandbox Title & Escrow Inc. ("Trustee"). The beneficiary is Sandbox Lending Corp. (HTM demo)
 ("Lender").
@@ -809,8 +825,10 @@ and Other Charges. 3. Application of Payments. 4. Fire, Flood and Other Hazard I
 Maintenance and Protection of the Property. 6. Condemnation. 7. Charges to Borrower and Protection of Lender's
 Rights in the Property. 8. Fees. 9. Grounds for Acceleration of Debt. (Standard FHA Idaho Deed of Trust covenants
 incorporated by reference for this synthetic test instrument.)
-09/01/2026
 
+long oa.
+
+AU he On here 09/01/2026
 Borrower: Jordan A. Sandbox
 STATE OF IDAHO, County of Ada. On 09/01/2026 before me, a Notary Public, personally appeared Jordan A. Sandbox, known or
 identified to me to be the person whose name is subscribed to the within instrument, and acknowledged that they executed the same.
@@ -839,8 +857,9 @@ assessments, and except U.S. Patent reservations, restrictions, easements of rec
 premises, and that Grantor will warrant and defend the same from all lawful claims whatsoever.
 SUBJECT TO a first-position Deed of Trust of even date securing $450,000.00 in favor of Sandbox Lending Corp. (HTM
 demo), recorded concurrently as Instrument No. 2026-0099483A.
-ao 09/02/2026
-Grantor: Jane Q. Placeholder
+Aame£) CD aal_t}—> 09/02/2026
+
+Grantor: Jane Q. Placeholder AQ)
 STATE OF IDAHO, County of Ada. This record was acknowledged before me on 09/02/2026 by Jane Q. Placeholder.
 Notary Public for Idaho (demo)
 Commission expires 12/31/2029 [NOTARY SEAL]
@@ -866,7 +885,7 @@ at Pages 43 through 45, records of Ada County, Idaho.
 | hereby certify that the foregoing instruments were filed for record and recorded in the official records of Ada County, Idaho, at
 the request of the party named above, on the date and at the times shown. This is a synthetic test record; no real recording
 has occurred.
-09/02/2026
+b 09/02/2026
 Deputy Recorder
 [RECORDER SEAL]
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492xX | PAGE 1/1 [|
@@ -882,28 +901,29 @@ Explanation of Amount Due
 Principal & Interest (P&|) 2,770.73
 of which principal 426.98, interest 2,343.75
 Property Tax Impound 285.00
-Insurance Impound (Hazard + FHA MIP) 312.50
-hazard homeowners 125.00, FHA MIP 187.50
-Total Amount Due $3,368.23
+Hazard Insurance Impound 125.00
+FHA MIP Payable (monthly) 184.28
+Total Amount Due $3,365.01
 Account Information
 Outstanding Principal $450,000.00
 Interest Rate 6.250%
 Tax Impound Balance $285.00
-Insurance Impound Balance $312.50
+Hazard Impound Balance $125.00
+MIP Remitted $184.28
 Maturity Date 10/01/2056
 Transaction Activity
-11/01/2026 Payment Received - Thank You 3,368.23
-Amount Received $3,368.23
+11/01/2026 Payment Received - Thank You 3,365.01
+Amount Received $3,365.01
 Received on 11/01/2026
 PAYMENT COUPON (detach and return)
 Loan No. MORT-2026-88492X
 Payment Due Date 11/01/2026
-Total Amount Due $3,368.23
+Total Amount Due $3,365.01
 Additional Principal $
 Total Enclosed $ a
-Make checks payable to High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814. Late charge of 5% of principal and
-interest applies after the 15th. Only P&l, property-tax impound and insurance impound are collected; HOA dues and any optional products are
-paid by the borrower directly.
+Make checks payable to High Tech Mortgage, Inc. Loan Servicing, P.O. Box 0000, Sacramento, CA 95814. Late charge is limited to 4% of
+principal and interest after 15 days. P&I, property-tax impound, hazard impound and FHA MIP are separately accounted; HOA dues and
+optional products are paid directly.
 SYNTHETIC TEST DOCUMENT - NOT A REAL TRANSACTION | HTM-SCAN MORT-2026-88492X | PAGE 1/1 [|
 
 
@@ -915,7 +935,7 @@ FHA Case No. 411-9928340-703
 Loan Amount $450,000.00
 Interest Rate6.250%
 Cash to Close Required: $91,400.00
-Estimated Total Monthly Payment $3,368.23
+Estimated Total Monthly Payment$3,365.01
 APN: R993821-0014 Recording No. 2026-0099483A
 TTT =~ Scanner alignment strip TILITTIITIIIIIETIETII
 Property:123 SandboxLane, Meridian ID83642
