@@ -87,7 +87,7 @@ npm ci
 npm run print                                   # print the 23-page synthetic closing package (forms/)
 npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> canonical loan record -> tie-outs -> bundle hash
 npm run loan-year:replay                        # Track 1: full loan year on the business clock, no network
-npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~10 min)
+npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~20 min, funds 11 faucet wallets)
 npm test                                        # 127 offline tests; every R01-R31, S and T1-T14 control has a named test
 npm run test:testnet                            # assert the proofs in the latest Testnet run
 npm run evidence                                # examiner-ready evidence pack for the latest run (out/evidence/<run>/; the latest Testnet pack is committed under docs/evidence/)
