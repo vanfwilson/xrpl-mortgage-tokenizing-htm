@@ -34,7 +34,7 @@ not proof of legal compliance, of payee receipt, of document validity, of servic
 personal data goes on the ledger. Everything here runs on the ledger's public **test network** with a controlled test USD
 and a fictitious homeowner.
 
-**See it:** [Testnet loan-year run](docs/testnet-run.md) · [escrow analysis worked example](docs/escrow-analysis-example.md) · [Form 1098 example](docs/form-1098-example.json) · [the filled, signed closing package we scan (PDF)](forms/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [architecture](docs/architecture.md) · [threat model](docs/threat-model.md) · [team](TEAM.md) · [grant proposal](docs/grant-proposal-2026-08-24.pdf)
+**See it:** [Testnet loan-year run](docs/testnet-run.md) · [escrow analysis worked example](docs/escrow-analysis-example.md) · [Form 1098 example](docs/form-1098-example.json) · [the filled, signed closing package we scan (PDF)](forms/closing-package-stack.pdf) · [step-by-step walkthrough](WALKTHROUGH.md) · [glossary for finance people](GLOSSARY.md) · [architecture](docs/architecture.md) · [threat model](docs/threat-model.md) · [team](TEAM.md) · [grant proposal (PDF, 2026-09-10)](docs/grant-proposal-2026-09-10.pdf) · [reviewer deck (PPTX)](docs/grant-deck-2026-09-10.pptx) · [evidence pack](docs/evidence/run-mtvzvtnk/)
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions)
 

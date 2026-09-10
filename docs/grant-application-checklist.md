@@ -13,7 +13,8 @@
 - [ ] **2-minute demo video** — record `npm run print` → paper → `npm run tokenize` → `npm run loan-year` (explorer links appear live)
 - [x] **Clear XRPL integration plan** — [standards-mapping.md](standards-mapping.md) and [architecture.md](architecture.md): Payment, NFToken, TokenEscrow, key management; why XLS-65/66, EVM and Hooks were rejected ([appendix](appendix-deferred-amendments.md))
 - [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
-- [x] **Budget breakdown** — [August 2026 proposal](grant-proposal-2026-08-24.pdf) §5–7 (reconcile the M4 wording to the servicing-only design before submission)
+- [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-10.md](grant-proposal-2026-09-10.md) / [PDF](grant-proposal-2026-09-10.pdf) §7–9 (servicing-only milestones; supersedes the August 2026 PDF)
+- [x] **Reviewer deck** — [grant-deck-2026-09-10.pptx](grant-deck-2026-09-10.pptx), 14 slides, built by `scripts/build-grant-deck.py`
 - [x] **Team bios + company details** — [TEAM.md](../TEAM.md)
 - [ ] **Traction** — banks that want HTM to run servicing operations under their name as the official servicer, and HTM's own-client servicing under its California licences; pipeline of loans that could be boarded (state honestly: conversations, no signed servicing contract yet)
 - [x] **Security posture** — [threat-model.md](threat-model.md); key drill proven on Testnet
@@ -31,6 +32,6 @@ and carries one loan-record token per loan. It runs today on Testnet with only M
 ## Before submitting
 
 1. Record the 2-minute video.
-2. Reconcile the proposal PDF's milestone table with the servicing-only plan in grant-narrative.md.
+2. Done 2026-09-10: the proposal PDF and deck carry the servicing-only milestones; keep grant-narrative.md, the proposal and the deck in step.
 3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.

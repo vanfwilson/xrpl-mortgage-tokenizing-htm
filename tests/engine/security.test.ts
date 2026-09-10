@@ -39,10 +39,11 @@ describe('Phase F security and privacy', () => {
     expect(src.indexOf('regularKeyProof')).toBeLessThan(src.indexOf('asfDisableMaster'));
   });
   it('S3_no_vault_lending_types: no vault, lending or participation transaction types remain in src/', () => {
-    const files = fs.readdirSync('src', { recursive: true }).map(String).filter((f) => f.endsWith('.ts'));
+    const files = fs.readdirSync('src', { recursive: true }).map(String).filter((f) => f.endsWith('.ts') && !f.split('/').pop()!.startsWith('._'));
+    expect(files.length).toBeGreaterThan(30);
     for (const f of files) {
       const src = fs.readFileSync(`src/${f}`, 'utf8');
       for (const bad of ['VaultCreate', 'LoanSet', 'LoanPay', 'LoanBrokerSet', 'CredentialCreate', 'PermissionedDomainSet']) expect(src.includes(bad), `src/${f} contains ${bad}`).toBe(false);
     }
-  });
+  }, 60_000); // reads every file under src/; external volumes can take several seconds
 });

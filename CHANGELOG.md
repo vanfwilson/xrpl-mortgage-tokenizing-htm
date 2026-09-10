@@ -28,6 +28,9 @@ Servicing-only architecture on Mainnet-live XRPL primitives, merged from two ind
   (architecture §7b); README "What v2.0 is and is not" and "Open business items".
 
 ### Changed
+- Grant package: `docs/grant-proposal-2026-09-10.md` (+PDF) supersedes the August 2026 proposal with servicing-only
+  milestones, budget and targets; 14-slide reviewer deck `docs/grant-deck-2026-09-10.pptx` from `scripts/build-grant-deck.py`;
+  demo page reads Testnet over WebSocket; docs describe HTM's two operating models (servicer of record or bank's contractor).
 - Multisig recovery drill: the below-quorum attempt is submitted for its preliminary engine result only and the
   two-signer proof is autofilled fresh, so the refused attempt no longer consumes the ledger window (`tefMAX_LEDGER`
   observed on Testnet 2026-09-10).
