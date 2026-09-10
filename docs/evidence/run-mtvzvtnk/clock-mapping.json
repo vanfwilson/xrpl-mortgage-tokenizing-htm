@@ -1,9 +1,6 @@
 {
-  "network": "testnet",
-  "run": "run-mtvzvtnk",
   "step_seconds": 45,
   "origin_ripple_time": 842388379,
-  "rule": "ripple_time = origin + (months since period-1 due + (day-1)/31) * step_seconds",
   "manifest": [
     {
       "business_date": "2026-11-01",

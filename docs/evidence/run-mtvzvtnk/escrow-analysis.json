@@ -1,0 +1,248 @@
+{
+  "initial": {
+    "computation_year_start": "2026-11-01",
+    "computation_year_end": "2027-10-31",
+    "annual_disbursements_cents": 492000,
+    "monthly_deposit_cents": 41000,
+    "final_month_adjustment_cents": 0,
+    "cushion_cents": 82000,
+    "trial_balances": [
+      {
+        "month": 1,
+        "date": "2026-11-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 41000
+      },
+      {
+        "month": 2,
+        "date": "2026-12-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -89000
+      },
+      {
+        "month": 3,
+        "date": "2027-01-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -48000
+      },
+      {
+        "month": 4,
+        "date": "2027-02-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -7000
+      },
+      {
+        "month": 5,
+        "date": "2027-03-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 34000
+      },
+      {
+        "month": 6,
+        "date": "2027-04-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 75000
+      },
+      {
+        "month": 7,
+        "date": "2027-05-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 116000
+      },
+      {
+        "month": 8,
+        "date": "2027-06-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -14000
+      },
+      {
+        "month": 9,
+        "date": "2027-07-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 27000
+      },
+      {
+        "month": 10,
+        "date": "2027-08-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 68000
+      },
+      {
+        "month": 11,
+        "date": "2027-09-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 150000,
+        "balance_cents": -41000
+      },
+      {
+        "month": 12,
+        "date": "2027-10-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 0
+      }
+    ],
+    "lowest_balance_cents": -89000,
+    "lowest_month": 2,
+    "target_starting_balance_cents": 171000,
+    "starting_balance_cents": 123050,
+    "classification": "shortage",
+    "surplus_cents": 0,
+    "shortage_cents": 47950,
+    "deficiency_cents": 0,
+    "shortage_options": [
+      {
+        "kind": "do_nothing",
+        "cite": "12 CFR 1024.17(f)(3)"
+      },
+      {
+        "kind": "equal_monthly_payments",
+        "min_months": 12,
+        "cite": "12 CFR 1024.17(f)(3)(ii): shortage of one month or more, equal monthly payments over at least 12 months"
+      }
+    ],
+    "deficiency_options": [],
+    "options": [
+      "do_nothing",
+      "equal_monthly_payments"
+    ],
+    "new_monthly_escrow_cents": 41000,
+    "california_interest_cents": 0,
+    "annual_statement_due": "2027-11-30"
+  },
+  "annual": {
+    "computation_year_start": "2027-11-01",
+    "computation_year_end": "2028-10-31",
+    "annual_disbursements_cents": 492000,
+    "monthly_deposit_cents": 41000,
+    "final_month_adjustment_cents": 0,
+    "cushion_cents": 82000,
+    "trial_balances": [
+      {
+        "month": 1,
+        "date": "2027-11-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 41000
+      },
+      {
+        "month": 2,
+        "date": "2027-12-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -89000
+      },
+      {
+        "month": 3,
+        "date": "2028-01-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -48000
+      },
+      {
+        "month": 4,
+        "date": "2028-02-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -7000
+      },
+      {
+        "month": 5,
+        "date": "2028-03-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 34000
+      },
+      {
+        "month": 6,
+        "date": "2028-04-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 75000
+      },
+      {
+        "month": 7,
+        "date": "2028-05-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 116000
+      },
+      {
+        "month": 8,
+        "date": "2028-06-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -14000
+      },
+      {
+        "month": 9,
+        "date": "2028-07-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 27000
+      },
+      {
+        "month": 10,
+        "date": "2028-08-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 68000
+      },
+      {
+        "month": 11,
+        "date": "2028-09-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 150000,
+        "balance_cents": -41000
+      },
+      {
+        "month": 12,
+        "date": "2028-10-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 0
+      }
+    ],
+    "lowest_balance_cents": -89000,
+    "lowest_month": 2,
+    "target_starting_balance_cents": 171000,
+    "starting_balance_cents": 123050,
+    "classification": "shortage",
+    "surplus_cents": 0,
+    "shortage_cents": 47950,
+    "deficiency_cents": 0,
+    "shortage_options": [
+      {
+        "kind": "do_nothing",
+        "cite": "12 CFR 1024.17(f)(3)"
+      },
+      {
+        "kind": "equal_monthly_payments",
+        "min_months": 12,
+        "cite": "12 CFR 1024.17(f)(3)(ii): shortage of one month or more, equal monthly payments over at least 12 months"
+      }
+    ],
+    "deficiency_options": [],
+    "options": [
+      "do_nothing",
+      "equal_monthly_payments"
+    ],
+    "new_monthly_escrow_cents": 41000,
+    "california_interest_cents": 0,
+    "annual_statement_due": "2028-11-30"
+  },
+  "recovery": {
+    "shortage_months": 12
+  },
+  "year_two_monthly_escrow_cents": 44996
+}

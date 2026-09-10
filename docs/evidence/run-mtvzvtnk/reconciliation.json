@@ -1,0 +1,635 @@
+{
+  "result": {
+    "matched": [
+      {
+        "ref": "run-mtvzvtnk:boarding:tax",
+        "cents": 85535
+      },
+      {
+        "ref": "run-mtvzvtnk:boarding:hazard",
+        "cents": 37515
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-11:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2026-12:advance:bill-1",
+        "cents": 28465
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-01:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-02:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-03:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-04:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-05:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-06:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-07:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-08:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-09:mip_remit",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:receipt",
+        "cents": 336501
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:pi",
+        "cents": 277073
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:tax",
+        "cents": 28500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:hazard",
+        "cents": 12500
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:mip",
+        "cents": 18428
+      },
+      {
+        "ref": "run-mtvzvtnk:2027-10:mip_remit",
+        "cents": 18428
+      }
+    ],
+    "unmatched": [],
+    "totals": {
+      "bank": 8448675,
+      "subledger": 8448675,
+      "ledger": 8448675
+    },
+    "authoritative_balance_cents": 8448675,
+    "reconciled": true
+  },
+  "events": [
+    {
+      "company_id": "htm-demo",
+      "loan_id": "HTM-d4790bba9e7c",
+      "at": "2026-09-10T20:56:24.869Z",
+      "result": {
+        "matched": [
+          {
+            "ref": "run-mtvzvtnk:boarding:tax",
+            "cents": 85535
+          },
+          {
+            "ref": "run-mtvzvtnk:boarding:hazard",
+            "cents": 37515
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-11:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2026-12:advance:bill-1",
+            "cents": 28465
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-01:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-02:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-03:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-04:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-05:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-06:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-07:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-08:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-09:mip_remit",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:receipt",
+            "cents": 336501
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:pi",
+            "cents": 277073
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:tax",
+            "cents": 28500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:hazard",
+            "cents": 12500
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:mip",
+            "cents": 18428
+          },
+          {
+            "ref": "run-mtvzvtnk:2027-10:mip_remit",
+            "cents": 18428
+          }
+        ],
+        "unmatched": [],
+        "totals": {
+          "bank": 8448675,
+          "subledger": 8448675,
+          "ledger": 8448675
+        },
+        "authoritative_balance_cents": 8448675,
+        "reconciled": true
+      },
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "22b4487132663b9468637d736caa815277398a06ff1737ed6fb719fef1429e8a"
+    }
+  ]
+}

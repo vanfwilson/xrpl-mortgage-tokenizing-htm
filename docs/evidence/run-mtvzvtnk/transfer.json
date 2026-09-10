@@ -1,0 +1,17 @@
+{
+  "transfer_date": "2027-11-01",
+  "transferor_notice_due": "2027-10-17",
+  "transferee_notice_due": "2027-11-16",
+  "combined_notice_allowed": true,
+  "grace_until": "2027-12-31",
+  "steps": [
+    "freeze discretionary work",
+    "reconcile cash and open items",
+    "export complete servicing file (1024.38(c))",
+    "send transferor and transferee notices",
+    "cut over signer lists and tenant access",
+    "transfer loan-record NFToken by zero-price offer",
+    "route misdirected payments for 60 days"
+  ],
+  "cite": "12 CFR 1024.33(b), (c)"
+}

@@ -90,7 +90,7 @@ npm run loan-year:replay                        # Track 1: full loan year on the
 npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~10 min)
 npm test                                        # 127 offline tests; every R01-R31, S and T1-T14 control has a named test
 npm run test:testnet                            # assert the proofs in the latest Testnet run
-npm run evidence                                # examiner-ready evidence pack for the latest run (out/evidence/<run>/)
+npm run evidence                                # examiner-ready evidence pack for the latest run (out/evidence/<run>/; the latest Testnet pack is committed under docs/evidence/)
 ```
 
 Requires Node 20.19+, plus `tesseract` and `poppler` for OCR. No accounts or API keys: the test network hands out play money.

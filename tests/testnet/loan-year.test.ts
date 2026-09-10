@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
  */
 const dir = path.join('out', 'loan-year');
 const latest = () => {
-  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).sort() : [];
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.startsWith('._')).sort() : [];
   const runs = files.map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))).filter((r) => r.network === 'testnet');
   return runs.at(-1);
 };
@@ -31,7 +31,7 @@ describe.skipIf(!process.env.TESTNET)('Testnet loan-year proofs', () => {
     expect(run.proofs.S7_cancel_after).toMatch(/^[0-9A-F]{64}$/);
   });
   it('every non-proof transaction validated with tesSUCCESS', () => {
-    const bad = run.transactions.filter((t: any) => t.result !== 'tesSUCCESS' && !/early-finish|master-refused/.test(t.step));
+    const bad = run.transactions.filter((t: any) => t.result !== 'tesSUCCESS' && !/early-finish|master-refused|one-signer-refused/.test(t.step));
     expect(bad).toEqual([]);
   });
   it('R11: loan-record NFToken transferred to the successor servicer by zero-price offer', () => {

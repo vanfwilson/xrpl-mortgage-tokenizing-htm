@@ -1,0 +1,63 @@
+{
+  "form_1098": [
+    {
+      "year": 2026,
+      "required": true,
+      "filer_of_record": "bank-subservicer",
+      "boxes": {
+        "1": 468528,
+        "2": 45000000,
+        "3": "2026-09-01",
+        "4": 0,
+        "5": 36856,
+        "6": 0,
+        "7": true,
+        "8": "off-ledger property record",
+        "9": 1,
+        "10": 171000,
+        "11": null
+      },
+      "calendar": {
+        "tax_year": 2026,
+        "furnish_to_borrower_by": "2027-02-01",
+        "paper_file_by": "2027-03-01",
+        "efile_by": "2027-03-31",
+        "cite": "IRS General Instructions for Certain Information Returns: recipient copy Jan 31, paper Feb 28, e-file Mar 31, next business day if on a weekend or legal holiday (verify each filing year)"
+      },
+      "cite": "IRS Instructions for Form 1098 (2026 revision): $600 threshold per mortgage; Box 2 principal as of Jan 1; Box 10 optional; Box 11 acquisition in the year"
+    },
+    {
+      "year": 2027,
+      "required": true,
+      "filer_of_record": "bank-subservicer",
+      "boxes": {
+        "1": 2329035,
+        "2": 44914382,
+        "3": "2026-09-01",
+        "4": 0,
+        "5": 184280,
+        "6": 0,
+        "7": true,
+        "8": "off-ledger property record",
+        "9": 1,
+        "10": 321000,
+        "11": null
+      },
+      "calendar": {
+        "tax_year": 2027,
+        "furnish_to_borrower_by": "2028-01-31",
+        "paper_file_by": "2028-02-29",
+        "efile_by": "2028-03-31",
+        "cite": "IRS General Instructions for Certain Information Returns: recipient copy Jan 31, paper Feb 28, e-file Mar 31, next business day if on a weekend or legal holiday (verify each filing year)"
+      },
+      "cite": "IRS Instructions for Form 1098 (2026 revision): $600 threshold per mortgage; Box 2 principal as of Jan 1; Box 10 optional; Box 11 acquisition in the year"
+    }
+  ],
+  "form_1099_int": {
+    "year": 2027,
+    "required": true,
+    "interest_cents": 3977,
+    "payer": "bank-subservicer",
+    "cite": "IRS Instructions for Form 1099-INT: $10 threshold; California impound interest under Civ. Code 2954.8"
+  }
+}

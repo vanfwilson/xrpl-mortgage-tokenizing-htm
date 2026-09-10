@@ -1,0 +1,41 @@
+[
+  {
+    "purpose": "tax",
+    "due": "2026-12-20",
+    "cents": 171000,
+    "hash": "4CABC81C080671C3D54EE0EFD31EE5B91058FA5D77D142BCF0A2E5D74D6AA843",
+    "owner": "rBoFXsB28KvW9qXqQdQR95CmGRi7Ky4qXv",
+    "sequence": 20651617,
+    "finish_after": 842388488,
+    "cancel_after": 842388728,
+    "from": "taxImpound",
+    "to": "countyTreasurer",
+    "done": "D0277A4FE93422E6500C54476A455659CEE3E2019504EA97772290DAE0D3D20F"
+  },
+  {
+    "purpose": "tax",
+    "due": "2027-06-20",
+    "cents": 171000,
+    "hash": "E0B81C324D870C512B669D17B95602C5B8E5EE0E6A4138D116487275E4A40873",
+    "owner": "rBoFXsB28KvW9qXqQdQR95CmGRi7Ky4qXv",
+    "sequence": 20651618,
+    "finish_after": 842388750,
+    "cancel_after": 842388990,
+    "from": "taxImpound",
+    "to": "countyTreasurer",
+    "done": "28D31FDF40C5E9DE8073D8F380A8B00919A79C67EDD10EA966C8D97F281F88A2"
+  },
+  {
+    "purpose": "hazard",
+    "due": "2027-09-01",
+    "cents": 150000,
+    "hash": "D3F56A4919BF926F5BC64AB209F6B1788AB346CE5018BC8320463ACDCBB87AE2",
+    "owner": "rsgP1oSMo4m84QzzXRWZVPK5u888Ds9Fvc",
+    "sequence": 20651618,
+    "finish_after": 842388846,
+    "cancel_after": 842389086,
+    "from": "hazardImpound",
+    "to": "insuranceCarrier",
+    "done": "E91F01824B315EFD83921FB093780A3A7E3E8EA51C38D9B2AA76A15B640FA072"
+  }
+]

@@ -34,6 +34,11 @@ Servicing-only architecture on Mainnet-live XRPL primitives, merged from two ind
 - Testnet escrow pacing: the ledger-track `CancelAfter` window is at least 240 s (a six-leg period takes about 100 s of
   Testnet time) and escrow finishes run before the period's payment legs, so a finish can no longer land past
   `CancelAfter` (`tecNO_PERMISSION` observed 2026-09-10).
+- Setup and drill submits (`submit` in `src/xrpl/client.ts`) re-prepare once the ledger window has provably closed
+  (`tefMAX_LEDGER` on Testnet congestion); settlement legs are unaffected and still go through the journal only.
+- Journal restart proof keeps the reopened PGlite store live for the key-drill events and the final chain read.
+- Wallet loader detects `lsfDisableMaster` on a reused Testnet wallet (left by an earlier key drill) and funds a fresh
+  wallet for that role instead of failing with `tefMASTER_DISABLED`.
 - Fixture re-based so the FHA note stays $450,000.00: base $442,260.44 + UFMIP $7,739.56; MIP $184.28 separated from
   hazard; late charge 4 % ($110.83); monthly payment $3,365.01.
 - Canonical schema `htm.canonical-loan/3` with `credit_purpose` and R19/R20/R21 validation.

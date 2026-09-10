@@ -312,8 +312,8 @@ async function main() {
     const job = await settleOnce({ companyId: COMPANY, loanId: OPAQUE_LOAN, run: RUN, leg: `${RUN}:${period}:receipt` }, tx, store, { prepare: async () => { throw new Error('duplicate signing attempted'); }, submitOrFind: async () => { throw new Error('duplicate submission attempted'); } });
     proofs.S11_journal_restart = `${job.status} ${job.hash}`;
     log(`    replay after reopen: ${job.status} ${job.hash.slice(0, 12)}… (no signing, no submission)`);
-    await reopened.close();
-    journalPg = undefined;
+    // The reopened store stays live for the rest of the run (key-drill events, final chain read); closed at the end.
+    journalPg = reopened; ctx.journal = store; eventStore = new PostgresEventStore(reopened);
   }
   if (ctx && keyDrill) {
     head('10', 'Key drills (R27): 2-of-3 signer list (one signature refused, two validate), then regular key + lsfDisableMaster');

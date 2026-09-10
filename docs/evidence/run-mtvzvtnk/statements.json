@@ -1,0 +1,1050 @@
+{
+  "initial": {
+    "kind": "initial_escrow_statement",
+    "settlement_date": "2026-09-01",
+    "due_by": "2026-10-16",
+    "opening_balance_cents": 123050,
+    "monthly_escrow_cents": 41000,
+    "disbursements": [
+      {
+        "purpose": "tax",
+        "due": "2026-12-20",
+        "cents": 171000,
+        "description": "First half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "tax",
+        "due": "2027-06-20",
+        "cents": 171000,
+        "description": "Second half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "hazard",
+        "due": "2027-09-01",
+        "cents": 150000,
+        "description": "Hazard policy renewal"
+      }
+    ],
+    "cite": "12 CFR 1024.17(g)(1): at settlement or within 45 calendar days of settlement"
+  },
+  "initial_document": {
+    "kind": "initial_escrow_statement",
+    "company_id": "htm-demo",
+    "loan_id": "HTM-d4790bba9e7c",
+    "settlement_date": "2026-09-01",
+    "generated_on": "2026-09-01",
+    "due_by": "2026-10-16",
+    "computation_year_start": "2026-11-01",
+    "computation_year_end": "2027-10-31",
+    "monthly_mortgage_payment_cents": 318073,
+    "monthly_principal_interest_cents": 277073,
+    "monthly_escrow_cents": 41000,
+    "final_month_adjustment_cents": 0,
+    "initial_deposit_cents": 123050,
+    "cushion_cents": 82000,
+    "anticipated_disbursements": [
+      {
+        "purpose": "tax",
+        "due": "2026-12-20",
+        "cents": 171000,
+        "description": "First half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "tax",
+        "due": "2027-06-20",
+        "cents": 171000,
+        "description": "Second half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "hazard",
+        "due": "2027-09-01",
+        "cents": 150000,
+        "description": "Hazard policy renewal"
+      }
+    ],
+    "annual_disbursements_cents": 492000,
+    "projection": [
+      {
+        "month": 1,
+        "date": "2026-11-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 164050,
+        "disbursements": []
+      },
+      {
+        "month": 2,
+        "date": "2026-12-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": 34050,
+        "disbursements": [
+          {
+            "purpose": "tax",
+            "due": "2026-12-20",
+            "cents": 171000,
+            "description": "First half property tax (Idaho Code 63-903)"
+          }
+        ]
+      },
+      {
+        "month": 3,
+        "date": "2027-01-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 75050,
+        "disbursements": []
+      },
+      {
+        "month": 4,
+        "date": "2027-02-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 116050,
+        "disbursements": []
+      },
+      {
+        "month": 5,
+        "date": "2027-03-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 157050,
+        "disbursements": []
+      },
+      {
+        "month": 6,
+        "date": "2027-04-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 198050,
+        "disbursements": []
+      },
+      {
+        "month": 7,
+        "date": "2027-05-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 239050,
+        "disbursements": []
+      },
+      {
+        "month": 8,
+        "date": "2027-06-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": 109050,
+        "disbursements": [
+          {
+            "purpose": "tax",
+            "due": "2027-06-20",
+            "cents": 171000,
+            "description": "Second half property tax (Idaho Code 63-903)"
+          }
+        ]
+      },
+      {
+        "month": 9,
+        "date": "2027-07-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 150050,
+        "disbursements": []
+      },
+      {
+        "month": 10,
+        "date": "2027-08-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 191050,
+        "disbursements": []
+      },
+      {
+        "month": 11,
+        "date": "2027-09-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 150000,
+        "balance_cents": 82050,
+        "disbursements": [
+          {
+            "purpose": "hazard",
+            "due": "2027-09-01",
+            "cents": 150000,
+            "description": "Hazard policy renewal"
+          }
+        ]
+      },
+      {
+        "month": 12,
+        "date": "2027-10-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 123050,
+        "disbursements": []
+      }
+    ],
+    "trial_balances": [
+      {
+        "month": 1,
+        "date": "2026-11-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 41000
+      },
+      {
+        "month": 2,
+        "date": "2026-12-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -89000
+      },
+      {
+        "month": 3,
+        "date": "2027-01-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -48000
+      },
+      {
+        "month": 4,
+        "date": "2027-02-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": -7000
+      },
+      {
+        "month": 5,
+        "date": "2027-03-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 34000
+      },
+      {
+        "month": 6,
+        "date": "2027-04-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 75000
+      },
+      {
+        "month": 7,
+        "date": "2027-05-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 116000
+      },
+      {
+        "month": 8,
+        "date": "2027-06-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": -14000
+      },
+      {
+        "month": 9,
+        "date": "2027-07-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 27000
+      },
+      {
+        "month": 10,
+        "date": "2027-08-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 68000
+      },
+      {
+        "month": 11,
+        "date": "2027-09-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 150000,
+        "balance_cents": -41000
+      },
+      {
+        "month": 12,
+        "date": "2027-10-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 0
+      }
+    ],
+    "target_starting_balance_cents": 171000,
+    "classification": "shortage",
+    "analysis": {
+      "computation_year_start": "2026-11-01",
+      "computation_year_end": "2027-10-31",
+      "annual_disbursements_cents": 492000,
+      "monthly_deposit_cents": 41000,
+      "final_month_adjustment_cents": 0,
+      "cushion_cents": 82000,
+      "trial_balances": [
+        {
+          "month": 1,
+          "date": "2026-11-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 41000
+        },
+        {
+          "month": 2,
+          "date": "2026-12-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -89000
+        },
+        {
+          "month": 3,
+          "date": "2027-01-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -48000
+        },
+        {
+          "month": 4,
+          "date": "2027-02-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -7000
+        },
+        {
+          "month": 5,
+          "date": "2027-03-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 34000
+        },
+        {
+          "month": 6,
+          "date": "2027-04-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 75000
+        },
+        {
+          "month": 7,
+          "date": "2027-05-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 116000
+        },
+        {
+          "month": 8,
+          "date": "2027-06-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -14000
+        },
+        {
+          "month": 9,
+          "date": "2027-07-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 27000
+        },
+        {
+          "month": 10,
+          "date": "2027-08-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 68000
+        },
+        {
+          "month": 11,
+          "date": "2027-09-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 150000,
+          "balance_cents": -41000
+        },
+        {
+          "month": 12,
+          "date": "2027-10-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 0
+        }
+      ],
+      "lowest_balance_cents": -89000,
+      "lowest_month": 2,
+      "target_starting_balance_cents": 171000,
+      "starting_balance_cents": 123050,
+      "classification": "shortage",
+      "surplus_cents": 0,
+      "shortage_cents": 47950,
+      "deficiency_cents": 0,
+      "shortage_options": [
+        {
+          "kind": "do_nothing",
+          "cite": "12 CFR 1024.17(f)(3)"
+        },
+        {
+          "kind": "equal_monthly_payments",
+          "min_months": 12,
+          "cite": "12 CFR 1024.17(f)(3)(ii): shortage of one month or more, equal monthly payments over at least 12 months"
+        }
+      ],
+      "deficiency_options": [],
+      "options": [
+        "do_nothing",
+        "equal_monthly_payments"
+      ],
+      "new_monthly_escrow_cents": 41000,
+      "california_interest_cents": 0,
+      "annual_statement_due": "2027-11-30"
+    },
+    "cite": "12 CFR 1024.17(g)(1), (h): initial escrow account statement at settlement or within 45 calendar days"
+  },
+  "initial_delivery": {
+    "statement_kind": "initial_escrow_statement",
+    "company_id": "htm-demo",
+    "loan_id": "HTM-d4790bba9e7c",
+    "delivered_on": "2026-09-01",
+    "method": "mail",
+    "evidence_id": "mail-log:initial:ESC-2026-99812",
+    "due_by": "2026-10-16",
+    "status": "on_time",
+    "days_late": 0,
+    "late": false
+  },
+  "annual_document": {
+    "kind": "annual_escrow_statement",
+    "company_id": "htm-demo",
+    "loan_id": "HTM-d4790bba9e7c",
+    "generated_on": "2027-11-05",
+    "due_by": "2027-11-30",
+    "prior_year_start": "2026-11-01",
+    "prior_year_end": "2027-10-31",
+    "prior_monthly_mortgage_payment_cents": 318073,
+    "prior_monthly_escrow_cents": 41000,
+    "new_monthly_mortgage_payment_cents": 322069,
+    "new_monthly_escrow_cents": 44996,
+    "totals": {
+      "deposits_cents": 492000,
+      "interest_cents": 0,
+      "disbursed_tax_cents": 342000,
+      "disbursed_hazard_cents": 150000,
+      "refunds_cents": 0,
+      "adjustments_cents": 0
+    },
+    "opening_balance_cents": 123050,
+    "closing_balance_cents": 123050,
+    "activity": [
+      {
+        "on": "2026-11-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:1:tax:0",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 151550
+      },
+      {
+        "on": "2026-11-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:1:hazard:1",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 164050
+      },
+      {
+        "on": "2026-12-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:2:tax:2",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 192550
+      },
+      {
+        "on": "2026-12-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:2:hazard:3",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 205050
+      },
+      {
+        "on": "2026-12-20",
+        "kind": "tax",
+        "cents": -171000,
+        "reference": "disbursement:bill-1",
+        "description": "tax paid to countyTreasurer",
+        "balance_after_cents": 34050
+      },
+      {
+        "on": "2027-01-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:3:tax:4",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 62550
+      },
+      {
+        "on": "2027-01-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:3:hazard:5",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 75050
+      },
+      {
+        "on": "2027-02-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:4:tax:6",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 103550
+      },
+      {
+        "on": "2027-02-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:4:hazard:7",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 116050
+      },
+      {
+        "on": "2027-03-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:5:tax:8",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 144550
+      },
+      {
+        "on": "2027-03-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:5:hazard:9",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 157050
+      },
+      {
+        "on": "2027-04-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:6:tax:10",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 185550
+      },
+      {
+        "on": "2027-04-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:6:hazard:11",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 198050
+      },
+      {
+        "on": "2027-05-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:7:tax:12",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 226550
+      },
+      {
+        "on": "2027-05-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:7:hazard:13",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 239050
+      },
+      {
+        "on": "2027-06-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:8:tax:14",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 267550
+      },
+      {
+        "on": "2027-06-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:8:hazard:15",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 280050
+      },
+      {
+        "on": "2027-06-20",
+        "kind": "tax",
+        "cents": -171000,
+        "reference": "disbursement:bill-2",
+        "description": "tax paid to countyTreasurer",
+        "balance_after_cents": 109050
+      },
+      {
+        "on": "2027-07-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:9:tax:16",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 137550
+      },
+      {
+        "on": "2027-07-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:9:hazard:17",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 150050
+      },
+      {
+        "on": "2027-08-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:10:tax:18",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 178550
+      },
+      {
+        "on": "2027-08-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:10:hazard:19",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 191050
+      },
+      {
+        "on": "2027-09-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:11:tax:20",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 219550
+      },
+      {
+        "on": "2027-09-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:11:hazard:21",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 232050
+      },
+      {
+        "on": "2027-09-01",
+        "kind": "hazard",
+        "cents": -150000,
+        "reference": "disbursement:bill-3",
+        "description": "hazard paid to insuranceCarrier",
+        "balance_after_cents": 82050
+      },
+      {
+        "on": "2027-10-01",
+        "kind": "deposit",
+        "cents": 28500,
+        "reference": "deposit:12:tax:22",
+        "description": "monthly tax escrow deposit",
+        "balance_after_cents": 110550
+      },
+      {
+        "on": "2027-10-01",
+        "kind": "deposit",
+        "cents": 12500,
+        "reference": "deposit:12:hazard:23",
+        "description": "monthly hazard escrow deposit",
+        "balance_after_cents": 123050
+      }
+    ],
+    "prior_projection_evidence_id": "initial-analysis:run-mtvzvtnk",
+    "difference_explanation": "Year-1 election was do-nothing on the $479.50 initial shortage (12 CFR 1024.17(f)(3)); the December tax installment was short and the servicer advanced $284.65 under 1024.17(k)(1); the account ran negative until the January deposit. Disbursements matched the projection.",
+    "anticipated_disbursements": [
+      {
+        "purpose": "tax",
+        "due": "2027-12-20",
+        "cents": 171000,
+        "description": "First half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "tax",
+        "due": "2028-06-20",
+        "cents": 171000,
+        "description": "Second half property tax (Idaho Code 63-903)"
+      },
+      {
+        "purpose": "hazard",
+        "due": "2028-09-01",
+        "cents": 150000,
+        "description": "Hazard policy renewal"
+      }
+    ],
+    "projection": [
+      {
+        "month": 1,
+        "date": "2027-11-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 164050,
+        "disbursements": []
+      },
+      {
+        "month": 2,
+        "date": "2027-12-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": 34050,
+        "disbursements": [
+          {
+            "purpose": "tax",
+            "due": "2027-12-20",
+            "cents": 171000,
+            "description": "First half property tax (Idaho Code 63-903)"
+          }
+        ]
+      },
+      {
+        "month": 3,
+        "date": "2028-01-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 75050,
+        "disbursements": []
+      },
+      {
+        "month": 4,
+        "date": "2028-02-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 116050,
+        "disbursements": []
+      },
+      {
+        "month": 5,
+        "date": "2028-03-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 157050,
+        "disbursements": []
+      },
+      {
+        "month": 6,
+        "date": "2028-04-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 198050,
+        "disbursements": []
+      },
+      {
+        "month": 7,
+        "date": "2028-05-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 239050,
+        "disbursements": []
+      },
+      {
+        "month": 8,
+        "date": "2028-06-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 171000,
+        "balance_cents": 109050,
+        "disbursements": [
+          {
+            "purpose": "tax",
+            "due": "2028-06-20",
+            "cents": 171000,
+            "description": "Second half property tax (Idaho Code 63-903)"
+          }
+        ]
+      },
+      {
+        "month": 9,
+        "date": "2028-07-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 150050,
+        "disbursements": []
+      },
+      {
+        "month": 10,
+        "date": "2028-08-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 191050,
+        "disbursements": []
+      },
+      {
+        "month": 11,
+        "date": "2028-09-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 150000,
+        "balance_cents": 82050,
+        "disbursements": [
+          {
+            "purpose": "hazard",
+            "due": "2028-09-01",
+            "cents": 150000,
+            "description": "Hazard policy renewal"
+          }
+        ]
+      },
+      {
+        "month": 12,
+        "date": "2028-10-01",
+        "deposit_cents": 41000,
+        "disbursed_cents": 0,
+        "balance_cents": 123050,
+        "disbursements": []
+      }
+    ],
+    "analysis": {
+      "computation_year_start": "2027-11-01",
+      "computation_year_end": "2028-10-31",
+      "annual_disbursements_cents": 492000,
+      "monthly_deposit_cents": 41000,
+      "final_month_adjustment_cents": 0,
+      "cushion_cents": 82000,
+      "trial_balances": [
+        {
+          "month": 1,
+          "date": "2027-11-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 41000
+        },
+        {
+          "month": 2,
+          "date": "2027-12-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -89000
+        },
+        {
+          "month": 3,
+          "date": "2028-01-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -48000
+        },
+        {
+          "month": 4,
+          "date": "2028-02-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": -7000
+        },
+        {
+          "month": 5,
+          "date": "2028-03-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 34000
+        },
+        {
+          "month": 6,
+          "date": "2028-04-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 75000
+        },
+        {
+          "month": 7,
+          "date": "2028-05-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 116000
+        },
+        {
+          "month": 8,
+          "date": "2028-06-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 171000,
+          "balance_cents": -14000
+        },
+        {
+          "month": 9,
+          "date": "2028-07-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 27000
+        },
+        {
+          "month": 10,
+          "date": "2028-08-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 68000
+        },
+        {
+          "month": 11,
+          "date": "2028-09-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 150000,
+          "balance_cents": -41000
+        },
+        {
+          "month": 12,
+          "date": "2028-10-01",
+          "deposit_cents": 41000,
+          "disbursed_cents": 0,
+          "balance_cents": 0
+        }
+      ],
+      "lowest_balance_cents": -89000,
+      "lowest_month": 2,
+      "target_starting_balance_cents": 171000,
+      "starting_balance_cents": 123050,
+      "classification": "shortage",
+      "surplus_cents": 0,
+      "shortage_cents": 47950,
+      "deficiency_cents": 0,
+      "shortage_options": [
+        {
+          "kind": "do_nothing",
+          "cite": "12 CFR 1024.17(f)(3)"
+        },
+        {
+          "kind": "equal_monthly_payments",
+          "min_months": 12,
+          "cite": "12 CFR 1024.17(f)(3)(ii): shortage of one month or more, equal monthly payments over at least 12 months"
+        }
+      ],
+      "deficiency_options": [],
+      "options": [
+        "do_nothing",
+        "equal_monthly_payments"
+      ],
+      "new_monthly_escrow_cents": 41000,
+      "california_interest_cents": 0,
+      "annual_statement_due": "2028-11-30"
+    },
+    "election": "equal_monthly_payments",
+    "resolution": {
+      "status": "scheduled",
+      "election": "equal_monthly_payments",
+      "direction": "collect",
+      "basis": "shortage",
+      "amount_cents": 47950,
+      "months": 12,
+      "installments": [
+        {
+          "month": 1,
+          "due": "2027-12-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 2,
+          "due": "2028-01-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 3,
+          "due": "2028-02-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 4,
+          "due": "2028-03-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 5,
+          "due": "2028-04-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 6,
+          "due": "2028-05-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 7,
+          "due": "2028-06-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 8,
+          "due": "2028-07-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 9,
+          "due": "2028-08-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 10,
+          "due": "2028-09-05",
+          "amount_cents": 3996
+        },
+        {
+          "month": 11,
+          "due": "2028-10-05",
+          "amount_cents": 3995
+        },
+        {
+          "month": 12,
+          "due": "2028-11-05",
+          "amount_cents": 3995
+        }
+      ],
+      "new_monthly_escrow_cents": 44996,
+      "rounding": "floor(amount / months) each; the one-cent residue is added to the earliest installments so the total is conserved",
+      "cite": "12 CFR 1024.17(f)(3): equal monthly payments over at least 12 months"
+    },
+    "cite": "12 CFR 1024.17(i)(1): annual escrow account statement within 30 days of the end of the computation year"
+  },
+  "annual_delivery": {
+    "statement_kind": "annual_escrow_statement",
+    "company_id": "htm-demo",
+    "loan_id": "HTM-d4790bba9e7c",
+    "delivered_on": "2027-11-06",
+    "method": "mail",
+    "evidence_id": "mail-log:annual:run-mtvzvtnk",
+    "due_by": "2027-11-30",
+    "status": "on_time",
+    "days_late": 0,
+    "late": false
+  },
+  "periodic_1": {
+    "kind": "periodic_statement",
+    "loan_id": "HTM-d4790bba9e7c",
+    "statement_date": "2026-10-16",
+    "due_date": "2026-11-01",
+    "amount_due_cents": 336501,
+    "explanation": {
+      "principal": 42698,
+      "interest": 234375,
+      "escrow": 41000,
+      "mip": 18428,
+      "fees": 0
+    },
+    "past_payment_breakdown": {
+      "since_last": {
+        "principal": 0,
+        "interest": 0,
+        "escrow": 0,
+        "mip": 0,
+        "fees": 0,
+        "suspense": 0
+      },
+      "year_to_date": {
+        "principal": 0,
+        "interest": 0,
+        "escrow": 0,
+        "mip": 0,
+        "fees": 0
+      }
+    },
+    "transaction_activity": [],
+    "account_information": {
+      "outstanding_principal_cents": 45000000,
+      "interest_rate": 0.0625,
+      "next_rate_change": null,
+      "prepayment_penalty": false,
+      "late_charge_cents": 11083,
+      "late_charge_after": "2026-11-16"
+    },
+    "contact": "bank-subservicer",
+    "contact_block": {
+      "phone": null,
+      "website": null,
+      "correspondence_address": "bank-subservicer"
+    },
+    "counseling": {
+      "agency": "HUD Housing Counseling",
+      "phone": "800-569-4287",
+      "website": "https://www.hud.gov/counseling"
+    },
+    "cite": "12 CFR 1026.41(d)"
+  }
+}

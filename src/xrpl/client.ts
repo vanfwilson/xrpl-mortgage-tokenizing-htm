@@ -27,6 +27,15 @@ export async function connect(): Promise<Client> {
 }
 
 /** Fund (or reload) one test-network wallet per role. Seeds persist in out/wallets.<network>.json (gitignored). */
+const LSF_DISABLE_MASTER = 0x00100000;
+/** True when the account exists and lsfDisableMaster is set (its stored master seed can no longer sign). */
+export async function masterDisabled(client: Client, address: string): Promise<boolean> {
+  try {
+    const res = await client.request({ command: 'account_info', account: address, ledger_index: 'validated' });
+    return ((res.result.account_data.Flags ?? 0) & LSF_DISABLE_MASTER) !== 0;
+  } catch { return false; } // unfunded: the faucet top-up below handles it
+}
+
 export async function loadOrFundWallets(client: Client, log = console.log): Promise<Wallets> {
   fs.mkdirSync(path.dirname(config.walletsFile), { recursive: true });
   let seeds: Partial<Record<Role, string>> = {};
@@ -34,7 +43,14 @@ export async function loadOrFundWallets(client: Client, log = console.log): Prom
   const wallets = {} as Wallets;
   for (const role of WALLET_ROLES) {
     const seed = seeds[role];
-    if (seed) { wallets[role] = Wallet.fromSeed(seed); continue; }
+    if (seed) {
+      const candidate = Wallet.fromSeed(seed);
+      // A previous --key-drill run disables the master key on the drilled role (R27) and its regular key lives only in
+      // that run's memory, so the stored seed can no longer sign (tefMASTER_DISABLED, observed 2026-09-10). Detect the
+      // flag and fund a fresh wallet for the role instead of failing on the first TrustSet.
+      if (!(await masterDisabled(client, candidate.classicAddress))) { wallets[role] = candidate; continue; }
+      log(`  ${role.padEnd(18)} ${candidate.classicAddress} has lsfDisableMaster from an earlier drill; funding a fresh wallet`);
+    }
     const { wallet } = await client.fundWallet();
     wallets[role] = wallet;
     seeds[role] = wallet.seed!;
@@ -71,13 +87,25 @@ export class TxError extends Error {
   constructor(public readonly record: TxRecord) { super(`${record.type} failed with ${record.result} (${record.explorer})`); }
 }
 
-/** Autofill, sign, submit, wait, and require tesSUCCESS. */
+/**
+ * Autofill, sign, submit, wait, and require tesSUCCESS. Used for setup and drill transactions only; settlement legs go
+ * through settleOnce. If Testnet lets the LastLedgerSequence window close without validating (xrpl.js throws only after
+ * the window has provably passed, so the transaction can never be included), autofill and sign once more.
+ */
 export async function submit<T extends SubmittableTransaction>(client: Client, wallet: Wallet, tx: T, step: string): Promise<TxRecord> {
-  const prepared = await client.autofill(tx);
-  const signed = wallet.sign(prepared);
-  const rec = await submitBlob(client, signed.tx_blob, step, tx.TransactionType, tx.Account);
-  rec.sequence = (prepared as { Sequence?: number }).Sequence;
-  return rec;
+  for (let attempt = 1; ; attempt++) {
+    const prepared = await client.autofill(tx);
+    const signed = wallet.sign(prepared);
+    try {
+      const rec = await submitBlob(client, signed.tx_blob, step, tx.TransactionType, tx.Account);
+      rec.sequence = (prepared as { Sequence?: number }).Sequence;
+      return rec;
+    } catch (e) {
+      const expired = e instanceof Error && !(e instanceof TxError) && /LastLedgerSequence/.test(e.message);
+      if (!expired || attempt >= 3) throw e;
+      console.log(`    ${tx.TransactionType} missed its ledger window (tefMAX_LEDGER); re-preparing (attempt ${attempt + 1})`);
+    }
+  }
 }
 
 export async function submitBlob(client: Client, txBlob: string, step: string, type: string, account: string): Promise<TxRecord> {
