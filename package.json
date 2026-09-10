@@ -24,6 +24,7 @@
     "signatures": "tsx src/cli/signatures.ts",
     "loan-year": "tsx src/loan-year.ts",
     "loan-year:replay": "tsx src/loan-year.ts --no-ledger",
+    "evidence": "tsx src/cli/evidence-pack.ts",
     "test:testnet": "TESTNET=1 vitest run tests/testnet --testTimeout=600000"
   },
   "dependencies": {

@@ -148,6 +148,35 @@ Every ledger leg passes through `settleOnce` (`src/xrpl/settlement-journal.ts`):
 
 Business events (boarding, applications, analyses, disbursement decisions, statements, cases, transfers) are appended to `htm_mortgages.servicing_event_log` with a per-loan hash chain; UPDATE and DELETE are rejected by trigger (`db/006_servicing_event_log.sql`, `src/servicing/event-log.ts`). Hashes detect alteration, not authenticity; database administrators remain trusted parties.
 
+## 7b. Degraded mode: the ledger is unreachable (v2.0, roast RS4)
+
+The ledger is evidence, never a gate. The contract when the XRPL endpoint is down, slow or returns an ambiguous result:
+
+1. Servicing continues. Receipts are applied by receipt date, escrow is analysed, statements are produced and the bank's custodial books remain the authoritative balance (R22). No borrower-facing deadline waits for a ledger.
+2. Each leg is journaled BEFORE submission (`settleOnce`): the signed blob, fingerprint and hash are persisted with status `prepared`. A transport failure leaves the row `prepared`; an uncertain outcome (timeout after submission) leaves it `prepared` with the hash recorded and raises `SettlementUncertain` to the caller instead of guessing.
+3. Replay is safe. When the endpoint returns, the same call with the same scope re-uses the stored blob: it first looks the hash up on the ledger and submits the identical blob only if the ledger has not seen it. It never re-signs, so an outage cannot produce a duplicate payment (`S11_prepared_blob_resubmitted_not_resigned_after_uncertain_outcome`, `S11_uncertain_outcome_throws_settlement_uncertain`).
+4. A `failed` engine result (tec/tef/tem) is journaled as `failed` and blocks silent replay; an operator decision is required to open a new scope.
+5. The three-way match (R14) reports the ledger side as unmatched until the legs validate. That is a reconciliation break to work, not an error to hide: the bank and subledger sides still agree and the loan stays current.
+
+Evidence of the contract lives in `tests/engine/settlement-journal.test.ts` (PGlite) and in the Testnet run's `S11_journal_restart` proof.
+
+## 7c. Bank receipt file: the input to the three-way match (v2.0, roast RS1)
+
+The bank side of R14 is the subservicer's own receipt export, not a mirror the software writes for itself. Contract (`src/servicing/bank-receipts.ts`, tests `T13_*`):
+
+```
+bank_ref,posted_on,loan_ref,direction,amount
+run-x:2026-11:receipt,2026-11-01,HTM-d4790bba9e7c,credit,3365.01
+run-x:2026-11:pi,2026-11-01,HTM-d4790bba9e7c,debit,2770.73
+```
+
+- `bank_ref` equals the servicing leg key so all three ledgers match by reference; duplicates are rejected.
+- `amount` is positive decimal dollars with at most two decimals; the parser is the only place dollars become integer cents, with no floating-point step. `direction` carries the sign.
+- `loan_ref` is the opaque servicing id, never a borrower identifier; a file can be scoped to one loan.
+- Any contract violation rejects the whole file. A one-cent difference is a reconciliation break, never absorbed.
+
+The loan-year run writes `out/loan-year/<run>-bank-receipts.csv` from the simulated custodian and parses it back through the same parser before matching, so every run exercises the production path.
+
 ## 8. Key management and tenancy
 
 - Production ledger accounts: HSM-held regular keys, `SignerListSet` 2-of-3 across bank-controlled roles (operations, compliance, treasury), transaction allowlists and limits, monitored sequence and tickets, emergency rotation runbook, `lsfDisableMaster` only after a recovery drill has been proven. The Testnet run performs both drills: regular key then master disabled and refused; a 2-of-3 signer list where one signature is rejected and two validate (`src/xrpl/keys.ts`).
@@ -203,3 +232,17 @@ XLS-65, XLS-66, DynamicMPT, Batch, Smart Escrows, XRPL EVM sidechain and Hooks a
 | R29 | Form 1098 | `tax.ts` `build1098` | `R29_form_1098` |
 | R30 | 1099-INT / 1099-A/C | `tax.ts` `build1099INT` | `R30_1099int_threshold` |
 | R31 | single legal owner; no third-party ownership ledger | schema: `legal_owner_id` only | `R31_no_participation_fields` |
+
+Settlement-safety (S) and tie-out (T) controls carry named tests the same way; `npm run evidence` writes the full map with every test per control to `control-map.csv`.
+
+| Control | Requirement | Module | Test |
+|---|---|---|---|
+| S2 | loan-record NFToken carries hash, opaque id, pointer only | `src/xrpl/record.ts` | `S2_loan_record_handle` |
+| S3 | no vault, lending or participation transaction types in `src/` | scan | `S3_no_vault_lending_types` |
+| S5 | issuer `allowTrustLineLocking` set before any trust line; bound to the validated issuer | `src/xrpl/issuer.ts` | `S5_*`, `T9_issuer_preflight` |
+| S7 | escrow date locks: FinishAfter from the due date, bounded CancelAfter, payee allowlist | `src/xrpl/escrow.ts` | `S7_*`, `T10_early_finish` |
+| S8 | FHA MIP split and remitted separately from hazard | `src/servicing/split.ts` | `S8_mip_split_separate_from_hazard` |
+| S10 | no PII on the ledger (memo, URI, payload builders) | `src/xrpl/record.ts`, scan | `S10_no_pii_on_ledger`, `T6_*`, `T11_*` |
+| S11 | settlement journal: sign once, persist before submit, never re-sign | `src/xrpl/settlement-journal.ts` | `S11_*` |
+| T13 | bank receipt-file contract feeds the three-way match | `src/servicing/bank-receipts.ts` | `T13_*` |
+| T14 | per-loan-year ledger cost and scale | `src/servicing/cost-model.ts` | `T14_*` |

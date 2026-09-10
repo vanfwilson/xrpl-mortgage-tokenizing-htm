@@ -8,7 +8,7 @@ import { buildCanonicalFromDocuments } from '../../src/ingest/canonical.js';
 const loan = buildCanonicalFromDocuments('data/documents');
 
 describe('ledger payload guards', () => {
-  it('T11_no_pii_in_memo: memo is versioned, ≤ 256 bytes, and refuses PII keys', () => {
+  it('T11_no_pii_in_memo S10_no_pii_on_ledger: memo is versioned, ≤ 256 bytes, and refuses PII keys', () => {
     const memos = buildMemo({ v: 1, loan: 'L-0001', period: '2026-11', leg: 'tax', cents: 28_500, run: 'run-1' });
     const json = Buffer.from(memos[0].Memo.MemoData!, 'hex').toString('utf8');
     expect(JSON.parse(json)).toEqual({ v: 1, loan: 'L-0001', period: '2026-11', leg: 'tax', cents: 28_500, run: 'run-1' });
@@ -19,7 +19,7 @@ describe('ledger payload guards', () => {
     expect(() => assertNoPii({ nested: { street: '123 Sandbox Lane' } })).toThrow(/S10/);
     expect(() => assertNoPii(loan.property)).toThrow(/S10/); // the canonical property block must never be a payload
   });
-  it('R28_no_pii_payloads: the NFToken URI carries only version, opaque id, hash and pointer', () => {
+  it('R28_no_pii_payloads S2_loan_record_handle: the NFToken URI carries only version, opaque id, hash and pointer', () => {
     const uri = buildRecordUri({ v: 1, loan: 'L-0001', sha256: 'a'.repeat(64), ptr: 'cas://htm/loan/L-0001/v1' });
     expect(Buffer.byteLength(uri)).toBeLessThanOrEqual(MAX_URI_BYTES);
     expect(Object.keys(JSON.parse(uri))).toEqual(['v', 'loan', 'sha256', 'ptr']);

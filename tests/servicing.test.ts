@@ -6,7 +6,7 @@ import { buildCanonicalFromDocuments } from '../src/ingest/canonical.js';
 const loan = buildCanonicalFromDocuments('data/documents');
 
 describe('four-leg payment split', () => {
-  it('splits the payment into P&I, tax impound, hazard impound and FHA MIP and balances to the cent', () => {
+  it('S8_mip_split_separate_from_hazard: splits the payment into P&I, tax impound, hazard impound and FHA MIP and balances to the cent', () => {
     expect(calculateAutomatedPaymentSplit(scannedCdFromLoan(loan))).toEqual({ principal_and_interest: 2770.73, property_tax_impound: 285, hazard_insurance_impound: 125, fha_mip: 184.28 });
   });
   it('refuses an unbalanced leg set', () => {

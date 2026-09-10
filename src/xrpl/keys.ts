@@ -51,6 +51,28 @@ async function submitMultisigned(client: Client, blob: string, step: string, typ
   }
 }
 
+/** Autofilled no-op AccountSet marked for multisigning (SigningPubKey ''), fee sized for up to three signers. */
+async function prepareMultisigNoop(client: Client, account: string): Promise<AccountSet> {
+  const prepared = await client.autofill<AccountSet>({ TransactionType: 'AccountSet', Account: account, SigningPubKey: '' });
+  const baseFee = Number(prepared.Fee ?? '10');
+  prepared.Fee = String(Math.max(40, (Number.isFinite(baseFee) ? baseFee : 10) * (1 + 3)));
+  return prepared;
+}
+
+/** Submit a multisigned blob and return the PRELIMINARY engine result without waiting for a ledger. */
+async function submitMultisignedPreliminary(client: Client, blob: string, step: string, type: string, account: string): Promise<TxRecord> {
+  try {
+    const res = await client.submit(blob);
+    const result = res.result.engine_result;
+    const hash = (res.result.tx_json as { hash?: string }).hash ?? '';
+    return { step, type, account, hash: result === 'tesSUCCESS' ? hash : '', result, explorer: result === 'tesSUCCESS' ? `${config.explorer}/transactions/${hash}` : '' };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    const m = msg.match(/\b(te[cfmls][A-Z_]+)\b/);
+    return { step, type, account, hash: '', result: m ? m[1] : `rejected: ${msg.slice(0, 80)}`, explorer: '' };
+  }
+}
+
 export interface MultisigDrillResult {
   signerListHash: string;
   /** Engine result of the one-signer attempt (expected tefBAD_QUORUM). */
@@ -72,20 +94,21 @@ export async function multisigRecoveryDrill(ctx: Ctx, on: Role, signers: readonl
   const list = buildTwoOfThree(account, [signerWallets[0].classicAddress, signerWallets[1].classicAddress, signerWallets[2].classicAddress]);
   const signerListHash = record(ctx, await submit(client, wallets[on], list, 'keys:signer-list')).hash;
 
-  // One unsigned no-op; SigningPubKey '' marks it as multisigned. Fee must cover (1 + signers) x base fee.
-  const prepared = await client.autofill<AccountSet>({ TransactionType: 'AccountSet', Account: account, SigningPubKey: '' });
-  const baseFee = Number(prepared.Fee ?? '10');
-  prepared.Fee = String(Math.max(40, baseFee * (1 + 3)));
-
-  const first = signerWallets[0].sign(prepared, true).tx_blob;
-  const second = signerWallets[1].sign(prepared, true).tx_blob;
-
-  const oneSigner = await submitMultisigned(client, multisign([first]), 'keys:one-signer-refused', 'AccountSet', account, true);
+  // One-signer attempt: submitted WITHOUT waiting for validation. A below-quorum multisig is refused with a
+  // tef code at submission time; waiting for it would only burn the LastLedgerSequence window (observed on
+  // Testnet 2026-09-10: the two-signer blob then expired with tefMAX_LEDGER). Fee must cover (1 + signers) x base.
+  const oneSignerPrepared = await prepareMultisigNoop(client, account);
+  const oneSignerBlob = multisign([signerWallets[0].sign(oneSignerPrepared, true).tx_blob]);
+  const oneSigner = await submitMultisignedPreliminary(client, oneSignerBlob, 'keys:one-signer-refused', 'AccountSet', account);
   ctx.txs.push(oneSigner);
   ctx.log(`    1-of-3 multisig (below quorum): ${oneSigner.result}`);
   if (oneSigner.result === 'tesSUCCESS') throw new Error('R27: a single signer satisfied a 2-of-3 signer list; drill failed');
 
-  const twoSigners = record(ctx, await submitMultisigned(client, multisign([first, second]), 'keys:two-signers', 'AccountSet', account, false));
+  // Two-signer proof: a FRESH autofill so Sequence and LastLedgerSequence reflect the ledger now, both signers
+  // sign the same prepared transaction, and validation is awaited.
+  const twoSignersPrepared = await prepareMultisigNoop(client, account);
+  const twoSignersBlob = multisign([signerWallets[0].sign(twoSignersPrepared, true).tx_blob, signerWallets[1].sign(twoSignersPrepared, true).tx_blob]);
+  const twoSigners = record(ctx, await submitMultisigned(client, twoSignersBlob, 'keys:two-signers', 'AccountSet', account, false));
   return { signerListHash, oneSignerResult: oneSigner.result, twoSignersHash: twoSigners.hash, twoSignersResult: twoSigners.result };
 }
 

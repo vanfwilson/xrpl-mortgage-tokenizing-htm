@@ -88,8 +88,9 @@ npm run print                                   # print the 23-page synthetic cl
 npm run tokenize -- ~/scans/my-scan.pdf         # OCR -> canonical loan record -> tie-outs -> bundle hash
 npm run loan-year:replay                        # Track 1: full loan year on the business clock, no network
 npm run loan-year -- --key-drill                # Track 2: Testnet proof (Mainnet-live transaction types only; ~10 min)
-npm test                                        # 82 offline tests, R01-R31 named
+npm test                                        # 127 offline tests; every R01-R31, S and T1-T14 control has a named test
 npm run test:testnet                            # assert the proofs in the latest Testnet run
+npm run evidence                                # examiner-ready evidence pack for the latest run (out/evidence/<run>/)
 ```
 
 Requires Node 20.19+, plus `tesseract` and `poppler` for OCR. No accounts or API keys: the test network hands out play money.
@@ -148,6 +149,30 @@ Explicit non-guarantees: a ledger transaction does not prove legal compliance, p
 authority or custody. Items that remain **UNVERIFIED** pending counsel and the bank subservicer: HTM's licence scope and
 mortgage-servicing-rights treatment in California and Idaho; the subservicer contract; whether any production stablecoin can
 serve as a custodial asset; the Idaho escrow-interest rule; the bank's acceptance of ledger evidence in its books; traction.
+
+### What v2.0 is and is not
+
+v2.0 is a servicing engine, a settlement adapter and an evidence surface for a bank-owned subservicer's operations and
+compliance teams. Its product surface is the command line and the evidence pack: `npm run loan-year:replay` for a full
+loan year on the business clock, `npm run loan-year` for the Testnet proof, `npm run evidence` for the examiner folder,
+and the bank receipt-file contract in [docs/architecture.md](docs/architecture.md#7c-bank-receipt-file-the-input-to-the-three-way-match-v20-roast-rs1)
+for the subservicer's treasury export. There is no borrower portal and no operator web UI in v2.0; those are
+integration work for the subservicer's existing systems, not part of this release. Ledger cost per loan-year, and how
+the footprint scales, is stated in [docs/cost-model.md](docs/cost-model.md). Behaviour when the ledger is unreachable
+is a written contract, not an assumption ([architecture §7b](docs/architecture.md#7b-degraded-mode-the-ledger-is-unreachable-v20-roast-rs4)).
+
+The v2.0 roast verdict and the engineering items it produced are recorded in
+[docs/roast-v2-2026-09-10.md](docs/roast-v2-2026-09-10.md).
+
+### Open business items
+
+These are not engineering gaps and the software does not claim them closed:
+
+- A bank subservicer's written acceptance of the ledger-side evidence trail as part of its books and records.
+- HTM's licensing posture as technology provider to a licensed servicer, confirmed by counsel for California and Idaho.
+- A production settlement instrument. The runs use a controlled test USD because RLUSD issuers do not allow trust-line
+  locking on Mainnet or Testnet; nothing here depends on RLUSD changing.
+- The Idaho escrow-interest rule (gated as UNVERIFIED in the engine) and the subservicer contract itself.
 
 ### About HTM
 

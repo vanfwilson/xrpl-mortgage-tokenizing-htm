@@ -28,6 +28,7 @@ import { connect, loadOrFundWallets, nowRipple, waitForLedgerTime } from './xrpl
 import { attemptEarlyFinish, cancelEscrow, createImpoundEscrow, finishEscrow, reserveForObjects } from './xrpl/escrow.js';
 import { bootstrapIssuer, issueTestUsd, openTrustLines, preflightIssuerLocking } from './xrpl/issuer.js';
 import { disableMasterDrill, multisigRecoveryDrill } from './xrpl/keys.js';
+import { formatBankReceiptCsv, parseBankReceiptCsv, rowsFromEntries } from './servicing/bank-receipts.js';
 import { InMemoryEventStore, PostgresEventStore, type EventStore } from './db/event-store.js';
 import { verifyEventChain } from './servicing/event-log.js';
 import { mintLoanRecord, transferLoanRecord } from './xrpl/record.js';
@@ -115,14 +116,19 @@ const mapTime = (iso: IsoDate) => {
 const note = (business_date: IsoDate, what: string, ripple_time = mapTime(business_date), clamped = false) => manifest.push({ business_date, ripple_time, iso: new Date((ripple_time + 946_684_800) * 1000).toISOString(), what, ...(clamped ? { clamped } : {}) });
 /** S7/T10: a FinishAfter must be in the future when the escrow is created; if the mapped statutory instant has already passed on the ledger clock, clamp forward and say so in the manifest. */
 const futureFinish = (mapped: number) => Math.max(mapped, nowRipple() + 10);
+/** S7 on the ledger track: CancelAfter window in seconds; at least four business months of mapped time and never under 240 s. */
+const CANCEL_WINDOW = Math.max(240, STEP * 4);
 const memo = (period: string, leg: Leg, cents: Cents) => ({ v: 1 as const, loan: OPAQUE_LOAN, period, leg, cents, run: RUN });
 const PAYEES: readonly Role[] = ['countyTreasurer', 'insuranceCarrier', 'hud'];
 interface OpenEscrow { bill: VerifiedBill; owner: string; sequence: number; hash: string; finish_after: number; cancel_after: number; from: Role; to: Role; done?: string; cancelled?: string }
 const escrows: OpenEscrow[] = [];
 const proofs: Record<string, string> = {};
 
+/** Posting date the simulated custodian stamps on each bank entry: settlement date for boarding, the cycle's due date otherwise. */
+const bankPostedOn = new Map<string, IsoDate>();
 async function pay(from: Role, to: Role, cents: Cents, period: string, leg: Leg, key: string): Promise<string | undefined> {
   sub.push({ ref: key, cents }); bank.push({ ref: key, cents });
+  bankPostedOn.set(key, /^\d{4}-\d{2}$/.test(period) ? `${period}-01` : loan.closing.closing_date);
   if (!ctx) return undefined;
   const h = await settlePayment(ctx, from, to, cents, memo(period, leg, cents), key);
   ledger.push({ ref: key, cents });
@@ -172,6 +178,16 @@ async function main() {
     plans.push(plan); applications.push({ period: p, due: row.due_date, received: plan.effective_date, interest: plan.legs.interest, principal: plan.legs.principal });
     log(`  period ${String(p).padStart(2)} ${row.due_date}: receipt ${usd(due)} = P ${usd(plan.legs.principal)} + I ${usd(plan.legs.interest)} + tax ${usd(plan.legs.tax)} + hazard ${usd(plan.legs.hazard)} + MIP ${usd(plan.legs.mip)}`);
     if (ctx) { note(row.due_date, `period ${p} due date`); await waitForLedgerTime(ctx.client, mapTime(row.due_date), log); }
+    // Finish any escrow whose statutory date has passed on the business clock. Done BEFORE the period's payment legs so the
+    // finish lands as close to FinishAfter as possible (the six legs take ~100 s of Testnet time).
+    for (const e of escrows) {
+      if (e.done || e.cancelled) continue;
+      if (e.bill.due_date <= row.due_date) {
+        if (ctx) { await waitForLedgerTime(ctx.client, e.finish_after, log); e.done = await finishEscrow(ctx, 'servicer', e.owner, e.sequence); } else e.done = 'replay';
+        post({ company_id: COMPANY, loan_id: OPAQUE_LOAN, account: e.bill.purpose, cents: -e.bill.cents, leg: 'escrow_finish', effective_date: e.bill.due_date, period: p });
+        log(`    escrow finished ${e.bill.purpose} ${e.bill.due_date} ${usd(e.bill.cents)} -> ${e.to}${e.done !== 'replay' ? ` ${e.done.slice(0, 12)}…` : ''}`);
+      }
+    }
     await pay('homeowner', 'servicer', due, period, 'receipt', `${RUN}:${period}:receipt`);
     await pay('servicer', 'noteHolder', plan.legs.interest + plan.legs.principal, period, 'pi', `${RUN}:${period}:pi`);
     await pay('servicer', 'taxImpound', plan.legs.tax, period, 'tax', `${RUN}:${period}:tax`);
@@ -182,15 +198,6 @@ async function main() {
     post({ company_id: COMPANY, loan_id: OPAQUE_LOAN, account: 'hud', cents: plan.legs.mip, leg: 'mip_remit', effective_date: row.due_date, period: p });
     await logEvent('application', { period: p, due: row.due_date, received: plan.effective_date, legs: plan.legs, total_due_cents: plan.total_due_cents });
 
-    // Finish any escrow whose statutory date has passed on the business clock.
-    for (const e of escrows) {
-      if (e.done || e.cancelled) continue;
-      if (e.bill.due_date <= row.due_date) {
-        if (ctx) { await waitForLedgerTime(ctx.client, e.finish_after, log); e.done = await finishEscrow(ctx, 'servicer', e.owner, e.sequence); } else e.done = 'replay';
-        post({ company_id: COMPANY, loan_id: OPAQUE_LOAN, account: e.bill.purpose, cents: -e.bill.cents, leg: 'escrow_finish', effective_date: e.bill.due_date, period: p });
-        log(`    escrow finished ${e.bill.purpose} ${e.bill.due_date} ${usd(e.bill.cents)} -> ${e.to}${e.done !== 'replay' ? ` ${e.done.slice(0, 12)}…` : ''}`);
-      }
-    }
     // Near-term verified bills: advance if short (R10), then a fully funded escrow (S7).
     const monthEnd = addDays(addMonths(row.due_date, 1), -1);
     for (const bill of bills) {
@@ -212,9 +219,12 @@ async function main() {
       const to: Role = bill.purpose === 'tax' ? 'countyTreasurer' : 'insuranceCarrier';
       const mapped = ctx ? mapTime(bill.due_date) : rippleTimeAt(bill.due_date);
       const finish_after = ctx ? futureFinish(mapped) : mapped;
-      const cancel_after = ctx ? finish_after + STEP : rippleTimeAt(addDays(bill.due_date, config.escrow.cancelAfterDays));
+      // Ledger track: the cancel window must outlast one full cycle of Testnet work (six validated legs plus waits,
+      // observed ~100 s at 45 s/month on 2026-09-10) or a finish attempted in the next period lands after CancelAfter
+      // and rippled refuses it with tecNO_PERMISSION. Production maps this to due + 45 days (config.escrow.cancelAfterDays).
+      const cancel_after = ctx ? finish_after + CANCEL_WINDOW : rippleTimeAt(addDays(bill.due_date, config.escrow.cancelAfterDays));
       if (ctx) {
-        note(bill.due_date, `${bill.purpose} bill FinishAfter`, finish_after, finish_after !== mapped); note(addDays(bill.due_date, config.escrow.cancelAfterDays), `${bill.purpose} bill CancelAfter (FinishAfter + ${STEP}s)`, cancel_after);
+        note(bill.due_date, `${bill.purpose} bill FinishAfter`, finish_after, finish_after !== mapped); note(addDays(bill.due_date, config.escrow.cancelAfterDays), `${bill.purpose} bill CancelAfter (FinishAfter + ${CANCEL_WINDOW}s)`, cancel_after);
         const e = await createImpoundEscrow(ctx, { from, to, cents: bill.cents, finish_after, cancel_after, memo: memo(period, bill.purpose, bill.cents), allowlist: PAYEES });
         escrows.push({ bill, ...e, finish_after, cancel_after, from, to });
         if (!early) { early = true; proofs.T10_early_finish = await attemptEarlyFinish(ctx, 'servicer', e.owner, e.sequence); }
@@ -279,7 +289,14 @@ async function main() {
   const transfer = servicingTransferCase(addDays(yearEnd, 1));
   if (ctx) { const t = await transferLoanRecord(ctx, ctx.ids.loanRecordNFTokenId!, 'servicer', 'transfereeServicer'); proofs.R11_nftoken_transfer = t.accept; }
   await logEvent('servicing_transfer', { transfer, nftoken_transfer: proofs.R11_nftoken_transfer ?? null });
-  const recon = threeWayMatch({ bank, subledger: sub, ledger: ctx ? ledger : sub });
+  // RS1: the bank side of the match is a receipt FILE in the documented contract (docs/architecture.md §7c), written
+  // here by the simulated custodian and parsed back by the same parser a subservicer's export would go through.
+  const bankFile = path.join(config.outDir, 'loan-year', `${RUN}-bank-receipts.csv`);
+  fs.mkdirSync(path.dirname(bankFile), { recursive: true });
+  fs.writeFileSync(bankFile, formatBankReceiptCsv(rowsFromEntries(bank, OPAQUE_LOAN, (ref) => bankPostedOn.get(ref) ?? loan.closing.closing_date)));
+  const bankFromFile = parseBankReceiptCsv(fs.readFileSync(bankFile, 'utf8'), { loan_ref: OPAQUE_LOAN });
+  log(`    bank receipt file: ${bankFromFile.rows.length} postings parsed from ${path.relative('.', bankFile)} (net ${usd(bankFromFile.net_cents)})`);
+  const recon = threeWayMatch({ bank: bankFromFile.entries, subledger: sub, ledger: ctx ? ledger : sub });
   const events: ReconciliationEvent[] = [];
   events.push(appendReconciliationEvent(undefined, { company_id: COMPANY, loan_id: OPAQUE_LOAN }, new Date().toISOString(), recon));
   log(`    three-way match: ${recon.matched.length} matched, ${recon.unmatched.length} unmatched; bank-authoritative balance ${usd(recon.authoritative_balance_cents)}; chain ok=${verifyChain(events)}`);

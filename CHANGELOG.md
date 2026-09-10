@@ -21,8 +21,19 @@ Servicing-only architecture on Mainnet-live XRPL primitives, merged from two ind
 - Issuer preflight now binds the locking flag to the validated issuer account and repairs issuer-side NoRipple lines;
   two-of-three multisig recovery drill alongside the regular-key drill (`src/xrpl/issuer.ts`, `src/xrpl/keys.ts`).
 - PGlite-backed tests for migrations, the journal restart path and the event chain.
+- Roast RESHAPE items (docs/roast-v2-2026-09-10.md): bank receipt-file contract and parser feeding the three-way match
+  (`src/servicing/bank-receipts.ts`, T13); examiner evidence pack `npm run evidence` with control map, settlement legs,
+  statements, reconciliation, event-chain head and SHA-256 manifest (`src/cli/evidence-pack.ts`); per-loan-year ledger
+  cost model and scale note (`src/servicing/cost-model.ts`, docs/cost-model.md, T14); degraded-mode contract
+  (architecture §7b); README "What v2.0 is and is not" and "Open business items".
 
 ### Changed
+- Multisig recovery drill: the below-quorum attempt is submitted for its preliminary engine result only and the
+  two-signer proof is autofilled fresh, so the refused attempt no longer consumes the ledger window (`tefMAX_LEDGER`
+  observed on Testnet 2026-09-10).
+- Testnet escrow pacing: the ledger-track `CancelAfter` window is at least 240 s (a six-leg period takes about 100 s of
+  Testnet time) and escrow finishes run before the period's payment legs, so a finish can no longer land past
+  `CancelAfter` (`tecNO_PERMISSION` observed 2026-09-10).
 - Fixture re-based so the FHA note stays $450,000.00: base $442,260.44 + UFMIP $7,739.56; MIP $184.28 separated from
   hazard; late charge 4 % ($110.83); monthly payment $3,365.01.
 - Canonical schema `htm.canonical-loan/3` with `credit_purpose` and R19/R20/R21 validation.

@@ -38,7 +38,7 @@ describe('Phase F security and privacy', () => {
     expect(src.includes('writeFileSync')).toBe(false);
     expect(src.indexOf('regularKeyProof')).toBeLessThan(src.indexOf('asfDisableMaster'));
   });
-  it('S3: no vault, lending or participation transaction types remain in src/', () => {
+  it('S3_no_vault_lending_types: no vault, lending or participation transaction types remain in src/', () => {
     const files = fs.readdirSync('src', { recursive: true }).map(String).filter((f) => f.endsWith('.ts'));
     for (const f of files) {
       const src = fs.readFileSync(`src/${f}`, 'utf8');
