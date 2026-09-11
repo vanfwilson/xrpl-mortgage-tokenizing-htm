@@ -1,5 +1,66 @@
 # Changelog
 
+## 3.1.0 — 2026-09-11
+
+The MPT is repositioned from a non-transferable "record of account" to the **note asset**: the digital twin of the
+fixed-rate mortgage note, held by the lending institution at face value, transferable between authorized institutions,
+escrowable and lockable, never clawback-able. Servicing is a strict 30-year fixed P&I stream through TokenEscrow; each
+validated finish is the on-chain proof of payment.
+
+### Changed
+- Note-asset flags `CanEscrow | CanTransfer | CanLock | RequireAuth`; `CanClawback` removed. Metadata `ai.kind =
+  mortgage_note` with the fixed terms (`principal_cents`, `rate_bps`, `term_months`, `pi_cents`).
+- Roles: `servicer` → `lender` (asset holder and P&I recipient). DepositAuth/Preauth on issuer, lender, impound.
+- `assert_fixed_rate()` in the schedule builder: identical P&I every period (final payment absorbs cent rounding only);
+  the full 360-row schedule is written to `payment_schedule`.
+- `reconcile()` → `audit()`: lender holds the note at face value, and every settled leg's finish transaction is re-read
+  from the ledger and stamped with `proof_ledger_index` / `proof_verified_at`.
+- Schema migration (idempotent): `mpt_issuances.purpose` accepts `note_asset`; `loans.lender_account`, `loans.pi_cents`;
+  `escrow_legs.proof_ledger_index`, `escrow_legs.proof_verified_at`.
+- README, v3 architecture, proposal and deck: tokenomics and institutional liquidity section; XLS-65 / XLS-66 stated as
+  forward compatibility only (enabled on Devnet, not Testnet or Mainnet, verified 2026-09-11); counsel items for the
+  note asset (UCC 3/9, eNote / ESIGN / UETA / MERS, securities) listed as open.
+
+### Removed
+- Clawback-based amortization (`tx.clawback`, the monthly principal burn, on-chain outstanding balance). Outstanding
+  principal is a servicing figure in the books only. There was no variable-rate or ARM code to remove; v3 was fixed-rate
+  from the start.
+
+## 3.0.0 — 2026-09-11
+
+Rewrite of the ledger and settlement core in Python (`xrpl-py` 5.x) on XRPL Multi-Purpose Tokens and TokenEscrow,
+mirrored into the `mortgageos` schema of the councilforge PostgreSQL database. The v2 TypeScript engine is removed from
+this branch and archived on `main`.
+
+### Added
+- `mortgageos/`: one non-transferable record-of-account MPT per loan (`CanLock | RequireAuth | CanEscrow | CanClawback`,
+  no `CanTransfer`, XLS-89d metadata with manifest hash and CID slot); DepositAuth + DepositPreauth on the issuer and both
+  custodial accounts; P&I and impound legs as TokenEscrow of a self-issued settlement MPT with the split and regulatory
+  markers in the memo; monthly amortization by issuer `Clawback` so the on-ledger balance equals `loans.outstanding_cents`;
+  lock / unlock for the unsettled-period path; reconciliation sweep.
+- `mortgageos/db/schema.sql`: `loans`, `mpt_issuances`, `ledger_transactions` (Pending → Confirmed / Failed with envelope,
+  meta and parsed memo), `audit_log`, `payment_schedule`, `escrow_legs`.
+- One wrapped submit path (`ledger/client.py`): every ledger error code and timeout is triaged into `audit_log` and the
+  loop continues; a forced `tec` and a forced timeout are part of the live suite.
+- `tests/py/test_mpt_core.py`: offline amortization checks plus the live Testnet phases; prints
+  `ALL COUNCILFORGE MPT VERIFICATION PASSES` only after the reconciliation test passes. Independent evaluator: 12/12.
+- `docs/v3-architecture.md`, `docs/grant-proposal-2026-09-11.md` / `.pdf`, `docs/grant-deck-2026-09-11.pptx`.
+- `mortgageos/ledger/issuer.py` + `python -m mortgageos.init_issuer`: `asfAllowTrustLineLocking` (flag 17) on the USDm
+  issuer before any allocation, read back via `account_info`, mirrored to `issuer_accounts.escrow_enabled`.
+- `hooks/`: the payment-firewall Hook from the design notes as working C, compiled to WASM and proven on Xahau Testnet
+  (sidecar, not part of the demo); `portainer/hooks-builder/`: server-side pipeline that compiles, deploys and re-proves
+  it on every push to `v3`, publishing `status.json` / `xahau-proof.json` per commit.
+
+### Removed
+- `src/`, the TypeScript tests and toolchain, the Devnet/Testnet npm workflows. OCR ingest, statements, aggregate escrow
+  analysis with cushion, case workflows, servicing transfer and Form 1098 are not in v3.0; they remain on `main` and are
+  the porting roadmap.
+
+### Verified
+- XRPL Testnet Amendments object, 2026-09-11: MPTokensV1, TokenEscrow, Clawback, DepositAuth, DepositPreauth, Credentials,
+  PermissionedDomains enabled; Hooks, SmartEscrow, DynamicMPT not enabled. Xahau Testnet has Hooks but neither MPT nor
+  TokenEscrow, which is why the Hook-based payment firewall from the v3 design notes was not built.
+
 ## 2.0.0 — 2026-09-10
 
 Servicing-only architecture on Mainnet-live XRPL primitives, merged from two independent builds

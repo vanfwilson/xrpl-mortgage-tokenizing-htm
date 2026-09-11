@@ -1,0 +1,14 @@
+{
+  "name": "mortgageos-hooks",
+  "private": true,
+  "description": "Xahau Testnet sidecar: the MortgageOS payment-firewall Hook (C -> WASM), its deploy and its live test. Not part of the v3 demo or CI.",
+  "type": "module",
+  "scripts": {
+    "build": "bash build.sh",
+    "deploy": "node deploy.mjs",
+    "test": "node deploy.mjs --test"
+  },
+  "dependencies": {
+    "xahau": "4.1.1"
+  }
+}

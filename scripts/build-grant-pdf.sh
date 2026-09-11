@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Render docs/grant-proposal-2026-09-10.md to docs/grant-proposal-2026-09-10.pdf.
+# Render docs/grant-proposal-2026-09-11.md to docs/grant-proposal-2026-09-11.pdf.
 # Markdown -> HTML with the Python `markdown` package; HTML -> PDF with headless Chrome (Letter, margins).
 set -euo pipefail
 cd "$(dirname "$0")/.."
-SRC=docs/grant-proposal-2026-09-10.md
-HTML=out/grant-proposal-2026-09-10.html
-PDF=docs/grant-proposal-2026-09-10.pdf
+SRC=docs/grant-proposal-2026-09-11.md
+HTML=out/grant-proposal-2026-09-11.html
+PDF=docs/grant-proposal-2026-09-11.pdf
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 mkdir -p out
 python3 - "$SRC" "$HTML" <<'EOF'

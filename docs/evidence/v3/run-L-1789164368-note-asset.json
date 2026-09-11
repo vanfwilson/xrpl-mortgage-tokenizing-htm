@@ -1,0 +1,78 @@
+{
+ "loan_id": "L-1789164368",
+ "network": "wss://s.altnet.rippletest.net:51233",
+ "phase1": {
+  "deposit_auth": {
+   "issuer": true,
+   "lender": true,
+   "impound": true
+  },
+  "note_issuance": {
+   "id": "013B816122187CA01D5B049AF8F3C0D177B93C0129BD6F72",
+   "flags": "0x2e",
+   "metadata": {
+    "ac": "rwa",
+    "ai": {
+     "cid": "",
+     "kind": "mortgage_note",
+     "loan": "L-1789164368",
+     "pi_cents": 284431,
+     "principal_cents": 45000000,
+     "rate_bps": 650,
+     "sha256": "e5b788c215e681b694b7dc2b750c4f9129c4c716816cd5d8ebadc0ea7c1e04fb",
+     "term_months": 360,
+     "v": 3
+    },
+    "d": "Digital twin of one 30-year fixed-rate residential mortgage note: the holder's right to the fixed P&I cash flow. Servicing and borrower data stay off-ledger.",
+    "in": "HighTechMortgage",
+    "n": "MortgageOS mortgage note (digital twin)",
+    "t": "HTMNOTE"
+   },
+   "tx": "11ED7CB567639D03A49E9211FC46EBE61B74130F8BC3EBD4657C176A5B1B2A2C"
+  },
+  "phase1_pass": true
+ },
+ "phase2": {
+  "period": 1,
+  "pi_cents": 284431,
+  "legs": [
+   {
+    "leg_id": 15,
+    "finish_tx": "2A5B5B64AFEF33506B6FC10D6D929A8F3EEFDCE888968C4263E6333B30BD3E4A",
+    "result": "tesSUCCESS"
+   },
+   {
+    "leg_id": 16,
+    "finish_tx": "1F2735C5948077F74CA60FAC292DBEE0287CBA1C8587ABD6EC188D937CFC77E7",
+    "result": "tesSUCCESS"
+   }
+  ],
+  "audit_ok": true,
+  "asset_face_value": 45000000,
+  "chain_units": 45000000,
+  "db_outstanding": 44959319,
+  "proofs_verified": 2,
+  "proofs_total": 2,
+  "phase2_pass": true
+ },
+ "phase3": {
+  "unfunded": "tecPATH_PARTIAL",
+  "timeout": "timeout",
+  "audit_rows": 2,
+  "phase3_pass": true
+ },
+ "audit": {
+  "audit_ok": true,
+  "asset_face_value": 45000000,
+  "chain_units": 45000000,
+  "db_outstanding": 44959319,
+  "proofs_verified": 2,
+  "proofs_total": 2
+ },
+ "tx_states": {
+  "Confirmed": 16,
+  "Failed": 1
+ },
+ "success_string": "ALL COUNCILFORGE MPT VERIFICATION PASSES",
+ "version": "3.1.0"
+}

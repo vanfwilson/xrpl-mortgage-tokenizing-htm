@@ -3,3 +3,14 @@ out/
 .env
 ._*
 .DS_Store
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# hooks sidecar (Xahau)
+hooks/node_modules/
+hooks/build/
+hooks/out/
+hooks/package-lock.json

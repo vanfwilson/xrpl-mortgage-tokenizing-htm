@@ -1,0 +1,46 @@
+# Portainer stack: hooks-builder  (server: 72.60.225.136, dir /root/portainer-stacks/hooks-builder)
+# Compiles hooks/src/*.c -> .wasm on the server whenever GitHub pushes to v3. Nothing runs on a workstation.
+#
+# .env (next to this file, never committed):
+#   HOOKS_BUILDER_HOST   public hostname routed by Traefik
+#   WEBHOOK_SECRET       secret configured on the GitHub webhook (HMAC-SHA256 over the payload)
+#   GIT_REPO             https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm.git
+#   GIT_BRANCH           v3
+services:
+  hooks-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local/hooks-builder:latest
+    container_name: hooks-builder
+    restart: unless-stopped
+    environment:
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+      GIT_REPO: ${GIT_REPO}
+      GIT_BRANCH: ${GIT_BRANCH:-v3}
+    volumes:
+      - hooks-builder-work:/work        # checkout + build outputs (build/<sha>/*.wasm, build/latest/)
+    networks:
+      - traefik-public
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: traefik-public
+      # POST https://HOST/hooks/build-hooks  <- GitHub webhook (port 9000)
+      traefik.http.routers.hooks-builder.rule: Host(`${HOOKS_BUILDER_HOST}`) && PathPrefix(`/hooks`)
+      traefik.http.routers.hooks-builder.entrypoints: websecure
+      traefik.http.routers.hooks-builder.tls.certresolver: letsencrypt
+      traefik.http.routers.hooks-builder.service: hooks-builder
+      traefik.http.services.hooks-builder.loadbalancer.server.port: "9000"
+      # GET https://HOST/artifacts/latest/mortgage_firewall.wasm  <- read-only artifacts (port 9001)
+      traefik.http.routers.hooks-artifacts.rule: Host(`${HOOKS_BUILDER_HOST}`) && PathPrefix(`/artifacts`)
+      traefik.http.routers.hooks-artifacts.entrypoints: websecure
+      traefik.http.routers.hooks-artifacts.tls.certresolver: letsencrypt
+      traefik.http.routers.hooks-artifacts.service: hooks-artifacts
+      traefik.http.routers.hooks-artifacts.middlewares: hooks-artifacts-strip
+      traefik.http.middlewares.hooks-artifacts-strip.stripprefix.prefixes: /artifacts
+      traefik.http.services.hooks-artifacts.loadbalancer.server.port: "9001"
+volumes:
+  hooks-builder-work:
+networks:
+  traefik-public:
+    external: true
