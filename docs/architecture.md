@@ -1,3 +1,5 @@
+> **Archived v2 document (TypeScript engine, NFToken record).** The current engine is v3: see [v3-architecture.md](v3-architecture.md).
+
 # Architecture: residential mortgage servicing on the XRP Ledger
 
 Status: v2.0.0 (branch `v2/servicing`), merged from `claude/servicing-rebuild` and the strongest `codex-servicing-rebuild` modules. This document replaces the previous (funding-pool) architecture; that version is in git history at commit 76ead3b.

@@ -1,5 +1,35 @@
 # Changelog
 
+## 3.0.0 — 2026-09-11
+
+Rewrite of the ledger and settlement core in Python (`xrpl-py` 5.x) on XRPL Multi-Purpose Tokens and TokenEscrow,
+mirrored into the `mortgageos` schema of the councilforge PostgreSQL database. The v2 TypeScript engine is removed from
+this branch and archived on `main`.
+
+### Added
+- `mortgageos/`: one non-transferable record-of-account MPT per loan (`CanLock | RequireAuth | CanEscrow | CanClawback`,
+  no `CanTransfer`, XLS-89d metadata with manifest hash and CID slot); DepositAuth + DepositPreauth on the issuer and both
+  custodial accounts; P&I and impound legs as TokenEscrow of a self-issued settlement MPT with the split and regulatory
+  markers in the memo; monthly amortization by issuer `Clawback` so the on-ledger balance equals `loans.outstanding_cents`;
+  lock / unlock for the unsettled-period path; reconciliation sweep.
+- `mortgageos/db/schema.sql`: `loans`, `mpt_issuances`, `ledger_transactions` (Pending → Confirmed / Failed with envelope,
+  meta and parsed memo), `audit_log`, `payment_schedule`, `escrow_legs`.
+- One wrapped submit path (`ledger/client.py`): every ledger error code and timeout is triaged into `audit_log` and the
+  loop continues; a forced `tec` and a forced timeout are part of the live suite.
+- `tests/py/test_mpt_core.py`: offline amortization checks plus the live Testnet phases; prints
+  `ALL COUNCILFORGE MPT VERIFICATION PASSES` only after the reconciliation test passes. Independent evaluator: 12/12.
+- `docs/v3-architecture.md`, `docs/grant-proposal-2026-09-11.md` / `.pdf`, `docs/grant-deck-2026-09-11.pptx`.
+
+### Removed
+- `src/`, the TypeScript tests and toolchain, the Devnet/Testnet npm workflows. OCR ingest, statements, aggregate escrow
+  analysis with cushion, case workflows, servicing transfer and Form 1098 are not in v3.0; they remain on `main` and are
+  the porting roadmap.
+
+### Verified
+- XRPL Testnet Amendments object, 2026-09-11: MPTokensV1, TokenEscrow, Clawback, DepositAuth, DepositPreauth, Credentials,
+  PermissionedDomains enabled; Hooks, SmartEscrow, DynamicMPT not enabled. Xahau Testnet has Hooks but neither MPT nor
+  TokenEscrow, which is why the Hook-based payment firewall from the v3 design notes was not built.
+
 ## 2.0.0 — 2026-09-10
 
 Servicing-only architecture on Mainnet-live XRPL primitives, merged from two independent builds

@@ -37,7 +37,7 @@ cp .env.example .env   # set COUNCILFORGE_DSN (writer role), XRPL_WSS stays Test
 /Volumes/BackupPlus/venvs/mortgageos/bin/python -m pytest tests/py/test_mpt_core.py -q
 ```
 
-Both print `ALL COUNCILDORGE MPT VERIFICATION PASSES` only when the live phases and the reconciliation sweep passed.
+Both print `ALL COUNCILFORGE MPT VERIFICATION PASSES` only when the live phases and the reconciliation sweep passed.
 Wallets are faucet-funded once into `out/wallets.py.testnet.json` (gitignored) and reused.
 
 ## Verified feature state (2026-09-11, on-ledger Amendments object)

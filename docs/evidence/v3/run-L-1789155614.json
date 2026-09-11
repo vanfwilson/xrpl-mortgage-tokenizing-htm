@@ -1,0 +1,66 @@
+{
+ "loan_id": "L-1789155614",
+ "network": "wss://s.altnet.rippletest.net:51233",
+ "phase1": {
+  "deposit_auth": {
+   "issuer": true,
+   "servicer": true,
+   "impound": true
+  },
+  "debt_issuance": {
+   "id": "013B814F22187CA01D5B049AF8F3C0D177B93C0129BD6F72",
+   "flags": "0x4e",
+   "metadata": {
+    "ac": "rwa",
+    "ai": {
+     "cid": "",
+     "kind": "record_of_account",
+     "loan": "L-1789155614",
+     "sha256": "40503924738347dc0d61974601829171c32b989adfc7fbf35e7ef7f38edea560",
+     "v": 3
+    },
+    "d": "Non-transferable servicer record of account for one residential loan. Not a note, not an investment.",
+    "in": "HighTechMortgage",
+    "n": "MortgageOS record of account",
+    "t": "MOSREC"
+   },
+   "tx": "5941AE8001EFDF08009EDBB464DF515EC9BCD1D5874A0D994905B77ABFEDD5A6"
+  },
+  "phase1_pass": true
+ },
+ "phase2": {
+  "period": 1,
+  "legs": [
+   {
+    "leg_id": 9,
+    "finish_tx": "201B3B34432737FE4F2CFA8D6644030019A7578777C17A6D104AFB5E0A2DDB4E",
+    "result": "tesSUCCESS"
+   },
+   {
+    "leg_id": 10,
+    "finish_tx": "EE04A61F64C4766BEBD12F0426CA8C3FB7989810A3E901D6046577F1B9D8BC23",
+    "result": "tesSUCCESS"
+   }
+  ],
+  "reconciled": true,
+  "db_outstanding": 44959319,
+  "chain_balance": 44959319,
+  "phase2_pass": true
+ },
+ "phase3": {
+  "unfunded": "tecPATH_PARTIAL",
+  "timeout": "timeout",
+  "audit_rows": 2,
+  "phase3_pass": true
+ },
+ "reconcile": {
+  "reconciled": true,
+  "db_outstanding": 44959319,
+  "chain_balance": 44959319
+ },
+ "tx_states": {
+  "Confirmed": 17,
+  "Failed": 1
+ },
+ "success_string": "ALL COUNCILFORGE MPT VERIFICATION PASSES"
+}

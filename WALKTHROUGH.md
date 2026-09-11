@@ -1,3 +1,5 @@
+> **Archived v2 walkthrough.** The v3 Python engine is documented in [docs/v3-architecture.md](docs/v3-architecture.md) and the README.
+
 # What happens to a scanned closing package, step by step
 
 Two commands do everything: `npm run tokenize -- <your-scan.pdf>` boards the loan from the paper; `npm run loan-year`

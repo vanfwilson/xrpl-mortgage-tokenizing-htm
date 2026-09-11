@@ -10,11 +10,11 @@
 ## What a strong application contains (XRPL Grants FAQ and rubric)
 
 - [x] **Public GitHub repo with a working proof of concept** — this repository; Testnet loan year in [testnet-run.md](testnet-run.md)
-- [ ] **2-minute demo video** — record `npm run print` → paper → `npm run tokenize` → `npm run loan-year` (explorer links appear live)
-- [x] **Clear XRPL integration plan** — [standards-mapping.md](standards-mapping.md) and [architecture.md](architecture.md): Payment, NFToken, TokenEscrow, key management; why XLS-65/66, EVM and Hooks were rejected ([appendix](appendix-deferred-amendments.md))
+- [ ] **2-minute demo video** — record `python -m mortgageos.verify` (board → escrow → finish → clawback → reconcile, explorer links from the printed hashes)
+- [x] **Clear XRPL integration plan** — [v3-architecture.md](v3-architecture.md): MPT record of account, DepositAuth/Preauth, TokenEscrow legs, Clawback amortization; why Hooks, Smart Escrows and XLS-65/66 are not used (feature state verified 2026-09-11)
 - [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
-- [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-10.md](grant-proposal-2026-09-10.md) / [PDF](grant-proposal-2026-09-10.pdf) §7–9 (servicing-only milestones; supersedes the August 2026 PDF)
-- [x] **Reviewer deck** — [grant-deck-2026-09-10.pptx](grant-deck-2026-09-10.pptx), 14 slides, built by `scripts/build-grant-deck.py`
+- [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-11.md](grant-proposal-2026-09-11.md) / [PDF](grant-proposal-2026-09-11.pdf) §7–9 (v3 core + porting milestones; supersedes the September 10 PDF)
+- [x] **Reviewer deck** — [grant-deck-2026-09-11.pptx](grant-deck-2026-09-11.pptx), 15 slides, built by `scripts/build-grant-deck.py`
 - [x] **Team bios + company details** — [TEAM.md](../TEAM.md)
 - [ ] **Traction** — banks that want HTM to run servicing operations under their name as the official servicer, and HTM's own-client servicing under its California licences; pipeline of loans that could be boarded (state honestly: conversations, no signed servicing contract yet)
 - [x] **Security posture** — [threat-model.md](threat-model.md); key drill proven on Testnet
@@ -32,6 +32,6 @@ and carries one loan-record token per loan. It runs today on Testnet with only M
 ## Before submitting
 
 1. Record the 2-minute video.
-2. Done 2026-09-10: the proposal PDF and deck carry the servicing-only milestones; keep grant-narrative.md, the proposal and the deck in step.
+2. Done 2026-09-11: the proposal PDF and deck describe the v3 core and the porting milestones; keep grant-narrative.md, the proposal and the deck in step.
 3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.
