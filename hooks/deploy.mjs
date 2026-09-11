@@ -1,6 +1,7 @@
 // Deploy the MortgageOS firewall Hook to Xahau Testnet and, with --test, prove it: below-schedule payment rejected,
 // scheduled payment accepted, frozen account rejects, unfrozen accepts. Standalone sidecar; not part of the v3 demo.
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 import { createHash } from "node:crypto";
 import xahau from "xahau";
 
@@ -8,8 +9,9 @@ const { Client, Wallet, encode } = xahau;
 const WSS = process.env.XAHAU_WSS ?? "wss://xahau-test.net";
 const FAUCET = process.env.XAHAU_FAUCET ?? "https://xahau-test.net/newcreds";
 const NETWORK_ID = 21338;
-const WASM = "build/mortgage_firewall.wasm";
-const WALLETS = "out/xahau-wallets.json";
+const WASM = process.env.HOOK_WASM ?? "build/mortgage_firewall.wasm";
+const WALLETS = process.env.XAHAU_WALLETS_FILE ?? "out/xahau-wallets.json";
+const OUT_DIR = process.env.XAHAU_OUT_DIR ?? "out";
 // Fire on Payment only (bit 0 clear); bit 22 (SetHook) is conventionally set so the hook never blocks its own administration.
 const HOOK_ON_PAYMENT = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFE";
 const NAMESPACE = createHash("sha256").update("mortgageos/firewall/v1").digest("hex").toUpperCase();
@@ -34,7 +36,8 @@ async function faucet(role) {
 }
 
 async function loadWallets(client) {
-  mkdirSync("out", { recursive: true });
+  mkdirSync(OUT_DIR, { recursive: true });
+  mkdirSync(dirname(WALLETS), { recursive: true });
   const stored = existsSync(WALLETS) ? JSON.parse(readFileSync(WALLETS, "utf8")) : {};
   for (const role of ["servicer", "borrower"]) {
     if (!stored[role]) { stored[role] = await faucet(role); writeFileSync(WALLETS, JSON.stringify(stored, null, 2)); }
@@ -118,8 +121,10 @@ async function main() {
   }
   await client.disconnect();
   const pass = steps.every((s) => s.pass);
-  const out = `out/xahau-test-${Date.now()}.json`;
-  writeFileSync(out, JSON.stringify({ network: WSS, network_id: NETWORK_ID, servicer: S, borrower: B, namespace: NAMESPACE, steps, pass }, null, 2));
+  const out = `${OUT_DIR}/xahau-test-${Date.now()}.json`;
+  const wasmSha = createHash("sha256").update(readFileSync(WASM)).digest("hex");
+  writeFileSync(out, JSON.stringify({ network: WSS, network_id: NETWORK_ID, commit: process.env.GIT_SHA ?? null, wasm_sha256: wasmSha,
+    servicer: S, borrower: B, namespace: NAMESPACE, ran_at: new Date().toISOString(), steps, pass }, null, 2));
   console.log(`\n${steps.filter((s) => s.pass).length}/${steps.length} expectations met -> ${out}`);
   console.log(pass ? "XAHAU HOOK FIREWALL PROOF PASSES" : "XAHAU HOOK FIREWALL PROOF FAILED");
   process.exit(pass ? 0 : 1);

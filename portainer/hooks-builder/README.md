@@ -22,13 +22,22 @@ ssh aiaa-server 'cd /root/portainer-stacks/hooks-builder && docker compose -p ho
 
 ## What happens on push
 
-`webhook` verifies the `X-Hub-Signature-256` HMAC and that `ref == refs/heads/v3`, then runs `build-on-push.sh <sha>`:
-checkout that commit, compile every `hooks/src/*.c` with the container's `clang` + `wasm-ld`, write
-`/work/build/<sha>/<name>.wasm` + `build.log` + sha256, and refresh `/work/build/latest/`. The deploy/proof step
-(`hooks/deploy.mjs --test` against Xahau Testnet) stays a deliberate operator action; it is not run by the webhook.
+`webhook` verifies the `X-Hub-Signature-256` HMAC and that `ref == refs/heads/v3`, answers GitHub immediately with
+`queued`, and `run-pipeline.sh <sha>` runs detached, serialized on a lock:
 
-## Manual build without the webhook
+1. checkout that commit;
+2. compile every `hooks/src/*.c` with the container's `clang` + `wasm-ld` → `/work/build/<sha>/<name>.wasm`;
+3. `npm install` in `hooks/` (the `xahau` SDK);
+4. `node deploy.mjs --test`: install the hook on the servicer's Xahau Testnet account (wallets persist in the volume at
+   `/work/xahau/wallets.json`, faucet-funded once) and run the seven-step proof;
+5. on pass, write `xahau-proof.json` and refresh `/work/build/latest/`.
+
+Watch a run: `https://hooks.aiautomationauthority.com/artifacts/<sha>/status.json` (`queued` → `running` →
+`compiled` → `passed` | `failed`), `pipeline.log`, `xahau-proof.log`, `xahau-proof.json`. `/artifacts/latest/` is the
+newest passing commit.
+
+## Manual run without the webhook
 
 ```bash
-docker compose -p hooks-builder exec hooks-builder /usr/local/bin/build-on-push.sh <sha> refs/heads/v3
+ssh aiaa-server 'docker exec hooks-builder /usr/local/bin/run-pipeline.sh <sha> refs/heads/v3'
 ```

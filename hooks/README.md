@@ -39,6 +39,11 @@ The proof submits, in order: install (`tesSUCCESS`), a 0.5 XAH payment (`tecHOOK
 the step-by-step results with transaction hashes to `out/xahau-test-<ts>.json`. The last committed proof is in
 `evidence/`.
 
+**Automated:** every push to `v3` compiles and re-proves this hook on the 72.x server (`portainer/hooks-builder/`);
+the current result is at `https://hooks.aiautomationauthority.com/artifacts/latest/xahau-proof.json` and the per-commit
+status at `/artifacts/<sha>/status.json`. Environment overrides used there: `HOOK_WASM`, `XAHAU_WALLETS_FILE`,
+`XAHAU_OUT_DIR`, `GIT_SHA`.
+
 Headers are vendored unmodified from `XRPLF/hook-macros` (`vendor/hook-macros/PIN`). Fees for `SetHook` are taken from
 the node's `fee` RPC with the transaction blob, as Xahau requires for hook transactions.
 
