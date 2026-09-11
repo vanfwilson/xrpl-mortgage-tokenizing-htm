@@ -39,7 +39,7 @@ with the asset. A validated ledger transaction is evidence of a settlement event
 receipt, document validity, servicing authority or custody. No borrower personal data goes on the ledger. Everything here
 runs on the ledger's public **test network** with a self-issued test USD and a fictitious loan.
 
-**See it:** [v3 architecture](docs/v3-architecture.md) · [tokenomics and institutional liquidity](#tokenomics-and-institutional-liquidity-architecture) · [v3 Testnet evidence](docs/evidence/v3/) · [Hooks sidecar, proven on Xahau](hooks/) · [glossary for finance people](GLOSSARY.md) · [threat model](docs/threat-model.md) · [team](TEAM.md) · [grant proposal (PDF, 2026-09-11)](docs/grant-proposal-2026-09-11.pdf) · [reviewer deck (PPTX)](docs/grant-deck-2026-09-11.pptx) · [v2 Testnet demo and evidence pack (archived)](docs/testnet-run.md)
+**See it:** [v3 architecture](docs/v3-architecture.md) · [tokenomics and institutional liquidity](#tokenomics-and-institutional-liquidity-architecture) · [v3.1 Testnet evidence report](https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/) ([raw JSON](docs/evidence/v3/)) · [Hooks sidecar, proven on Xahau](hooks/) · [glossary for finance people](GLOSSARY.md) · [threat model](docs/threat-model.md) · [team](TEAM.md) · [grant proposal (PDF, 2026-09-11)](docs/grant-proposal-2026-09-11.pdf) · [reviewer deck (PPTX)](docs/grant-deck-2026-09-11.pptx) · [v2 Testnet demo and evidence pack (archived)](docs/testnet-run.md)
 
 [![ci](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions/workflows/ci.yml/badge.svg)](https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm/actions)
 

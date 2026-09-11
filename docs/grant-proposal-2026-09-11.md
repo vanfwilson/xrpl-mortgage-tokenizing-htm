@@ -4,7 +4,7 @@
 
 Requested funding: **$200,000** · Program: **12 months** · Date: **September 11, 2026** · Supersedes the September 10, 2026 proposal
 
-Repository: <https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm> (MIT, branch `v3`) · v3 Testnet evidence: `docs/evidence/v3/` · Hook firewall proven on Xahau: `hooks/evidence/` · v2 Testnet demo (archived): <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/>
+Repository: <https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm> (MIT) · v3.1 Testnet evidence report: <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/> · Hook firewall proven on Xahau: `hooks/evidence/` · v2 Testnet demo (archived): <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/>
 
 ---
 
@@ -176,7 +176,7 @@ MortgageOS is mortgage tokenization and servicing infrastructure with an XRPL as
 ## 14. Sources and evidence
 
 - Repository, README (tokenomics section) and v3 architecture: <https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm> (branch `v3`, `docs/v3-architecture.md`)
-- v3 Testnet evidence: `docs/evidence/v3/` (loan, issuance ids, transaction hashes, payment proofs, audit rows)
+- v3.1 Testnet evidence report: <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/> (loan, note issuance and flags, transaction hashes with explorer links, payment proofs, audit result, Hook proof); raw JSON in `docs/evidence/v3/`
 - Hook firewall on Xahau Testnet: `hooks/evidence/`; server-side rebuild and re-proof pipeline: `portainer/hooks-builder/`
 - v2 archive: `docs/architecture.md`, `docs/testnet-run.md`, `docs/evidence/run-mtvzvtnk/`, demo <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo/>
 - XRPL Grants: <https://xrplgrants.org>; XRPL feature state verified 2026-09-11 on the Amendments ledger object (Testnet: MPTokensV1, TokenEscrow, Credentials, PermissionedDomains, Clawback enabled; SingleAssetVault and LendingProtocol on Devnet only; Hooks, SmartEscrow, DynamicMPT not enabled)
