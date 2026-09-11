@@ -319,24 +319,39 @@ bullets(s, Inches(0.5), Inches(1.4), Inches(12.3), Inches(5.2), [
     "No borrower portal or operator web UI yet: the product surface is the command line and the evidence pack.",
 ], 15)
 
-# 14. Team and ask --------------------------------------------------------------------------------------------------
-s = slide(); header(s, "Team and the ask", 14)
-team = [("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President, Lead Broker · CA DRE Broker #01106294 · NMLS #291547"),
-        ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI, Blockchain · MIT post-grad AI/data science · financial-industry data scientist · built v2.0"),
-        ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance, PH Operations · US Realtor · PH Broker PRC 0024025 · CPA"),
-        ("assets/brand/team/bill-thompson-hightechmortgage.jpg", "Bill Thompson", "Operations, IT, Business Management")]
-x = Inches(0.5)
-for img, name, role in team:
+# 14. Team ------------------------------------------------------------------------------------------------------------
+s = slide(); header(s, "Team (as published at hightechmortgage.com/about)", 14)
+team = [
+    ("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President and Lead Broker",
+     ["California DRE Broker's License #01106294", "California Mortgage Broker NMLS #291547", "30+ years Bay Area real estate and mortgage", "Owns origination, servicing and compliance obligations; licensed principal in both operating models"]),
+    ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI and Blockchain",
+     ["MIT post-graduate program, AI and data science; CSU Fullerton BS", "AWS Certified Developer; Databricks; Blockchain Training Alliance; Microsoft Certified Trainer", "Certified PostgreSQL / SQL Server / MySQL DBA; Sage, QuickBooks, MS NAV", "35 years real-estate investor, $10M+ portfolio; financial-industry data scientist; built v2.0", "linkedin.com/in/drvanwilson"]),
+    ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance and PH Operations",
+     ["Active licensed US Realtor", "Philippine Real Estate Broker PRC 0024025", "CPA (St. Paul University, BA Accounting); Int'l Certified Financial Consultant; ex-internal auditor, Philippine Airlines", "Leads Manila servicing operations under dual control; accounting review"]),
+    ("assets/brand/team/bill-thompson-hightechmortgage.jpg", "Bill Thompson", "Operations, IT and Business Management",
+     ["ITIL v4; Six Sigma Quality; CompTIA A+; TOPCIT", "Practical Project Mgmt; URAC; FranklinCovey Mgmt", "Ateneo Graduate School of Business; CSU Dominguez Hills", "Operations, infrastructure and process discipline; dual-control task queue"]),
+]
+x = Inches(0.4)
+for img, name, role, creds in team:
+    rect(s, x, Inches(1.3), Inches(3.05), Inches(5.7), LIGHT)
     if os.path.exists(img):
-        s.shapes.add_picture(img, x, Inches(1.4), height=Inches(1.9))
-    text(s, x, Inches(3.35), Inches(3.0), Inches(0.4), name, 14, True, NAVY)
-    text(s, x, Inches(3.7), Inches(3.0), Inches(0.8), role, 11, False, GREY)
+        s.shapes.add_picture(img, x + Inches(0.15), Inches(1.45), height=Inches(1.6))
+    text(s, x + Inches(0.15), Inches(3.1), Inches(2.8), Inches(0.35), name, 15, True, NAVY)
+    text(s, x + Inches(0.15), Inches(3.42), Inches(2.8), Inches(0.5), role, 11, True, BLUE)
+    bullets(s, x + Inches(0.15), Inches(3.95), Inches(2.8), Inches(3.0), creds, 10, GREY, 3)
     x += Inches(3.15)
-rect(s, Inches(0.5), Inches(4.7), Inches(12.3), Inches(1.9), LIGHT)
-text(s, Inches(0.7), Inches(4.8), Inches(12), Inches(0.5), "The ask", 18, True, BLUE)
-text(s, Inches(0.7), Inches(5.3), Inches(12), Inches(1.3),
-     ["$200,000 of milestone-gated funding for the plan above, plus introductions to banks that outsource servicing operations and to the RLUSD / institutional team on the custodial-asset question.",
-      "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm · Demo: vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo · Proposal: docs/grant-proposal-2026-09-10.pdf"], 13, False, NAVY)
+
+# 15. The ask ---------------------------------------------------------------------------------------------------------
+s = slide(); header(s, "The ask", 15)
+text(s, Inches(0.6), Inches(1.6), Inches(12), Inches(1.4),
+     "$200,000 of milestone-gated funding over 12 months for the plan on slides 11 and 12.", 26, True, NAVY)
+bullets(s, Inches(0.6), Inches(3.1), Inches(12), Inches(2.6), [
+    "Introductions to banks that outsource servicing operations, and to the RLUSD / institutional team on the custodial-asset question.",
+    "Everything stays open source: the canonical loan schema, the regulatory control map and its tests, the memo and receipt-file contracts, the evidence-pack format, the cost model.",
+    "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm  ·  Live demo: vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/demo  ·  Proposal: docs/grant-proposal-2026-09-10.pdf",
+], 16)
+rect(s, Inches(0.6), Inches(5.6), Inches(12), Inches(1.0), LIGHT)
+text(s, Inches(0.8), Inches(5.7), Inches(11.6), Inches(0.8), "High Tech Mortgage, Inc. · 730 I Street, Sacramento, CA 95814 · 19F Marco Polo Ortigas, Pasig City, Metro Manila · info@hightechmortgage.com", 13, False, GREY, anchor=MSO_ANCHOR.MIDDLE)
 
 prs.save(OUT)
 print(f"wrote {OUT}: {len(prs.slides)} slides")

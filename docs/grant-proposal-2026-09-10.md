@@ -117,14 +117,15 @@ Funding gates: build and integration gates (M1–M3) 30 %, $60,000; usage and pi
 
 ## 10. Team
 
-| Member | Role | Relevant contribution |
-|---|---|---|
-| Rich Young | Founder, President and Lead Broker | 30+ years in Bay Area real estate and mortgage; California DRE Broker's License #01106294; California Mortgage Broker NMLS #291547 |
-| Dr Van Wilson | Data Science, AI and Blockchain | MIT post-graduate program in AI and data science; financial-industry data scientist; AWS Certified Developer, Databricks and Blockchain Training Alliance certified, Microsoft Certified Trainer, PostgreSQL/SQL Server DBA; 35 years as a real-estate investor and manager; built the servicing engine and ledger adapter in this repository; <https://linkedin.com/in/drvanwilson> |
-| Trish Wilson | Real Estate, Finance and Philippine Operations | Licensed U.S. Realtor; Philippine Real Estate Broker PRC 0024025; Certified Public Accountant (BA Accounting, St. Paul University); International Certified Financial Consultant; former internal auditor, Philippine Airlines; Manila operations |
-| Bill Thompson | Operations, IT and Business Management | IT and process management; operational execution and business systems |
+All four people below are published, with photographs and credentials, at <https://hightechmortgage.com/about/>. Everything here is copied from that page.
 
-Licences and credentials as published at <https://hightechmortgage.com/about/>.
+**Rich Young, Founder, President and Lead Broker.** California DRE Broker's License #01106294; California Mortgage Broker NMLS #291547. Thirty-plus years in Bay Area real estate and mortgage work. Rich founded HighTechMortgage to apply modern digital-economy tools to real-estate facilitation and finance. On this project he owns the origination, servicing and compliance obligations the software models and is the licensed principal in both operating models.
+
+**Dr Van Wilson, Data Science, AI and Blockchain Technology.** Massachusetts Institute of Technology post-graduate degree program in AI and data science; California State University, Fullerton, bachelor's degree. AWS Certified Developer (Amazon Web Services, 2017); Databricks certified (2020); Blockchain Training Alliance certified (2021); Microsoft Certified Trainer; Tableau Server administrator; Sage Certified Developer; ERP certifications in Sage, QuickBooks and Microsoft NAV; certified PostgreSQL, SQL Server and MySQL DBA. Thirty-five years as a real-estate investor and manager with a personally owned and managed portfolio of more than $10 million across three U.S. states and two countries; financial-industry data science background. On this project he designed the servicing engine, the settlement journal and the ledger adapter, and wrote and reviews the code in this repository. LinkedIn: <https://linkedin.com/in/drvanwilson>.
+
+**Trish Wilson (Maria Theresa Wilson), Real Estate, Finance and Philippine Operations.** Active licensed U.S. Realtor; Philippine Real Estate Broker, PRC 0024025; Certified Public Accountant (St. Paul University, Philippines, BA Accounting); International Certified Financial Consultant; life insurance agent; blockchain-certified agent; property and asset manager; former internal auditor at Philippine Airlines. She brings U.S. professional standards to Philippine property work, combining banking, airline sales management, corporate operations and cross-border consulting, and has advised businesses and investors on investment strategy, estate planning, tax and asset protection. On this project she leads the Manila servicing-operations team under dual control and performs the accounting review of the tie-outs and escrow analyses.
+
+**Bill Thompson, Operations, IT and Business Management.** ITIL v4; Six Sigma Quality; CompTIA A+; TOPCIT; Practical Project Management; URAC; FranklinCovey Management; Ateneo Graduate School of Business; California State University, Dominguez Hills. Bill pairs hands-on technical depth with disciplined, process-driven execution, focused on process excellence, practical decision-making and building organisational trust across technical and business teams. On this project he owns operations, infrastructure and process discipline for the pilot, including the dual-control task queue.
 
 ## 11. What is not yet true, stated plainly
 
