@@ -13,6 +13,7 @@ Mainnet-defensible XRPL primitive, and every rule that needs judgment runs off-c
 | Payment authorization | `AccountSet asfDepositAuth` + `DepositPreauth` on the issuer **and** both custodial accounts (P&I, impound) | The borrower never pays the issuer, so the guard has to sit on the accounts that receive money. |
 | Monthly P&I and impound legs | `EscrowCreate` of the USDm settlement MPT, `FinishAfter = due date`, `EscrowFinish` by the destination | Date-locked settlement with the P&I / tax / insurance split and regulatory markers in the `Memos` field. |
 | Late-payment control | `MPTokenIssuanceSet` `tfMPTLock` / `tfMPTUnlock` on the holder | Freezes the record while a period is unsettled. |
+| Issuer initialization | `AccountSet asfAllowTrustLineLocking` (flag 17) on the USDm issuer, set before any trust line or allocation, verified via `account_info`, mirrored to `issuer_accounts.escrow_enabled` with the tx hash (`python -m mortgageos.init_issuer`) | Makes an issued-currency form of USDm escrowable; the MPT form is escrowable through `tfMPTCanEscrow` regardless. A ledger refusal (e.g. `tefPAST_SEQ`) is logged to `audit_log` and halts the pipeline without a traceback. |
 | Settlement asset | Self-issued USDm MPT (`CanTransfer \| CanEscrow \| CanClawback`, `AssetScale=2`) | Testnet RLUSD's issuer does not allow trust-line locking, so it cannot be escrowed; USDm is the only escrowable USD stand-in on Testnet and is labelled as such. |
 
 ## What is off the ledger

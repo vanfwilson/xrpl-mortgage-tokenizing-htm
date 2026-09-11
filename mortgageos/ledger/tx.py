@@ -31,6 +31,9 @@ class TxBuilder:
     def deposit_auth(self, w: Wallet) -> TxResult:
         return self.l.submit(AccountSet(account=w.address, set_flag=AccountSetAsfFlag.ASF_DEPOSIT_AUTH), w)
 
+    def allow_trustline_locking(self, issuer: Wallet) -> TxResult:
+        return self.l.submit(AccountSet(account=issuer.address, set_flag=AccountSetAsfFlag.ASF_ALLOW_TRUSTLINE_LOCKING), issuer)
+
     def preauth(self, w: Wallet, authorized: str) -> TxResult:
         return self.l.submit(DepositPreauth(account=w.address, authorize=authorized), w)
 

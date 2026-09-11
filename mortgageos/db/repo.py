@@ -58,6 +58,21 @@ class Repo:
     def set_loan_status(self, loan_id: str, status: str) -> None:
         self.conn.execute("UPDATE mortgageos.loans SET status=%s, updated_at=now() WHERE loan_id=%s", (status, loan_id))
 
+    # issuer accounts -------------------------------------------------------------
+
+    def upsert_issuer_account(self, account: str, role: str, *, escrow_enabled: bool, flags: int | None,
+                              flag_tx_hash: str | None = None, last_error: str | None = None) -> None:
+        self.conn.execute(
+            "INSERT INTO mortgageos.issuer_accounts (account, role, escrow_enabled, flags, flag_tx_hash, last_error) "
+            "VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT (account) DO UPDATE SET role=EXCLUDED.role, "
+            "escrow_enabled=EXCLUDED.escrow_enabled, flags=EXCLUDED.flags, "
+            "flag_tx_hash=COALESCE(EXCLUDED.flag_tx_hash, mortgageos.issuer_accounts.flag_tx_hash), "
+            "last_error=EXCLUDED.last_error, updated_at=now()",
+            (account, role, escrow_enabled, flags, flag_tx_hash, last_error))
+
+    def issuer_account(self, account: str) -> dict | None:
+        return self._one("SELECT * FROM mortgageos.issuer_accounts WHERE account=%s", (account,))
+
     # issuances -----------------------------------------------------------------
 
     def insert_issuance(self, **row: Any) -> None:

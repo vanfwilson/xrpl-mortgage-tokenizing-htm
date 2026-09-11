@@ -15,6 +15,7 @@ from .config import ROLES, Settings
 from .db.repo import Repo
 from .ledger import mpt as M
 from .ledger.client import Ledger, LedgerError
+from .ledger.issuer import enable_trustline_locking
 from .ledger.tx import DEBT_FLAGS, USDM_FLAGS, TxBuilder
 from .servicing.amortization import schedule
 
@@ -93,6 +94,9 @@ def phase1(repo: Repo, ledger: Ledger, tx: TxBuilder, w: dict[str, Wallet], loan
 
 def ensure_usdm(repo: Repo, ledger: Ledger, tx: TxBuilder, w: dict[str, Wallet], loan_id: str, fund_borrower_units: int) -> str:
     """Self-issued USD settlement MPT. Testnet RLUSD does not allow trust-line locking, so it cannot be escrowed."""
+    init = enable_trustline_locking(ledger, tx, repo, w["usdm_issuer"], "usdm_issuer")  # flag 17 before any allocation
+    if init.halted:
+        raise LedgerError(init.code or "issuer_init", f"USDm issuer init halted: {init.detail}", {"account": init.account})
     row = repo.issuance_for(loan_id, "settlement")
     if row:
         usdm = row["issuance_id"]

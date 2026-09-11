@@ -69,6 +69,7 @@ servicing authority or custody. No borrower personal data goes on the ledger. Ev
 | `Clawback` of MPT units | yes | monthly amortization: on-ledger balance == outstanding principal |
 | `MPTokenIssuanceSet` lock / unlock | yes | freeze the record while a period is unsettled |
 | `AccountSet asfDepositAuth` + `DepositPreauth` | yes | only pre-authorized counterparties can pay the issuer and the custodial accounts |
+| `AccountSet asfAllowTrustLineLocking` (flag 17) | yes | set on the USDm issuer before any trust line, verified and mirrored to `issuer_accounts.escrow_enabled`; makes an issued-currency USDm escrowable (the MPT form uses `tfMPTCanEscrow`) |
 | `EscrowCreate` / `EscrowFinish` of an MPT (TokenEscrow) | yes | the P&I and impound legs, date-locked to the due date, split in the memo |
 
 Not used, and why: Hooks (not enabled on XRPL Mainnet or Testnet; verified on the Amendments object 2026-09-11 — they run

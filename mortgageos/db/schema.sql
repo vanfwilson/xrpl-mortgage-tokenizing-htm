@@ -21,6 +21,18 @@ CREATE TABLE IF NOT EXISTS mortgageos.loans (
   updated_at         timestamptz NOT NULL DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS mortgageos.issuer_accounts (
+  account         text PRIMARY KEY,
+  role            text NOT NULL,
+  network         text NOT NULL DEFAULT 'testnet',
+  escrow_enabled  boolean NOT NULL DEFAULT false,
+  flags           bigint,
+  flag_tx_hash    text,
+  last_error      text,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS mortgageos.mpt_issuances (
   issuance_id     text PRIMARY KEY,
   loan_id         text REFERENCES mortgageos.loans(loan_id),

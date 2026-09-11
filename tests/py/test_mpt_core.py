@@ -62,6 +62,16 @@ def test_dod_1_3_db_row_matches_ledger(run):
     assert M.holder_balance(run["ledger"], row["holder"], row["issuance_id"]) is not None
 
 
+def test_usdm_issuer_trustline_locking_flag(run):
+    from mortgageos.ledger.issuer import LSF_ALLOW_TRUSTLINE_LOCKING
+    issuer = run["w"]["usdm_issuer"].address
+    row = run["repo"].issuer_account(issuer)
+    assert row and row["escrow_enabled"] is True and row["flag_tx_hash"]
+    flags = int(run["ledger"].account_info(issuer)["account_data"]["Flags"])
+    assert flags & LSF_ALLOW_TRUSTLINE_LOCKING
+    assert run["repo"].tx(row["flag_tx_hash"])["result_code"] == "tesSUCCESS"
+
+
 def test_phase2_escrow_settled_with_memo(run):
     legs = run["repo"].legs(run["loan_id"], run["p2"]["period"])
     assert len(legs) == 2 and all(l["status"] == "Settled" for l in legs)
