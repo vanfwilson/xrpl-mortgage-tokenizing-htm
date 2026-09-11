@@ -1,19 +1,24 @@
-# hooks-builder (Portainer stack on the 72.x server)
+# hooks-builder (compose stack on the 72.x server)
 
 Compiles `hooks/src/*.c` to `.wasm` on the server on every push to `v3`, behind Traefik, triggered by a GitHub webhook.
 No compiler or container ever runs on a workstation.
 
-## Deploy (Portainer paste)
+## Deployed (2026-09-11)
 
-1. Portainer → Stacks → Add stack → **Repository**: this repo, branch `v3`, compose path
-   `portainer/hooks-builder/docker-compose.yml`, stack name **`hooks-builder`**.
-2. Environment variables: `HOOKS_BUILDER_HOST`, `WEBHOOK_SECRET` (generate: `openssl rand -hex 32`), `TRAEFIK_NETWORK`,
-   `CERT_RESOLVER`, `GIT_REPO=https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm.git`, `GIT_BRANCH=v3`.
-3. Add a second Traefik router for artifacts if you want them public read-only:
-   `Host(HOOKS_BUILDER_HOST) && PathPrefix(/artifacts)` → port `9001` with a `stripprefix` middleware. Without it the
-   artifacts stay reachable only inside the docker network, which is fine for CI-style use.
-4. GitHub → repo → Settings → Webhooks → Add: Payload URL `https://HOOKS_BUILDER_HOST/hooks/build-hooks`,
-   content type `application/json`, secret = `WEBHOOK_SECRET`, event: pushes only.
+- Server dir `/root/portainer-stacks/hooks-builder` (compose project `hooks-builder`; Portainer lists it as an external
+  stack). `.env` there holds `HOOKS_BUILDER_HOST`, `WEBHOOK_SECRET`, `GIT_REPO`, `GIT_BRANCH` and is not in git.
+- Host `hooks.aiautomationauthority.com` (Cloudflare-proxied A record → 72.60.225.136), Traefik network `traefik-public`,
+  entrypoint `websecure`, resolver `letsencrypt`.
+- Routes: `POST /hooks/build-hooks` (webhook, port 9000) · `GET /artifacts/latest/mortgage_firewall.wasm` and
+  `/artifacts/<sha>/build.log` (read-only, port 9001).
+- GitHub webhook id `677882126` on `vanfwilson/xrpl-mortgage-tokenizing-htm`, pushes only, HMAC-SHA256.
+
+## Redeploy / update
+
+```bash
+scp portainer/hooks-builder/{docker-compose.yml,Dockerfile,entrypoint.sh,serve-artifacts.py,hooks.json,build-on-push.sh} aiaa-server:/root/portainer-stacks/hooks-builder/
+ssh aiaa-server 'cd /root/portainer-stacks/hooks-builder && docker compose -p hooks-builder up -d --build'
+```
 
 ## What happens on push
 

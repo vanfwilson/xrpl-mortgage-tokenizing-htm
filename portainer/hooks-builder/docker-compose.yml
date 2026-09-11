@@ -1,12 +1,9 @@
-# Portainer stack: hooks-builder
-# Compiles hooks/src/*.c -> .wasm on the 72.x server whenever GitHub pushes to the configured branch.
-# Nothing runs on a workstation. Stack name must be `hooks-builder` (compose project name).
+# Portainer stack: hooks-builder  (server: 72.60.225.136, dir /root/portainer-stacks/hooks-builder)
+# Compiles hooks/src/*.c -> .wasm on the server whenever GitHub pushes to v3. Nothing runs on a workstation.
 #
-# Required stack environment variables (set in Portainer > Stacks > hooks-builder > Environment):
-#   HOOKS_BUILDER_HOST   public hostname Traefik should route, e.g. hooks-builder.<your-domain>
-#   WEBHOOK_SECRET       the secret configured on the GitHub webhook (HMAC-SHA256 over the payload)
-#   TRAEFIK_NETWORK      the external docker network Traefik is attached to
-#   CERT_RESOLVER        the Traefik certificate resolver name
+# .env (next to this file, never committed):
+#   HOOKS_BUILDER_HOST   public hostname routed by Traefik
+#   WEBHOOK_SECRET       secret configured on the GitHub webhook (HMAC-SHA256 over the payload)
 #   GIT_REPO             https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm.git
 #   GIT_BRANCH           v3
 services:
@@ -24,18 +21,26 @@ services:
     volumes:
       - hooks-builder-work:/work        # checkout + build outputs (build/<sha>/*.wasm, build/latest/)
     networks:
-      - traefik
+      - traefik-public
     labels:
       traefik.enable: "true"
-      traefik.docker.network: ${TRAEFIK_NETWORK}
-      # POST /hooks/build-hooks  <- GitHub webhook;  GET /artifacts/...  <- built wasm + logs
-      traefik.http.routers.hooks-builder.rule: Host(`${HOOKS_BUILDER_HOST}`)
+      traefik.docker.network: traefik-public
+      # POST https://HOST/hooks/build-hooks  <- GitHub webhook (port 9000)
+      traefik.http.routers.hooks-builder.rule: Host(`${HOOKS_BUILDER_HOST}`) && PathPrefix(`/hooks`)
       traefik.http.routers.hooks-builder.entrypoints: websecure
-      traefik.http.routers.hooks-builder.tls.certresolver: ${CERT_RESOLVER}
+      traefik.http.routers.hooks-builder.tls.certresolver: letsencrypt
+      traefik.http.routers.hooks-builder.service: hooks-builder
       traefik.http.services.hooks-builder.loadbalancer.server.port: "9000"
+      # GET https://HOST/artifacts/latest/mortgage_firewall.wasm  <- read-only artifacts (port 9001)
+      traefik.http.routers.hooks-artifacts.rule: Host(`${HOOKS_BUILDER_HOST}`) && PathPrefix(`/artifacts`)
+      traefik.http.routers.hooks-artifacts.entrypoints: websecure
+      traefik.http.routers.hooks-artifacts.tls.certresolver: letsencrypt
+      traefik.http.routers.hooks-artifacts.service: hooks-artifacts
+      traefik.http.routers.hooks-artifacts.middlewares: hooks-artifacts-strip
+      traefik.http.middlewares.hooks-artifacts-strip.stripprefix.prefixes: /artifacts
+      traefik.http.services.hooks-artifacts.loadbalancer.server.port: "9001"
 volumes:
   hooks-builder-work:
 networks:
-  traefik:
+  traefik-public:
     external: true
-    name: ${TRAEFIK_NETWORK}
