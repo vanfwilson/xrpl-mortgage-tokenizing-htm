@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS mortgageos.issuer_accounts (
 CREATE TABLE IF NOT EXISTS mortgageos.mpt_issuances (
   issuance_id     text PRIMARY KEY,
   loan_id         text REFERENCES mortgageos.loans(loan_id),
-  purpose         text NOT NULL CHECK (purpose IN ('record_of_account','settlement')),
+  purpose         text NOT NULL CHECK (purpose IN ('note_asset','settlement','record_of_account')),
   issuer          text NOT NULL,
   holder          text,
   asset_scale     integer NOT NULL,
@@ -110,3 +110,12 @@ CREATE TABLE IF NOT EXISTS mortgageos.escrow_legs (
   created_at      timestamptz NOT NULL DEFAULT now(),
   updated_at      timestamptz NOT NULL DEFAULT now()
 );
+
+-- 3.1 migration (idempotent): the MPT is the note asset, escrow finishes are the payment proofs.
+ALTER TABLE mortgageos.mpt_issuances DROP CONSTRAINT IF EXISTS mpt_issuances_purpose_check;
+ALTER TABLE mortgageos.mpt_issuances ADD CONSTRAINT mpt_issuances_purpose_check
+  CHECK (purpose IN ('note_asset', 'settlement', 'record_of_account'));
+ALTER TABLE mortgageos.loans ADD COLUMN IF NOT EXISTS lender_account text;
+ALTER TABLE mortgageos.loans ADD COLUMN IF NOT EXISTS pi_cents bigint;
+ALTER TABLE mortgageos.escrow_legs ADD COLUMN IF NOT EXISTS proof_ledger_index bigint;
+ALTER TABLE mortgageos.escrow_legs ADD COLUMN IF NOT EXISTS proof_verified_at timestamptz;

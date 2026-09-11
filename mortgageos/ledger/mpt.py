@@ -13,15 +13,17 @@ TF_CAN_LOCK, TF_REQUIRE_AUTH, TF_CAN_ESCROW, TF_CAN_TRADE, TF_CAN_TRANSFER, TF_C
 LSF_MPT_LOCKED = 0x01
 
 
-def record_of_account_metadata(loan_id: str, manifest: dict, cid: str | None) -> tuple[str, str]:
-    """Returns (hex metadata <=1024 bytes, sha256 of canonical manifest). No PII: only opaque id + hashes."""
-    canonical = json.dumps(manifest, separators=(",", ":"), sort_keys=True).encode()
+def note_asset_metadata(loan_id: str, terms: dict, cid: str | None) -> tuple[str, str]:
+    """Returns (hex metadata <=1024 bytes, sha256 of the canonical terms manifest). No PII: opaque id, terms, hashes."""
+    canonical = json.dumps(terms, separators=(",", ":"), sort_keys=True).encode()
     sha = hashlib.sha256(canonical).hexdigest()
-    # XLS-89d shape (t/n/d/ac/in) so explorers index it; servicing fields live under `ai` (additional info)
+    # XLS-89d shape (t/n/d/ac/in) so explorers index it; note terms live under `ai` (additional info)
     meta = {
-        "t": "MOSREC", "n": "MortgageOS record of account", "ac": "rwa", "in": "HighTechMortgage",
-        "d": "Non-transferable servicer record of account for one residential loan. Not a note, not an investment.",
-        "ai": {"v": 3, "kind": "record_of_account", "loan": loan_id, "sha256": sha, "cid": cid or ""},
+        "t": "HTMNOTE", "n": "MortgageOS mortgage note (digital twin)", "ac": "rwa", "in": "HighTechMortgage",
+        "d": "Digital twin of one 30-year fixed-rate residential mortgage note: the holder's right to the fixed P&I cash flow. Servicing and borrower data stay off-ledger.",
+        "ai": {"v": 3, "kind": "mortgage_note", "loan": loan_id, "principal_cents": terms["principal_cents"],
+               "rate_bps": terms["rate_bps"], "term_months": terms["term_months"], "pi_cents": terms["pi_cents"],
+               "sha256": sha, "cid": cid or ""},
     }
     data = json.dumps(meta, separators=(",", ":"), sort_keys=True)
     if len(data.encode()) > 1024:

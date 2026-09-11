@@ -1,18 +1,19 @@
 from __future__ import annotations
 
 from datetime import date
-from decimal import ROUND_HALF_UP, Decimal
+from decimal import ROUND_CEILING, ROUND_HALF_UP, Decimal
 
 CENT = Decimal("0.01")
 
 
 def monthly_payment_cents(principal_cents: int, rate_bps: int, term_months: int) -> int:
+    """Fixed payment rounded UP to the cent, so the final payment is never larger than the regular one."""
     p = Decimal(principal_cents)
     if rate_bps == 0:
-        return int((p / term_months).quantize(Decimal(1), ROUND_HALF_UP))
+        return int((p / term_months).quantize(Decimal(1), ROUND_CEILING))
     r = Decimal(rate_bps) / Decimal(10000) / Decimal(12)
     f = (1 + r) ** term_months
-    return int((p * r * f / (f - 1)).quantize(Decimal(1), ROUND_HALF_UP))
+    return int((p * r * f / (f - 1)).quantize(Decimal(1), ROUND_CEILING))
 
 
 def schedule(principal_cents: int, rate_bps: int, term_months: int, first_due: date,
@@ -34,6 +35,20 @@ def schedule(principal_cents: int, rate_bps: int, term_months: int, first_due: d
             "tax_cents": tax_m, "ins_cents": ins_m,
         })
     return rows
+
+
+def assert_fixed_rate(rows: list[dict]) -> int:
+    """Strict 30-year fixed framework: every P&I payment is identical; only the final payment may absorb cent rounding."""
+    if not rows:
+        raise ValueError("empty schedule")
+    pmt = rows[0]["pi_cents"]
+    body = rows[:-1] if len(rows) > 1 else rows
+    if any(r["pi_cents"] != pmt for r in body):
+        raise ValueError("P&I is not constant across the schedule")
+    # the payment is rounded up, so cent rounding can only make the final payment smaller, never larger
+    if not 0 < rows[-1]["pi_cents"] <= pmt:
+        raise ValueError("final payment must be positive and no larger than the fixed P&I")
+    return pmt
 
 
 def respa_monthly(annual_bill_cents: int) -> int:

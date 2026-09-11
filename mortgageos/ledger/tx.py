@@ -4,7 +4,6 @@ from xrpl.models.amounts import MPTAmount
 from xrpl.models.transactions import (
     AccountSet,
     AccountSetAsfFlag,
-    Clawback,
     DepositPreauth,
     EscrowCreate,
     EscrowFinish,
@@ -20,7 +19,9 @@ from xrpl.wallet import Wallet
 from .client import Ledger, TxResult
 from .memo import build_memo
 
-DEBT_FLAGS = [CF.TF_MPT_CAN_LOCK, CF.TF_MPT_REQUIRE_AUTH, CF.TF_MPT_CAN_ESCROW, CF.TF_MPT_CAN_CLAWBACK]
+# The mortgage-note asset: transferable between authorized institutions, escrowable, lockable. Never clawback-able:
+# the note's face value is constant for the life of the loan; amortization lives in the servicer's books.
+NOTE_FLAGS = [CF.TF_MPT_CAN_LOCK, CF.TF_MPT_REQUIRE_AUTH, CF.TF_MPT_CAN_ESCROW, CF.TF_MPT_CAN_TRANSFER]
 USDM_FLAGS = [CF.TF_MPT_CAN_TRANSFER, CF.TF_MPT_CAN_ESCROW, CF.TF_MPT_CAN_CLAWBACK]
 
 
@@ -57,13 +58,6 @@ class TxBuilder:
             Payment(account=sender.address, destination=dest, amount=MPTAmount(mpt_issuance_id=issuance_id, value=str(units)),
                     memos=[build_memo(memo)] if memo else None),
             sender,
-        )
-
-    def clawback(self, issuer: Wallet, holder: str, issuance_id: str, units: int, memo: dict | None = None) -> TxResult:
-        return self.l.submit(
-            Clawback(account=issuer.address, holder=holder, amount=MPTAmount(mpt_issuance_id=issuance_id, value=str(units)),
-                     memos=[build_memo(memo)] if memo else None),
-            issuer,
         )
 
     def lock(self, issuer: Wallet, issuance_id: str, holder: str, memo: dict | None = None) -> TxResult:

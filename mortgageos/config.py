@@ -11,7 +11,7 @@ load_dotenv(ROOT / ".env")
 
 MAINNET_MARKERS = ("xrplcluster.com", "s1.ripple.com", "s2.ripple.com", "xrpl.ws")
 
-ROLES = ("issuer", "servicer", "impound", "borrower", "usdm_issuer", "tax_authority")
+ROLES = ("issuer", "lender", "impound", "borrower", "usdm_issuer", "tax_authority")
 
 
 @dataclass(frozen=True)

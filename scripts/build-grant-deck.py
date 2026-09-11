@@ -74,7 +74,7 @@ def header(slide, title, n):
     text(slide, Inches(12.2), Inches(0.35), Inches(0.9), Inches(0.5), str(n), 12, False, GOLD, PP_ALIGN.RIGHT)
     rect(slide, 0, H - Inches(0.35), W, Inches(0.35), LIGHT)
     text(slide, Inches(0.5), H - Inches(0.34), Inches(12), Inches(0.3),
-         "High Tech Mortgage, Inc. · MortgageOS™ servicing layer v3.0.0 · XRPL Grants proposal · September 11, 2026 · github.com/vanfwilson/xrpl-mortgage-tokenizing-htm",
+         "High Tech Mortgage, Inc. · MortgageOS™ tokenization + servicing layer v3.1 · XRPL Grants proposal · September 11, 2026 · github.com/vanfwilson/xrpl-mortgage-tokenizing-htm",
          10, False, GREY)
 
 
@@ -110,10 +110,10 @@ s = slide()
 rect(s, 0, 0, W, H, NAVY)
 s.shapes.add_picture("assets/brand/htm-logo.png", Inches(0.8), Inches(0.6), width=Inches(6.4))
 s.shapes.add_picture("assets/brand/mortgageos-lockup-tight.png", Inches(0.8), Inches(2.75), width=Inches(4.2))
-text(s, Inches(0.8), Inches(4.35), Inches(11.5), Inches(1.2), "Service a residential mortgage for thirty years.\nProve every dollar on the XRP Ledger.", 34, True, WHITE)
+text(s, Inches(0.8), Inches(4.35), Inches(11.5), Inches(1.2), "Tokenize the note. Service it for thirty years.\nProve every payment on the XRP Ledger.", 34, True, WHITE)
 text(s, Inches(0.8), Inches(5.75), Inches(11.5), Inches(0.9),
      ["XRPL Grants proposal · $200,000 over 12 months · September 11, 2026",
-      "High Tech Mortgage, Inc. · Sacramento, California · Metro Manila, Philippines · v3.0.0 live on Testnet"], 16, False, GOLD)
+      "High Tech Mortgage, Inc. · Sacramento, California · Metro Manila, Philippines · v3.1 live on Testnet"], 16, False, GOLD)
 
 # 2. The problem ---------------------------------------------------------------------------------------------------
 s = slide(); header(s, "The problem is the thirty years after closing, not the closing", 2)
@@ -135,11 +135,11 @@ bullets(s, Inches(8.6), Inches(2.2), Inches(4), Inches(3.8), [
 ], 14, GREY, 3)
 
 # 3. What we built -------------------------------------------------------------------------------------------------
-s = slide(); header(s, "What we built: MortgageOS™ servicing layer v3.0.0 (open source, MIT)", 3)
-cols = [("Record of account", ["one Multi-Purpose Token issuance per loan", "supply = principal in cents, AssetScale 2", "lock, clawback, escrow allowed; transfer never", "XLS-89d metadata: manifest hash + IPFS CID slot"]),
-        ("Guarded accounts", ["DepositAuth on the issuer and both custodial accounts", "DepositPreauth for the servicer and the borrower", "the borrower never pays the issuer", "record locked while a period is unsettled"]),
-        ("Settlement", ["P&I and impound legs as TokenEscrow of a settlement MPT", "FinishAfter = due date; destination finishes", "split + regulatory markers in the memo", "monthly clawback: on-ledger balance == outstanding"]),
-        ("System of record", ["PostgreSQL schema: loans, issuances, every tx with state", "Pending → Confirmed / Failed, full envelope", "audit log of every failed broadcast and timeout", "reconciliation sweep, ledger vs books"])]
+s = slide(); header(s, "What we built: MortgageOS™ tokenization + servicing layer v3.1 (open source, MIT)", 3)
+cols = [("The note asset", ["one Multi-Purpose Token issuance per loan: the note's digital twin", "supply = face value in cents, held by the lender for 30 years", "CanEscrow + CanTransfer + CanLock + RequireAuth; never clawback", "XLS-89d metadata: fixed terms, manifest hash, IPFS CID slot"]),
+        ("Guarded accounts", ["DepositAuth on the issuer, the lender and the impound account", "DepositPreauth for the borrower and the counterparties", "only authorized institutions can hold the asset", "issuer can place a holding on hold and release it"]),
+        ("The payment rail", ["fixed P&I and impound legs as TokenEscrow of a settlement MPT", "FinishAfter = due date; destination finishes", "split + regulatory markers in the memo", "each validated finish = on-chain proof of payment"]),
+        ("System of record", ["PostgreSQL: loans, issuances, 360-row schedule, every tx with state", "outstanding principal in the books, never on the ledger", "audit log of every failed broadcast and timeout", "audit sweep re-reads every payment proof from the ledger"])]
 x = Inches(0.5)
 for title, items in cols:
     rect(s, x, Inches(1.4), Inches(3.0), Inches(5.3), LIGHT)
@@ -153,58 +153,58 @@ s = slide(); header(s, "What the ledger does, and what it does not do", 4)
 rect(s, Inches(0.5), Inches(1.4), Inches(6.0), Inches(5.3), LIGHT)
 text(s, Inches(0.7), Inches(1.5), Inches(5.6), Inches(0.5), "Does", 20, True, BLUE)
 bullets(s, Inches(0.7), Inches(2.05), Inches(5.6), Inches(4.5), [
-    "holds one non-transferable record of account per loan; its balance is the outstanding principal, reconciled to the books",
-    "settles every P&I and impound leg to the cent under a date lock, with the split in the memo and no personal data",
-    "refuses payments from anyone not pre-authorized; freezes the record while a period is unsettled",
-    "keeps every transaction, error code and timeout in an audit trail an examiner can open",
+    "holds one note asset per loan with the lending institution at face value: the right to the fixed P&I cash flow, transferable only between authorized institutions",
+    "settles every fixed P&I and impound leg to the cent under a date lock, with the split in the memo and no personal data; each validated finish is a proof of payment",
+    "refuses payments from anyone not pre-authorized; can place a holding on hold for a dispute",
+    "keeps every transaction, proof, error code and timeout in an audit trail an examiner can open",
 ], 15)
 rect(s, Inches(6.8), Inches(1.4), Inches(6.0), Inches(5.3), LIGHT)
 text(s, Inches(7.0), Inches(1.5), Inches(5.6), Inches(0.5), "Does not", 20, True, GOLD)
 bullets(s, Inches(7.0), Inches(2.05), Inches(5.6), Inches(4.5), [
-    "decide what the borrower owes: the servicer's books in the bank's custodial accounts are authoritative",
+    "decide what the borrower owes: outstanding principal and the escrow analysis are the servicer's books",
     "replace the Note, Deed of Trust, lien, county record or custodial accounts",
-    "tokenize the note, sell interests in loans, or raise capital: the record has no CanTransfer flag",
+    "sell the asset to the public or raise capital; the borrower's consumer obligation is untouched by anything the lender does with it",
     "prove legal compliance, payee receipt, document validity or custody by itself",
 ], 15)
 
 # 5. Live proof -----------------------------------------------------------------------------------------------------
 s = slide(); header(s, "Live proof on XRPL Testnet: v3 verification run, September 11, 2026", 5)
 bullets(s, Inches(0.5), Inches(1.4), Inches(7.6), Inches(5), [
-    "Phase 1: DepositAuth and Preauth set and read back; record MPT minted with flags 0x4e (lock, require-auth, escrow, clawback; no transfer); servicer authorized and delivered 45,000,000 units; ledger issuance id equals the database row.",
-    "Phase 2: schedule read from PostgreSQL; P&I ($2,844.31) and impound ($655.21) legs escrowed with the split in the memo; record locked; both escrows finished on the due date with tesSUCCESS; $406.81 of principal clawed back; on-ledger balance 44,959,319 == database outstanding.",
+    "Phase 1: DepositAuth and Preauth set and read back; the note asset minted with CanEscrow, CanTransfer, CanLock, RequireAuth and no CanClawback, its metadata carrying the fixed terms; the lender authorized and delivered 45,000,000 units (face value); ledger issuance id equals the database row.",
+    "Phase 2: a strict fixed-rate schedule (identical P&I for 360 periods) written to PostgreSQL; P&I ($2,844.31, to the lender) and impound ($655.21) legs escrowed with the split in the memo; both finished on the due date with tesSUCCESS; books reduced by $406.81 while the on-ledger face value stayed 45,000,000; asset hold placed and released.",
+    "Audit sweep: both finish transactions re-read from the ledger, validated tesSUCCESS, ledger index stamped on the payment rows.",
     "Phase 3: a forced ledger error (tecPATH_PARTIAL) and a forced network timeout both caught, written to the audit log with the raw code and full envelope, engine exits cleanly.",
-    "Independent evaluator re-ran the suite from a clean context: 12 of 12 criteria passed.",
-], 14)
+], 13)
 table(s, Inches(8.4), Inches(1.4), Inches(4.5), [
     ["Proof", "Result"],
-    ["Confirmed transactions per run", "17"],
-    ["MPT issuances (record + settlement)", "2"],
+    ["MPT issuances (note asset + settlement)", "2"],
+    ["Note held by lender at face value", "45,000,000 units"],
     ["Escrow legs finished on date", "2 of 2, tesSUCCESS"],
-    ["Clawback = month-1 principal", "40,681 units"],
-    ["Lock, unlock", "tesSUCCESS, tesSUCCESS"],
-    ["Ledger balance = books", "44,959,319 = 44,959,319"],
+    ["Payment proofs re-verified on-ledger", "2 of 2"],
+    ["Asset hold, release", "tesSUCCESS, tesSUCCESS"],
+    ["Books after month 1", "$449,593.19 (off-ledger)"],
     ["Forced errors triaged", "tecPATH_PARTIAL, timeout"],
     ["Pending transactions after run", "0"],
 ], [2.6, 1.9], 11)
-text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(1.6), "Only amendments live on Mainnet: MPTokensV1, TokenEscrow, Clawback, DepositAuth, DepositPreauth. Evidence: docs/evidence/v3/.", 12, False, GREY)
+text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(1.6), "Only amendments live on Mainnet: MPTokensV1, TokenEscrow, DepositAuth, DepositPreauth. Evidence: docs/evidence/v3/. Hook firewall proven on Xahau: hooks/evidence/.", 12, False, GREY)
 
 # 6. The month, to the cent -------------------------------------------------------------------------------------------
 s = slide(); header(s, "One month of servicing, to the cent (fixture: 30-year fixed, $450,000 at 6.5 %)", 6)
 table(s, Inches(0.5), Inches(1.4), Inches(6.2), [
     ["Figure", "Value"],
-    ["Principal = record supply", "$450,000.00 = 45,000,000 units"],
-    ["P&I, fixed for the life of the loan", "$2,844.31"],
+    ["Note face value = token supply, constant", "$450,000.00 = 45,000,000 units"],
+    ["P&I, identical every month", "$2,844.31"],
     ["Month-1 interest / principal", "$2,437.50 / $406.81"],
     ["Tax impound (1/12 of $6,062.50)", "$505.21 / month"],
     ["Hazard impound (1/12 of $1,800.00)", "$150.00 / month"],
     ["Monthly payment", "$3,499.52"],
-    ["Outstanding after month 1", "$449,593.19 = 44,959,319 units"],
+    ["Outstanding after month 1 (books only)", "$449,593.19"],
 ], [3.6, 2.6], 12)
 bullets(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(5.2), [
+    "Strict 30-year fixed framework: the payment is rounded up to the cent and every period is identical; the schedule builder refuses anything else.",
     "RESPA 12 CFR 1024.17: impounds are one-twelfth of the last actual annual bill; a bill above what was collected is advanced by the servicer and recovered at the next analysis.",
-    "The borrower escrows both legs; each escrow cannot be finished before its due date on the ledger itself.",
-    "After settlement the issuer claws back exactly the principal portion, so the record's balance is the outstanding principal, and the reconciliation sweep proves it against the books.",
-    "The offline test checks the payment against the closed-form annuity to the cent and that 360 principal portions sum to the principal exactly.",
+    "The borrower escrows both legs; each escrow cannot be finished before its due date on the ledger itself, and each validated finish is the proof of payment.",
+    "The note asset never changes: amortization is a servicing figure in the books, so a holder's position is exactly what the ledger says it is.",
 ], 14)
 
 # 7. Compliance scope ------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ s = slide(); header(s, "Regulation as code: what v3 enforces today and what is p
 table(s, Inches(0.5), Inches(1.4), Inches(12.3), [
     ["Rule", "v3.0 today", "Ported from v2 during M2–M3"],
     ["RESPA 12 CFR 1024.17", "rolling 1/12 impound collection, servicer advance on shortfall, date-locked disbursement, markers in every memo", "aggregate analysis with one-sixth cushion, surplus / shortage / deficiency options, initial and annual statements"],
-    ["1024.33, .35-.41", "record lock and audit trail as the evidence base", "transfer notices and 60-day grace, notice of error, information requests, force-placed insurance, early intervention, loss mitigation"],
+    ["1024.33, .35-.41", "payment proofs and audit trail as the evidence base; asset hold for disputes", "transfer notices and 60-day grace, notice of error, information requests, force-placed insurance, early intervention, loss mitigation"],
     ["Regulation Z 1026.36(c), .41", "receipt-dated settlement events", "periodic statement content, ownership-transfer notice"],
     ["Licensing, GLBA", "no PII on the ledger; no operator keys", "boarding gate on a current servicing authority"],
     ["IRS", "interest per period in the schedule and memo", "Form 1098, 1099-INT"],
@@ -224,14 +224,14 @@ s = slide(); header(s, "Settlement safety: one submit path, every failure in the
 bullets(s, Inches(0.5), Inches(1.4), Inches(6.2), Inches(5.2), [
     "Every transaction goes through one function: autofill and sign once, record it Pending with its hash and full envelope, submit, record Confirmed or Failed with the ledger result.",
     "tec / tef / tem codes and network timeouts are triaged, never crash the loop, and are written to the audit log with the raw code and the envelope for review.",
-    "Postgres is authoritative; the ledger is evidence. A sweep compares outstanding principal to the on-ledger balance; a mismatch is an incident, not a silent state.",
+    "Postgres is authoritative for servicing; the ledger is evidence. The audit sweep re-reads every payment proof from the ledger and checks the lender still holds the note at face value; a miss is an incident, not a silent state.",
     "The code refuses Mainnet endpoints. All runs are on the public Testnet with a self-issued test USD.",
 ], 15)
 rect(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(5.2), LIGHT)
 text(s, Inches(7.2), Inches(1.5), Inches(5.4), Inches(0.5), "Evidence an examiner can open", 18, True, BLUE)
 bullets(s, Inches(7.2), Inches(2.1), Inches(5.4), Inches(4.4), [
     "mortgageos.ledger_transactions: hash, type, account, state, result code, ledger index, parsed memo, envelope, meta",
-    "mortgageos.escrow_legs: owner, destination, units, FinishAfter, create and finish hashes, status",
+    "mortgageos.escrow_legs: owner, destination, units, FinishAfter, create and finish hashes, proof ledger index and verification time",
     "mortgageos.audit_log: phase, error code, error text, envelope, timestamp",
     "mortgageos.loans: outstanding principal, the number the ledger is reconciled to",
 ], 13, NAVY, 4)
@@ -240,8 +240,8 @@ bullets(s, Inches(7.2), Inches(2.1), Inches(5.4), Inches(4.4), [
 s = slide(); header(s, "What a loan-year costs on the ledger", 9)
 table(s, Inches(0.5), Inches(1.4), Inches(6.0), [
     ["Production footprint per loan-year (v3)", "Value"],
-    ["Transactions (7 per month + boarding)", "about 90"],
-    ["Fees burned (10 drops each)", "about 900 drops"],
+    ["Transactions (4 per month + boarding)", "about 55"],
+    ["Fees burned (10 drops each)", "about 550 drops"],
     ["Owner reserve parked (2 MPToken objects, refundable)", "about 0.4 XRP"],
     ["Escrow reserve", "transient, released on finish"],
     ["All-in per loan-month at $5 / XRP", "under $0.20"],
@@ -256,7 +256,7 @@ s = slide(); header(s, "Who we are and how we operate", 10)
 bullets(s, Inches(0.5), Inches(1.4), Inches(6.2), Inches(5.2), [
     "High Tech Mortgage, Inc.: licensed California mortgage broker (DFPI and DRE), Sacramento, with an operations centre in Manila.",
     "Loans: standard Fannie Mae uniform-instrument, fixed-rate, 30-year residential, funded and owned by banks under contract.",
-    "No capital raising, no investors, no interests in loans sold. The record of account cannot be transferred.",
+    "No capital raising and no sale of interests to the public. The note asset moves only between authorized institutions; the borrower's obligation is untouched by it.",
     "The Manila team executes servicing tasks under dual control and never holds signing keys.",
 ], 15)
 rect(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(2.4), LIGHT)
@@ -306,6 +306,8 @@ text(s, Inches(7.4), Inches(4.0), Inches(5.4), Inches(1.5), "Funding gates: buil
 s = slide(); header(s, "What is not yet true, stated plainly", 13)
 bullets(s, Inches(0.5), Inches(1.4), Inches(12.3), Inches(5.2), [
     "No bank has signed a servicing contract yet; the operating assumptions are ours.",
+    "Counsel has not yet characterized the note asset (UCC 3/9 negotiability and perfection, eNote / ESIGN / UETA / MERS, securities); until then it stays RequireAuth with only the originating lender authorized.",
+    "XLS-65 / XLS-66 are on Devnet only; vault deposit and collateral use are a readiness study (M6), not a feature. Funding 30-year notes with short-term liabilities is the bank's asset-liability decision.",
     "No production stablecoin can be escrowed today (RLUSD issuers do not allow trust-line locking); the settlement asset is a self-issued test USD MPT and an open decision.",
     "California residential consumer-protection carve-outs and the Idaho servicing posture go to counsel before a live loan.",
     "Tax and hazard bills in the runs are fixture values; production needs a live bill source behind an operator verification gate (M2).",
@@ -342,7 +344,7 @@ text(s, Inches(0.6), Inches(1.6), Inches(12), Inches(1.4),
      "$200,000 of milestone-gated funding over 12 months for the plan on slides 11 and 12.", 26, True, NAVY)
 bullets(s, Inches(0.6), Inches(3.1), Inches(12), Inches(2.6), [
     "Introductions to banks that outsource servicing operations, and to the RLUSD / institutional team on the custodial-asset question.",
-    "Everything stays open source: the mortgageos schema, the record-of-account MPT pattern, the memo format, the transaction builders, the audit-log contract.",
+    "Everything stays open source: the mortgageos schema, the note-asset MPT pattern and metadata, the memo format, the transaction builders, the payment-proof and audit-log contract, the Hook firewall.",
     "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm (branch v3)  ·  Evidence: docs/evidence/v3/  ·  Proposal: docs/grant-proposal-2026-09-11.pdf",
 ], 16)
 rect(s, Inches(0.6), Inches(5.6), Inches(12), Inches(1.0), LIGHT)

@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.1.0 — 2026-09-11
+
+The MPT is repositioned from a non-transferable "record of account" to the **note asset**: the digital twin of the
+fixed-rate mortgage note, held by the lending institution at face value, transferable between authorized institutions,
+escrowable and lockable, never clawback-able. Servicing is a strict 30-year fixed P&I stream through TokenEscrow; each
+validated finish is the on-chain proof of payment.
+
+### Changed
+- Note-asset flags `CanEscrow | CanTransfer | CanLock | RequireAuth`; `CanClawback` removed. Metadata `ai.kind =
+  mortgage_note` with the fixed terms (`principal_cents`, `rate_bps`, `term_months`, `pi_cents`).
+- Roles: `servicer` → `lender` (asset holder and P&I recipient). DepositAuth/Preauth on issuer, lender, impound.
+- `assert_fixed_rate()` in the schedule builder: identical P&I every period (final payment absorbs cent rounding only);
+  the full 360-row schedule is written to `payment_schedule`.
+- `reconcile()` → `audit()`: lender holds the note at face value, and every settled leg's finish transaction is re-read
+  from the ledger and stamped with `proof_ledger_index` / `proof_verified_at`.
+- Schema migration (idempotent): `mpt_issuances.purpose` accepts `note_asset`; `loans.lender_account`, `loans.pi_cents`;
+  `escrow_legs.proof_ledger_index`, `escrow_legs.proof_verified_at`.
+- README, v3 architecture, proposal and deck: tokenomics and institutional liquidity section; XLS-65 / XLS-66 stated as
+  forward compatibility only (enabled on Devnet, not Testnet or Mainnet, verified 2026-09-11); counsel items for the
+  note asset (UCC 3/9, eNote / ESIGN / UETA / MERS, securities) listed as open.
+
+### Removed
+- Clawback-based amortization (`tx.clawback`, the monthly principal burn, on-chain outstanding balance). Outstanding
+  principal is a servicing figure in the books only. There was no variable-rate or ARM code to remove; v3 was fixed-rate
+  from the start.
+
 ## 3.0.0 — 2026-09-11
 
 Rewrite of the ledger and settlement core in Python (`xrpl-py` 5.x) on XRPL Multi-Purpose Tokens and TokenEscrow,

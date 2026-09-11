@@ -1,4 +1,5 @@
-"""Standalone smoke: boards a loan, settles one period, proves error triage, prints the success string, exits 0."""
+"""Standalone smoke: boards a loan as a note asset, settles one fixed P&I period through escrow, proves error triage,
+runs the audit sweep, prints the success string, exits 0."""
 from __future__ import annotations
 
 import json
@@ -8,7 +9,7 @@ import time
 from . import SUCCESS_STRING
 from .config import Settings
 from .ledger.client import LedgerError
-from .phases import boot, phase1, phase2, phase3, reconcile
+from .phases import audit, boot, phase1, phase2, phase3
 
 LOAN = {"principal_cents": 45_000_000, "rate_bps": 650, "term_months": 360, "annual_tax_cents": 606_250, "annual_ins_cents": 180_000}
 
@@ -23,9 +24,9 @@ def main(loan_id: str | None = None) -> int:
         evidence["phase1"] = phase1(repo, ledger, tx, w, loan_id, settings.company_id, **LOAN)
         evidence["phase2"] = phase2(repo, ledger, tx, w, loan_id)
         evidence["phase3"] = phase3(repo, ledger, tx, w, loan_id, settings)
-        evidence["reconcile"] = reconcile(repo, ledger, w, loan_id)
+        evidence["audit"] = audit(repo, ledger, loan_id)
         evidence["tx_states"] = repo.tx_states(loan_id)
-        assert evidence["reconcile"]["reconciled"]
+        assert evidence["audit"]["audit_ok"]
         assert evidence["tx_states"].get("Pending", 0) == 0, evidence["tx_states"]
     except LedgerError as e:
         print(json.dumps({"halt": "ledger", "code": e.code, "detail": e.detail[:800], "evidence": evidence}, default=str, indent=1))

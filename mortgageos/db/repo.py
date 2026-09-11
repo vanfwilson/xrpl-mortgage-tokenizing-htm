@@ -161,6 +161,16 @@ class Repo:
         self.conn.execute("UPDATE mortgageos.escrow_legs SET status='Settled', finish_tx_hash=%s, updated_at=now() WHERE id=%s",
                           (finish_tx_hash, leg_id))
 
+    def leg_proof_verified(self, leg_id: int, ledger_index: int) -> None:
+        self.conn.execute("UPDATE mortgageos.escrow_legs SET proof_ledger_index=%s, proof_verified_at=now(), updated_at=now() WHERE id=%s",
+                          (ledger_index, leg_id))
+
+    def settled_legs(self, loan_id: str) -> list[dict]:
+        return self._all("SELECT * FROM mortgageos.escrow_legs WHERE loan_id=%s AND status='Settled' ORDER BY period, id", (loan_id,))
+
+    def schedule_rows(self, loan_id: str) -> list[dict]:
+        return self._all("SELECT * FROM mortgageos.payment_schedule WHERE loan_id=%s ORDER BY period", (loan_id,))
+
     def leg_failed(self, leg_id: int) -> None:
         self.conn.execute("UPDATE mortgageos.escrow_legs SET status='Failed', updated_at=now() WHERE id=%s", (leg_id,))
 
