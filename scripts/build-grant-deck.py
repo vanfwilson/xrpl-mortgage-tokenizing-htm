@@ -321,9 +321,9 @@ bullets(s, Inches(0.5), Inches(1.4), Inches(12.3), Inches(5.2), [
 
 # 14. Team and ask --------------------------------------------------------------------------------------------------
 s = slide(); header(s, "Team and the ask", 14)
-team = [("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President, Lead Broker · DRE #01106294"),
-        ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI and Blockchain · built v2.0"),
-        ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance, Philippine Operations · PRC 0024025"),
+team = [("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President, Lead Broker · CA DRE Broker #01106294 · NMLS #291547"),
+        ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI, Blockchain · MIT post-grad AI/data science · financial-industry data scientist · built v2.0"),
+        ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance, PH Operations · US Realtor · PH Broker PRC 0024025 · CPA"),
         ("assets/brand/team/bill-thompson-hightechmortgage.jpg", "Bill Thompson", "Operations, IT, Business Management")]
 x = Inches(0.5)
 for img, name, role in team:

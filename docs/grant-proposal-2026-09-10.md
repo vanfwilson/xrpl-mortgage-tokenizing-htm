@@ -119,10 +119,12 @@ Funding gates: build and integration gates (M1–M3) 30 %, $60,000; usage and pi
 
 | Member | Role | Relevant contribution |
 |---|---|---|
-| Rich Young | Founder, President and Lead Broker | 30+ years in real estate and mortgage; California DRE Broker Licence #01106294 |
-| Dr Van Wilson | Data Science, AI and Blockchain | Financial data science, AI and blockchain; built the servicing engine and ledger adapter in this repository |
-| Trish Wilson | Real Estate, Finance and Philippine Operations | Licensed U.S. Realtor; Philippine Real Estate Broker PRC 0024025; Manila operations |
+| Rich Young | Founder, President and Lead Broker | 30+ years in Bay Area real estate and mortgage; California DRE Broker's License #01106294; California Mortgage Broker NMLS #291547 |
+| Dr Van Wilson | Data Science, AI and Blockchain | MIT post-graduate program in AI and data science; financial-industry data scientist; AWS Certified Developer, Databricks and Blockchain Training Alliance certified, Microsoft Certified Trainer, PostgreSQL/SQL Server DBA; 35 years as a real-estate investor and manager; built the servicing engine and ledger adapter in this repository; <https://linkedin.com/in/drvanwilson> |
+| Trish Wilson | Real Estate, Finance and Philippine Operations | Licensed U.S. Realtor; Philippine Real Estate Broker PRC 0024025; Certified Public Accountant (BA Accounting, St. Paul University); International Certified Financial Consultant; former internal auditor, Philippine Airlines; Manila operations |
 | Bill Thompson | Operations, IT and Business Management | IT and process management; operational execution and business systems |
+
+Licences and credentials as published at <https://hightechmortgage.com/about/>.
 
 ## 11. What is not yet true, stated plainly
 
