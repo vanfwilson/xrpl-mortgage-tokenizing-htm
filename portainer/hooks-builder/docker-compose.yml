@@ -1,0 +1,41 @@
+# Portainer stack: hooks-builder
+# Compiles hooks/src/*.c -> .wasm on the 72.x server whenever GitHub pushes to the configured branch.
+# Nothing runs on a workstation. Stack name must be `hooks-builder` (compose project name).
+#
+# Required stack environment variables (set in Portainer > Stacks > hooks-builder > Environment):
+#   HOOKS_BUILDER_HOST   public hostname Traefik should route, e.g. hooks-builder.<your-domain>
+#   WEBHOOK_SECRET       the secret configured on the GitHub webhook (HMAC-SHA256 over the payload)
+#   TRAEFIK_NETWORK      the external docker network Traefik is attached to
+#   CERT_RESOLVER        the Traefik certificate resolver name
+#   GIT_REPO             https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm.git
+#   GIT_BRANCH           v3
+services:
+  hooks-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local/hooks-builder:latest
+    container_name: hooks-builder
+    restart: unless-stopped
+    environment:
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+      GIT_REPO: ${GIT_REPO}
+      GIT_BRANCH: ${GIT_BRANCH:-v3}
+    volumes:
+      - hooks-builder-work:/work        # checkout + build outputs (build/<sha>/*.wasm, build/latest/)
+    networks:
+      - traefik
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: ${TRAEFIK_NETWORK}
+      # POST /hooks/build-hooks  <- GitHub webhook;  GET /artifacts/...  <- built wasm + logs
+      traefik.http.routers.hooks-builder.rule: Host(`${HOOKS_BUILDER_HOST}`)
+      traefik.http.routers.hooks-builder.entrypoints: websecure
+      traefik.http.routers.hooks-builder.tls.certresolver: ${CERT_RESOLVER}
+      traefik.http.services.hooks-builder.loadbalancer.server.port: "9000"
+volumes:
+  hooks-builder-work:
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK}
