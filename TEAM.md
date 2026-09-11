@@ -20,7 +20,7 @@ Credentials below are as published on <https://hightechmortgage.com/about/>.
 <tr>
 <td><img src="assets/brand/team/van-wilson-hightechmortgage.png" alt="Dr. Van Wilson" width="130"></td>
 <td><b>Dr. Van Wilson</b> — Data Science, AI &amp; Blockchain Technology<br>
-Massachusetts Institute of Technology, post-graduate programme in AI / data science · California State University, Fullerton, bachelor's degree · AWS Certified Developer · Databricks certified · Blockchain Training Alliance certified · Microsoft Certified Trainer · Tableau Server Admin · PostgreSQL, SQL Server, MySQL DBA · ERP certified (Sage, QuickBooks, MS Nav developer/trainer) · real-estate investor and manager · 35+ years in financial data.<br>
+Formerly with the U.S. Securities and Exchange Commission (SEC) and Fannie Mae. Massachusetts Institute of Technology, post-graduate programme in AI / data science · California State University, Fullerton, bachelor's degree · AWS Certified Developer · Databricks certified · Blockchain Training Alliance certified · Microsoft Certified Trainer · Tableau Server Admin · PostgreSQL, SQL Server, MySQL DBA · ERP certified (Sage, QuickBooks, MS Nav developer/trainer) · real-estate investor and manager · 35+ years in financial data.<br>
 <i>On this project:</i> designed the servicing engine, the settlement journal and the ledger adapter; wrote and reviews the code in this repository. <a href="https://linkedin.com/in/drvanwilson">linkedin.com/in/drvanwilson</a></td>
 </tr>
 <tr>
