@@ -1,0 +1,4 @@
+xrpl-py>=4.5
+psycopg[binary]>=3.2
+pytest>=8
+python-dotenv>=1.0
