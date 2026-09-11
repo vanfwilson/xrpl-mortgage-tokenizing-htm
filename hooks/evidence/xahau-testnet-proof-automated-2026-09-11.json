@@ -1,0 +1,77 @@
+{
+  "network": "wss://xahau-test.net",
+  "network_id": 21338,
+  "commit": "6aa928433d590d07a68adfcbd83210725f1676c2",
+  "wasm_sha256": "571cfc07d856513a87b00bd34d29ed8d4600669b246e9f277df2ccc2875a3b85",
+  "servicer": "rnBKciem3u3rg1GpTbDHLCLQnW3rPbCpqP",
+  "borrower": "rBbsSpatoVt5Umpnk5YdEaMFvThorXKdAX",
+  "namespace": "E6B9A7F509A90EA5459F58B95726BB97FF29A33EE92A63A68FB8075187444167",
+  "ran_at": "2026-09-11T21:18:01.620Z",
+  "steps": [
+    {
+      "label": "SetHook install",
+      "result": "tesSUCCESS",
+      "hash": "C8325D09A69E2B7208E7C8AA5FCAD201E32230BA4EEAC305AA6127948B3406F7",
+      "hookReturn": [],
+      "want": "tesSUCCESS",
+      "pass": true
+    },
+    {
+      "label": "Payment 0.5",
+      "result": "tecHOOK_REJECTED",
+      "hash": "0EF61A6E79E17C0451EF02F81072EC3EA4F456C69593C0B82426835A3BA76F28",
+      "hookReturn": [
+        "MortgageOS: payment below scheduled amount\u0000"
+      ],
+      "want": "tecHOOK_REJECTED",
+      "pass": true
+    },
+    {
+      "label": "Payment 1.0",
+      "result": "tesSUCCESS",
+      "hash": "054E70266B6985AE4C473C0BA006BD91662821F086D58EFD434B8EB027353E12",
+      "hookReturn": [
+        "MortgageOS: scheduled payment accepted\u0000"
+      ],
+      "want": "tesSUCCESS",
+      "pass": true
+    },
+    {
+      "label": "SetHook FRZ=1",
+      "result": "tesSUCCESS",
+      "hash": "9F391E9970909728B7BECBA67B74ACB60BAC9E2815943C9F417E7D9E115E5C78",
+      "hookReturn": [],
+      "want": "tesSUCCESS",
+      "pass": true
+    },
+    {
+      "label": "Payment frozen",
+      "result": "tecHOOK_REJECTED",
+      "hash": "27677E2F0AF71D3B4EBF1B2CD415AF59BC7BC2CEDA1BA61D7B949EBB4FAEA3E4",
+      "hookReturn": [
+        "MortgageOS: account frozen\u0000"
+      ],
+      "want": "tecHOOK_REJECTED",
+      "pass": true
+    },
+    {
+      "label": "SetHook FRZ=0",
+      "result": "tesSUCCESS",
+      "hash": "54FCFF1D7B66F007F7BDB92F28DD1F67760EF0DDD3742A32548503553F15A2F1",
+      "hookReturn": [],
+      "want": "tesSUCCESS",
+      "pass": true
+    },
+    {
+      "label": "Payment unfrozen",
+      "result": "tesSUCCESS",
+      "hash": "C92B0B3B1443AA8E8BE8C3AAAB26F1D3506F8AAFA3A1707343CC3E0460828EDC",
+      "hookReturn": [
+        "MortgageOS: scheduled payment accepted\u0000"
+      ],
+      "want": "tesSUCCESS",
+      "pass": true
+    }
+  ],
+  "pass": true
+}

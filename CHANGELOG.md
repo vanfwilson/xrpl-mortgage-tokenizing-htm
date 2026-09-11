@@ -19,6 +19,11 @@ this branch and archived on `main`.
 - `tests/py/test_mpt_core.py`: offline amortization checks plus the live Testnet phases; prints
   `ALL COUNCILFORGE MPT VERIFICATION PASSES` only after the reconciliation test passes. Independent evaluator: 12/12.
 - `docs/v3-architecture.md`, `docs/grant-proposal-2026-09-11.md` / `.pdf`, `docs/grant-deck-2026-09-11.pptx`.
+- `mortgageos/ledger/issuer.py` + `python -m mortgageos.init_issuer`: `asfAllowTrustLineLocking` (flag 17) on the USDm
+  issuer before any allocation, read back via `account_info`, mirrored to `issuer_accounts.escrow_enabled`.
+- `hooks/`: the payment-firewall Hook from the design notes as working C, compiled to WASM and proven on Xahau Testnet
+  (sidecar, not part of the demo); `portainer/hooks-builder/`: server-side pipeline that compiles, deploys and re-proves
+  it on every push to `v3`, publishing `status.json` / `xahau-proof.json` per commit.
 
 ### Removed
 - `src/`, the TypeScript tests and toolchain, the Devnet/Testnet npm workflows. OCR ingest, statements, aggregate escrow
