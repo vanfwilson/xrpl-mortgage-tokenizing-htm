@@ -10,7 +10,7 @@
 ## What a strong application contains (XRPL Grants FAQ and rubric)
 
 - [x] **Public GitHub repo with a working proof of concept** — this repository; Testnet loan year in [testnet-run.md](testnet-run.md)
-- [ ] **2-minute demo video** — record `python -m mortgageos.verify` (board → escrow → finish → asset hold → audit, explorer links from the printed hashes)
+- [x] **Product demo or prototype link** — the Testnet evidence report <https://vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/> plus `python -m mortgageos.verify`. A video is not required for XRPL Grants (checked xrplgrants.org/faq 2026-09-15); the "2-min Project Demo" is an Accelerator-track item only, optional here
 - [x] **Clear XRPL integration plan** — [v3-architecture.md](v3-architecture.md): MPT note asset, DepositAuth/Preauth, TokenEscrow legs, asset hold; XLS-65/66 forward compatibility only (feature state verified 2026-09-11)
 - [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
 - [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-11.md](grant-proposal-2026-09-11.md) / [PDF](grant-proposal-2026-09-11.pdf) §9–10 (milestones, targets and budget; rewritten September 17, 2026 around the Fannie Mae / CFPB servicing standard)
@@ -26,7 +26,7 @@ Use the "One paragraph" section of [grant-narrative.md](grant-narrative.md); it 
 
 ## Before submitting
 
-1. Record the 2-minute video.
+1. (Optional) record a 2-minute walkthrough of the verify run if applying to the Accelerator track.
 2. Proposal rewritten 2026-09-17 (no earlier-generation terms; servicing control map in §3). Deck and grant-narrative.md aligned 2026-09-17.
 3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.
