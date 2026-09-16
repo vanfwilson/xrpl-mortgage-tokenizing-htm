@@ -10,10 +10,10 @@
 ## What a strong application contains (XRPL Grants FAQ and rubric)
 
 - [x] **Public GitHub repo with a working proof of concept** — this repository; Testnet loan year in [testnet-run.md](testnet-run.md)
-- [ ] **2-minute demo video** — record `python -m mortgageos.verify` (board → escrow → finish → clawback → reconcile, explorer links from the printed hashes)
-- [x] **Clear XRPL integration plan** — [v3-architecture.md](v3-architecture.md): MPT record of account, DepositAuth/Preauth, TokenEscrow legs, Clawback amortization; why Hooks, Smart Escrows and XLS-65/66 are not used (feature state verified 2026-09-11)
+- [ ] **2-minute demo video** — record `python -m mortgageos.verify` (board → escrow → finish → asset hold → audit, explorer links from the printed hashes)
+- [x] **Clear XRPL integration plan** — [v3-architecture.md](v3-architecture.md): MPT note asset, DepositAuth/Preauth, TokenEscrow legs, asset hold; XLS-65/66 forward compatibility only (feature state verified 2026-09-11)
 - [x] **3–12 month milestone roadmap** — [grant-narrative.md](grant-narrative.md)
-- [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-11.md](grant-proposal-2026-09-11.md) / [PDF](grant-proposal-2026-09-11.pdf) §7–9 (v3 core + porting milestones; supersedes the September 10 PDF)
+- [x] **Budget breakdown and proposal** — [grant-proposal-2026-09-11.md](grant-proposal-2026-09-11.md) / [PDF](grant-proposal-2026-09-11.pdf) §9–10 (milestones, targets and budget; rewritten September 17, 2026 around the Fannie Mae / CFPB servicing standard)
 - [x] **Reviewer deck** — [grant-deck-2026-09-11.pptx](grant-deck-2026-09-11.pptx), 15 slides, built by `scripts/build-grant-deck.py`
 - [x] **Team bios + company details** — [TEAM.md](../TEAM.md)
 - [ ] **Traction** — banks that want HTM to run servicing operations under their name as the official servicer, and HTM's own-client servicing under its California licences; pipeline of loans that could be boarded (state honestly: conversations, no signed servicing contract yet)
@@ -32,6 +32,6 @@ and carries one loan-record token per loan. It runs today on Testnet with only M
 ## Before submitting
 
 1. Record the 2-minute video.
-2. Done 2026-09-11: the proposal PDF and deck describe the v3 core and the porting milestones; keep grant-narrative.md, the proposal and the deck in step.
+2. Proposal rewritten 2026-09-17 (no earlier-generation terms; servicing control map in §3). The deck and grant-narrative.md still need the same pass.
 3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.
