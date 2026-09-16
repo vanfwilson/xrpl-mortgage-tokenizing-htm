@@ -22,16 +22,11 @@
 
 ## The one-paragraph pitch to paste
 
-High Tech Mortgage, Inc. is a licensed California mortgage broker (Sacramento + Manila). We take the close-of-escrow paper
-package a title company hands us, scan it, tie every figure out to the cent, board the loan, and service it for thirty years
-for the bank that owns it: payment application, escrow analysis under 12 CFR 1024.17, statements, Form 1098. The XRP Ledger
-records every settlement leg to the cent without borrower data, holds each verified impound bill under a native date lock,
-and carries one loan-record token per loan. It runs today on Testnet with only Mainnet-live transaction types:
-<https://github.com/vanfwilson/xrpl-mortgage-tokenizing-htm>.
+Use the "One paragraph" section of [grant-narrative.md](grant-narrative.md); it is kept identical in substance to the letter's executive summary.
 
 ## Before submitting
 
 1. Record the 2-minute video.
-2. Proposal rewritten 2026-09-17 (no earlier-generation terms; servicing control map in §3). The deck and grant-narrative.md still need the same pass.
+2. Proposal rewritten 2026-09-17 (no earlier-generation terms; servicing control map in §3). Deck and grant-narrative.md aligned 2026-09-17.
 3. State the open items verbatim from README "Open business items" (bank acceptance of ledger evidence, residential carve-outs and Idaho posture to counsel, production settlement asset, Idaho interest rule, live tax-bill source, first servicing contract).
 4. Apply to XRPL Grants (rolling); register for the next HFIP cohort in parallel.

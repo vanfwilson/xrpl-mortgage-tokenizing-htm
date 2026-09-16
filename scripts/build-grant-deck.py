@@ -112,8 +112,8 @@ s.shapes.add_picture("assets/brand/htm-logo.png", Inches(0.8), Inches(0.6), widt
 s.shapes.add_picture("assets/brand/mortgageos-lockup-tight.png", Inches(0.8), Inches(2.75), width=Inches(4.2))
 text(s, Inches(0.8), Inches(4.35), Inches(11.5), Inches(1.2), "Tokenize the note. Service it for thirty years.\nProve every payment on the XRP Ledger.", 34, True, WHITE)
 text(s, Inches(0.8), Inches(5.75), Inches(11.5), Inches(0.9),
-     ["XRPL Grants proposal · $200,000 over 12 months · September 11, 2026",
-      "High Tech Mortgage, Inc. · Sacramento, California · Metro Manila, Philippines · v3.1 live on Testnet"], 16, False, GOLD)
+     ["XRPL Grants proposal · $200,000 over 12 months · September 17, 2026",
+      "High Tech Mortgage, Inc. · California · Idaho · Metro Manila · Switzerland opening soon · v3.1 live on Testnet"], 16, False, GOLD)
 
 # 2. The problem ---------------------------------------------------------------------------------------------------
 s = slide(); header(s, "The problem is the thirty years after closing, not the closing", 2)
@@ -136,7 +136,7 @@ bullets(s, Inches(8.6), Inches(2.2), Inches(4), Inches(3.8), [
 
 # 3. What we built -------------------------------------------------------------------------------------------------
 s = slide(); header(s, "What we built: MortgageOS™ tokenization + servicing layer v3.1 (open source, MIT)", 3)
-cols = [("The note asset", ["one Multi-Purpose Token issuance per loan: the note's digital twin", "supply = face value in cents, held by the lender for 30 years", "CanEscrow + CanTransfer + CanLock + RequireAuth; never clawback", "XLS-89d metadata: fixed terms, manifest hash, IPFS CID slot"]),
+cols = [("The note asset", ["one Multi-Purpose Token issuance per loan: the note's digital twin", "supply = face value in cents, held by the lender for 30 years", "CanEscrow + CanTransfer + CanLock + RequireAuth; the issuer cannot take units back", "XLS-89d metadata: fixed terms, manifest hash, IPFS CID slot"]),
         ("Guarded accounts", ["DepositAuth on the issuer, the lender and the impound account", "DepositPreauth for the borrower and the counterparties", "only authorized institutions can hold the asset", "issuer can place a holding on hold and release it"]),
         ("The payment rail", ["fixed P&I and impound legs as TokenEscrow of a settlement MPT", "FinishAfter = due date; destination finishes", "split + regulatory markers in the memo", "each validated finish = on-chain proof of payment"]),
         ("System of record", ["PostgreSQL: loans, issuances, 360-row schedule, every tx with state", "outstanding principal in the books, never on the ledger", "audit log of every failed broadcast and timeout", "audit sweep re-reads every payment proof from the ledger"])]
@@ -170,7 +170,7 @@ bullets(s, Inches(7.0), Inches(2.05), Inches(5.6), Inches(4.5), [
 # 5. Live proof -----------------------------------------------------------------------------------------------------
 s = slide(); header(s, "Live proof on XRPL Testnet: v3 verification run, September 11, 2026", 5)
 bullets(s, Inches(0.5), Inches(1.4), Inches(7.6), Inches(5), [
-    "Phase 1: DepositAuth and Preauth set and read back; the note asset minted with CanEscrow, CanTransfer, CanLock, RequireAuth and no CanClawback, its metadata carrying the fixed terms; the lender authorized and delivered 45,000,000 units (face value); ledger issuance id equals the database row.",
+    "Phase 1: DepositAuth and Preauth set and read back; the note asset minted with CanEscrow, CanTransfer, CanLock and RequireAuth, its metadata carrying the fixed terms; the lender authorized and delivered 45,000,000 units (face value); ledger issuance id equals the database row.",
     "Phase 2: a strict fixed-rate schedule (identical P&I for 360 periods) written to PostgreSQL; P&I ($2,844.31, to the lender) and impound ($655.21) legs escrowed with the split in the memo; both finished on the due date with tesSUCCESS; books reduced by $406.81 while the on-ledger face value stayed 45,000,000; asset hold placed and released.",
     "Audit sweep: both finish transactions re-read from the ledger, validated tesSUCCESS, ledger index stamped on the payment rows.",
     "Phase 3: a forced ledger error (tecPATH_PARTIAL) and a forced network timeout both caught, written to the audit log with the raw code and full envelope, engine exits cleanly.",
@@ -186,7 +186,7 @@ table(s, Inches(8.4), Inches(1.4), Inches(4.5), [
     ["Forced errors triaged", "tecPATH_PARTIAL, timeout"],
     ["Pending transactions after run", "0"],
 ], [2.6, 1.9], 11)
-text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(1.6), "Only amendments live on Mainnet: MPTokensV1, TokenEscrow, DepositAuth, DepositPreauth. Evidence: docs/evidence/v3/. Hook firewall proven on Xahau: hooks/evidence/.", 12, False, GREY)
+text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(1.6), "Only amendments live on Mainnet: MPTokensV1, TokenEscrow, DepositAuth, DepositPreauth. Evidence: docs/evidence/v3/.", 12, False, GREY)
 
 # 6. The month, to the cent -------------------------------------------------------------------------------------------
 s = slide(); header(s, "One month of servicing, to the cent (fixture: 30-year fixed, $450,000 at 6.5 %)", 6)
@@ -208,16 +208,16 @@ bullets(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(5.2), [
 ], 14)
 
 # 7. Compliance scope ------------------------------------------------------------------------------------------------
-s = slide(); header(s, "Regulation as code: what v3 enforces today and what is ported next", 7)
+s = slide(); header(s, "Regulation as code: what the core enforces today and what is built next", 7)
 table(s, Inches(0.5), Inches(1.4), Inches(12.3), [
-    ["Rule", "v3.0 today", "Ported from v2 during M2–M3"],
+    ["Rule", "Core today", "Built on the core during M2–M3"],
     ["RESPA 12 CFR 1024.17", "rolling 1/12 impound collection, servicer advance on shortfall, date-locked disbursement, markers in every memo", "aggregate analysis with one-sixth cushion, surplus / shortage / deficiency options, initial and annual statements"],
     ["1024.33, .35-.41", "payment proofs and audit trail as the evidence base; asset hold for disputes", "transfer notices and 60-day grace, notice of error, information requests, force-placed insurance, early intervention, loss mitigation"],
     ["Regulation Z 1026.36(c), .41", "receipt-dated settlement events", "periodic statement content, ownership-transfer notice"],
     ["Licensing, GLBA", "no PII on the ledger; no operator keys", "boarding gate on a current servicing authority"],
-    ["IRS", "interest per period in the schedule and memo", "Form 1098, 1099-INT"],
+    ["IRS", "interest per period in the schedule and memo", "Form 1098 (26 U.S.C. § 6050H)"],
 ], [3.0, 4.6, 4.7], 12)
-text(s, Inches(0.5), Inches(5.6), Inches(12.3), Inches(0.9), "The v2 control map (R01–R31, 127 named tests) is archived on main and is the porting roadmap, not a v3 feature. v3 is graded by a live suite that ends in a reconciliation sweep and prints a single pass string only when every phase passed.", 13, False, GREY)
+text(s, Inches(0.5), Inches(5.6), Inches(12.3), Inches(0.9), "Loans are documented on the Fannie Mae/Freddie Mac Uniform Instruments (Form 3200 note, Form 3005 California deed of trust) and serviced to the Fannie Mae Servicing Guide (B-1-01 escrow administration, C-1.1-01 payment processing). The core is graded by a live suite that ends in an audit sweep and prints a single pass string only when every phase passed.", 13, False, GREY)
 
 # 8. Settlement safety ----------------------------------------------------------------------------------------------
 s = slide(); header(s, "Settlement safety: one submit path, every failure in the audit log", 8)
@@ -240,8 +240,8 @@ bullets(s, Inches(7.2), Inches(2.1), Inches(5.4), Inches(4.4), [
 s = slide(); header(s, "What a loan-year costs on the ledger", 9)
 table(s, Inches(0.5), Inches(1.4), Inches(6.0), [
     ["Production footprint per loan-year (v3)", "Value"],
-    ["Transactions (4 per month + boarding)", "about 55"],
-    ["Fees burned (10 drops each)", "about 550 drops"],
+    ["Transactions (4 per month + boarding)", "about 60"],
+    ["Fees (10 drops each)", "about 600 drops"],
     ["Owner reserve parked (2 MPToken objects, refundable)", "about 0.4 XRP"],
     ["Escrow reserve", "transient, released on finish"],
     ["All-in per loan-month at $5 / XRP", "under $0.20"],
@@ -252,30 +252,33 @@ bullets(s, Inches(0.5), Inches(4.0), Inches(12.3), Inches(2.5), [
 ], 14)
 
 # 10. Business ------------------------------------------------------------------------------------------------------
-s = slide(); header(s, "Who we are and how we operate", 10)
+s = slide(); header(s, "How we operate", 10)
 bullets(s, Inches(0.5), Inches(1.4), Inches(6.2), Inches(5.2), [
-    "High Tech Mortgage, Inc.: licensed California mortgage broker (DFPI and DRE), Sacramento, with an operations centre in Manila.",
-    "Loans: standard Fannie Mae uniform-instrument, fixed-rate, 30-year residential, funded and owned by banks under contract.",
+    "High Tech Mortgage, Inc.: licensed California mortgage broker (DFPI and DRE) with offices in California, Idaho and Metro Manila, a Swiss office opening soon, and Manila as the operations centre.",
+    "Loans: standard conventional 30-year fixed-rate residential loans on the Fannie Mae/Freddie Mac Uniform Instruments (Form 3200, Form 3005), serviced to the Fannie Mae Servicing Guide and the CFPB rules under Regulation X and Regulation Z.",
     "No capital raising and no sale of interests to the public. The note asset moves only between authorized institutions; the borrower's obligation is untouched by it.",
-    "The Manila team executes servicing tasks under dual control and never holds signing keys.",
+    "The Manila team executes servicing tasks under dual control in all three models and never holds signing keys.",
 ], 15)
-rect(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(2.4), LIGHT)
-text(s, Inches(7.2), Inches(1.5), Inches(5.4), Inches(0.5), "Model A: servicer of record", 16, True, BLUE)
-text(s, Inches(7.2), Inches(2.0), Inches(5.4), Inches(1.7), "HTM services its own clients' loans under its California licences through a servicing entity kept separate from the brokerage.", 14, False, NAVY)
-rect(s, Inches(7.0), Inches(4.1), Inches(5.8), Inches(2.5), LIGHT)
-text(s, Inches(7.2), Inches(4.2), Inches(5.4), Inches(0.5), "Model B: bank's servicing contractor", 16, True, BLUE)
-text(s, Inches(7.2), Inches(4.7), Inches(5.4), Inches(1.8), "A lending bank is the official servicer and keeps banking compliance and liability; HTM runs servicing operations and the technology. Several banks have asked for exactly this.", 14, False, NAVY)
+rect(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(1.65), LIGHT)
+text(s, Inches(7.2), Inches(1.45), Inches(5.4), Inches(0.45), "Model A: servicer of record", 15, True, BLUE)
+text(s, Inches(7.2), Inches(1.9), Inches(5.4), Inches(1.1), "HTM services its own clients' loans under its California licences through a servicing entity kept separate from the brokerage.", 12, False, NAVY)
+rect(s, Inches(7.0), Inches(3.15), Inches(5.8), Inches(1.65), LIGHT)
+text(s, Inches(7.2), Inches(3.2), Inches(5.4), Inches(0.45), "Model B: bank's servicing contractor", 15, True, BLUE)
+text(s, Inches(7.2), Inches(3.65), Inches(5.4), Inches(1.1), "A lending bank is the official servicer and keeps banking compliance and liability; HTM runs servicing operations and the technology. Several banks have asked for exactly this.", 12, False, NAVY)
+rect(s, Inches(7.0), Inches(4.9), Inches(5.8), Inches(1.75), LIGHT)
+text(s, Inches(7.2), Inches(4.95), Inches(5.4), Inches(0.45), "Model C: shareholder in a Philippine bank", 15, True, BLUE)
+text(s, Inches(7.2), Inches(5.4), Inches(5.4), Inches(1.2), "HTM intends a 40% position in a small provincial bank near Clark International Airport; the bank originates and owns the loans and MortgageOS services them on XRPL. A partner is invited for up to 20%.", 12, False, NAVY)
 
 # 11. Milestones ----------------------------------------------------------------------------------------------------
 s = slide(); header(s, "Twelve-month milestones", 11)
 table(s, Inches(0.5), Inches(1.4), Inches(12.3), [
     ["ID", "Months", "Milestone", "Evidence"],
-    ["M1", "1-2", "Counsel memos (CA residential carve-outs, Idaho, custodial asset); first bank servicing contract or LOI; key-management runbook", "memos, LOI, runbook"],
-    ["M2", "2-4", "Port the v2 aggregate analysis and statements onto the v3 core; live tax-bill source behind an operator verification gate; IPFS pinning with the CID verified in the record", "ported tests, verified-bill trail, CID checks"],
+    ["M1", "1-2", "Counsel memos (note asset under UCC 3/9, ESIGN/UETA, securities; CA residential carve-outs; Idaho; custodial asset); first bank servicing contract or LOI; key-management runbook", "memos, LOI, runbook"],
+    ["M2", "2-4", "Aggregate escrow analysis (12 CFR 1024.17) and periodic statements (12 CFR 1026.41) on the core; live tax-bill source behind an operator verification gate; IPFS pinning with the CID verified in the asset metadata", "control tests, verified-bill trail, CID checks"],
     ["M3", "4-7", "Live custodial statements and three-way reconciliation; 1024.35-.41 case workflows with SLA evidence; dual-control task queue for Manila", "reconciliation reports, fixtures, queue log"],
     ["M4", "6-9", "Production key management (HSM, 2-of-3, rotation drills); settlement-asset decision with RLUSD / institutional teams; Mainnet dry-run criteria", "drill logs, decision record"],
     ["M5", "8-10", "Controlled pilot on real, redacted loan files with the contracting bank; Form 1098 season dry run; evidence packs to the bank's examiner", "pilot report, examiner feedback"],
-    ["M6", "9-11", "Second-jurisdiction abstraction: legal layer separated from the engine, mapped for the Manila operation", "jurisdiction matrix"],
+    ["M6", "9-11", "XLS-65 / XLS-66 readiness study on Devnet (vault deposit and collateral flows with the note asset); asset-liability policy questions written for the bank", "Devnet run record, policy memo"],
     ["M7", "11-12", "Independent security review; public technical paper; refreshed demo; Mainnet go/no-go", "review notes, paper, video"],
 ], [0.6, 0.9, 7.6, 3.2], 11)
 
@@ -284,10 +287,10 @@ s = slide(); header(s, "Budget $200,000 and grant-period targets", 12)
 table(s, Inches(0.5), Inches(1.4), Inches(6.6), [
     ["Workstream", "Amount"],
     ["XRPL settlement and evidence engineering", "$60,000"],
-    ["Servicing and data engineering (porting v2 controls, bank receipts, tax-bill source, cases, PDFs, queue)", "$50,000"],
+    ["Servicing and data engineering (escrow analysis, statements, cases and Form 1098 on the core; bank receipts; tax-bill source; queue)", "$50,000"],
     ["Security and independent technical review", "$25,000"],
     ["Legal and regulatory", "$25,000"],
-    ["Document and AI ingestion (scanner port, IPFS manifest pinning)", "$15,000"],
+    ["Document and AI ingestion (closing-package scanner, IPFS manifest pinning)", "$15,000"],
     ["Pilot infrastructure and testing", "$15,000"],
     ["Developer docs and open-source components", "$7,000"],
     ["Contingency", "$3,000"],
@@ -298,7 +301,7 @@ table(s, Inches(7.4), Inches(1.4), Inches(5.4), [
     ["Ledger transactions", "5,000"],
     ["Servicing events", "1,200"],
     ["Counterparties engaged", "4"],
-    ["Reconciliation accuracy vs benchmark", "99 %+"],
+    ["Payment proofs re-verified on-ledger", "100 %"],
 ], [3.8, 1.6], 11)
 text(s, Inches(7.4), Inches(4.0), Inches(5.4), Inches(1.5), "Funding gates: build and integration (M1-M3) 30 %, $60,000; usage and pilot (M4-M7) 70 %, $140,000. Checkpoints at months 4, 7, 10 and 12.", 13, False, GREY)
 
@@ -312,7 +315,7 @@ bullets(s, Inches(0.5), Inches(1.4), Inches(12.3), Inches(5.2), [
     "California residential consumer-protection carve-outs and the Idaho servicing posture go to counsel before a live loan.",
     "Tax and hazard bills in the runs are fixture values; production needs a live bill source behind an operator verification gate (M2).",
     "The loan manifest is hashed into the record but not yet pinned to IPFS; the CID slot is an operator step until a pinning service is on file (M2).",
-    "v3 does not yet include the v2 statements, aggregate analysis with cushion, case workflows or Form 1098; they are archived on main and ported in M2–M3.",
+    "The core settles and proves payments today; aggregate escrow analysis, periodic statements, case workflows and Form 1098 are built on it during M2–M3 and M5.",
     "No borrower portal or operator web UI yet: the product surface is the command line and the database.",
 ], 14)
 
@@ -320,11 +323,11 @@ bullets(s, Inches(0.5), Inches(1.4), Inches(12.3), Inches(5.2), [
 s = slide(); header(s, "Team (as published at hightechmortgage.com/about)", 14)
 team = [
     ("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President and Lead Broker",
-     ["California DRE Broker's License #01106294", "California Mortgage Broker NMLS #291547", "30+ years Bay Area real estate and mortgage", "Owns origination, servicing and compliance obligations; licensed principal in both operating models"]),
+     ["California DRE Broker's License #01106294", "California Mortgage Broker NMLS #291547", "30+ years Bay Area real estate and mortgage", "Owns origination, servicing and compliance obligations; licensed principal in the two U.S. operating models"]),
     ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI and Blockchain",
-     ["20+ years in data science, mostly in finance; secret clearance while at the U.S. SEC and Fannie Mae", "Fannie Mae: built the ML model forecasting mortgage payments after the COVID payment freeze", "MIT post-graduate degree in data science and AI (2022); CSU Fullerton BS; AWS, Databricks, Blockchain Training Alliance, Microsoft Certified Trainer", "Real-estate investor since 1998, 120+ transactions, $10M+ portfolio; built v2.0 and v3.0 · linkedin.com/in/drvanwilson"]),
+     ["20+ years in data science, mostly in finance; secret clearance while at the U.S. SEC and Fannie Mae", "Fannie Mae: built the ML model forecasting mortgage payments after the COVID payment freeze", "MIT post-graduate degree in data science and AI (2022); CSU Fullerton BS; AWS, Databricks, Blockchain Training Alliance, Microsoft Certified Trainer", "Real-estate investor since 1998, 120+ transactions, $10M+ portfolio; designed and wrote MortgageOS · linkedin.com/in/drvanwilson"]),
     ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance and PH Operations",
-     ["Active licensed US Realtor", "Philippine Real Estate Broker PRC 0024025", "CPA (St. Paul University, BA Accounting); Int'l Certified Financial Consultant; ex-internal auditor, Philippine Airlines", "Leads Manila servicing operations under dual control; accounting review"]),
+     ["Active licensed US Realtor", "Philippine Real Estate Broker PRC 0024025", "Former CPA and banker (St. Paul University, BA Accounting); Int'l Certified Financial Consultant; recruited by Megaworld as International Marketing Director", "Leads Manila servicing operations under dual control; accounting review"]),
     ("assets/brand/team/bill-thompson-hightechmortgage.jpg", "Bill Thompson", "Operations, IT and Business Management",
      ["ITIL v4; Six Sigma Quality; CompTIA A+; TOPCIT", "Practical Project Mgmt; URAC; FranklinCovey Mgmt", "Ateneo Graduate School of Business; CSU Dominguez Hills", "Operations, infrastructure and process discipline; dual-control task queue"]),
 ]
@@ -343,8 +346,9 @@ s = slide(); header(s, "The ask", 15)
 text(s, Inches(0.6), Inches(1.6), Inches(12), Inches(1.4),
      "$200,000 of milestone-gated funding over 12 months for the plan on slides 11 and 12.", 26, True, NAVY)
 bullets(s, Inches(0.6), Inches(3.1), Inches(12), Inches(2.6), [
+    "A partner for up to a 20% share of the provincial bank acquisition near Clark, so the acquisition and the XRPL rollout move faster.",
     "Introductions to banks that outsource servicing operations, and to the RLUSD / institutional team on the custodial-asset question.",
-    "Everything stays open source: the mortgageos schema, the note-asset MPT pattern and metadata, the memo format, the transaction builders, the payment-proof and audit-log contract, the Hook firewall.",
+    "Everything stays open source: the mortgageos schema, the note-asset MPT pattern and metadata, the memo format, the transaction builders, the payment-proof and audit-log contract.",
     "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm (branch v3)  ·  Evidence: docs/evidence/v3/  ·  Proposal: docs/grant-proposal-2026-09-11.pdf",
 ], 16)
 rect(s, Inches(0.6), Inches(5.6), Inches(12), Inches(1.0), LIGHT)

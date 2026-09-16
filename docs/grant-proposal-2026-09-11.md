@@ -92,7 +92,7 @@ Nothing in the right-hand column moves a legal obligation onto the ledger. The s
 
 **Escrow computation.** Impounds are computed under 12 CFR 1024.17 as a rolling one-twelfth of the last actual annual bill, with the servicer advancing any shortfall; the schedule is exact cents with rounding absorbed only in the final payment.
 
-**Cost.** About 80 ledger transactions per loan-year (two escrow creates and two finishes per month, plus boarding), fees under 0.01 XRP, refundable owner reserve for two MPToken objects and transient escrows.
+**Cost.** About 60 ledger transactions per loan-year (two escrow creates and two finishes per month, plus boarding), fees under 0.01 XRP, refundable owner reserve for two MPToken objects and transient escrows.
 
 ## 6. Architecture
 
