@@ -1,5 +1,5 @@
 > **Status: content approved for transmission, September 17, 2026.** Signature block below
-> carries printed names only — Rich Young and Trish Wilson still need to apply an actual
+> carries printed names only — Rich Young and Maria Theresa Wilson still need to apply an actual
 > signature (wet-ink or e-signature) before this goes out. Pairs with
 > `docs/grant-proposal-2026-09-11.pdf` (12 pages, commit `b34096c` on branch `v3`). See
 > `docs/xrpl-next-steps-2026-09-17.md` for how and where to send it.
@@ -32,4 +32,4 @@ Sincerely,
 
 <p class="signspace">&nbsp;</p>
 
-<p class="sig"><b>Trish Wilson</b><br>Owner | Global Realtor 4A Cause<br>globalrealtor4acause.com</p>
+<p class="sig"><b>Maria Theresa Wilson</b><br>Owner | Global Realtor 4A Cause<br>globalrealtor4acause.com</p>
