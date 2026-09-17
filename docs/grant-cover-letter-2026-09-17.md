@@ -4,7 +4,9 @@
 > `docs/grant-proposal-2026-09-11.pdf` (12 pages, commit `b34096c` on branch `v3`). See
 > `docs/xrpl-next-steps-2026-09-17.md` for how and where to send it.
 
-Subject: Project Briefing & Grant Proposal: MortgageOS™ (Live Institutional Servicing on XRPL)
+# Project Briefing & Grant Proposal: MortgageOS™ (Live Institutional Servicing on XRPL)
+
+**Date:** September 17, 2026
 
 To the XRPL Grants Committee and Ripple Ecosystem Leadership,
 
@@ -24,11 +26,10 @@ We invite the committee to review the attached 12-page specification. We would w
 
 Sincerely,
 
-Richard Kent Young
-Founder & President | High Tech Mortgage, Inc.
-California DRE #01106294 | NMLS #291547
-hightechmortgage.com
+<p class="signspace">&nbsp;</p>
 
-Trish Wilson
-Owner | Global Realtor 4A Cause
-globalrealtor4acause.com
+<p class="sig"><b>Richard Kent Young</b><br>Founder & President | High Tech Mortgage, Inc.<br>California DRE #01106294 | NMLS #291547<br>hightechmortgage.com</p>
+
+<p class="signspace">&nbsp;</p>
+
+<p class="sig"><b>Trish Wilson</b><br>Owner | Global Realtor 4A Cause<br>globalrealtor4acause.com</p>
