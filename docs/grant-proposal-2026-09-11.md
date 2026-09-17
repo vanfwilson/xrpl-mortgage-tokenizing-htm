@@ -1,6 +1,10 @@
 # MortgageOS™ Tokenization and Servicing Layer on the XRP Ledger
 
-**Grant proposal to XRPL Grants** · High Tech Mortgage, Inc. (HTM) · Offices in California, Idaho and Metro Manila, Philippines; Switzerland opening soon
+**Joint grant proposal to XRPL Grants** · High Tech Mortgage, Inc. (HTM) and Global Realtor 4A Cause (GRC)
+
+**Submitting and project contact:** Dr Van Wilson · [vanw@globalrealtor4acause.com](mailto:vanw@globalrealtor4acause.com)
+
+HTM offices: California, Idaho and Metro Manila, Philippines; Switzerland opening soon
 
 Requested funding: **$200,000** · Program: **12 months** · Date: **September 17, 2026**
 
@@ -16,6 +20,8 @@ Requested funding: **$200,000** · Program: **12 months** · Date: **September 1
 Dear Committee Members,
 
 ## 1. Executive summary
+
+MortgageOS™ is a joint-venture project of High Tech Mortgage, Inc. (HTM) and Global Realtor 4A Cause (GRC). The two organizations are working together on the mortgage-tokenization and servicing platform described in this application. HTM's mortgage-broker and servicing activities remain under HTM's licences; this application does not represent GRC as holding those licences.
 
 High Tech Mortgage, Inc. is a licensed California mortgage broker with offices in California, Idaho and Manila, and a Swiss office opening soon. Our operations centre is Manila, the Pearl of the Orient and the geographic centre of trade for the ASEAN nations. With an established economic free-trade zone for blockchain, decentralized finance and high-technology finance, and an AI and blockchain data centre in development, Manila is positioning itself as the hub of decentralized finance and blockchain for the region. We originate standard thirty-year residential mortgages for the banks that fund them, and we have built and published MortgageOS™, an open servicing layer that puts the mortgage note itself and every month of its cash flow on the XRP Ledger. Through that servicing platform, built on XRPL, we intend to become a major hub of digital real estate banking and finance for the Philippines and the ASEAN nations.
 
@@ -49,6 +55,8 @@ Everything described as done in this proposal runs today on the XRP Ledger Testn
 What this is not: the token does not replace the Note, the Deed of Trust, the lien, the county record, the bank's custodial accounts or the servicer's books; no capital is raised and no interests are sold to the public — the note asset moves only between authorized financial institutions; and the borrower's obligation is a personal consumer debt under RESPA and TILA that nothing on the asset layer can change.
 
 ## 2. How we operate
+
+HTM and GRC are undertaking the MortgageOS tokenization project through their joint venture. The operating models below describe HTM's regulated mortgage and servicing roles; GRC's participation in the project does not transfer or extend HTM's licences.
 
 The loans we work with are standard conventional, fixed-rate, 30-year residential loans documented on the Fannie Mae/Freddie Mac Uniform Instruments: the Multistate Fixed Rate Note (Form 3200) and, in California, the Deed of Trust (Form 3005). They are serviced to the Fannie Mae Servicing Guide and the CFPB mortgage servicing rules under RESPA (Regulation X, 12 CFR part 1024) and TILA (Regulation Z, 12 CFR part 1026).
 
@@ -200,6 +208,8 @@ Sincerely,
 <p class="signspace">&nbsp;</p>
 
 <p class="sig"><b>Rich Young</b><br>Founder, President and Lead Broker<br>High Tech Mortgage, Inc.<br>hightechmortgage.com</p>
+
+<p class="sig"><b>Dr Van Wilson</b><br>Project contact for the HTM–GRC joint venture<br>Global Realtor 4A Cause<br><a href="mailto:vanw@globalrealtor4acause.com">vanw@globalrealtor4acause.com</a></p>
 
 <div class="pagebreak"></div>
 

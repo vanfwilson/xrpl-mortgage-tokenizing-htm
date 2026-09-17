@@ -7,12 +7,18 @@ SRC=docs/grant-proposal-2026-09-11.md
 HTML=out/grant-proposal-2026-09-11.html
 PDF=docs/grant-proposal-2026-09-11.pdf
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
+GRANT_PYTHON="${GRANT_PYTHON:-python3}"
 mkdir -p out
-python3 - "$SRC" "$HTML" <<'EOF'
+"$GRANT_PYTHON" - "$SRC" "$HTML" <<'EOF'
 import sys, markdown, base64, pathlib
 src, out = sys.argv[1], sys.argv[2]
 body = markdown.markdown(pathlib.Path(src).read_text(), extensions=['tables', 'sane_lists'])
-logo = base64.b64encode(pathlib.Path('assets/brand/htm-logo.png').read_bytes()).decode()
+def _b64(path):
+    return base64.b64encode(pathlib.Path(path).read_bytes()).decode()
+htm_logo = _b64('assets/brand/htm-logo.png')
+grc_logo = _b64('assets/brand/grc-logo-circle.png')
+nar_logo = _b64('assets/brand/grc-nar.jpeg')
+prc_logo = _b64('assets/brand/grc-prc.jpeg')
 import re, mimetypes
 def _embed(m):
     path = pathlib.Path(m.group(1)); mime = mimetypes.guess_type(str(path))[0] or 'image/jpeg'
@@ -32,7 +38,18 @@ tr:nth-child(even) td { background: #F3F5F8; }
 code { font-family: Menlo, monospace; font-size: 9pt; background: #F3F5F8; padding: 0 3px; }
 a { color: #135BA6; text-decoration: none; }
 hr { border: 0; border-top: 1px solid #d6dbe3; margin: 10pt 0; }
-.logo { width: 3.4in; margin-bottom: 2pt; display: block; }
+.brand-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8pt; margin: 0 0 8pt; }
+.htm-brand { flex: 1 1 auto; }
+.htm-logo { width: 2.9in; display: block; }
+.jv-connector { width: 1.05in; flex: none; margin-top: 18pt; text-align: center; color: #135BA6; }
+.jv-label { font-size: 8.5pt; font-weight: 700; white-space: nowrap; margin-bottom: 2pt; }
+.jv-arrow { display: flex; align-items: center; width: 100%; font-size: 7pt; line-height: 1; }
+.jv-arrow-line { height: 1.5px; background: #135BA6; flex: 1; }
+.grc-block { width: 2.35in; margin-left: auto; text-align: right; }
+.grc-brand { width: 2.35in; margin-left: auto; display: flex; justify-content: flex-end; align-items: center; gap: 7pt; }
+.grc-logo { width: 0.9in; height: 0.9in; object-fit: contain; display: block; }
+.grc-credential { width: 0.5in; height: 0.5in; object-fit: contain; display: block; }
+.grc-site { font-size: 8.5pt; color: #135BA6; margin-top: 3pt; }
 .links { font-size: 8pt; margin: 4pt 0 6pt; padding-left: 14pt; color: #555F6B; }
 .links li { margin: 1pt 0; }
 .team { font-size: 9.5pt; page-break-inside: auto; }
@@ -56,7 +73,12 @@ hr { border: 0; border-top: 1px solid #d6dbe3; margin: 10pt 0; }
 .site { font-size: 10.5pt; color: #135BA6; margin: 0 0 10pt; }
 .footer { position: fixed; bottom: -0.55in; left: 0; right: 0; font-size: 8pt; color: #555F6B; }
 """
-html = f"<!doctype html><meta charset='utf-8'><style>{css}</style><img class='logo' src='data:image/png;base64,{logo}'><div class='site'>hightechmortgage.com</div>{body}"
+header = f"""<div class='brand-header'>
+<div class='htm-brand'><img class='htm-logo' src='data:image/png;base64,{htm_logo}'><div class='site'>hightechmortgage.com</div></div>
+<div class='jv-connector'><div class='jv-label'>Joint-Venture</div><div class='jv-arrow'><span>◀</span><span class='jv-arrow-line'></span><span>▶</span></div></div>
+<div class='grc-block'><div class='grc-brand'><img class='grc-logo' src='data:image/png;base64,{grc_logo}' alt='Global Realtor 4A Cause'><img class='grc-credential' src='data:image/jpeg;base64,{nar_logo}' alt='National Association of Realtors'><img class='grc-credential' src='data:image/jpeg;base64,{prc_logo}' alt='Professional Regulation Commission of the Philippines'></div><div class='grc-site'>globalrealtor4acause.com</div></div>
+</div>"""
+html = f"<!doctype html><meta charset='utf-8'><style>{css}</style>{header}{body}"
 pathlib.Path(out).write_text(html)
 EOF
 "$CHROME" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$PDF" "file://$PWD/$HTML" >/dev/null 2>&1
