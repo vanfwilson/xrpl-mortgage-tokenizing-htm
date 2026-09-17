@@ -23,7 +23,8 @@ existing law (RESPA/TILA) and in the servicer's books.
 
 **Abstract:** MortgageOS™ is being built through a joint venture between High Tech Mortgage,
 Inc. (HTM), a licensed California mortgage broker/servicer owned by Rich Young, and Global
-Realtor 4A Cause (GRC), a Philippine real-estate and technology company owned by Trish Wilson.
+Realtor 4A Cause (GRC), a Philippine real-estate and technology company owned by Maria Theresa
+Wilson (aka Trish Wilson).
 HTM operates MortgageOS in California under its existing licenses; GRC's technical and
 international-logistics team (Dr Van Wilson, Bill Thompson) builds and supports the platform,
 and Trish's executive-level relationships with three of the Philippines' largest developers
@@ -94,7 +95,7 @@ Funding gates: build/integration (M1–M3) 30% = $60,000; usage/pilot (M4–M7) 
   and AI, MIT (2022). Built Fannie Mae's post-COVID mortgage-forbearance forecasting model and
   an AI legal-document model for the U.S. Securities and Exchange Commission. Designed and wrote
   MortgageOS™; project contact for the HTM–GRC joint venture.
-- **Trish Wilson** — Owner, GRC, Philippine Real Estate & Finance. Licensed Philippine real
+- **Maria Theresa Wilson (aka Trish Wilson)** — Owner, GRC, Philippine Real Estate & Finance. Licensed Philippine real
   estate broker (PRC 0024025), former CPA and banker, licensed U.S. Realtor and International
   Certified Financial Consultant. Executive-level relationships with Megaworld, Ayala Land and
   ArthaLand and their lender-bank groups.
