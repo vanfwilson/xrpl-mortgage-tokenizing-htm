@@ -22,3 +22,7 @@ Richard Kent Young
 Founder & President | High Tech Mortgage, Inc.
 California DRE #01106294 | NMLS #291547
 hightechmortgage.com
+
+Trish Wilson
+Owner | Global Realtor 4A Cause
+globalrealtor4acause.com
