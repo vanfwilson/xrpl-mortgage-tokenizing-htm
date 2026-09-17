@@ -130,6 +130,8 @@ The platform transitions mortgage notes from illiquid, siloed bank assets into o
 
 **Automated servicing and the immutable audit rail.** Settlement is handled entirely through native TokenEscrow (XLS-85). The monthly fixed P&I stream is a sequence of programmatic, time-locked escrow contracts that execute deterministically over the term; every successful finish transaction generates a unique on-chain cryptographic proof of payment. The audit sweep re-reads those proofs from the ledger and records their ledger index, giving bank regulators and external auditors a transparent, unalterable ledger of account that proves loan performance and reduces reporting cost.
 
+**Residential benchmark, commercial-ready architecture.** While the reference implementation is benchmarked against Fannie Mae 30-year residential standards, the MortgageOS™ architecture applies equally to commercial promissory notes and private debt instruments, enabling immediate deployment in commercial private-credit corridors without CFPB consumer-loan friction. U.S. residential origination and servicing carry TRID, Qualified Mortgage and CFPB compliance obligations that do not extend to commercial paper; the Philippine provincial-bank acquisition and private secondary-market institutional notes fall outside that consumer-protection perimeter and can move under commercial terms.
+
 ## 8. Why this fits XRPL Grants
 
 - **Multi-Purpose Tokens used as an institutional asset.** A transferable, escrowable, lockable note twin with XLS-89d metadata, plus a second MPT as the escrowable settlement asset: two of the newest Mainnet primitives exercised end to end with tests, and designed for the credit primitives that follow them.
