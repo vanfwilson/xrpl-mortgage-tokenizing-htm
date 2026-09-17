@@ -1,3 +1,9 @@
+> **Status: content approved for transmission, September 17, 2026.** Signature block below
+> carries printed names only — Rich Young and Trish Wilson still need to apply an actual
+> signature (wet-ink or e-signature) before this goes out. Pairs with
+> `docs/grant-proposal-2026-09-11.pdf` (12 pages, commit `b34096c` on branch `v3`). See
+> `docs/xrpl-next-steps-2026-09-17.md` for how and where to send it.
+
 Subject: Project Briefing & Grant Proposal: MortgageOS™ (Live Institutional Servicing on XRPL)
 
 To the XRPL Grants Committee and Ripple Ecosystem Leadership,
