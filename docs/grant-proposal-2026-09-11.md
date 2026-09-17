@@ -21,7 +21,7 @@ Dear Committee Members,
 
 ## 1. Executive summary
 
-MortgageOS™ is being built through a joint venture between **High Tech Mortgage, Inc. (HTM), owned by Rich Young, and Global Realtor 4A Cause (GRC), owned by Trish Wilson**. The venture joins a licensed California mortgage operator with a Philippine real-estate, technology and international-logistics team. Rich and HTM will operate MortgageOS in California; Trish and GRC will lead the platform's development support and its Philippine market relationships. HTM's mortgage-broker and servicing activities remain under HTM's licences, and this application does not represent GRC as holding those licences.
+MortgageOS™ is being built through a joint venture between **High Tech Mortgage, Inc. (HTM), owned by Rich Young, and Global Realtor 4A Cause (GRC), owned by Trish Wilson**. The venture joins a licensed California mortgage operator with a Philippine real-estate, technology and international-logistics team. Rich and HTM will operate MortgageOS in California; Trish and GRC will lead the platform's development support and its Philippine market relationships. HTM's mortgage-broker and servicing activities remain under HTM's licenses, and this application does not represent GRC as holding those licenses.
 
 Rich brings the operating environment in which MortgageOS can move from code to regulated mortgage use. He holds California DRE Broker's License #01106294 and NMLS #291547 and has more than thirty years of Bay Area mortgage-lending experience. Through HTM, he will direct California deployment, origination, servicing and compliance for the platform.
 
@@ -58,13 +58,13 @@ What this is not: the token does not replace the Note, the Deed of Trust, the li
 
 ## 2. How we operate
 
-HTM and GRC are undertaking the MortgageOS tokenization project through their joint venture. GRC's technical and international real-estate team builds and supports the platform; HTM operates it in California and supplies the regulated mortgage expertise that defines its controls. The operating models below describe HTM's mortgage and servicing roles. GRC's participation does not transfer or extend HTM's licences.
+HTM and GRC are undertaking the MortgageOS tokenization project through their joint venture. GRC's technical and international real-estate team builds and supports the platform; HTM operates it in California and supplies the regulated mortgage expertise that defines its controls. The operating models below describe HTM's mortgage and servicing roles. GRC's participation does not transfer or extend HTM's licenses.
 
 The loans we work with are standard conventional, fixed-rate, 30-year residential loans documented on the Fannie Mae/Freddie Mac Uniform Instruments: the Multistate Fixed Rate Note (Form 3200) and, in California, the Deed of Trust (Form 3005). They are serviced to the Fannie Mae Servicing Guide and the CFPB mortgage servicing rules under RESPA (Regulation X, 12 CFR part 1024) and TILA (Regulation Z, 12 CFR part 1026).
 
 HTM operates in three ways, and the software is the same in all of them:
 
-- **Servicer of record for its own clients**, under its California licences, through a servicing entity kept separate from the brokerage.
+- **Servicer of record for its own clients**, under its California licenses, through a servicing entity kept separate from the brokerage.
 - **Servicing-operations and technology contractor to a bank** that is itself the official servicer and keeps banking compliance and liability. Several lending banks have asked for exactly this arrangement.
 - **Shareholder in a licensed Philippine bank**, the provincial bank acquisition described above, where the bank originates and owns the loans and MortgageOS is its servicing platform.
 
@@ -91,10 +91,10 @@ Nothing in the right-hand column moves a legal obligation onto the ledger. The s
 
 | The ledger does | The ledger does not |
 |---|---|
-| Hold one note asset per loan: a Multi-Purpose Token issuance whose supply is the face value in cents, whose XLS-89d metadata carries the fixed terms, the terms-manifest hash and an IPFS CID slot, and whose flags allow escrow, transfer and hold and give the issuer no power to take units back from a holder | Decide what the borrower owes; outstanding principal, escrow analysis and the borrower's identity are the servicer's books |
-| Keep the asset with the lending institution at face value for the life of the loan; `RequireAuth` means only institutions the issuer authorizes can hold it | Replace custodial accounts, cure a shortage, send statutory notices or satisfy any regulation by itself |
-| Lock each month's fixed P&I and impound legs under a TokenEscrow that cannot be finished before the due date, with the split and regulatory markers in the memo; the validated finish is the proof of payment | Confer a licence, prove payee receipt, document validity or custody |
-| Refuse payments from anyone not pre-authorized (`DepositAuth` on the issuer, the lender and the custodial account) and place a holding on hold when a dispute requires it | Carry borrower PII, ever |
+| Hold one note asset per loan: a Multi-Purpose Token issuance whose supply is the face value in cents. Its XLS-89d metadata carries the fixed terms, the terms-manifest hash and an IPFS CID slot, and its flags allow escrow, transfer and hold while giving the issuer no power to take units back from a holder. | Decide what the borrower owes; outstanding principal, escrow analysis and the borrower's identity are the servicer's books. |
+| Keep the asset with the lending institution at face value for the life of the loan; `RequireAuth` means only institutions the issuer authorizes can hold it. | Replace custodial accounts, cure a shortage, send statutory notices or satisfy any regulation by itself. |
+| Lock each month's fixed P&I and impound legs under a TokenEscrow that cannot be finished before the due date, with the split and regulatory markers in the memo; the validated finish is the proof of payment. | Confer a license, prove payee receipt, document validity or custody. |
+| Refuse payments from anyone not pre-authorized (`DepositAuth` on the issuer, the lender and the custodial account) and place a holding on hold when a dispute requires it. | Carry borrower PII, ever. |
 
 ## 5. What is already true
 
