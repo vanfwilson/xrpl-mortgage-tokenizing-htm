@@ -7,11 +7,14 @@ import sys
 import time
 
 from . import SUCCESS_STRING
+from .canonical import load_canonical_loan
 from .config import Settings
 from .ledger.client import LedgerError
 from .phases import audit, boot, phase1, phase2, phase3
 
-LOAN = {"principal_cents": 45_000_000, "rate_bps": 650, "term_months": 360, "annual_tax_cents": 606_250, "annual_ins_cents": 180_000}
+# Derived from docs/demo/canonical-loan.json — the closing package reviewers read beside the
+# ledger. Never hand-copy these: v3 kept a separate copy and it drifted on rate and both impounds.
+LOAN = load_canonical_loan()
 
 
 def main(loan_id: str | None = None) -> int:
