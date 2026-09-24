@@ -124,10 +124,19 @@ The demonstration answers the only question a grant reviewer is actually asking 
 
 THE COST
 {'-'*W}
-  Required on the ledger ........ {total} XRP   (about ${total*1.53:,.0f} at $1.53/XRP)
-  Suggested purchase ............ {total+10} XRP   (about ${(total+10)*1.53:,.0f})
+  Required on the ledger ........ {total} XRP
+  Suggested send (Option 1) ..... {total+5} XRP   (a little headroom)
 
-Buy extra because exchanges charge a withdrawal fee and the XRP price moves.
+You already hold XRP in cold storage, so NOTHING NEEDS TO BE PURCHASED and the
+current XRP price is irrelevant to this - you are moving coins you already own,
+not buying at today's market. Sending directly from a self-custody wallet also
+means no exchange withdrawal fee: the XRP Ledger network fee is roughly
+0.00001 XRP per payment, which is a small fraction of one cent.
+
+KEEP AT LEAST 1 XRP IN THE COLD WALLET. Every XRP Ledger account must retain a
+1 XRP base reserve to keep existing, plus 0.2 XRP for each object it holds
+(trust lines, offers, escrows). A send that would drop the wallet below its own
+reserve is rejected by the network - so do not try to send the full balance.
 
 MOST OF THIS MONEY IS NOT SPENT. The XRP Ledger requires each account to hold a
 refundable "reserve" - 1 XRP to exist, plus 0.2 XRP per item it holds on-ledger.
