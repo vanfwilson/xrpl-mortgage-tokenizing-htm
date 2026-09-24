@@ -86,6 +86,49 @@ proposal so the plan and the documents never drift.
   ecosystem team. Lower priority than §2. If you want to try it, you'll need to fill and submit
   it yourself.
 
+## 6. THE BIGGER SHIFT: XRPL funding decentralized in 2026 (researched 2026-09-24)
+
+Waiting for "the XRPL Grants wave to reopen" is now only a partial strategy. Ripple published
+*Supporting Innovation on the XRP Ledger: What's Changing in 2026*
+(`ripple.com/insights/supporting-innovation-on-the-xrp-ledger/`), stating:
+
+> "While those programs remain important, 2026 marks a shift toward a more distributed model,
+> where independent organizations, regional hubs, venture partners, and community-led initiatives
+> play a larger role in supporting builders."
+
+XRPL Grants is **not** being wound down, but it is no longer the main door. Funding now runs
+through several independent bodies. Ranked by fit to MortgageOS:
+
+| Channel | Fit | Status |
+|---|---|---|
+| **Ripple FinTech Builder Program** | **BEST** — explicitly for institutional-grade financial apps on XRPL: tokenization, credit infrastructure, regulated financial services | Announced, no public apply URL found as of 2026-09-24 |
+| **XRP Asia** (new APAC regional hub) | **STRONG** — matches the Manila / ASEAN banking corridor already claimed in our letter | Announced, intake not yet located |
+| **XRPL Commons grants** (3 tracks, incl. `Glow`) | GOOD — `Glow` retroactively rewards *completed* open-source XRPL contributions; our MIT repo qualifies as-is | Launched July 2026; apply URL not verified — `xrpl-commons.org/grants` 404s, needs a manual look |
+| **XAO DAO** | Fallback — community microgrants, voted | Ongoing |
+| **UDAX** university accelerators | Poor fit — we are not university-affiliated | Expanding (Oxford summer 2026, UC Berkeley fall 2026) |
+
+- **"A new dedicated XRPL funding hub will soon launch"** as a single entry point for discovering
+  every grant/accelerator in the ecosystem. This is very likely what the
+  "additional new programming to be announced in **October 2026**" on xrplgrants.org refers to.
+  **That hub is the thing to watch.**
+- **Action implied:** the email in `docs/xrpl-outreach-email-draft.md` should go out *now*
+  (once signed) rather than waiting for October. Under a distributed model, being known to the
+  RippleX ecosystem team before the hub launches is worth more than a cold application after it.
+
+## 7. Does shipping more code improve the odds? Yes — specifically
+
+- **Testnet → Mainnet is the single biggest credibility jump available to us.** Every claim in
+  the proposal is currently Testnet-only, and reviewers discount Testnet heavily. The proposal
+  already notes we use only amendments live on Mainnet, so this is executable, not speculative.
+- **The `Glow` track is retroactive** — it funds open-source work already completed. For that
+  channel, shipping the code *is* the application; there is no need to pitch ahead of building.
+- **Each new release is a legitimate reason to re-contact** the ecosystem team without
+  nagging — a short "v3.2 is live on Mainnet, here's the evidence report" note re-opens the
+  thread on substance.
+- Keep the evidence report at
+  `vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/` current with each release; it
+  is the artifact doing the persuading.
+
 ## 5. Community / developer-relations channels — for ongoing visibility
 
 - RippleX Discord: xrpldevs.org
