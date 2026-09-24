@@ -1,4 +1,7 @@
-# Next Steps: Communicating with XRPL / Ripple / Brinc (as of September 17, 2026)
+# Next Steps: Communicating with XRPL / Ripple / Brinc
+
+**Originally written September 17, 2026. Contact channels and open/closed status re-verified live on
+September 24, 2026 — see the re-verification note in §2 and the corrected §3.**
 
 Status snapshot and exact next actions for getting MortgageOS™ in front of XRPL Grants,
 RippleX, and the Brinc × XRPL Hong Kong Financial Innovation Program (HFIP). Kept next to the
@@ -25,14 +28,22 @@ proposal so the plan and the documents never drift.
 
 ## 2. Direct outreach to XRPL Grants (info@xrplgrants.org) — BLOCKED, needs you
 
-- **Verified live contact:** `info@xrplgrants.org` is the only email address published on
-  xrplgrants.org, explicitly for "application support." No `grants@xrplgrants.org` address
-  exists on the live site — do not use it.
+- **Verified live contacts (re-checked 2026-09-24, both by raw page scrape):**
+  - `info@xrplgrants.org` — the only email published on `xrplgrants.org`, explicitly for
+    "application support." This is the **grants-committee** channel.
+  - `RippleXEcosystem@ripple.com` — the only email published on the submission portal
+    `submit.xrplgrants.org/submit`, given as the contact to use *while there are no open calls*.
+    This is the **RippleX ecosystem / programs** channel and is the closer match for
+    "XRPL exec management." **Send to both.**
+  - No `grants@xrplgrants.org` address exists on either site — do not use it. Note the domain is
+    `xrplgrants.org` (plural "grants"); `xrplgrant.org` is not the right domain.
 - **Status:** an automated send attempt was blocked by Claude Code's own permission layer (not
   by Gmail, not by the recipient). Nothing was sent.
-- **What's ready:** the transmittal letter (`docs/grant-cover-letter-2026-09-17.md`) and the
+- **What's ready:** the transmittal letter (`docs/grant-cover-letter-2026-09-17.md`), the
   12-page grant proposal (`docs/grant-proposal-2026-09-11.pdf`, commit `b34096c` on branch
-  `v3`).
+  `v3`), and the **ready-to-send email body + send parameters** in
+  `docs/xrpl-outreach-email-draft.md` (drafted 2026-09-24 — one message, To `info@xrplgrants.org`,
+  Cc `RippleXEcosystem@ripple.com`).
 - **Next action (you), pick one:**
   1. Send it yourself from `vanw@globalrealtor4acause.com` (or any mailbox), to
      `info@xrplgrants.org`, with the PDF attached — copy the letter text directly from
@@ -43,15 +54,28 @@ proposal so the plan and the documents never drift.
 - **Before sending either way:** Rich and Trish still need to apply an actual signature to the
   letter — the current file only has printed names.
 
-## 3. General XRPL Grants application (xrplgrants.org) — NOT YET OPEN
+## 3. General XRPL Grants application — CONFIRMED STILL CLOSED (re-verified 2026-09-24)
 
-- Checked live on 2026-09-17: no general application form exists on the site. Only two
-  unrelated regional accelerator apply links were live (Brinc Hong Kong — see §1 above, and
-  Tenity Singapore, which we are not pursuing).
-- **Next action:** none until the form reopens. `docs/xrplgrants-application-answers-2026-09-17.md`
-  is pre-built and field-mapped for that moment — it will be a copy-paste job.
-- Optional: subscribe to the "Get Updates Delivered to Your Inbox" box on xrplgrants.org for a
-  notification when the wave reopens.
+- **Correction to the original Sept 17 note.** That check looked only at the marketing site
+  `xrplgrants.org`, which does not surface the form. The real intake lives on a separate
+  subdomain: **`submit.xrplgrants.org`** (a Submittable portal), reached as the
+  "Unified Application: XRPL Grants & XRPL Accelerator." One unified form covers XRPL Grants,
+  the XRPL Accelerator, and the sub-funds (AI, Brazil, Korea/Japan, Global, DIFC, Tenity).
+- **Live status on 2026-09-24:** the portal returns, verbatim,
+  `There are presently no open calls for applications.` Every program on it — Grants,
+  Accelerator, Product Integrations, Technical Mentorship, Hackathons, Ecosystem Partnerships,
+  Equity Investment — is closed. So the Sept 17 conclusion ("no open form") was right, but for
+  the wrong reason; we now have the correct URL to watch.
+- **Watch this URL, not the marketing homepage:**
+  `https://submit.xrplgrants.org/submit`
+- `xrplgrants.org` also states: **"Additional new programming to be announced in October 2026."**
+  That is the next expected reopening signal — recheck in early October.
+- **Encouraging fit signal:** the program states it funds projects with financial use-cases
+  driving on-chain XRPL activity, explicitly naming **Real World Assets (RWA)**, collateral
+  movement, and trade finance, and its use-case picker includes a **Tokenization** category.
+  MortgageOS sits squarely in the stated target.
+- `docs/xrplgrants-application-answers-2026-09-17.md` stays pre-built and field-mapped for the
+  reopening — it will be a copy-paste job.
 
 ## 4. Ripple corporate "Partner With Us" — LOWER PRIORITY, needs you (CAPTCHA)
 
@@ -70,7 +94,19 @@ proposal so the plan and the documents never drift.
 
 ## Summary: what to do right now
 
-1. Watch `vanw@globalrealtor4acause.com` (incl. spam) for the Brinc HFIP long-form link.
-2. Get Rich and Trish's signatures on `docs/grant-cover-letter-2026-09-17.md`.
-3. Send the letter + PDF to `info@xrplgrants.org` yourself, or approve the retry from
-   `vfw4444@gmail.com`.
+1. **Get Rich's and Trish's actual signatures** on `docs/grant-cover-letter-2026-09-17.md` —
+   this is the only hard blocker on the email going out.
+2. **Send the letter + `docs/grant-proposal-2026-09-11.pdf` to BOTH**
+   `info@xrplgrants.org` (grants committee) **and** `RippleXEcosystem@ripple.com`
+   (RippleX ecosystem team). Preferred sender identity is `vanw@globalrealtor4acause.com`,
+   which matches the domain the letter is signed from.
+3. Watch `vanw@globalrealtor4acause.com` (incl. spam) for the Brinc HFIP long-form link.
+4. Recheck `https://submit.xrplgrants.org/submit` in **early October 2026** for the announced
+   new programming.
+
+## Link check (2026-09-24)
+
+All public links cited in the cover letter resolve (HTTP 200):
+`github.com/vanfwilson/xrpl-mortgage-tokenizing-htm`,
+`vanfwilson.github.io/xrpl-mortgage-tokenizing-htm/evidence/v3/`,
+`hightechmortgage.com`, `globalrealtor4acause.com`.
