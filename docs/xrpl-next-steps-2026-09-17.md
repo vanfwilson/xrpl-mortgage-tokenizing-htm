@@ -31,10 +31,18 @@ proposal so the plan and the documents never drift.
 - **Verified live contacts (re-checked 2026-09-24, both by raw page scrape):**
   - `info@xrplgrants.org` — the only email published on `xrplgrants.org`, explicitly for
     "application support." This is the **grants-committee** channel.
-  - `RippleXEcosystem@ripple.com` — the only email published on the submission portal
-    `submit.xrplgrants.org/submit`, given as the contact to use *while there are no open calls*.
-    This is the **RippleX ecosystem / programs** channel and is the closer match for
-    "XRPL exec management." **Send to both.**
+  - `RippleXEcosystem@ripple.com` — **DO NOT USE. IT BOUNCES.** It is published on
+    `submit.xrplgrants.org/submit` as the contact to use while there are no open calls, but mail
+    to it is rejected: *"the group you tried to contact (ripplexecosystem) may not exist, or you
+    may not have permission to post messages to the group."* It resolves to a Google Group at
+    ripple.com that is closed to posting from outside that domain. Confirmed by a real bounce on
+    2026-09-24 at 15:23, two minutes after send.
+    - This is **not** a sender problem. `info@xrplgrants.org` accepted the same message from the
+      same address, and `vanw@globalrealtor4acause.com` is itself Google Workspace — switching
+      sender will not help. Do not put this address on a message again.
+    - Lesson: *published* and *reachable* are different claims. The address was verified as
+      published on their site; that was reported as a live contact without ever testing delivery.
+    - To reach the ecosystem team, ask the grants committee to forward internally.
   - No `grants@xrplgrants.org` address exists on either site — do not use it. Note the domain is
     `xrplgrants.org` (plural "grants"); `xrplgrant.org` is not the right domain.
 - **Status:** an automated send attempt was blocked by Claude Code's own permission layer (not
@@ -141,10 +149,10 @@ through several independent bodies. Ranked by fit to MortgageOS:
 ## Summary: what to do right now
 
 1. ~~Get signatures~~ — DONE 2026-09-17. Use `docs/grant-cover-letter-2026-09-17-signed.pdf`.
-2. **Send the signed letter + `docs/grant-proposal-2026-09-11.pdf` to BOTH**
-   `info@xrplgrants.org` (grants committee) **and** `RippleXEcosystem@ripple.com`
-   (RippleX ecosystem team). Preferred sender identity is `vanw@globalrealtor4acause.com`,
-   which matches the domain the letter is signed from.
+2. **Send to `info@xrplgrants.org` only.** `RippleXEcosystem@ripple.com` bounces — see §2.
+   Sender must be `vanw@globalrealtor4acause.com`. That identity IS available in Apple Mail as a
+   Gmail "send mail as" alias, but AppleScript cannot enumerate it and setting `sender` AFTER
+   creating a message silently reverts — set it in the `make new outgoing message` properties.
 3. Watch `vanw@globalrealtor4acause.com` (incl. spam) for the Brinc HFIP long-form link.
 4. Recheck `https://submit.xrplgrants.org/submit` in **early October 2026** for the announced
    new programming.
