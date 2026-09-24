@@ -15,7 +15,7 @@ from xrpl.models.requests.account_objects import AccountObjectType
 from xrpl.models.transactions import Payment
 from xrpl.wallet import Wallet
 
-from .config import ROLES, Settings
+from .config import ROLES, Settings, network_name
 from .db.repo import Repo
 from .ledger import mpt as M
 from .ledger.client import Ledger, LedgerError
@@ -55,7 +55,8 @@ def phase1(repo: Repo, ledger: Ledger, tx: TxBuilder, w: dict[str, Wallet], loan
     assert all(ev["deposit_auth"].values()), ev["deposit_auth"]
 
     pi_cents = monthly_payment_cents(principal_cents, rate_bps, term_months)
-    repo.upsert_loan(loan_id=loan_id, company_id=company_id, principal_cents=principal_cents, rate_bps=rate_bps,
+    repo.upsert_loan(loan_id=loan_id, company_id=company_id, network=network_name(ledger.wss),
+                     principal_cents=principal_cents, rate_bps=rate_bps,
                      term_months=term_months, pi_cents=pi_cents, outstanding_cents=principal_cents,
                      annual_tax_cents=annual_tax_cents, annual_ins_cents=annual_ins_cents,
                      issuer_account=w["issuer"].address, lender_account=w["lender"].address, holder_account=w["lender"].address,

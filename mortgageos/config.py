@@ -18,6 +18,14 @@ MAINNET_OPT_IN = "yes-real-xrp"
 ROLES = ("issuer", "lender", "impound", "borrower", "usdm_issuer", "tax_authority")
 
 
+def network_name(wss: str) -> str:
+    """Which network an endpoint points at. The DB column defaults to 'testnet', so a Mainnet run
+    would otherwise be filed as Testnet — wrong in the one record the grant evidence rests on."""
+    if any(m in wss for m in MAINNET_MARKERS):
+        return "mainnet"
+    return "devnet" if "devnet" in wss else "testnet"
+
+
 @dataclass(frozen=True)
 class Settings:
     xrpl_wss: str
