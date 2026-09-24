@@ -51,8 +51,11 @@ proposal so the plan and the documents never drift.
   2. Tell me to retry the send from your connected Gmail (`vfw4444@gmail.com`) and approve the
      send action when Claude Code asks — note this sends under your personal Gmail identity, not
      the GRC domain the letter is signed from.
-- **Before sending either way:** Rich and Trish still need to apply an actual signature to the
-  letter — the current file only has printed names.
+- **Signatures: DONE.** Executed 2026-09-17 by e-signature — Richard Kent Young (17:01 PDT) and
+  Maria Theresa Wilson / Trish Wilson (17:59 MDT). The signed artifact is
+  `docs/grant-cover-letter-2026-09-17-signed.pdf`. **Send that file, not the unsigned render.**
+  (The "still needs signatures" note that stood here until 2026-09-24 was written an hour before
+  they actually signed and was never updated — it was stale, not accurate.)
 
 ## 3. General XRPL Grants application — CONFIRMED STILL CLOSED (re-verified 2026-09-24)
 
@@ -137,9 +140,8 @@ through several independent bodies. Ranked by fit to MortgageOS:
 
 ## Summary: what to do right now
 
-1. **Get Rich's and Trish's actual signatures** on `docs/grant-cover-letter-2026-09-17.md` —
-   this is the only hard blocker on the email going out.
-2. **Send the letter + `docs/grant-proposal-2026-09-11.pdf` to BOTH**
+1. ~~Get signatures~~ — DONE 2026-09-17. Use `docs/grant-cover-letter-2026-09-17-signed.pdf`.
+2. **Send the signed letter + `docs/grant-proposal-2026-09-11.pdf` to BOTH**
    `info@xrplgrants.org` (grants committee) **and** `RippleXEcosystem@ripple.com`
    (RippleX ecosystem team). Preferred sender identity is `vanw@globalrealtor4acause.com`,
    which matches the domain the letter is signed from.

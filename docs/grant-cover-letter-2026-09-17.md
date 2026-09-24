@@ -1,8 +1,14 @@
-> **Status: content approved for transmission, September 17, 2026.** Signature block below
-> carries printed names only — Rich Young and Maria Theresa Wilson (aka Trish Wilson) still need to apply an actual
-> signature (wet-ink or e-signature) before this goes out. Pairs with
-> `docs/grant-proposal-2026-09-11.pdf` (12 pages, commit `b34096c` on branch `v3`). See
-> `docs/xrpl-next-steps-2026-09-17.md` for how and where to send it.
+> **Status: SIGNED AND READY TO SEND.** Executed September 17, 2026 by e-signature —
+> Richard Kent Young (17:01 PDT) and Maria Theresa Wilson / Trish Wilson (17:59 MDT).
+>
+> **Send `docs/grant-cover-letter-2026-09-17-signed.pdf`, NOT the unsigned render beside it.**
+> This Markdown file and `grant-cover-letter-2026-09-17.pdf` are the unsigned source; the signed
+> PDF is the artifact of record and is the only one that should leave the building.
+>
+> Pairs with `docs/grant-proposal-2026-09-11.pdf` (12 pages). Note: a file named
+> `grant-proposal-2026-09-18.pdf` circulating in Downloads is byte-identical to it (same md5
+> `3121d308…`) — a rename, not a newer revision. See `docs/xrpl-next-steps-2026-09-17.md` for
+> where to send it.
 
 # Project Briefing & Grant Proposal: MortgageOS™ (Live Institutional Servicing on XRPL)
 
