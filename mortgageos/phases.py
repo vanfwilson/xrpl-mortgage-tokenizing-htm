@@ -30,7 +30,8 @@ def boot(settings: Settings, loan_id: str) -> tuple[Repo, Ledger, TxBuilder, dic
     repo = Repo(settings.dsn)
     repo.apply_schema()
     ledger = Ledger(settings.xrpl_wss, repo, loan_id=loan_id).__enter__()
-    wallets = ledger.load_or_fund_wallets(settings.wallets_file, ROLES, settings.faucet_host)
+    wallets = ledger.load_or_fund_wallets(settings.wallets_file, ROLES, settings.faucet_host,
+                                          allow_faucet=not settings.mainnet)
     return repo, ledger, TxBuilder(ledger), wallets
 
 

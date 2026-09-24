@@ -21,7 +21,8 @@ def main(role: str = "usdm_issuer") -> int:
     repo.apply_schema()
     try:
         with Ledger(settings.xrpl_wss, repo, phase="issuer_init") as ledger:
-            wallets = ledger.load_or_fund_wallets(settings.wallets_file, ROLES, settings.faucet_host)
+            wallets = ledger.load_or_fund_wallets(settings.wallets_file, ROLES, settings.faucet_host,
+                                                  allow_faucet=not settings.mainnet)
             res = enable_trustline_locking(ledger, TxBuilder(ledger), repo, wallets[role], role)
     except LedgerError as e:
         print(json.dumps({"halt": "ledger", "code": e.code, "detail": e.detail[:800]}, indent=1))

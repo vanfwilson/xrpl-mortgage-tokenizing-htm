@@ -156,11 +156,25 @@ class Ledger:
 
     # --- wallets ----------------------------------------------------------------
 
-    def load_or_fund_wallets(self, path: Path, roles: tuple[str, ...], faucet_host: str | None) -> dict[str, Wallet]:
+    def load_or_fund_wallets(self, path: Path, roles: tuple[str, ...], faucet_host: str | None,
+                             allow_faucet: bool = True) -> dict[str, Wallet]:
+        """Load role wallets from `path`, falling back to the faucet for any that are missing.
+
+        On Mainnet there is no faucet, so `allow_faucet` is False and a missing role is a hard
+        stop rather than something we silently paper over — `python -m mortgageos.provision`
+        creates the keys and reports the XRP each one needs.
+        """
         wallets: dict[str, Wallet] = {}
         stored: dict[str, str] = {}
         if path.exists():
             stored = json.loads(path.read_text())
+        missing = [r for r in roles if r not in stored]
+        if missing and not allow_faucet:
+            raise LedgerError(
+                "unprovisioned",
+                f"no Mainnet wallet for {', '.join(missing)} in {path}. "
+                "Run `python -m mortgageos.provision` to create and fund the role wallets first.",
+            )
         for role in roles:
             if role in stored:
                 wallets[role] = Wallet.from_seed(stored[role])
