@@ -94,6 +94,17 @@ borrower Form 1098 largely fall away — which removes much of milestones M1–M
 $200,000 proposal, including the consumer note characterization that §11 names as the gate on
 touching a live loan.
 
-**Implication:** if commercial is the wheelhouse, the funded milestone plan is aimed at the
-wrong market. This needs a planning pass (`ai_plan` + roast council) before the proposal is
-re-pitched. Not started.
+**Current posture (owner, 2026-09-25): "We are in residential now. We are getting into
+commercial slowly."**
+
+So the $200,000 milestone plan is NOT misaimed. Residential is the operating business and the
+near-term pilot target; the M1-M7 consumer-compliance work (RESPA escrow analysis, Reg Z
+periodic statements, 1024.35-.41 case workflows, Form 1098) is what residential actually
+requires and should stay. Rich's "most lucrative wheelhouse is commercial debt and servicing"
+describes where the margin is, not where the business is today.
+
+Commercial is a planned, gradual extension, and the sequencing argument still holds on its own
+terms: it needs only a relaxation of `assert_fixed_rate`, and being outside consumer credit it
+is a shorter regulatory path to a live non-synthetic loan. Treat it as a track to add to the
+plan later, not a replacement for it. An earlier draft of this note claimed the funded plan was
+"aimed at the wrong market" — that was an overstatement and is withdrawn.
