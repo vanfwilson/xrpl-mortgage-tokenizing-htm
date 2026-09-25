@@ -40,5 +40,5 @@ answers above decision-relevant rather than merely administrative.
 Thank you,
 
 Dr Van Wilson
-MortgageOS — High Tech Mortgage, Inc. (HTM) & Global Realtor 4A Cause (GRC)
+MortgageOS — High Tech Mortgage, LLC (HTM) & Global Realtor 4A Cause (GRC)
 vanw@globalrealtor4acause.com
