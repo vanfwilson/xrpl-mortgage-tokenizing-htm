@@ -8,9 +8,11 @@ this repository** — see the open correction at the bottom.
 
 | Field | Value |
 |---|---|
-| Legal name | **High Tech Mortgage, LLC** |
-| Stylized as | HighTechMortgage |
-| Entity type | Limited liability company (member-managed) |
+| Legal name (as filed) | **HighTech Mortgage LLC** — one word, no comma. See the filing note below. |
+| Also written as | High Tech Mortgage, LLC / HighTechMortgage (marketing and prior documents) |
+| California entity number | B20250043019 |
+| Date filed with CA SoS | **2026-03-24** (initial filing; certificate issued 2026-03-26) |
+| Entity type | Limited liability company, California (member-managed) |
 | Founder and Lead Broker | Rich Young, CRS |
 | Predecessor firm | Action Residential Mortgage & Property Management, founded by Rich Young in **1994** |
 | Relationship | HTM is the digital/virtual evolution of the predecessor California company |
@@ -38,6 +40,15 @@ Ortigas Center, 1600 Pasig City, Metro Manila.
 
 Virtual brokerage: the firm operates entirely online and paperwork-light, with clients handling
 milestones by phone, email and video consultation.
+
+Revenue lines, per the owner 2026-09-25: **"Our bread and butter is Philippine condos and
+California residential loans, but the cream is at the commercial."**
+
+- **Bread and butter:** Philippine condominium sales (GRC, under Maria Theresa Wilson's PRC
+  brokerage licence) and California residential mortgage loans (HTM, under Rich Young's DRE and
+  NMLS licences).
+- **Cream:** commercial debt and servicing — the highest-margin line, entered deliberately and
+  gradually rather than as a pivot.
 
 Specialty book — deliberately the scenarios macro-lenders decline:
 
@@ -73,9 +84,17 @@ As of 2026-09-25 the repository names the entity **"High Tech Mortgage, Inc."** 
 - `docs/demo/canonical-loan.json`, `data/documents/02-fha-model-note.json`
 - `scripts/make-funding-sheet.py`, `scripts/build-grant-deck.py`
 
-**Not yet corrected.** Before the sweep runs, confirm the exact filed name and formation state
-against the California Secretary of State record rather than a bio — "High Tech Mortgage, LLC"
-vs "HighTechMortgage LLC" matters on a grant agreement.
+**Not yet corrected.** The filed name is now known: **HighTech Mortgage LLC**, California
+entity B20250043019, filed 2026-03-24. Source: California Secretary of State certified copy
+(Notice CP575G, certificate 310840622), emailed by Rich Young 2026-09-25 at 13:56 and read from
+the message preview — verify against the PDF itself before the sweep writes it 15 times. That
+document also carries an Employer ID Number; do not forward it to third parties or copy the EIN
+into this repository.
+
+Note the sweep is a three-way change, not two: occurrences are currently "High Tech Mortgage,
+Inc."; the marketing spelling is "High Tech Mortgage, LLC"; the filed legal name is "HighTech
+Mortgage LLC". Legal and contractual contexts (LICENSE, cover letters, any grant agreement)
+should carry the filed name. Prose may keep the readable spelling.
 
 ## Strategic note — commercial vs residential
 
