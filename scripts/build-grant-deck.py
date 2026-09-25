@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Build docs/grant-deck-2026-09-11.pptx (16:9) with python-pptx.
+"""Build docs/grant-deck-2026-09-25.pptx (16:9) with python-pptx.
 
-Every number on a slide is copied from docs/grant-proposal-2026-09-11.md and the v3 evidence; keep them in step.
+Every number on a slide is copied from docs/grant-proposal-2026-09-11.md (corrected 2026-09-24),
+docs/demo/canonical-loan.json and the Mainnet run of 2026-09-24; keep them in step.
 Run: python3 scripts/build-grant-deck.py
 """
 from pptx import Presentation
@@ -11,7 +12,7 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 import os
 
-OUT = "docs/grant-deck-2026-09-11.pptx"
+OUT = "docs/grant-deck-2026-09-25.pptx"
 NAVY = RGBColor(0x0B, 0x25, 0x45)
 BLUE = RGBColor(0x13, 0x5B, 0xA6)
 GOLD = RGBColor(0xC9, 0x9A, 0x2E)
@@ -113,7 +114,7 @@ s.shapes.add_picture("assets/brand/mortgageos-lockup-tight.png", Inches(0.8), In
 text(s, Inches(0.8), Inches(4.35), Inches(11.5), Inches(1.2), "Tokenize the note. Service it for thirty years.\nProve every payment on the XRP Ledger.", 34, True, WHITE)
 text(s, Inches(0.8), Inches(5.75), Inches(11.5), Inches(0.9),
      ["XRPL Grants proposal · $200,000 over 12 months · September 17, 2026",
-      "High Tech Mortgage, Inc. · California · Idaho · Metro Manila · Switzerland opening soon · v3.1 live on Testnet"], 16, False, GOLD)
+      "High Tech Mortgage, Inc. · California · Idaho · Metro Manila · live on XRP Ledger Mainnet since September 24, 2026"], 16, False, GOLD)
 
 # 2. The problem ---------------------------------------------------------------------------------------------------
 s = slide(); header(s, "The problem is the thirty years after closing, not the closing", 2)
@@ -168,10 +169,10 @@ bullets(s, Inches(7.0), Inches(2.05), Inches(5.6), Inches(4.5), [
 ], 15)
 
 # 5. Live proof -----------------------------------------------------------------------------------------------------
-s = slide(); header(s, "Live proof on XRPL Testnet: v3 verification run, September 11, 2026", 5)
+s = slide(); header(s, "Live proof on XRP Ledger Mainnet: verification run, September 24, 2026", 5)
 bullets(s, Inches(0.5), Inches(1.4), Inches(7.6), Inches(5), [
     "Phase 1: DepositAuth and Preauth set and read back; the note asset minted with CanEscrow, CanTransfer, CanLock and RequireAuth, its metadata carrying the fixed terms; the lender authorized and delivered 45,000,000 units (face value); ledger issuance id equals the database row.",
-    "Phase 2: a strict fixed-rate schedule (identical P&I for 360 periods) written to PostgreSQL; P&I ($2,844.31, to the lender) and impound ($655.21) legs escrowed with the split in the memo; both finished on the due date with tesSUCCESS; books reduced by $406.81 while the on-ledger face value stayed 45,000,000; asset hold placed and released.",
+    "Phase 2: a strict fixed-rate schedule (identical P&I for 360 periods) written to PostgreSQL; P&I ($2,770.73, to the lender) and impound ($594.28) legs escrowed with the split in the memo; both finished on the due date with tesSUCCESS; books reduced by $426.98 while the on-ledger face value stayed 45,000,000; asset hold placed and released.",
     "Audit sweep: both finish transactions re-read from the ledger, validated tesSUCCESS, ledger index stamped on the payment rows.",
     "Phase 3: a forced ledger error (tecPATH_PARTIAL) and a forced network timeout both caught, written to the audit log with the raw code and full envelope, engine exits cleanly.",
 ], 13)
@@ -182,23 +183,24 @@ table(s, Inches(8.4), Inches(1.4), Inches(4.5), [
     ["Escrow legs finished on date", "2 of 2, tesSUCCESS"],
     ["Payment proofs re-verified on-ledger", "2 of 2"],
     ["Asset hold, release", "tesSUCCESS, tesSUCCESS"],
-    ["Books after month 1", "$449,593.19 (off-ledger)"],
+    ["Books after month 1", "$449,573.02 (off-ledger)"],
     ["Forced errors triaged", "tecPATH_PARTIAL, timeout"],
     ["Pending transactions after run", "0"],
 ], [2.6, 1.9], 11)
-text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(1.6), "Only amendments live on Mainnet: MPTokensV1, TokenEscrow, DepositAuth, DepositPreauth. Evidence: docs/evidence/v3/.", 12, False, GREY)
+text(s, Inches(8.4), Inches(4.9), Inches(4.5), Inches(2.0), ["Mainnet, publicly verifiable:", "MPT issuance 0663EACA…E65", "issuance tx 217A9632…FFC", "P&I finish 40D8B7B7…0E1", "impound finish CDA244FD…118", "The demonstration loan is synthetic: fictitious borrower and property, no borrower data on the ledger."], 10, False, GREY)
 
 # 6. The month, to the cent -------------------------------------------------------------------------------------------
-s = slide(); header(s, "One month of servicing, to the cent (fixture: 30-year fixed, $450,000 at 6.5 %)", 6)
+s = slide(); header(s, "One month of servicing, to the cent (fixture: FHA 30-year fixed, $450,000 at 6.25 %)", 6)
 table(s, Inches(0.5), Inches(1.4), Inches(6.2), [
     ["Figure", "Value"],
     ["Note face value = token supply, constant", "$450,000.00 = 45,000,000 units"],
-    ["P&I, identical every month", "$2,844.31"],
-    ["Month-1 interest / principal", "$2,437.50 / $406.81"],
-    ["Tax impound (1/12 of $6,062.50)", "$505.21 / month"],
-    ["Hazard impound (1/12 of $1,800.00)", "$150.00 / month"],
-    ["Monthly payment", "$3,499.52"],
-    ["Outstanding after month 1 (books only)", "$449,593.19"],
+    ["P&I, identical every month", "$2,770.73"],
+    ["Month-1 interest / principal", "$2,343.75 / $426.98"],
+    ["Tax impound (1/12 of $3,420.00)", "$285.00 / month"],
+    ["Hazard impound (1/12 of $1,500.00)", "$125.00 / month"],
+    ["FHA MIP", "$184.28 / month"],
+    ["Monthly payment", "$3,365.01"],
+    ["Outstanding after month 1 (books only)", "$449,573.02"],
 ], [3.6, 2.6], 12)
 bullets(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(5.2), [
     "Strict 30-year fixed framework: the payment is rounded up to the cent and every period is identical; the schedule builder refuses anything else.",
@@ -225,7 +227,7 @@ bullets(s, Inches(0.5), Inches(1.4), Inches(6.2), Inches(5.2), [
     "Every transaction goes through one function: autofill and sign once, record it Pending with its hash and full envelope, submit, record Confirmed or Failed with the ledger result.",
     "tec / tef / tem codes and network timeouts are triaged, never crash the loop, and are written to the audit log with the raw code and the envelope for review.",
     "Postgres is authoritative for servicing; the ledger is evidence. The audit sweep re-reads every payment proof from the ledger and checks the lender still holds the note at face value; a miss is an incident, not a silent state.",
-    "The code refuses Mainnet endpoints. All runs are on the public Testnet with a self-issued test USD.",
+    "Mainnet is reached only behind an explicit MOS_ALLOW_MAINNET guard and funded accounts — never a faucet. Developed and proven on Testnet; the September 24, 2026 run is on Mainnet.",
 ], 15)
 rect(s, Inches(7.0), Inches(1.4), Inches(5.8), Inches(5.2), LIGHT)
 text(s, Inches(7.2), Inches(1.5), Inches(5.4), Inches(0.5), "Evidence an examiner can open", 18, True, BLUE)
@@ -325,11 +327,11 @@ team = [
     ("assets/brand/team/rich-young-hightechmortgage.jpg", "Rich Young", "Founder, President and Lead Broker",
      ["California DRE Broker's License #01106294", "California Mortgage Broker NMLS #291547", "30+ years Bay Area real estate and mortgage", "Owns origination, servicing and compliance obligations; licensed principal in the two U.S. operating models"]),
     ("assets/brand/team/van-wilson-hightechmortgage.png", "Dr Van Wilson", "Data Science, AI and Blockchain",
-     ["20+ years in data science, mostly in finance; secret clearance while at the U.S. SEC and Fannie Mae", "Fannie Mae: built the ML model forecasting mortgage payments after the COVID payment freeze", "MIT post-graduate degree in data science and AI (2022); CSU Fullerton BS; AWS, Databricks, Blockchain Training Alliance, Microsoft Certified Trainer", "Real-estate investor since 1998, 120+ transactions, $10M+ portfolio; designed and wrote MortgageOS · linkedin.com/in/drvanwilson"]),
+     ["20+ years in data science, mostly in finance; built an AI legal-document model for a U.S. federal financial regulator", "Fannie Mae: built the ML model forecasting mortgage payments after the COVID payment freeze", "MIT post-graduate degree in data science and AI (2022); CSU Fullerton BS; AWS, Databricks, Blockchain Training Alliance, Microsoft Certified Trainer", "Real-estate investor since 1998, 120+ transactions, $10M+ portfolio; designed and wrote MortgageOS · linkedin.com/in/drvanwilson"]),
     ("assets/brand/team/trish-wilson-hightechmortgage.jpeg", "Trish Wilson", "Real Estate, Finance and PH Operations",
      ["Active licensed US Realtor", "Philippine Real Estate Broker PRC 0024025", "Former CPA and banker (St. Paul University, BA Accounting); Int'l Certified Financial Consultant; recruited by Megaworld as International Marketing Director", "Leads Manila servicing operations under dual control; accounting review"]),
     ("assets/brand/team/bill-thompson-hightechmortgage.jpg", "Bill Thompson", "Operations, IT and Business Management",
-     ["ITIL v4; Six Sigma Quality; CompTIA A+; TOPCIT", "Practical Project Mgmt; URAC; FranklinCovey Mgmt", "Ateneo Graduate School of Business; CSU Dominguez Hills", "Operations, infrastructure and process discipline; dual-control task queue"]),
+     ["ITIL v4 service management; Six Sigma Quality; CompTIA A+; TOPCIT", "Practical Project Mgmt; FranklinCovey Mgmt", "Ateneo Graduate School of Business; CSU Dominguez Hills", "Operations, infrastructure and process discipline; dual-control task queue"]),
 ]
 x = Inches(0.4)
 for img, name, role, creds in team:
@@ -346,10 +348,9 @@ s = slide(); header(s, "The ask", 15)
 text(s, Inches(0.6), Inches(1.6), Inches(12), Inches(1.4),
      "$200,000 of milestone-gated funding over 12 months for the plan on slides 11 and 12.", 26, True, NAVY)
 bullets(s, Inches(0.6), Inches(3.1), Inches(12), Inches(2.6), [
-    "A partner for up to a 20% share of the provincial bank acquisition near Clark, so the acquisition and the XRPL rollout move faster.",
     "Introductions to banks that outsource servicing operations, and to the RLUSD / institutional team on the custodial-asset question.",
     "Everything stays open source: the mortgageos schema, the note-asset MPT pattern and metadata, the memo format, the transaction builders, the payment-proof and audit-log contract.",
-    "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm (branch v3)  ·  Evidence: docs/evidence/v3/  ·  Proposal: docs/grant-proposal-2026-09-11.pdf",
+    "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm (branch v4)  ·  Evidence: docs/evidence/  ·  Proposal: docs/grant-proposal-2026-09-24-corrected.pdf",
 ], 16)
 rect(s, Inches(0.6), Inches(5.6), Inches(12), Inches(1.0), LIGHT)
 text(s, Inches(0.8), Inches(5.7), Inches(11.6), Inches(0.8), "High Tech Mortgage, Inc. · 730 I Street, Sacramento, CA 95814 · 19F Marco Polo Ortigas, Pasig City, Metro Manila · info@hightechmortgage.com", 13, False, GREY, anchor=MSO_ANCHOR.MIDDLE)
