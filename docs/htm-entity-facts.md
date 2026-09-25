@@ -10,8 +10,9 @@ this repository** — see the open correction at the bottom.
 |---|---|
 | Legal name (as filed) | **HighTech Mortgage LLC** — one word, no comma. See the filing note below. |
 | Also written as | High Tech Mortgage, LLC / HighTechMortgage (marketing and prior documents) |
-| California entity number | B20250043019 |
-| Date filed with CA SoS | **2026-03-24** (initial filing; certificate issued 2026-03-26) |
+| California entity number | B20250043019 (document no. B20250043019, Initial Filing) |
+| Registered address on the filing | 730 I Street, Sacramento, CA 95814 |
+| Date filed with CA SoS | **2025-03-24** (initial filing; approval notice 2025-03-26) |
 | Entity type | Limited liability company, California (member-managed) |
 | Founder and Lead Broker | Rich Young, CRS |
 | Predecessor firm | Action Residential Mortgage & Property Management, founded by Rich Young in **1994** |
@@ -84,12 +85,14 @@ As of 2026-09-25 the repository names the entity **"High Tech Mortgage, Inc."** 
 - `docs/demo/canonical-loan.json`, `data/documents/02-fha-model-note.json`
 - `scripts/make-funding-sheet.py`, `scripts/build-grant-deck.py`
 
-**Not yet corrected.** The filed name is now known: **HighTech Mortgage LLC**, California
-entity B20250043019, filed 2026-03-24. Source: California Secretary of State certified copy
-(Notice CP575G, certificate 310840622), emailed by Rich Young 2026-09-25 at 13:56 and read from
-the message preview — verify against the PDF itself before the sweep writes it 15 times. That
-document also carries an Employer ID Number; do not forward it to third parties or copy the EIN
-into this repository.
+**Not yet corrected.** The filed name is confirmed: **HighTech Mortgage LLC**, California
+entity **B20250043019**, Initial Filing, **File Date 03/24/2025**, approval notice dated
+March 26, 2025, registered at 730 I Street, Sacramento, CA 95814. Source: the California
+Secretary of State "Initial Business Filing Approved" notice emailed by Rich Young 2026-09-25
+at 13:56, read directly from the document on 2026-09-25.
+
+The same mail carries an IRS notice (CP575G) showing an Employer ID Number. Do not forward that
+attachment to third parties and do not copy the EIN into this repository.
 
 Note the sweep is a three-way change, not two: occurrences are currently "High Tech Mortgage,
 Inc."; the marketing spelling is "High Tech Mortgage, LLC"; the filed legal name is "HighTech
