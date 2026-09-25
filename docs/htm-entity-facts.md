@@ -87,11 +87,17 @@ Three dates that are easy to conflate and are all distinct:
 The Brinc application was submitted with "founded 1/1/1994", which is the Action Residential
 date, not the LLC's. See `docs/brinc-hfip-correction-2026-09-25.md`.
 
-**Address discrepancy — unresolved.** The CA SoS filing registers the entity at 730 I Street,
-Sacramento, CA 95814. The IRS CP575G notice carries a mailing address of 5000 E Grant Rd
-Unit 174, Tucson, AZ 85712. Establish which is the address of record before either appears on a
-grant agreement. Note also the standing instruction in `project_htm_site_deploy_quirks` not to
-use an Arizona identity on HTM-facing material — check that this does not conflict.
+**Addresses — resolved, not a discrepancy.** The business office is **730 I Street,
+Sacramento, CA 95814**, which is what the California Secretary of State filing registers and
+what should appear on any agreement or correspondence. The Tucson, Arizona address on the IRS
+CP575G notice is Rich Young's other home, used as the personal mailing address for the sole
+member. A member residing outside the state of incorporation is ordinary and carries no
+implication for the entity.
+
+An earlier version of this note flagged a possible conflict with the standing instruction not
+to use an Arizona identity on HTM material. That was a conflation: the instruction concerns
+**HighTechLending**, a different company, and has nothing to do with where Rich lives.
+Withdrawn.
 
 ## OPEN CORRECTION — "Inc." vs "LLC"
 
