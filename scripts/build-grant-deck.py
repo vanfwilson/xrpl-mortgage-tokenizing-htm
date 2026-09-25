@@ -75,7 +75,7 @@ def header(slide, title, n):
     text(slide, Inches(12.2), Inches(0.35), Inches(0.9), Inches(0.5), str(n), 12, False, GOLD, PP_ALIGN.RIGHT)
     rect(slide, 0, H - Inches(0.35), W, Inches(0.35), LIGHT)
     text(slide, Inches(0.5), H - Inches(0.34), Inches(12), Inches(0.3),
-         "High Tech Mortgage, Inc. · MortgageOS™ tokenization + servicing layer v3.1 · XRPL Grants proposal · September 11, 2026 · github.com/vanfwilson/xrpl-mortgage-tokenizing-htm",
+         "High Tech Mortgage, LLC · MortgageOS™ tokenization + servicing layer · XRPL Grants proposal · September 11, 2026 · github.com/vanfwilson/xrpl-mortgage-tokenizing-htm",
          10, False, GREY)
 
 
@@ -114,7 +114,7 @@ s.shapes.add_picture("assets/brand/mortgageos-lockup-tight.png", Inches(0.8), In
 text(s, Inches(0.8), Inches(4.35), Inches(11.5), Inches(1.2), "Tokenize the note. Service it for thirty years.\nProve every payment on the XRP Ledger.", 34, True, WHITE)
 text(s, Inches(0.8), Inches(5.75), Inches(11.5), Inches(0.9),
      ["XRPL Grants proposal · $200,000 over 12 months · September 17, 2026",
-      "High Tech Mortgage, Inc. · California · Idaho · Metro Manila · live on XRP Ledger Mainnet since September 24, 2026"], 16, False, GOLD)
+      "High Tech Mortgage, LLC · California · Idaho · Metro Manila · Switzerland opening soon · live on XRP Ledger Mainnet since September 24, 2026"], 16, False, GOLD)
 
 # 2. The problem ---------------------------------------------------------------------------------------------------
 s = slide(); header(s, "The problem is the thirty years after closing, not the closing", 2)
@@ -256,7 +256,7 @@ bullets(s, Inches(0.5), Inches(4.0), Inches(12.3), Inches(2.5), [
 # 10. Business ------------------------------------------------------------------------------------------------------
 s = slide(); header(s, "How we operate", 10)
 bullets(s, Inches(0.5), Inches(1.4), Inches(6.2), Inches(5.2), [
-    "High Tech Mortgage, Inc.: licensed California mortgage broker (DFPI and DRE) with offices in California, Idaho and Metro Manila, a Swiss office opening soon, and Manila as the operations centre.",
+    "High Tech Mortgage, LLC: licensed California mortgage broker (DRE #01106294, NMLS #291547) with offices in California, Idaho and Metro Manila, a Swiss office opening soon, and Manila as the operations centre.",
     "Loans: standard conventional 30-year fixed-rate residential loans on the Fannie Mae/Freddie Mac Uniform Instruments (Form 3200, Form 3005), serviced to the Fannie Mae Servicing Guide and the CFPB rules under Regulation X and Regulation Z.",
     "No capital raising and no sale of interests to the public. The note asset moves only between authorized institutions; the borrower's obligation is untouched by it.",
     "The Manila team executes servicing tasks under dual control in all three models and never holds signing keys.",
@@ -353,7 +353,7 @@ bullets(s, Inches(0.6), Inches(3.1), Inches(12), Inches(2.6), [
     "Repository: github.com/vanfwilson/xrpl-mortgage-tokenizing-htm (branch v4)  ·  Evidence: docs/evidence/  ·  Proposal: docs/grant-proposal-2026-09-24-corrected.pdf",
 ], 16)
 rect(s, Inches(0.6), Inches(5.6), Inches(12), Inches(1.0), LIGHT)
-text(s, Inches(0.8), Inches(5.7), Inches(11.6), Inches(0.8), "High Tech Mortgage, Inc. · 730 I Street, Sacramento, CA 95814 · 19F Marco Polo Ortigas, Pasig City, Metro Manila · info@hightechmortgage.com", 13, False, GREY, anchor=MSO_ANCHOR.MIDDLE)
+text(s, Inches(0.8), Inches(5.7), Inches(11.6), Inches(0.8), "High Tech Mortgage, LLC · 730 I Street, Sacramento, CA 95814 · 19F Marco Polo Ortigas, Pasig City, Metro Manila · info@hightechmortgage.com", 13, False, GREY, anchor=MSO_ANCHOR.MIDDLE)
 
 prs.save(OUT)
 print(f"wrote {OUT}: {len(prs.slides)} slides")
