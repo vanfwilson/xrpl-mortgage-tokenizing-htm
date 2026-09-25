@@ -52,10 +52,9 @@ See the strategic note below — this is not yet reflected in the grant proposal
 
 ## Ownership
 
-Rich Young is the founder and leads the firm. **OPEN — needs confirmation:** the Brinc
-application states he holds 100% of the membership interest. That figure was inferred from
-"owned by Rich Young" in the grant proposal and has not been confirmed against a filing or by
-Rich directly. Confirm before it appears on any submitted document.
+Rich Young holds **100% of the membership interest** in High Tech Mortgage, LLC. No outside
+members. Confirmed by the owner 2026-09-25; previously inferred from "owned by Rich Young" in
+the grant proposal and carried as unverified until then.
 
 ## OPEN CORRECTION — "Inc." vs "LLC"
 
