@@ -14,6 +14,7 @@ this repository** — see the open correction at the bottom.
 | Registered address on the filing | 730 I Street, Sacramento, CA 95814 |
 | Date filed with CA SoS | **2025-03-24** (initial filing; approval notice 2025-03-26) |
 | Federal EIN assigned | **2026-06-06** (IRS Notice CP575G). The number itself is deliberately NOT recorded here. |
+| Statement of Information | Filed within the 90-day window (confirmed by the owner 2026-09-25). Entity in good standing; recurring biennial filing thereafter. |
 | Entity type | Limited liability company, California (member-managed) |
 | Founder and Lead Broker | Rich Young, CRS |
 | Predecessor firm | Action Residential Mortgage & Property Management, founded by Rich Young in **1994** |
