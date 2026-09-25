@@ -13,6 +13,7 @@ this repository** — see the open correction at the bottom.
 | California entity number | B20250043019 (document no. B20250043019, Initial Filing) |
 | Registered address on the filing | 730 I Street, Sacramento, CA 95814 |
 | Date filed with CA SoS | **2025-03-24** (initial filing; approval notice 2025-03-26) |
+| Federal EIN assigned | **2026-06-06** (IRS Notice CP575G). The number itself is deliberately NOT recorded here. |
 | Entity type | Limited liability company, California (member-managed) |
 | Founder and Lead Broker | Rich Young, CRS |
 | Predecessor firm | Action Residential Mortgage & Property Management, founded by Rich Young in **1994** |
@@ -64,9 +65,32 @@ See the strategic note below — this is not yet reflected in the grant proposal
 
 ## Ownership
 
-Rich Young holds **100% of the membership interest** in High Tech Mortgage, LLC. No outside
-members. Confirmed by the owner 2026-09-25; previously inferred from "owned by Rich Young" in
-the grant proposal and carried as unverified until then.
+Rich Young — full legal name **Richard Kent Young, CRS** — holds **100% of the membership
+interest** in HighTech Mortgage LLC. No outside members.
+
+Independently corroborated: the IRS CP575G notice of 2026-06-06 addresses the entity as
+"HIGHTECH MORTGAGE LLC / RICHARD YOUNG SOLE MBR", i.e. federal records carry him as sole
+member. Also confirmed by the owner 2026-09-25. Previously inferred from "owned by Rich Young"
+in the grant proposal and carried as unverified until then.
+
+Per his email signature: licensed by the California Department of Real Estate **since 1993**.
+Three dates that are easy to conflate and are all distinct:
+
+| Date | What it is |
+|---|---|
+| 1993 | Rich Young licensed by the California DRE |
+| 1994 | Action Residential Mortgage & Property Management founded |
+| 2025-03-24 | HighTech Mortgage LLC filed with the California Secretary of State |
+| 2026-06-06 | Federal EIN assigned |
+
+The Brinc application was submitted with "founded 1/1/1994", which is the Action Residential
+date, not the LLC's. See `docs/brinc-hfip-correction-2026-09-25.md`.
+
+**Address discrepancy — unresolved.** The CA SoS filing registers the entity at 730 I Street,
+Sacramento, CA 95814. The IRS CP575G notice carries a mailing address of 5000 E Grant Rd
+Unit 174, Tucson, AZ 85712. Establish which is the address of record before either appears on a
+grant agreement. Note also the standing instruction in `project_htm_site_deploy_quirks` not to
+use an Arizona identity on HTM-facing material — check that this does not conflict.
 
 ## OPEN CORRECTION — "Inc." vs "LLC"
 
