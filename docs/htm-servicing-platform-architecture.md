@@ -232,6 +232,9 @@ provider structure, and biometric-privacy consent (Illinois BIPA, Texas, Washing
 
 ## 8. Open decisions
 
+The full gap list is in [servicing-todo.md](htm-servicing-todo.md).
+
+
 1. Custody scope: today HTM holds tax (and insurance) escrow; preferred direction is lender-owned
    escrow accounts HTM can only read (above). Confirm with counsel which licences and trust-account
    rules apply to each model in each jurisdiction served.
