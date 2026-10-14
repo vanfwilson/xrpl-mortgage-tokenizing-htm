@@ -168,14 +168,43 @@ custodian of escrow for the time it is held, and the design should make that cus
 What custody means legally (licensing as a servicer or money transmitter, trust-account rules, the
 annual escrow analysis already modelled by the engine) is the first question for counsel.
 
+### Preferred direction: escrow in a lender-owned account HTM provably cannot move (owner, 2026-10-14)
+
+The owner prefers that escrow sit in an XRP Ledger account **owned by the lender**, which HTM sets up
+when the lender cannot, and which HTM can only *read*:
+
+1. **HTM creates the account, then hands control to the lender:** the lender's own key is set as the
+   account's regular key or signer list, and the master key is disabled (`AccountSet asfDisableMaster`).
+   From then on no key HTM holds can sign for the account — and anyone can verify that from the
+   account's flags and signer list on the public ledger. (The servicing engine already demonstrates
+   this "key drill" in WALKTHROUGH step 12.)
+2. **Read-only by nature:** XRP Ledger balances are public, so HTM can always show the lender, borrower
+   and tax authority that the escrow is funded, without access.
+3. **Locked to its purpose:** the lender's account creates an `EscrowCreate` per bill with a **fixed
+   `Destination`** (the payee or its payment agent) and `FinishAfter` = due date. After that date any
+   account — HTM included — may submit `EscrowFinish`, but the ledger only pays the fixed destination.
+   HTM can make sure bills are paid on time and cannot redirect funds. Corrections use `CancelAfter`
+   (funds return to the lender's account).
+4. **The lender's control must not come from HTM.** Borrower wallets are unlocked by HTM-signed
+   identity tokens; a lender escrow account must not be, or HTM could sign as the lender. Options: the
+   lender's own wallet app (e.g. Xaman, hardware key), or a Privy wallet the lender unlocks with their
+   own Privy login (email/passkey), not HTM's custom auth.
+5. **Lost-key safety:** a 2-of-3 signer list — lender's main key, lender's backup, and an independent
+   party (attorney or trust company), never HTM alone.
+
+Effect: custody of escrow moves to the lender; HTM is a read-only record-keeper that can only release
+escrows to fixed destinations on their dates. Still to be confirmed by counsel, but it directly
+answers the custody question above.
+
 **Before live funds move:** one consult with a US mortgage/fintech attorney and one Philippine
 attorney (Manila office), covering servicer licensing, money transmission/custody, the technology-
 provider structure, and biometric-privacy consent (Illinois BIPA, Texas, Washington, CPRA).
 
 ## 8. Open decisions
 
-1. Custody scope: HTM holds tax (and insurance) escrow — confirm with counsel which licences and
-   trust-account rules apply in each jurisdiction served.
+1. Custody scope: today HTM holds tax (and insurance) escrow; preferred direction is lender-owned
+   escrow accounts HTM can only read (above). Confirm with counsel which licences and trust-account
+   rules apply to each model in each jurisdiction served.
 2. Settlement asset for payment legs: USDC on Base/Solana (Privy bank payouts work directly) or the
    XRP Ledger (HTM-built payments; USD conversion outside Privy)?
 3. Which payout corridors matter first (US, EU, Switzerland, Philippines)? Confirm with Privy/Bridge.
