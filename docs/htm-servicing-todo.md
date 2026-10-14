@@ -61,9 +61,9 @@ Status: ☐ open · ◐ started · ☑ done.
 | D2 | "My Loans": role-scoped reports for borrower, lender/note holder, realtor, creditor, PITI tax, PITI insurance, payer | P0 | ◐ `/my-loans/` live; needs real loans + owner face check |
 | D3 | **Make a payment** button and flow (borrowers, and authorised payers) | P0 | ◐ button shown, disabled until payment rails exist |
 | D4 | Active-liens-only property view for lenders/creditors; transfer notice on every party's report | P1 | ☐ |
-| D5 | Members submit loans for servicing (`loan_servicing_requests`) + staff review / accept / decline / create loan | P0 | ◐ member submit live; staff review to do |
-| D6 | Staff tools: link parties, record transfers, void with reason, payer arrangements, document upload | P0 | ☐ |
-| D7 | Cloudflare Access with biometrics for staff and wp-admin | P1 | ☐ |
+| D5 | Members submit loans for servicing (`loan_servicing_requests`) + staff review / accept / decline / create loan | P0 | ◐ member submit + staff review/accept/decline live (`/staff/servicing/`) |
+| D6 | Staff tools: link parties, record transfers, void with reason, payer arrangements, document upload | P0 | ◐ create loan + link parties live; transfers, void, payer end, documents to do |
+| D7 | Cloudflare Access with biometrics for staff and wp-admin | P1 | ◐ Access on `/staff` + `/api/staff` (admin e-mail); owner to enable Independent MFA (biometrics) in Zero Trust settings and add wp-admin |
 | D8 | Notifications: payment receipts, statements, RESPA transfer notices (timing from the engine), escrow analysis | P0 | ☐ |
 | D9 | Statement and report PDFs; OCR document ingest (v2 archived) | P1 | ☐ |
 | D10 | Profile self-service role checkboxes (GRC-style), newsletter opt-in with double opt-in and consent fix in FluentCRM | P1 | ☐ |
