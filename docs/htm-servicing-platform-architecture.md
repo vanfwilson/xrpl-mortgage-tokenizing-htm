@@ -118,6 +118,36 @@ asks Privy to sign each leg, records the result and the ledger hashes, and repor
 - **Wallets are global**; bank payout corridors are not published — ask Privy/Bridge for the
   corridors covering the US, EU, Switzerland and the Philippines.
 
+### Payment types HTM should offer that Privy does not (owner, 2026-10-14)
+
+The owner wants HTM to accept and pay out in the ways borrowers and payees actually use, including
+those outside Privy. Each is added when a real payer or payee needs it, behind the same rules: face
+check before any payment, HTM records every leg in `htm_mortgages`, and reports cite the proof
+(ledger hash, provider transaction id, check number).
+
+| Payment type | Direction | How HTM would offer it | Candidates to evaluate |
+|---|---|---|---|
+| **XRP** and **RLUSD** on the XRP Ledger | pay-in and payout | **HTM-built** — the servicing engine constructs and records XRP Ledger payments and escrows; Privy only signs borrower wallets. HTM's core strength. | built in-house (`xrpl-mortgage-tokenizing-htm`) |
+| **Other XRP Ledger issued currencies** (other countries' stablecoins issued on the XRP Ledger) | pay-in and payout | HTM-built payments over trust lines, per issuer the payee accepts | built in-house; vet each issuer |
+| **Other countries' stablecoins on other chains** (beyond Privy's well-known USDC/USDT/EURC set) | payout | Privy can sign same-chain transfers of custom ERC-20/SPL tokens, but not convert or cash them out; conversion needs a provider | issuer or exchange per currency |
+| **Bitcoin** | pay-in and payout | Not in Privy's transfer/payout service; HTM builds and broadcasts Bitcoin transactions, or uses a custody/payments provider | BitGo, Coinbase (Prime/Commerce), BTCPay Server (self-hosted) |
+| **Paper check by mail** | payout | Check-printing and mailing service, or the servicer-of-record's bank bill-pay | Lob, Checkbook.io, servicer's bank |
+| **GCash / PHP** (Philippines) | pay-in and payout | Philippine payment provider with GCash and InstaPay/PESONet bank rails | PayMongo, Xendit, Coins.ph |
+| **PHP, JPY and other local currencies to local bank accounts** | payout | Multi-currency payout provider (Privy offers only US, IBAN/SEPA and SWIFT wire) | Wise Business API, local providers per country |
+| **PayPal** | pay-in and payout | PayPal checkout (pay-in) and PayPal Payouts (payout) | PayPal |
+| **Apple Pay** (and cards) | pay-in only | Card / Apple Pay checkout; Apple Pay is not a business payout method | Stripe (also Privy's parent), Adyen |
+
+Notes:
+
+- **Pay-in vs payout.** Apple Pay and cards bring money *in* from borrowers; checks, GCash, PayPal
+  Payouts, local bank transfers and crypto send money *out* to payees. Each method must say which.
+- **Every non-ledger method is converted at the edge.** A borrower paying by card or GCash is
+  recorded in HTM's database like any other payment; the split and escrow logic does not change with
+  the method.
+- **Licensing and fees differ per provider and country** and are not verified here — each provider is
+  a candidate until checked, and accepting or sending money for others raises the same custody and
+  money-transmission questions as section 7.
+
 ### Payees
 
 Every payee (note holder, county, insurer, vendor, private seller) gets a **preferred payout method**
