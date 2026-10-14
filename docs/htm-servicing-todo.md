@@ -57,11 +57,11 @@ Status: ☐ open · ◐ started · ☑ done.
 
 | # | Item | P | Status |
 |---|---|---|---|
-| D1 | HTM servicing API (container on the CouncilForge server, Cloudflare Tunnel + Access, `htm_servicing` login, row-level security) | P0 | ◐ database ready |
-| D2 | "My Loans": role-scoped reports for borrower, lender/note holder, realtor, creditor, PITI tax, PITI insurance, payer | P0 | ☐ |
-| D3 | **Make a payment** button and flow (borrowers, and authorised payers) | P0 | ☐ |
+| D1 | HTM servicing API (container on the CouncilForge server, own Cloudflare Tunnel + Access, `htm_servicing` login, row-level security) | P0 | ☑ live 2026-10-14 |
+| D2 | "My Loans": role-scoped reports for borrower, lender/note holder, realtor, creditor, PITI tax, PITI insurance, payer | P0 | ◐ `/my-loans/` live; needs real loans + owner face check |
+| D3 | **Make a payment** button and flow (borrowers, and authorised payers) | P0 | ◐ button shown, disabled until payment rails exist |
 | D4 | Active-liens-only property view for lenders/creditors; transfer notice on every party's report | P1 | ☐ |
-| D5 | Members submit loans for servicing (`loan_servicing_requests`) + staff review / accept / decline / create loan | P0 | ☐ table ready |
+| D5 | Members submit loans for servicing (`loan_servicing_requests`) + staff review / accept / decline / create loan | P0 | ◐ member submit live; staff review to do |
 | D6 | Staff tools: link parties, record transfers, void with reason, payer arrangements, document upload | P0 | ☐ |
 | D7 | Cloudflare Access with biometrics for staff and wp-admin | P1 | ☐ |
 | D8 | Notifications: payment receipts, statements, RESPA transfer notices (timing from the engine), escrow analysis | P0 | ☐ |
@@ -75,7 +75,7 @@ Status: ☐ open · ◐ started · ☑ done.
 |---|---|---|---|
 | E1 | Owner's first real face check (confirms the head-turn direction setting) | P0 | ☐ |
 | E2 | Face snapshot per verification to private R2 (`htm-facial-vault`), consent text and retention updated first | P1 | ☐ |
-| E3 | Click / key-category interaction tracker on servicing pages → `htm_servicing_audit_log` | P1 | ☐ table ready |
+| E3 | Click / key-category interaction tracker on servicing pages → `htm_servicing_audit_log` | P1 | ☑ on `/my-loans/` |
 | E4 | Face-template retention job (delete after 3 years unused, as the consent text says) | P1 | ☐ |
 | E5 | Passkey end-to-end test on a real device (virtual-authenticator test stalled) | P1 | ☐ |
 | E6 | Cloudflare WAF / rate-limit rules for `/api/*` (current API token cannot edit WAF) | P1 | ☐ |

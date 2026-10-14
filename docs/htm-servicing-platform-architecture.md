@@ -25,6 +25,10 @@ The niche the owner chose:
   client pays HTM to build a servicing setup for their loan type, tests it and approves it.
 - Recipients who can be paid **on the XRP Ledger** (XRP, RLUSD) or through a local provider, not only
   through US/EU banks.
+- **One verified gate for every payment method:** members log in to HTM and pass HTM's own face check
+  *before* any payment provider is involved, so HTM can offer methods Privy does not (XRP/RLUSD, cards,
+  GCash/PHP, checks, PayPal…) with the same verified identity, legal split and permanent record. Privy is
+  one payment rail behind that gate, not the gate itself.
 - **Transparency as the product:** a permanent loan file, an append-only history, on-ledger proof,
   and role-scoped reports for borrower, lender/note holder, creditor, tax authority and insurer.
 
