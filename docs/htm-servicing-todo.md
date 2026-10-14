@@ -79,7 +79,9 @@ Status: ☐ open · ◐ started · ☑ done.
 | E4 | Face-template retention job (delete after 3 years unused, as the consent text says) | P1 | ☐ |
 | E5 | Passkey end-to-end test on a real device (virtual-authenticator test stalled) | P1 | ☐ |
 | E6 | Cloudflare WAF / rate-limit rules for `/api/*` (current API token cannot edit WAF) | P1 | ☐ |
-| E7 | Backups and restore test for `htm_mortgages`; monitoring and alerts for the API, face engine and Worker | P0 | ☐ |
+| E7 | Backups and restore test for `htm_mortgages`; monitoring and alerts for the API, face engine and Worker | P0 | ◐ daily verified backup (35 days, /opt/backups/htm-mortgages) + restore test passed; offsite copy and monitoring to do |
+| E8 | **CouncilForge as a whole has no scheduled backup** (only manual dumps; last full 2026-09-18) — affects every tenant; owner decision | P0 | ☐ |
+| E9 | Hide `synthetic` loans (e.g. engine demo `MORT-2026-88492X`) from member and staff views once real loans exist | P2 | ☐ |
 
 ## F. Legal and business (counsel, not code)
 
